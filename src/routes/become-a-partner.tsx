@@ -74,8 +74,11 @@ function BecomePartnerPage() {
           <p className="mt-2 text-sm text-text-body">
             {t("Thank you — we'll contact you by email. Signed-in applicants can follow the status in the partner portal.")}
           </p>
+          <p className="mt-2 text-sm text-text-body">
+            {t("Next step: upload your business registration and authorization documents in the partner portal to get the Verified badge.")}
+          </p>
           <Link to="/partners" className="mt-4 inline-block text-sm font-semibold text-primary hover:underline">
-            {t("Go to the partner portal")}
+            {t("Upload documents in the partner portal")}
           </Link>
         </div>
       ) : (

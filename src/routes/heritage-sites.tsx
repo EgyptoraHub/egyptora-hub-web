@@ -21,6 +21,7 @@ type HeritageSite = {
   classification: string | null;
   access: string | null;
   summary: string | null;
+  hidden: boolean | null;
 };
 
 const title = "Heritage Sites of Egypt — 74 registered sites | Egyptora Hub";
@@ -28,6 +29,8 @@ const description =
   "Browse Egypt's registered heritage sites by governorate and historical era, from Pharaonic temples to Islamic, Coptic and Ottoman monuments.";
 
 export const Route = createFileRoute("/heritage-sites")({
+  validateSearch: (s: Record<string, unknown>): { hidden?: boolean } =>
+    s["hidden"] === true || s["hidden"] === "1" || s["hidden"] === 1 ? { hidden: true } : {},
   loader: async () => {
     // Wrapped in try/catch on purpose: a *thrown* exception from the client (a network
     // failure, a cold Supabase connection) is not caught by only checking `error`, and
@@ -37,7 +40,7 @@ export const Route = createFileRoute("/heritage-sites")({
     try {
       const { data, error } = await supabase
         .from("heritage_sites")
-        .select("id, slug, name, governorate_slug, era, classification, access, summary")
+        .select("id, slug, name, governorate_slug, era, classification, access, summary, hidden")
         .order("name");
 
       if (error) {
@@ -78,9 +81,11 @@ function HeritageSitesPage() {
   const sites = useLocalizedRows("heritage_sites", sitesSource);
   const { t } = useI18n();
   const [era, setEra] = useState<string | null>(null);
+  const { hidden } = Route.useSearch();
+  const navigate = Route.useNavigate();
 
   const eras = useMemo(() => Array.from(new Set(sites.map((s) => s.era))).sort(), [sites]);
-  const filtered = era ? sites.filter((s) => s.era === era) : sites;
+  const filtered = sites.filter((s) => (!era || s.era === era) && (!hidden || s.hidden === true));
 
   return (
     <div className="min-h-screen bg-background">
@@ -92,6 +97,20 @@ function HeritageSitesPage() {
           description="Registered heritage sites across all 27 governorates, spanning ancient, Coptic, Islamic and modern eras."
         />
 
+        <div className="mb-4 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => navigate({ search: hidden ? {} : { hidden: true } })}
+            className={cn(
+              "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
+              hidden
+                ? "border-gold-line bg-gold-soft text-gold"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+            )}
+          >
+            {t("Hidden Egypt")} ({sites.filter((s) => s.hidden === true).length})
+          </button>
+        </div>
         <div className="mb-8 flex flex-wrap gap-2">
           <button
             type="button"
