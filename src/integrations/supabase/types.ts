@@ -1212,6 +1212,7 @@ export type Database = {
       }
       partner_applications: {
         Row: {
+          authorization_doc_path: string | null
           company_name: string
           created_at: string
           description: string | null
@@ -1219,10 +1220,16 @@ export type Database = {
           full_name: string
           id: string
           partnership_type: string
+          registration_doc_path: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           status: string
           user_id: string | null
+          verification_note: string | null
+          verification_status: string
         }
         Insert: {
+          authorization_doc_path?: string | null
           company_name: string
           created_at?: string
           description?: string | null
@@ -1230,10 +1237,16 @@ export type Database = {
           full_name: string
           id?: string
           partnership_type: string
+          registration_doc_path?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           user_id?: string | null
+          verification_note?: string | null
+          verification_status?: string
         }
         Update: {
+          authorization_doc_path?: string | null
           company_name?: string
           created_at?: string
           description?: string | null
@@ -1241,8 +1254,13 @@ export type Database = {
           full_name?: string
           id?: string
           partnership_type?: string
+          registration_doc_path?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           user_id?: string | null
+          verification_note?: string | null
+          verification_status?: string
         }
         Relationships: []
       }
@@ -2131,6 +2149,18 @@ export type Database = {
       has_role: {
         Args: { check_role: string; check_user_id: string }
         Returns: boolean
+      }
+      owns_partner_application: {
+        Args: { app_folder: string }
+        Returns: boolean
+      }
+      review_partner_application: {
+        Args: { app_id: string; decision: string; note: string }
+        Returns: undefined
+      }
+      submit_partner_document: {
+        Args: { app_id: string; doc_kind: string; doc_path: string }
+        Returns: string
       }
     }
     Enums: {

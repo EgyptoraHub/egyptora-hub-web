@@ -29,6 +29,13 @@
       "when": 1790497118365,
       "tag": "0003_create_partner_applications",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790519161074,
+      "tag": "0004_partner_verification",
+      "breakpoints": true
     }
   ]
 }
