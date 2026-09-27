@@ -39,7 +39,18 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const t = useCallback((key: string) => dictionaries[lang]?.[key] ?? key, [lang]);
+  const t = useCallback(
+    (key: string) => {
+      const hit = dictionaries[lang]?.[key];
+      if (hit === undefined && import.meta.env.DEV && lang !== "en" && typeof window !== "undefined") {
+        // Dev-only coverage audit: collect untranslated keys seen at runtime.
+        const w = window as unknown as { __i18nMissing?: Set<string> };
+        (w.__i18nMissing ??= new Set()).add(key);
+      }
+      return hit ?? key;
+    },
+    [lang],
+  );
 
   const value = useMemo<I18nValue>(() => ({ lang, dir, setLang, t }), [lang, dir, setLang, t]);
 
