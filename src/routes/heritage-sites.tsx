@@ -30,7 +30,7 @@ const description =
 
 export const Route = createFileRoute("/heritage-sites")({
   validateSearch: (s: Record<string, unknown>): { hidden?: boolean } =>
-    s.hidden === true || s.hidden === "1" || s.hidden === 1 ? { hidden: true } : {},
+    s["hidden"] === true || s["hidden"] === "1" || s["hidden"] === 1 ? { hidden: true } : {},
   loader: async () => {
     // Wrapped in try/catch on purpose: a *thrown* exception from the client (a network
     // failure, a cold Supabase connection) is not caught by only checking `error`, and
