@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { SECTOR_GROUPS, matchesSector } from "@/data/investment-sectors";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Briefcase,
@@ -10,7 +11,6 @@ import {
   Leaf,
   MapPin,
   Plane,
-  Sparkles,
   TrendingUp,
   Truck,
   Zap,
@@ -58,6 +58,8 @@ const description =
   "Sector-by-sector investment opportunities across Egypt's governorates — projects, land and partnerships open to investors.";
 
 export const Route = createFileRoute("/investment-opportunities")({
+  validateSearch: (search: Record<string, unknown>): { sector?: string } =>
+    typeof search["sector"] === "string" ? { sector: search["sector"] } : {},
   loader: async () => {
     const { data, error } = await supabase
       .from("investment_opportunities")
@@ -115,13 +117,6 @@ function sectorIcon(sector: string): LucideIcon {
   if (s.includes("financ") || s.includes("bank")) return Briefcase;
   return Landmark;
 }
-
-/** Reference sub-categories that have no matching data field yet. */
-const soonTabs: CategoryTab[] = [
-  { id: "soon-ict", label: "ICT & Innovation", icon: Sparkles, soon: true },
-  { id: "soon-health", label: "Healthcare & Pharma", icon: Sparkles, soon: true },
-  { id: "soon-zones", label: "Free & Industrial Zones", icon: Layers, soon: true },
-];
 
 function OpportunityCard({ opp }: { opp: InvestmentOpportunity }) {
   const { t, lang } = useI18n();
@@ -185,7 +180,11 @@ function InvestmentOpportunitiesPage() {
   const { opportunities: opportunitiesSource } = Route.useLoaderData();
   const opportunities = useLocalizedRows("investment_opportunities", opportunitiesSource);
   const { t } = useI18n();
-  const [active, setActive] = useState("all");
+  const { sector } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const active = sector && SECTOR_GROUPS.some((g) => g.id === sector) ? sector : "all";
+  const setActive = (id: string) =>
+    void navigate({ to: ".", search: id === "all" ? {} : { sector: id }, replace: true, resetScroll: false });
 
   const sectors = useMemo(
     () =>
@@ -195,34 +194,13 @@ function InvestmentOpportunitiesPage() {
     [opportunities],
   );
 
-  /** Tabs stay readable: the busiest sectors get a tab, the rest stay in the list. */
-  const topSectors = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const o of opportunities) {
-      if (o.sector) counts.set(o.sector, (counts.get(o.sector) ?? 0) + 1);
-    }
-    return Array.from(counts.entries())
-      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-      .slice(0, 8)
-      .map(([name]) => name);
-  }, [opportunities]);
+  const tabs: CategoryTab[] = [
+    { id: "all", label: "All Sectors", icon: Layers },
+    ...SECTOR_GROUPS.map((g) => ({ id: g.id, label: g.label, icon: sectorIcon(g.label) })),
+  ];
 
-  const tabs: CategoryTab[] = useMemo(
-    () => [
-      { id: "all", label: "All Sectors", icon: Layers },
-      ...topSectors.map((s) => ({ id: s, label: s, icon: sectorIcon(s) })),
-      ...soonTabs,
-    ],
-    [topSectors],
-  );
-
-  const activeTab = tabs.find((tb) => tb.id === active);
-  const isSoon = !!activeTab?.soon;
-  const filtered = isSoon
-    ? []
-    : active === "all"
-      ? opportunities
-      : opportunities.filter((o) => o.sector === active);
+  const filtered =
+    active === "all" ? opportunities : opportunities.filter((o) => matchesSector(o.sector, active));
 
   const featured = filtered.slice(0, 3);
   const rest = filtered.slice(3);
@@ -293,11 +271,7 @@ function InvestmentOpportunitiesPage() {
           title={active === "all" ? "Featured opportunities" : "Featured in this sector"}
           description="Selected projects currently open to investors."
         />
-        {isSoon ? (
-          <p className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-            {t("This sector is not published on the platform yet. Coming soon.")}
-          </p>
-        ) : featured.length > 0 ? (
+        {featured.length > 0 ? (
           <FeaturedRow>
             {featured.map((opp) => (
               <OpportunityCard key={opp.id} opp={opp} />
@@ -305,7 +279,7 @@ function InvestmentOpportunitiesPage() {
           </FeaturedRow>
         ) : (
           <p className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-            {t("No investment opportunities match this filter yet.")}
+            {t("No opportunities are published in this sector yet.")}
           </p>
         )}
       </section>

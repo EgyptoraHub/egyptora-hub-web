@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Section, SectionHeader, GoldButton } from "@/components/site/Primitives";
 import { useI18n } from "@/i18n";
-import { mailto, SITE } from "@/config/site";
+import { SITE } from "@/config/site";
 import { governorates } from "@/data/governorates";
 import { governorateProfiles, type Bilingual } from "@/data/governorate-profiles";
 import { supabase } from "@/integrations/supabase/client";
@@ -368,7 +368,13 @@ function GovernoratePage() {
             ))}
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <GoldButton href={mailto(`Plan a trip to ${gov.name}`)}>{t("Plan a visit")}</GoldButton>
+            <GoldButton
+              onClick={() =>
+                window.dispatchEvent(new CustomEvent("egyptora:ask-concierge", { detail: `${t("Plan a visit to")} ${t(gov.name)}` }))
+              }
+            >
+              {t("Plan a visit")}
+            </GoldButton>
             <Link
               to="/"
               hash="explore"

@@ -88,22 +88,27 @@ export function SourceBadge({ status, className }: { status: Status; className?:
 export function GoldButton({
   children,
   href,
+  onClick,
   className,
 }: {
   children: ReactNode;
-  href: string;
+  href?: string;
+  onClick?: () => void;
   className?: string;
 }) {
+  const Tag = href ? "a" : "button";
   return (
-    <a
+    <Tag
       href={href}
+      type={href ? undefined : "button"}
+      onClick={onClick}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
     >
       {children}
-    </a>
+    </Tag>
   );
 }
 

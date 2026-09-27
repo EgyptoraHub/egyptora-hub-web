@@ -1210,6 +1210,42 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_applications: {
+        Row: {
+          company_name: string
+          created_at: string
+          description: string | null
+          email: string
+          full_name: string
+          id: string
+          partnership_type: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          company_name: string
+          created_at?: string
+          description?: string | null
+          email: string
+          full_name: string
+          id?: string
+          partnership_type: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          company_name?: string
+          created_at?: string
+          description?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          partnership_type?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       partner_assignments: {
         Row: {
           created_at: string
