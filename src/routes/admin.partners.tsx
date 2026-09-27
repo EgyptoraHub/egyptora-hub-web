@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -38,6 +38,7 @@ type Confirm = { message: string; run: () => Promise<void> } | null;
 
 function AdminPartnersPage() {
   const { t } = useI18n();
+  const navigate = useNavigate();
   const load = useServerFn(listPartners);
   const loadQueue = useServerFn(listReviewQueue);
   const save = useServerFn(savePartner);
@@ -153,84 +154,19 @@ function AdminPartnersPage() {
 
       {/* ==== Part 1: received applications ==== */}
       <div className="mt-10 rounded-3xl border border-border p-5 sm:p-7">
-        <h2 className="font-display text-2xl text-foreground">{t("Received applications")}</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-2xl text-foreground">{t("Received applications")}</h2>
+          <Link
+            to="/admin/partners/new"
+            className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs font-semibold text-gold"
+          >
+            + {t("Add partner directly")}
+          </Link>
+        </div>
         <p className="mt-1 text-sm text-muted-foreground">
           {t("Everything sent through the public Become a Partner form.")}
         </p>
         <PartnerApplicationsList />
-      </div>
-
-      {/* ==== Part 2: admin creates partners directly ==== */}
-      <div className="mt-12 rounded-3xl border border-border p-5 sm:p-7">
-        <h2 className="font-display text-2xl text-foreground">{t("Add a partner directly")}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {t("For admins creating a partner account by hand — not linked to a public application.")}
-        </p>
-      <section className="mt-6 rounded-2xl border border-border bg-card/40 p-5">
-        <h2 className="font-display text-xl text-foreground">
-          {editing ? t("Edit partner") : t("New partner")}
-        </h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <label className="text-xs text-muted-foreground">
-            {t("Organisation name")}
-            <input
-              value={form.orgName}
-              onChange={(e) => setForm({ ...form, orgName: e.target.value })}
-              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
-            />
-          </label>
-          <label className="text-xs text-muted-foreground">
-            {t("Partner type")}
-            <select
-              value={form.partnerType}
-              onChange={(e) => setForm({ ...form, partnerType: e.target.value })}
-              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
-            >
-              {PARTNER_TYPES.map((type) => (
-                <option key={type} value={type}>
-                  {t(TYPE_LABEL[type] ?? type)}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="text-xs text-muted-foreground">
-            {t("Contact email")}
-            <input
-              value={form.contactEmail}
-              onChange={(e) => setForm({ ...form, contactEmail: e.target.value })}
-              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
-            />
-          </label>
-          <label className="text-xs text-muted-foreground">
-            {t("Login account email (optional)")}
-            <input
-              value={form.userEmail}
-              onChange={(e) => setForm({ ...form, userEmail: e.target.value })}
-              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground"
-            />
-          </label>
-        </div>
-        <div className="mt-4 flex gap-2">
-          <button
-            type="button"
-            disabled={busy || !form.orgName.trim()}
-            onClick={() => void submitPartner()}
-            className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs text-gold disabled:opacity-50"
-          >
-            {editing ? t("Save partner") : t("Create partner")}
-          </button>
-          {editing && (
-            <button
-              type="button"
-              onClick={startCreate}
-              className="rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground"
-            >
-              {t("Cancel")}
-            </button>
-          )}
-        </div>
-      </section>
-
       </div>
 
       {/* ---- partner list ---- */}
@@ -264,7 +200,7 @@ function AdminPartnersPage() {
                 </span>
                 <button
                   type="button"
-                  onClick={() => startEdit(partner)}
+                  onClick={() => navigate({ to: "/admin/partners/new", search: { id: partner.id } })}
                   className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground hover:text-foreground"
                 >
                   {t("Edit")}
