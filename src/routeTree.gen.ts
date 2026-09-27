@@ -54,6 +54,7 @@ import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
 import { Route as EventsIdRouteImport } from './routes/events_.$id'
+import { Route as ExperiencesTypeRouteImport } from './routes/experiences.$type'
 import { Route as GovernmentDirectoryDigitalServicesRouteImport } from './routes/government-directory_.digital-services'
 import { Route as GovernoratesIndexRouteImport } from './routes/governorates.index'
 import { Route as GovernoratesIdRouteImport } from './routes/governorates.$id'
@@ -314,6 +315,11 @@ const EventsIdRoute = EventsIdRouteImport.update({
   path: '/events/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExperiencesTypeRoute = ExperiencesTypeRouteImport.update({
+  id: '/experiences/$type',
+  path: '/experiences/$type',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GovernmentDirectoryDigitalServicesRoute =
   GovernmentDirectoryDigitalServicesRouteImport.update({
     id: '/government-directory_/digital-services',
@@ -526,6 +532,7 @@ export interface FileRoutesByFullPath {
   '/countries/$id': typeof CountriesIdRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
+  '/experiences/$type': typeof ExperiencesTypeRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
@@ -604,6 +611,7 @@ export interface FileRoutesByTo {
   '/countries/$id': typeof CountriesIdRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
+  '/experiences/$type': typeof ExperiencesTypeRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
@@ -684,6 +692,7 @@ export interface FileRoutesById {
   '/countries_/$id': typeof CountriesIdRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events_/$id': typeof EventsIdRoute
+  '/experiences/$type': typeof ExperiencesTypeRoute
   '/government-directory_/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/heritage-sites_/$id': typeof HeritageSitesIdRoute
@@ -765,6 +774,7 @@ export interface FileRouteTypes {
     | '/countries/$id'
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
+    | '/experiences/$type'
     | '/government-directory/digital-services'
     | '/governorates/$id'
     | '/heritage-sites/$id'
@@ -843,6 +853,7 @@ export interface FileRouteTypes {
     | '/countries/$id'
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
+    | '/experiences/$type'
     | '/government-directory/digital-services'
     | '/governorates/$id'
     | '/heritage-sites/$id'
@@ -922,6 +933,7 @@ export interface FileRouteTypes {
     | '/countries_/$id'
     | '/egyptian-heritage-worldwide_/$id'
     | '/events_/$id'
+    | '/experiences/$type'
     | '/government-directory_/digital-services'
     | '/governorates/$id'
     | '/heritage-sites_/$id'
@@ -997,6 +1009,7 @@ export interface RootRouteChildren {
   CountriesIdRoute: typeof CountriesIdRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
   EventsIdRoute: typeof EventsIdRoute
+  ExperiencesTypeRoute: typeof ExperiencesTypeRoute
   GovernmentDirectoryDigitalServicesRoute: typeof GovernmentDirectoryDigitalServicesRoute
   GovernoratesIdRoute: typeof GovernoratesIdRoute
   HeritageSitesIdRoute: typeof HeritageSitesIdRoute
@@ -1344,6 +1357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/experiences/$type': {
+      id: '/experiences/$type'
+      path: '/experiences/$type'
+      fullPath: '/experiences/$type'
+      preLoaderRoute: typeof ExperiencesTypeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/government-directory_/digital-services': {
       id: '/government-directory_/digital-services'
       path: '/government-directory/digital-services'
@@ -1639,6 +1659,7 @@ const rootRouteChildren: RootRouteChildren = {
   CountriesIdRoute: CountriesIdRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
   EventsIdRoute: EventsIdRoute,
+  ExperiencesTypeRoute: ExperiencesTypeRoute,
   GovernmentDirectoryDigitalServicesRoute:
     GovernmentDirectoryDigitalServicesRoute,
   GovernoratesIdRoute: GovernoratesIdRoute,
