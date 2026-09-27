@@ -9,6 +9,8 @@ export type NavLeaf = {
   /** Existing route path. Omitted when the destination does not exist yet. */
   to?: string;
   soon?: boolean;
+  /** Optional search params for the target route. */
+  search?: Record<string, string>;
 };
 
 export type NavEntry = {
@@ -60,15 +62,15 @@ export const mainNav: NavEntry[] = [
     items: [
       { label: "All Sectors", to: "/invest-in-egypt" },
       { label: "Real Estate & New Cities", to: "/real-estate" },
-      { label: "Industry & Manufacturing", soon: true },
-      { label: "Tourism & Hospitality", soon: true },
-      { label: "Energy & Renewable", soon: true },
-      { label: "Infrastructure & Transportation", soon: true },
-      { label: "Agriculture & Food Security", soon: true },
-      { label: "ICT & Innovation", soon: true },
-      { label: "Healthcare & Pharmaceuticals", soon: true },
+      { label: "Industry & Manufacturing", to: "/investment-opportunities", search: { sector: "industry" } },
+      { label: "Tourism & Hospitality", to: "/investment-opportunities", search: { sector: "tourism" } },
+      { label: "Energy & Renewable", to: "/investment-opportunities", search: { sector: "energy" } },
+      { label: "Infrastructure & Transportation", to: "/investment-opportunities", search: { sector: "infrastructure" } },
+      { label: "Agriculture & Food Security", to: "/investment-opportunities", search: { sector: "agriculture" } },
+      { label: "ICT & Innovation", to: "/investment-opportunities", search: { sector: "ict" } },
+      { label: "Healthcare & Pharmaceuticals", to: "/investment-opportunities", search: { sector: "healthcare" } },
       { label: "Education & Research", to: "/research-programs" },
-      { label: "Financial Services", soon: true },
+      { label: "Financial Services", to: "/investment-opportunities", search: { sector: "finance" } },
     ],
   },
   {
@@ -95,6 +97,7 @@ export const mainNav: NavEntry[] = [
     items: [
       { label: "All Experiences", to: "/visit-egypt" },
       { label: "Travel & Tourism Services", to: "/visit-egypt/travel-and-tourism" },
+      { label: "Egypt e-Visa", to: "/visit-egypt/e-visa" },
       { label: "Historical Sites", to: "/heritage-sites" },
       { label: "Beaches & Islands", soon: true },
       { label: "Nile Cruises", soon: true },
@@ -114,10 +117,12 @@ export const mainNav: NavEntry[] = [
     to: "/legal",
     items: [
       { label: "About Egyptora", to: "/legal" },
-      { label: "Our Mission", soon: true },
-      { label: "Vision & Values", soon: true },
+      { label: "Our Mission", to: "/our-mission" },
+      { label: "Vision & Values", to: "/vision-values" },
       { label: "Contact Us", to: "/contact" },
-      { label: "FAQ", soon: true },
+      { label: "FAQ", to: "/faq" },
+      { label: "Trust Center", to: "/trust-center" },
+      { label: "Become a Partner", to: "/become-a-partner" },
     ],
   },
 ];

@@ -368,7 +368,13 @@ function GovernoratePage() {
             ))}
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <GoldButton href={mailto(`Plan a trip to ${gov.name}`)}>{t("Plan a visit")}</GoldButton>
+            <GoldButton
+              onClick={() =>
+                window.dispatchEvent(new CustomEvent("egyptora:ask-concierge", { detail: `${t("Plan a visit to")} ${t(gov.name)}` }))
+              }
+            >
+              {t("Plan a visit")}
+            </GoldButton>
             <Link
               to="/"
               hash="explore"

@@ -75,11 +75,11 @@ const discoverLinks: FLink[] = [
 
 const aboutLinks: FLink[] = [
   { label: "About Egyptora", to: "/legal" },
-  { label: "Our Mission", soon: true },
-  { label: "Vision & Values", soon: true },
+  { label: "Our Mission", to: "/our-mission" },
+  { label: "Vision & Values", to: "/vision-values" },
   { label: "Contact Us", to: "/contact" },
-  { label: "FAQ", soon: true },
-  { label: "Partner With Us", to: "/partners" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Become a Partner", to: "/become-a-partner" },
   { label: "Press & Media", href: mailto("Egyptora Hub — Press & Media") },
 ];
 
@@ -95,6 +95,7 @@ const legalLinks: FLink[] = [
   { label: "Safety Policy", to: "/legal/safety" },
   { label: "AI Transparency", to: "/legal/ai-transparency" },
   { label: "Data Protection", to: "/legal/data-protection" },
+  { label: "Trust Center", to: "/trust-center" },
   { label: "Photo Credits", to: "/photo-credits" },
 ];
 
@@ -292,6 +293,9 @@ export function SiteFooter() {
       </Container>
 
       <div className="border-t border-border">
+        <Container className="pt-5 text-xs text-foreground/70">
+          <p>{t("Egyptora Hub is an independent private-sector platform. It is not a government entity and does not act on behalf of any Egyptian authority.")}</p>
+        </Container>
         <Container className="flex flex-col gap-2 py-5 text-xs text-foreground/70 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {SITE.parentCompany}. {t("All rights reserved.")}
