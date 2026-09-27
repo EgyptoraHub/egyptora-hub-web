@@ -153,14 +153,17 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         <span className="font-display text-sm tracking-[0.2em] text-foreground">
           EGYPTORA <span className="text-gold">HUB</span>
         </span>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label={t("Close menu")}
-          className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground"
-        >
-          <X className="size-4" />
-        </button>
+        <div className="flex items-center gap-2">
+          <NotificationsBell className="sm:hidden" />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t("Close menu")}
+            className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
       </div>
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         {mainNav.map((entry) =>
