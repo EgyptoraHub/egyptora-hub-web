@@ -59,7 +59,7 @@ const description =
 
 export const Route = createFileRoute("/investment-opportunities")({
   validateSearch: (search: Record<string, unknown>): { sector?: string } =>
-    typeof search.sector === "string" ? { sector: search.sector } : {},
+    typeof search["sector"] === "string" ? { sector: search["sector"] } : {},
   loader: async () => {
     const { data, error } = await supabase
       .from("investment_opportunities")

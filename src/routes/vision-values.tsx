@@ -8,7 +8,7 @@ export const Route = createFileRoute("/vision-values")({
   component: Page,
 });
 
-const VALUES = [
+const VALUES: [string, string][] = [
   ["Accuracy", "We prefer official sources and say clearly when information is unverified."],
   ["Transparency", "We label partner content, AI answers and demo data honestly."],
   ["Accessibility", "Everything Egypt, available to everyone, in their own language."],

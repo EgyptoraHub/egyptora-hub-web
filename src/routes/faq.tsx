@@ -8,7 +8,7 @@ export const Route = createFileRoute("/faq")({
   component: Page,
 });
 
-const FAQ = [
+const FAQ: [string, string][] = [
   ["Is Egyptora Hub a government website?", "No. Egyptora Hub is an independent private-sector platform. We link to official government sources but do not act on behalf of any authority."],
   ["Can I apply for an Egyptian visa here?", "No. We explain the process and link to the official Egypt e-Visa portal, where applications are made."],
   ["Who answers in the chat?", "EGYPTORA AI, an automated assistant. It can make mistakes, so check important details with official sources."],
