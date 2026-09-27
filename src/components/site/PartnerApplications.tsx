@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { verifyWithSumsub } from "@/lib/verification-provider";
 import { useI18n } from "@/i18n";
+import { useServerFn } from "@tanstack/react-start";
+import { deletePartnerApplication } from "@/lib/admin-partners.functions";
 
 /** Only "submitted" is used today; the others are reserved for future badges. */
 const STATUS_LABEL: Record<string, string> = {
@@ -197,6 +199,45 @@ function AdminReview({ app, onDone }: { app: App; onDone: () => void }) {
   );
 }
 
+function DeleteApplication({ app, onDone }: { app: App; onDone: () => void }) {
+  const { t } = useI18n();
+  const remove = useServerFn(deletePartnerApplication);
+  const [asking, setAsking] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const run = async () => {
+    setBusy(true);
+    setErr(null);
+    const res = await remove({ data: { id: app.id } }).catch(() => null);
+    setBusy(false);
+    if (!res || !res.authorized || !res.ok) return setErr(t("Could not delete. Please try again."));
+    setAsking(false);
+    onDone();
+  };
+  return (
+    <div className="mt-3 flex flex-wrap items-center justify-end gap-2 border-t border-border/60 pt-3 text-xs">
+      {err && <span className="text-destructive" role="alert">{err}</span>}
+      {!asking ? (
+        <button type="button" onClick={() => setAsking(true)} className="rounded-lg border border-destructive/60 px-3 py-1.5 font-semibold text-destructive">
+          {t("Delete")}
+        </button>
+      ) : (
+        <div role="alertdialog" className="flex flex-wrap items-center gap-2 rounded-lg border border-destructive bg-destructive/5 px-3 py-2">
+          <span className="text-foreground">
+            {t("Delete this application and its uploaded files? This can't be undone.")}
+          </span>
+          <button type="button" disabled={busy} onClick={() => void run()} className="rounded-lg bg-destructive px-3 py-1 font-semibold text-destructive-foreground disabled:opacity-60">
+            {busy ? t("Deleting…") : t("Yes, delete")}
+          </button>
+          <button type="button" disabled={busy} onClick={() => setAsking(false)} className="rounded-lg border border-border px-3 py-1 text-muted-foreground">
+            {t("Cancel")}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AppCard({ r, uid, isAdmin, reload }: { r: App; uid: string | null; isAdmin: boolean; reload: () => void }) {
   const { t } = useI18n();
   const isOwner = !!uid && r.user_id === uid;
@@ -245,6 +286,7 @@ function AppCard({ r, uid, isAdmin, reload }: { r: App; uid: string | null; isAd
         </div>
       )}
       {isAdmin && r.verification_status === "under_review" && <AdminReview app={r} onDone={reload} />}
+      {isAdmin && <DeleteApplication app={r} onDone={reload} />}
     </div>
   );
 }
