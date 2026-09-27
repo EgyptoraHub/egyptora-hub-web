@@ -119,7 +119,7 @@ function DocRow({ app, doc, canUpload, onDone }: { app: App; doc: (typeof DOCS)[
             {t("View")}
           </button>
         )}
-        {canUpload && (
+        {canUpload && (app.verification_status !== "changes_requested" || flagged) && (
           <label className="cursor-pointer rounded-lg border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:border-gold">
             {busy ? t("Uploading…") : path ? t("Replace") : t("Upload")}
             <input
