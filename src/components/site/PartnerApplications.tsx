@@ -27,6 +27,7 @@ const VERIFICATION_LABEL: Record<string, string> = {
   under_review: "Under Review",
   verified: "Verified",
   rejected: "Rejected",
+  changes_requested: "Changes Requested",
 };
 
 export function VerificationBadge({ status }: { status: string }) {
@@ -58,6 +59,7 @@ type App = {
   verification_note: string | null;
   registration_doc_path: string | null;
   authorization_doc_path: string | null;
+  flagged_docs: string[] | null;
 };
 
 const DOCS = [
@@ -76,6 +78,7 @@ async function openDoc(path: string) {
 function DocRow({ app, doc, canUpload, onDone }: { app: App; doc: (typeof DOCS)[number]; canUpload: boolean; onDone: () => void }) {
   const { t } = useI18n();
   const path = app[doc.col];
+  const flagged = app.verification_status === "changes_requested" && (app.flagged_docs ?? []).includes(doc.kind);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -103,10 +106,11 @@ function DocRow({ app, doc, canUpload, onDone }: { app: App; doc: (typeof DOCS)[
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border/70 bg-background/60 px-3 py-2">
+    <div className={`flex flex-wrap items-center justify-between gap-2 rounded-xl border bg-background/60 px-3 py-2 ${flagged ? "border-gold" : "border-border/70"}`}>
       <div className="text-xs">
         <p className="text-foreground">{t(doc.label)}</p>
         <p className={path ? "text-primary" : "text-muted-foreground"}>{path ? t("Uploaded") : t("Missing")}</p>
+        {flagged && <p className="font-semibold text-gold">{t("Needs re-upload")}</p>}
         {err && <p className="text-destructive" role="alert">{err}</p>}
       </div>
       <div className="flex items-center gap-2">
@@ -140,11 +144,18 @@ function AdminReview({ app, onDone }: { app: App; onDone: () => void }) {
   const { t } = useI18n();
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
-  const decide = async (decision: "verified" | "rejected") => {
+  const [flags, setFlags] = useState<string[]>([]);
+  const [err, setErr] = useState<string | null>(null);
+  const decide = async (decision: "verified" | "rejected" | "changes_requested") => {
+    setErr(null);
+    if (decision !== "verified" && !note.trim()) return setErr(t("Please write a note for the applicant."));
+    if (decision === "changes_requested" && flags.length === 0) return setErr(t("Tick the document(s) that need to be re-uploaded."));
     setBusy(true);
-    await supabase.rpc("review_partner_application", { app_id: app.id, decision, note });
+    const { error } = await supabase.rpc("review_partner_application", { app_id: app.id, decision, note, flagged: flags });
     setBusy(false);
+    if (error) return setErr(t("Something went wrong. Please try again."));
     setNote("");
+    setFlags([]);
     onDone();
   };
   return (
@@ -154,15 +165,32 @@ function AdminReview({ app, onDone }: { app: App; onDone: () => void }) {
         maxLength={2000}
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        placeholder={t("Note for the applicant (optional, shown on rejection)")}
+        placeholder={t("Note for the applicant (required for Reject and Request changes)")}
         className="w-full rounded-xl border border-border bg-card p-2 text-xs text-foreground outline-none focus:border-primary"
       />
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+        <span>{t("Documents needing a new upload:")}</span>
+        {DOCS.map((d) => (
+          <label key={d.kind} className="flex items-center gap-1.5">
+            <input
+              type="checkbox"
+              checked={flags.includes(d.kind)}
+              onChange={(e) => setFlags(e.target.checked ? [...flags, d.kind] : flags.filter((f) => f !== d.kind))}
+            />
+            {t(d.label)}
+          </label>
+        ))}
+      </div>
+      {err && <p className="text-xs text-destructive" role="alert">{err}</p>}
+      <div className="flex flex-wrap gap-2">
         <button disabled={busy} onClick={() => decide("verified")} className="rounded-lg bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground disabled:opacity-60">
           {t("Mark Verified")}
         </button>
         <button disabled={busy} onClick={() => decide("rejected")} className="rounded-lg border border-destructive px-4 py-1.5 text-xs font-semibold text-destructive disabled:opacity-60">
           {t("Reject")}
+        </button>
+        <button disabled={busy} onClick={() => decide("changes_requested")} className="rounded-lg border border-gold px-4 py-1.5 text-xs font-semibold text-gold disabled:opacity-60">
+          {t("Request changes")}
         </button>
       </div>
     </div>
@@ -192,6 +220,12 @@ function AppCard({ r, uid, isAdmin, reload }: { r: App; uid: string | null; isAd
       {isOwner && r.verification_status === "documents_pending" && (
         <p className="mt-3 text-xs text-foreground">
           {t("Company accounts need two documents before they can receive the Verified badge. Upload them below (PDF, JPG or PNG, up to 10 MB each).")}
+        </p>
+      )}
+      {r.verification_status === "changes_requested" && r.verification_note && (
+        <p className="mt-3 text-xs text-gold">
+          {t("Changes requested")}: {r.verification_note}
+          {isOwner && ` — ${t("Please re-upload the highlighted document(s) below.")}`}
         </p>
       )}
       {r.verification_status === "rejected" && r.verification_note && (
@@ -233,7 +267,7 @@ export function PartnerApplicationsList() {
     const { data } = await supabase
       .from("partner_applications")
       .select(
-        "id, user_id, full_name, email, company_name, partnership_type, description, status, created_at, verification_status, verification_note, registration_doc_path, authorization_doc_path",
+        "id, user_id, full_name, email, company_name, partnership_type, description, status, created_at, verification_status, verification_note, registration_doc_path, authorization_doc_path, flagged_docs",
       )
       .order("created_at", { ascending: false });
     setRows((data as App[]) ?? []);
@@ -253,7 +287,7 @@ export function PartnerApplicationsList() {
         <section className="mt-10">
           <h2 className="font-display text-xl text-foreground">{t("Verification review queue")}</h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            {t("Company accounts with both documents uploaded. Review manually, then mark Verified or Reject with a note.")}
+            {t("Company accounts with both documents uploaded. Review manually, then mark Verified, Request changes, or Reject with a note.")}
           </p>
           <div className="mt-4 space-y-3">
             {queue.length === 0 && <p className="text-sm text-muted-foreground">{t("Nothing is waiting for review.")}</p>}
