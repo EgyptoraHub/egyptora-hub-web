@@ -151,11 +151,22 @@ function AdminPartnersPage() {
 
       {error && <p className="mt-4 text-sm text-destructive">{t(error)}</p>}
 
-      {/* ---- incoming "Become a Partner" applications ---- */}
-      <PartnerApplicationsList />
+      {/* ==== Part 1: received applications ==== */}
+      <div className="mt-10 rounded-3xl border border-border p-5 sm:p-7">
+        <h2 className="font-display text-2xl text-foreground">{t("Received applications")}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {t("Everything sent through the public Become a Partner form.")}
+        </p>
+        <PartnerApplicationsList />
+      </div>
 
-      {/* ---- partner form ---- */}
-      <section className="mt-8 rounded-2xl border border-border bg-card/40 p-5">
+      {/* ==== Part 2: admin creates partners directly ==== */}
+      <div className="mt-12 rounded-3xl border border-border p-5 sm:p-7">
+        <h2 className="font-display text-2xl text-foreground">{t("Add a partner directly")}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {t("For admins creating a partner account by hand — not linked to a public application.")}
+        </p>
+      <section className="mt-6 rounded-2xl border border-border bg-card/40 p-5">
         <h2 className="font-display text-xl text-foreground">
           {editing ? t("Edit partner") : t("New partner")}
         </h2>
@@ -220,8 +231,11 @@ function AdminPartnersPage() {
         </div>
       </section>
 
+      </div>
+
       {/* ---- partner list ---- */}
-      <section className="mt-8 space-y-3">
+      <h2 className="mt-12 font-display text-2xl text-foreground">{t("Partner accounts")}</h2>
+      <section className="mt-4 space-y-3">
         {partners.map((partner) => (
           <div key={partner.id} className="rounded-2xl border border-border bg-card/40 p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">

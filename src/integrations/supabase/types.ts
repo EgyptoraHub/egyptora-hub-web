@@ -1217,6 +1217,7 @@ export type Database = {
           created_at: string
           description: string | null
           email: string
+          flagged_docs: string[]
           full_name: string
           id: string
           partnership_type: string
@@ -1234,6 +1235,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email: string
+          flagged_docs?: string[]
           full_name: string
           id?: string
           partnership_type: string
@@ -1251,6 +1253,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string
+          flagged_docs?: string[]
           full_name?: string
           id?: string
           partnership_type?: string
@@ -2155,7 +2158,12 @@ export type Database = {
         Returns: boolean
       }
       review_partner_application: {
-        Args: { app_id: string; decision: string; note: string }
+        Args: {
+          app_id: string
+          decision: string
+          flagged?: string[]
+          note: string
+        }
         Returns: undefined
       }
       submit_partner_document: {
