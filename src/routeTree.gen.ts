@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BecomeAPartnerRouteImport } from './routes/become-a-partner'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as DoBusinessRouteImport } from './routes/do-business'
@@ -20,6 +21,7 @@ import { Route as EgyptianHeritageWorldwideRouteImport } from './routes/egyptian
 import { Route as EncyclopediaRouteImport } from './routes/encyclopedia'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as ExploreEgyptRouteImport } from './routes/explore-egypt'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GovernmentRouteImport } from './routes/government'
 import { Route as GovernmentDirectoryRouteImport } from './routes/government-directory'
 import { Route as HeritageSitesRouteImport } from './routes/heritage-sites'
@@ -28,6 +30,7 @@ import { Route as InvestmentOpportunitiesRouteImport } from './routes/investment
 import { Route as LiveInEgyptRouteImport } from './routes/live-in-egypt'
 import { Route as MuseumsRouteImport } from './routes/museums'
 import { Route as OffersRouteImport } from './routes/offers'
+import { Route as OurMissionRouteImport } from './routes/our-mission'
 import { Route as PhotoCreditsRouteImport } from './routes/photo-credits'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PropertiesRouteImport } from './routes/properties'
@@ -37,6 +40,8 @@ import { Route as ResearchProgramsRouteImport } from './routes/research-programs
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as TravelerStoriesRouteImport } from './routes/traveler-stories'
+import { Route as TrustCenterRouteImport } from './routes/trust-center'
+import { Route as VisionValuesRouteImport } from './routes/vision-values'
 import { Route as VisitEgyptRouteImport } from './routes/visit-egypt'
 import { Route as AccountBookingsRouteImport } from './routes/account_.bookings'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -74,6 +79,7 @@ import { Route as ProvidersIdRouteImport } from './routes/providers_.$id'
 import { Route as ResearchProgramsIdRouteImport } from './routes/research-programs_.$id'
 import { Route as TravelerStoriesIdRouteImport } from './routes/traveler-stories_.$id'
 import { Route as TripsIdRouteImport } from './routes/trips.$id'
+import { Route as VisitEgyptEVisaRouteImport } from './routes/visit-egypt_.e-visa'
 import { Route as VisitEgyptTravelAndTourismRouteImport } from './routes/visit-egypt_.travel-and-tourism'
 import { Route as AdminContentIndexRouteImport } from './routes/admin.content.index'
 import { Route as AdminContentTableRouteImport } from './routes/admin.content.$table'
@@ -99,6 +105,11 @@ const AdminRoute = AdminRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BecomeAPartnerRoute = BecomeAPartnerRouteImport.update({
+  id: '/become-a-partner',
+  path: '/become-a-partner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -135,6 +146,11 @@ const EventsRoute = EventsRouteImport.update({
 const ExploreEgyptRoute = ExploreEgyptRouteImport.update({
   id: '/explore-egypt',
   path: '/explore-egypt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GovernmentRoute = GovernmentRouteImport.update({
@@ -175,6 +191,11 @@ const MuseumsRoute = MuseumsRouteImport.update({
 const OffersRoute = OffersRouteImport.update({
   id: '/offers',
   path: '/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OurMissionRoute = OurMissionRouteImport.update({
+  id: '/our-mission',
+  path: '/our-mission',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PhotoCreditsRoute = PhotoCreditsRouteImport.update({
@@ -220,6 +241,16 @@ const SearchRoute = SearchRouteImport.update({
 const TravelerStoriesRoute = TravelerStoriesRouteImport.update({
   id: '/traveler-stories',
   path: '/traveler-stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrustCenterRoute = TrustCenterRouteImport.update({
+  id: '/trust-center',
+  path: '/trust-center',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VisionValuesRoute = VisionValuesRouteImport.update({
+  id: '/vision-values',
+  path: '/vision-values',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VisitEgyptRoute = VisitEgyptRouteImport.update({
@@ -413,6 +444,11 @@ const TripsIdRoute = TripsIdRouteImport.update({
   path: '/trips/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VisitEgyptEVisaRoute = VisitEgyptEVisaRouteImport.update({
+  id: '/visit-egypt_/e-visa',
+  path: '/visit-egypt/e-visa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VisitEgyptTravelAndTourismRoute =
   VisitEgyptTravelAndTourismRouteImport.update({
     id: '/visit-egypt_/travel-and-tourism',
@@ -450,6 +486,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/become-a-partner': typeof BecomeAPartnerRoute
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
@@ -457,6 +494,7 @@ export interface FileRoutesByFullPath {
   '/encyclopedia': typeof EncyclopediaRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
+  '/faq': typeof FaqRoute
   '/government': typeof GovernmentRoute
   '/government-directory': typeof GovernmentDirectoryRoute
   '/heritage-sites': typeof HeritageSitesRoute
@@ -465,6 +503,7 @@ export interface FileRoutesByFullPath {
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/museums': typeof MuseumsRoute
   '/offers': typeof OffersRoute
+  '/our-mission': typeof OurMissionRoute
   '/photo-credits': typeof PhotoCreditsRoute
   '/products': typeof ProductsRoute
   '/properties': typeof PropertiesRoute
@@ -474,6 +513,8 @@ export interface FileRoutesByFullPath {
   '/saved': typeof SavedRoute
   '/search': typeof SearchRoute
   '/traveler-stories': typeof TravelerStoriesRoute
+  '/trust-center': typeof TrustCenterRoute
+  '/vision-values': typeof VisionValuesRoute
   '/visit-egypt': typeof VisitEgyptRoute
   '/account/bookings': typeof AccountBookingsRoute
   '/admin/bookings': typeof AdminBookingsRoute
@@ -506,6 +547,7 @@ export interface FileRoutesByFullPath {
   '/research-programs/$id': typeof ResearchProgramsIdRoute
   '/traveler-stories/$id': typeof TravelerStoriesIdRoute
   '/trips/$id': typeof TripsIdRoute
+  '/visit-egypt/e-visa': typeof VisitEgyptEVisaRoute
   '/visit-egypt/travel-and-tourism': typeof VisitEgyptTravelAndTourismRoute
   '/admin/': typeof AdminIndexRoute
   '/governorates/': typeof GovernoratesIndexRoute
@@ -522,6 +564,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
+  '/become-a-partner': typeof BecomeAPartnerRoute
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
@@ -529,6 +572,7 @@ export interface FileRoutesByTo {
   '/encyclopedia': typeof EncyclopediaRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
+  '/faq': typeof FaqRoute
   '/government': typeof GovernmentRoute
   '/government-directory': typeof GovernmentDirectoryRoute
   '/heritage-sites': typeof HeritageSitesRoute
@@ -537,6 +581,7 @@ export interface FileRoutesByTo {
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/museums': typeof MuseumsRoute
   '/offers': typeof OffersRoute
+  '/our-mission': typeof OurMissionRoute
   '/photo-credits': typeof PhotoCreditsRoute
   '/products': typeof ProductsRoute
   '/properties': typeof PropertiesRoute
@@ -546,6 +591,8 @@ export interface FileRoutesByTo {
   '/saved': typeof SavedRoute
   '/search': typeof SearchRoute
   '/traveler-stories': typeof TravelerStoriesRoute
+  '/trust-center': typeof TrustCenterRoute
+  '/vision-values': typeof VisionValuesRoute
   '/visit-egypt': typeof VisitEgyptRoute
   '/account/bookings': typeof AccountBookingsRoute
   '/admin/bookings': typeof AdminBookingsRoute
@@ -578,6 +625,7 @@ export interface FileRoutesByTo {
   '/research-programs/$id': typeof ResearchProgramsIdRoute
   '/traveler-stories/$id': typeof TravelerStoriesIdRoute
   '/trips/$id': typeof TripsIdRoute
+  '/visit-egypt/e-visa': typeof VisitEgyptEVisaRoute
   '/visit-egypt/travel-and-tourism': typeof VisitEgyptTravelAndTourismRoute
   '/admin': typeof AdminIndexRoute
   '/governorates': typeof GovernoratesIndexRoute
@@ -596,6 +644,7 @@ export interface FileRoutesById {
   '/account': typeof AccountRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
+  '/become-a-partner': typeof BecomeAPartnerRoute
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
@@ -603,6 +652,7 @@ export interface FileRoutesById {
   '/encyclopedia': typeof EncyclopediaRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
+  '/faq': typeof FaqRoute
   '/government': typeof GovernmentRoute
   '/government-directory': typeof GovernmentDirectoryRoute
   '/heritage-sites': typeof HeritageSitesRoute
@@ -611,6 +661,7 @@ export interface FileRoutesById {
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/museums': typeof MuseumsRoute
   '/offers': typeof OffersRoute
+  '/our-mission': typeof OurMissionRoute
   '/photo-credits': typeof PhotoCreditsRoute
   '/products': typeof ProductsRoute
   '/properties': typeof PropertiesRoute
@@ -620,6 +671,8 @@ export interface FileRoutesById {
   '/saved': typeof SavedRoute
   '/search': typeof SearchRoute
   '/traveler-stories': typeof TravelerStoriesRoute
+  '/trust-center': typeof TrustCenterRoute
+  '/vision-values': typeof VisionValuesRoute
   '/visit-egypt': typeof VisitEgyptRoute
   '/account_/bookings': typeof AccountBookingsRoute
   '/admin/bookings': typeof AdminBookingsRoute
@@ -652,6 +705,7 @@ export interface FileRoutesById {
   '/research-programs_/$id': typeof ResearchProgramsIdRoute
   '/traveler-stories_/$id': typeof TravelerStoriesIdRoute
   '/trips/$id': typeof TripsIdRoute
+  '/visit-egypt_/e-visa': typeof VisitEgyptEVisaRoute
   '/visit-egypt_/travel-and-tourism': typeof VisitEgyptTravelAndTourismRoute
   '/admin/': typeof AdminIndexRoute
   '/governorates/': typeof GovernoratesIndexRoute
@@ -671,6 +725,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/auth'
+    | '/become-a-partner'
     | '/contact'
     | '/countries'
     | '/do-business'
@@ -678,6 +733,7 @@ export interface FileRouteTypes {
     | '/encyclopedia'
     | '/events'
     | '/explore-egypt'
+    | '/faq'
     | '/government'
     | '/government-directory'
     | '/heritage-sites'
@@ -686,6 +742,7 @@ export interface FileRouteTypes {
     | '/live-in-egypt'
     | '/museums'
     | '/offers'
+    | '/our-mission'
     | '/photo-credits'
     | '/products'
     | '/properties'
@@ -695,6 +752,8 @@ export interface FileRouteTypes {
     | '/saved'
     | '/search'
     | '/traveler-stories'
+    | '/trust-center'
+    | '/vision-values'
     | '/visit-egypt'
     | '/account/bookings'
     | '/admin/bookings'
@@ -727,6 +786,7 @@ export interface FileRouteTypes {
     | '/research-programs/$id'
     | '/traveler-stories/$id'
     | '/trips/$id'
+    | '/visit-egypt/e-visa'
     | '/visit-egypt/travel-and-tourism'
     | '/admin/'
     | '/governorates/'
@@ -743,6 +803,7 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/auth'
+    | '/become-a-partner'
     | '/contact'
     | '/countries'
     | '/do-business'
@@ -750,6 +811,7 @@ export interface FileRouteTypes {
     | '/encyclopedia'
     | '/events'
     | '/explore-egypt'
+    | '/faq'
     | '/government'
     | '/government-directory'
     | '/heritage-sites'
@@ -758,6 +820,7 @@ export interface FileRouteTypes {
     | '/live-in-egypt'
     | '/museums'
     | '/offers'
+    | '/our-mission'
     | '/photo-credits'
     | '/products'
     | '/properties'
@@ -767,6 +830,8 @@ export interface FileRouteTypes {
     | '/saved'
     | '/search'
     | '/traveler-stories'
+    | '/trust-center'
+    | '/vision-values'
     | '/visit-egypt'
     | '/account/bookings'
     | '/admin/bookings'
@@ -799,6 +864,7 @@ export interface FileRouteTypes {
     | '/research-programs/$id'
     | '/traveler-stories/$id'
     | '/trips/$id'
+    | '/visit-egypt/e-visa'
     | '/visit-egypt/travel-and-tourism'
     | '/admin'
     | '/governorates'
@@ -816,6 +882,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/auth'
+    | '/become-a-partner'
     | '/contact'
     | '/countries'
     | '/do-business'
@@ -823,6 +890,7 @@ export interface FileRouteTypes {
     | '/encyclopedia'
     | '/events'
     | '/explore-egypt'
+    | '/faq'
     | '/government'
     | '/government-directory'
     | '/heritage-sites'
@@ -831,6 +899,7 @@ export interface FileRouteTypes {
     | '/live-in-egypt'
     | '/museums'
     | '/offers'
+    | '/our-mission'
     | '/photo-credits'
     | '/products'
     | '/properties'
@@ -840,6 +909,8 @@ export interface FileRouteTypes {
     | '/saved'
     | '/search'
     | '/traveler-stories'
+    | '/trust-center'
+    | '/vision-values'
     | '/visit-egypt'
     | '/account_/bookings'
     | '/admin/bookings'
@@ -872,6 +943,7 @@ export interface FileRouteTypes {
     | '/research-programs_/$id'
     | '/traveler-stories_/$id'
     | '/trips/$id'
+    | '/visit-egypt_/e-visa'
     | '/visit-egypt_/travel-and-tourism'
     | '/admin/'
     | '/governorates/'
@@ -890,6 +962,7 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
+  BecomeAPartnerRoute: typeof BecomeAPartnerRoute
   ContactRoute: typeof ContactRoute
   CountriesRoute: typeof CountriesRoute
   DoBusinessRoute: typeof DoBusinessRoute
@@ -897,6 +970,7 @@ export interface RootRouteChildren {
   EncyclopediaRoute: typeof EncyclopediaRoute
   EventsRoute: typeof EventsRoute
   ExploreEgyptRoute: typeof ExploreEgyptRoute
+  FaqRoute: typeof FaqRoute
   GovernmentRoute: typeof GovernmentRoute
   GovernmentDirectoryRoute: typeof GovernmentDirectoryRoute
   HeritageSitesRoute: typeof HeritageSitesRoute
@@ -905,6 +979,7 @@ export interface RootRouteChildren {
   LiveInEgyptRoute: typeof LiveInEgyptRoute
   MuseumsRoute: typeof MuseumsRoute
   OffersRoute: typeof OffersRoute
+  OurMissionRoute: typeof OurMissionRoute
   PhotoCreditsRoute: typeof PhotoCreditsRoute
   ProductsRoute: typeof ProductsRoute
   PropertiesRoute: typeof PropertiesRoute
@@ -914,6 +989,8 @@ export interface RootRouteChildren {
   SavedRoute: typeof SavedRoute
   SearchRoute: typeof SearchRoute
   TravelerStoriesRoute: typeof TravelerStoriesRoute
+  TrustCenterRoute: typeof TrustCenterRoute
+  VisionValuesRoute: typeof VisionValuesRoute
   VisitEgyptRoute: typeof VisitEgyptRoute
   AccountBookingsRoute: typeof AccountBookingsRoute
   ApiConciergeRoute: typeof ApiConciergeRoute
@@ -941,6 +1018,7 @@ export interface RootRouteChildren {
   ResearchProgramsIdRoute: typeof ResearchProgramsIdRoute
   TravelerStoriesIdRoute: typeof TravelerStoriesIdRoute
   TripsIdRoute: typeof TripsIdRoute
+  VisitEgyptEVisaRoute: typeof VisitEgyptEVisaRoute
   VisitEgyptTravelAndTourismRoute: typeof VisitEgyptTravelAndTourismRoute
   GovernoratesIndexRoute: typeof GovernoratesIndexRoute
   LegalIndexRoute: typeof LegalIndexRoute
@@ -977,6 +1055,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/become-a-partner': {
+      id: '/become-a-partner'
+      path: '/become-a-partner'
+      fullPath: '/become-a-partner'
+      preLoaderRoute: typeof BecomeAPartnerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -1026,6 +1111,13 @@ declare module '@tanstack/react-router' {
       path: '/explore-egypt'
       fullPath: '/explore-egypt'
       preLoaderRoute: typeof ExploreEgyptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/government': {
@@ -1082,6 +1174,13 @@ declare module '@tanstack/react-router' {
       path: '/offers'
       fullPath: '/offers'
       preLoaderRoute: typeof OffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/our-mission': {
+      id: '/our-mission'
+      path: '/our-mission'
+      fullPath: '/our-mission'
+      preLoaderRoute: typeof OurMissionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/photo-credits': {
@@ -1145,6 +1244,20 @@ declare module '@tanstack/react-router' {
       path: '/traveler-stories'
       fullPath: '/traveler-stories'
       preLoaderRoute: typeof TravelerStoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust-center': {
+      id: '/trust-center'
+      path: '/trust-center'
+      fullPath: '/trust-center'
+      preLoaderRoute: typeof TrustCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vision-values': {
+      id: '/vision-values'
+      path: '/vision-values'
+      fullPath: '/vision-values'
+      preLoaderRoute: typeof VisionValuesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/visit-egypt': {
@@ -1406,6 +1519,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TripsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/visit-egypt_/e-visa': {
+      id: '/visit-egypt_/e-visa'
+      path: '/visit-egypt/e-visa'
+      fullPath: '/visit-egypt/e-visa'
+      preLoaderRoute: typeof VisitEgyptEVisaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/visit-egypt_/travel-and-tourism': {
       id: '/visit-egypt_/travel-and-tourism'
       path: '/visit-egypt/travel-and-tourism'
@@ -1484,6 +1604,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
+  BecomeAPartnerRoute: BecomeAPartnerRoute,
   ContactRoute: ContactRoute,
   CountriesRoute: CountriesRoute,
   DoBusinessRoute: DoBusinessRoute,
@@ -1491,6 +1612,7 @@ const rootRouteChildren: RootRouteChildren = {
   EncyclopediaRoute: EncyclopediaRoute,
   EventsRoute: EventsRoute,
   ExploreEgyptRoute: ExploreEgyptRoute,
+  FaqRoute: FaqRoute,
   GovernmentRoute: GovernmentRoute,
   GovernmentDirectoryRoute: GovernmentDirectoryRoute,
   HeritageSitesRoute: HeritageSitesRoute,
@@ -1499,6 +1621,7 @@ const rootRouteChildren: RootRouteChildren = {
   LiveInEgyptRoute: LiveInEgyptRoute,
   MuseumsRoute: MuseumsRoute,
   OffersRoute: OffersRoute,
+  OurMissionRoute: OurMissionRoute,
   PhotoCreditsRoute: PhotoCreditsRoute,
   ProductsRoute: ProductsRoute,
   PropertiesRoute: PropertiesRoute,
@@ -1508,6 +1631,8 @@ const rootRouteChildren: RootRouteChildren = {
   SavedRoute: SavedRoute,
   SearchRoute: SearchRoute,
   TravelerStoriesRoute: TravelerStoriesRoute,
+  TrustCenterRoute: TrustCenterRoute,
+  VisionValuesRoute: VisionValuesRoute,
   VisitEgyptRoute: VisitEgyptRoute,
   AccountBookingsRoute: AccountBookingsRoute,
   ApiConciergeRoute: ApiConciergeRoute,
@@ -1536,6 +1661,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResearchProgramsIdRoute: ResearchProgramsIdRoute,
   TravelerStoriesIdRoute: TravelerStoriesIdRoute,
   TripsIdRoute: TripsIdRoute,
+  VisitEgyptEVisaRoute: VisitEgyptEVisaRoute,
   VisitEgyptTravelAndTourismRoute: VisitEgyptTravelAndTourismRoute,
   GovernoratesIndexRoute: GovernoratesIndexRoute,
   LegalIndexRoute: LegalIndexRoute,
