@@ -5,11 +5,9 @@ import { toast } from "sonner";
 import { AdminChecking, AdminDenied, adminHead } from "@/components/admin/AdminStates";
 import { PartnerApplicationsList } from "@/components/site/PartnerApplications";
 import {
-  PARTNER_TYPES,
   listPartners,
   listReviewQueue,
   reviewItem,
-  savePartner,
   setPartnerActive,
   setPartnerAssignment,
   type CatalogueOption,
@@ -41,7 +39,6 @@ function AdminPartnersPage() {
   const navigate = useNavigate();
   const load = useServerFn(listPartners);
   const loadQueue = useServerFn(listReviewQueue);
-  const save = useServerFn(savePartner);
   const toggleActive = useServerFn(setPartnerActive);
   const setAssignment = useServerFn(setPartnerAssignment);
   const review = useServerFn(reviewItem);
@@ -50,8 +47,6 @@ function AdminPartnersPage() {
   const [partners, setPartners] = useState<PartnerRecord[]>([]);
   const [catalogue, setCatalogue] = useState<CatalogueOption[]>([]);
   const [queue, setQueue] = useState<ReviewItem[]>([]);
-  const [editing, setEditing] = useState<PartnerRecord | null>(null);
-  const [form, setForm] = useState({ orgName: "", partnerType: "real_estate", contactEmail: "", userEmail: "" });
   const [assignFor, setAssignFor] = useState<string | null>(null);
   const [assignSearch, setAssignSearch] = useState("");
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -90,41 +85,6 @@ function AdminPartnersPage() {
       active = false;
     };
   }, [refresh]);
-
-  const startCreate = () => {
-    setEditing(null);
-    setForm({ orgName: "", partnerType: "real_estate", contactEmail: "", userEmail: "" });
-  };
-
-  const startEdit = (partner: PartnerRecord) => {
-    setEditing(partner);
-    setForm({
-      orgName: partner.orgName,
-      partnerType: partner.partnerType,
-      contactEmail: partner.contactEmail ?? "",
-      userEmail: partner.userEmail ?? "",
-    });
-  };
-
-  const submitPartner = async () => {
-    setBusy(true);
-    setError(null);
-    const result = await save({
-      data: {
-        id: editing?.id ?? null,
-        orgName: form.orgName,
-        partnerType: form.partnerType,
-        contactEmail: form.contactEmail,
-        userEmail: form.userEmail,
-      },
-    });
-    setBusy(false);
-    if (!result.authorized) return setState("denied");
-    if (!result.ok) return setError(result.error ?? "Could not save.");
-    toast.success(editing ? t("Partner updated.") : t("Partner created."));
-    startCreate();
-    await refresh();
-  };
 
   const runConfirmed = async (fn: () => Promise<void>) => {
     setBusy(true);

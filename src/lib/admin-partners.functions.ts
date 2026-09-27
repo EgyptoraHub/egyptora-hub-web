@@ -313,3 +313,27 @@ export const reviewItem = createServerFn({ method: "POST" })
 
     return { authorized: true, ok: true };
   });
+
+/** Admin-only: permanently delete a received application and its uploaded files. */
+export const deletePartnerApplication = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { id: string }) => {
+    const id = String(input?.id ?? "");
+    if (!/^[0-9a-f-]{36}$/i.test(id)) throw new Error("Invalid application");
+    return { id };
+  })
+  .handler(async ({ data, context }): Promise<Denied | Ok<{ ok: boolean; removedFiles: number; error?: string }>> => {
+    if (!(await isAdmin(context))) return { authorized: false };
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const bucket = supabaseAdmin.storage.from("partner-documents");
+    const { data: files, error: listErr } = await bucket.list(data.id, { limit: 1000 });
+    if (listErr) return { authorized: true, ok: false, removedFiles: 0, error: listErr.message };
+    const paths = (files ?? []).map((f) => `${data.id}/${f.name}`);
+    if (paths.length) {
+      const { error } = await bucket.remove(paths);
+      if (error) return { authorized: true, ok: false, removedFiles: 0, error: error.message };
+    }
+    const { error } = await supabaseAdmin.from("partner_applications").delete().eq("id", data.id);
+    if (error) return { authorized: true, ok: false, removedFiles: paths.length, error: error.message };
+    return { authorized: true, ok: true, removedFiles: paths.length };
+  });
