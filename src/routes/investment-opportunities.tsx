@@ -11,7 +11,6 @@ import {
   Leaf,
   MapPin,
   Plane,
-  Sparkles,
   TrendingUp,
   Truck,
   Zap,

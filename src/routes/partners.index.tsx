@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
+import { PartnerApplicationsList } from "@/components/site/PartnerApplications";
 import { AdminChecking, AdminDenied, adminHead } from "@/components/admin/AdminStates";
 import { getPartnerPortal, type PartnerAssignedItem, type PartnerProfile } from "@/lib/partners.functions";
 import { MODERATION_LABEL } from "@/lib/partners.config";
@@ -17,7 +18,7 @@ export const Route = createFileRoute("/partners/")({
 function PartnerPortalPage() {
   const { t } = useI18n();
   const load = useServerFn(getPartnerPortal);
-  const [state, setState] = useState<"loading" | "denied" | "ready">("loading");
+  const [state, setState] = useState<"loading" | "denied" | "applicant" | "ready">("loading");
   const [partner, setPartner] = useState<PartnerProfile | null>(null);
   const [items, setItems] = useState<PartnerAssignedItem[]>([]);
 
@@ -32,7 +33,7 @@ function PartnerPortalPage() {
       const result = await load({ data: {} as never });
       if (!active) return;
       if (!result.authorized) {
-        setState("denied");
+        setState("applicant");
         return;
       }
       setPartner(result.partner);
@@ -48,6 +49,17 @@ function PartnerPortalPage() {
 
   if (state === "loading") return <AdminChecking />;
   if (state === "denied") return <AdminDenied />;
+  if (state === "applicant")
+    return (
+      <div className="min-h-screen bg-background px-5 py-14">
+        <div className="mx-auto w-full max-w-4xl">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">
+            {SITE.name} · {t("Partner portal")}
+          </p>
+          <PartnerApplicationsList />
+        </div>
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-background px-5 py-14">
@@ -88,6 +100,7 @@ function PartnerPortalPage() {
             </p>
           )}
         </div>
+        <PartnerApplicationsList />
       </div>
     </div>
   );
