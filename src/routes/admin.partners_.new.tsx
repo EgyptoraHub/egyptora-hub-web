@@ -11,7 +11,7 @@ import { useI18n } from "@/i18n";
 export const Route = createFileRoute("/admin/partners_/new")({
   ssr: false,
   validateSearch: (s: Record<string, unknown>): { id?: string } =>
-    typeof s.id === "string" && s.id ? { id: s.id } : {},
+    typeof s["id"] === "string" && s["id"] ? { id: s["id"] as string } : {},
   head: () => adminHead(`Add a partner — ${SITE.name}`, "Create a partner account directly."),
   component: AddPartnerPage,
 });

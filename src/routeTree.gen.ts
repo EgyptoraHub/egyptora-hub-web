@@ -86,6 +86,7 @@ import { Route as AdminContentIndexRouteImport } from './routes/admin.content.in
 import { Route as AdminContentTableRouteImport } from './routes/admin.content.$table'
 import { Route as AdminCrmInvestmentRouteImport } from './routes/admin.crm.investment'
 import { Route as AdminCrmPropertiesRouteImport } from './routes/admin.crm.properties'
+import { Route as AdminPartnersNewRouteImport } from './routes/admin.partners_.new'
 import { Route as PartnersTypeIdRouteImport } from './routes/partners.$type.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -481,6 +482,11 @@ const AdminCrmPropertiesRoute = AdminCrmPropertiesRouteImport.update({
   path: '/crm/properties',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPartnersNewRoute = AdminPartnersNewRouteImport.update({
+  id: '/partners_/new',
+  path: '/partners/new',
+  getParentRoute: () => AdminRoute,
+} as any)
 const PartnersTypeIdRoute = PartnersTypeIdRouteImport.update({
   id: '/partners/$type/$id',
   path: '/partners/$type/$id',
@@ -564,6 +570,7 @@ export interface FileRoutesByFullPath {
   '/admin/content/$table': typeof AdminContentTableRoute
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
+  '/admin/partners/new': typeof AdminPartnersNewRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
 }
@@ -643,6 +650,7 @@ export interface FileRoutesByTo {
   '/admin/content/$table': typeof AdminContentTableRoute
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
+  '/admin/partners/new': typeof AdminPartnersNewRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content': typeof AdminContentIndexRoute
 }
@@ -724,6 +732,7 @@ export interface FileRoutesById {
   '/admin/content/$table': typeof AdminContentTableRoute
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
+  '/admin/partners_/new': typeof AdminPartnersNewRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
 }
@@ -806,6 +815,7 @@ export interface FileRouteTypes {
     | '/admin/content/$table'
     | '/admin/crm/investment'
     | '/admin/crm/properties'
+    | '/admin/partners/new'
     | '/partners/$type/$id'
     | '/admin/content/'
   fileRoutesByTo: FileRoutesByTo
@@ -885,6 +895,7 @@ export interface FileRouteTypes {
     | '/admin/content/$table'
     | '/admin/crm/investment'
     | '/admin/crm/properties'
+    | '/admin/partners/new'
     | '/partners/$type/$id'
     | '/admin/content'
   id:
@@ -965,6 +976,7 @@ export interface FileRouteTypes {
     | '/admin/content/$table'
     | '/admin/crm/investment'
     | '/admin/crm/properties'
+    | '/admin/partners_/new'
     | '/partners/$type/$id'
     | '/admin/content/'
   fileRoutesById: FileRoutesById
@@ -1581,6 +1593,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCrmPropertiesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/partners_/new': {
+      id: '/admin/partners_/new'
+      path: '/partners/new'
+      fullPath: '/admin/partners/new'
+      preLoaderRoute: typeof AdminPartnersNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/partners/$type/$id': {
       id: '/partners/$type/$id'
       path: '/partners/$type/$id'
@@ -1601,6 +1620,7 @@ interface AdminRouteChildren {
   AdminContentTableRoute: typeof AdminContentTableRoute
   AdminCrmInvestmentRoute: typeof AdminCrmInvestmentRoute
   AdminCrmPropertiesRoute: typeof AdminCrmPropertiesRoute
+  AdminPartnersNewRoute: typeof AdminPartnersNewRoute
   AdminContentIndexRoute: typeof AdminContentIndexRoute
 }
 
@@ -1614,6 +1634,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminContentTableRoute: AdminContentTableRoute,
   AdminCrmInvestmentRoute: AdminCrmInvestmentRoute,
   AdminCrmPropertiesRoute: AdminCrmPropertiesRoute,
+  AdminPartnersNewRoute: AdminPartnersNewRoute,
   AdminContentIndexRoute: AdminContentIndexRoute,
 }
 
