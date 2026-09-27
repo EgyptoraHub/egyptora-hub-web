@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { AdminChecking, AdminDenied, adminHead } from "@/components/admin/AdminStates";
+import { PartnerApplicationsList } from "@/components/site/PartnerApplications";
 import {
   PARTNER_TYPES,
   listPartners,
@@ -149,6 +150,9 @@ function AdminPartnersPage() {
       </p>
 
       {error && <p className="mt-4 text-sm text-destructive">{t(error)}</p>}
+
+      {/* ---- incoming "Become a Partner" applications ---- */}
+      <PartnerApplicationsList />
 
       {/* ---- partner form ---- */}
       <section className="mt-8 rounded-2xl border border-border bg-card/40 p-5">

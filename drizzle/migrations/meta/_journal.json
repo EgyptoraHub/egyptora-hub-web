@@ -36,6 +36,13 @@
       "when": 1790519161074,
       "tag": "0004_partner_verification",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790521763975,
+      "tag": "0005_notify_admins_partner_application",
+      "breakpoints": true
     }
   ]
 }
