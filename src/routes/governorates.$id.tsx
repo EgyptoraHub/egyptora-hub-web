@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Section, SectionHeader, GoldButton } from "@/components/site/Primitives";
 import { useI18n } from "@/i18n";
-import { mailto, SITE } from "@/config/site";
+import { SITE } from "@/config/site";
 import { governorates } from "@/data/governorates";
 import { governorateProfiles, type Bilingual } from "@/data/governorate-profiles";
 import { supabase } from "@/integrations/supabase/client";
