@@ -3,6 +3,10 @@
 ## Done
 - [x] Six detail pages (properties, providers, offers, investment opportunities, countries, products): hardened loaders, graceful not-found, SEO meta, fully translated labels, linked from each list page. Verified with real and invalid ids.
 
+## Prompt 23 — repo rename + dev onboarding docs
+- [ ] Part 1: rename GitHub repo EgyptoraHub/sketch-to-site-whisperer → egyptora-hub-web; confirm sync still OK; report new URL. If connection breaks: stop and report, do not reconnect.
+- [ ] Part 2: rewrite README.md + /docs (architecture, data model, known stubs, env/secrets checklist). Documentation only — no functional code changes.
+
 ## Pending
 - [ ] Machine-translate database content (all content tables) into the 9 supported languages, stored so the switcher swaps content text too. Report summary before publishing.
 
