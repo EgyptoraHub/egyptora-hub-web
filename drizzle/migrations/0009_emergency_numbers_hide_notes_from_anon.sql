@@ -1,0 +1,2 @@
+REVOKE SELECT ON public.emergency_numbers FROM anon;
+GRANT SELECT (id, category_id, name_ar, name_en, number, dial_string, availability, availability_ar, availability_en, public_note_ar, public_note_en, status, source_url, is_primary, is_active, sort_order, last_verified_at, governance_status, created_at, updated_at) ON public.emergency_numbers TO anon;
