@@ -54,6 +54,8 @@ export type TableConfig = {
   listColumns?: string[];
   /** quick equality filters on the list */
   filters?: ListFilter[];
+  /** table has no updated_at column */
+  noUpdatedAt?: boolean;
 };
 
 export const EMERGENCY_GROUP = "Emergency & Quick Numbers";
@@ -89,6 +91,7 @@ export const CONTENT_TABLES: TableConfig[] = [
     group: EMERGENCY_GROUP,
     pk: "id",
     autoPk: true,
+    noUpdatedAt: true,
     slugColumn: "slug",
     displayColumn: "name_en",
     listColumns: ["color", "sort_order", "is_active"],
@@ -131,6 +134,7 @@ export const CONTENT_TABLES: TableConfig[] = [
     group: EMERGENCY_GROUP,
     pk: "id",
     noCreate: true,
+    noUpdatedAt: true,
     displayColumn: "message",
     listColumns: ["contact_email", "handled", "created_at"],
     fields: [

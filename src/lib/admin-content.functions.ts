@@ -267,7 +267,7 @@ export const saveContentRow = createServerFn({ method: "POST" })
         return { authorized: true, ok: false, error: (err as Error).message };
       }
 
-      payload["updated_at"] = new Date().toISOString();
+      if (!cfg.noUpdatedAt) payload["updated_at"] = new Date().toISOString();
 
       if (data.mode === "create") {
         if (cfg.noCreate) return { authorized: true, ok: false, error: "New entries cannot be added here." };
