@@ -242,13 +242,13 @@ export function MainNav() {
             <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy">
               EGYPTORA <span className="text-shell-gold">HUB</span>
             </span>
-            <span className="block whitespace-nowrap text-[9.5px] tracking-[0.06em] text-muted-foreground xl:max-[1359px]:hidden">
+            <span className="block whitespace-nowrap text-[9.5px] tracking-[0.06em] text-muted-foreground xl:max-[1535px]:hidden">
               {t(SITE.tagline)}
             </span>
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 items-center justify-center gap-2.5 xl:flex min-[1440px]:gap-3">
+        <nav className="hidden min-w-0 items-center justify-center gap-2.5 xl:flex">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} />
           ))}
