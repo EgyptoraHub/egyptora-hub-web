@@ -242,7 +242,7 @@ export function MainNav() {
             <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy">
               EGYPTORA <span className="text-shell-gold">HUB</span>
             </span>
-            <span className="block whitespace-nowrap text-[9.5px] tracking-[0.06em] text-muted-foreground xl:max-[1535px]:hidden">
+            <span className="block whitespace-nowrap text-[9.5px] tracking-[0.06em] text-muted-foreground xl:hidden">
               {t(SITE.tagline)}
             </span>
           </span>
