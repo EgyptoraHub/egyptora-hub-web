@@ -388,6 +388,8 @@ export type Database = {
       emergency_numbers: {
         Row: {
           availability: string | null
+          availability_ar: string | null
+          availability_en: string | null
           category_id: string
           created_at: string
           dial_string: string
@@ -400,6 +402,8 @@ export type Database = {
           name_en: string
           notes: string | null
           number: string
+          public_note_ar: string | null
+          public_note_en: string | null
           sort_order: number
           source_url: string | null
           status: string
@@ -407,6 +411,8 @@ export type Database = {
         }
         Insert: {
           availability?: string | null
+          availability_ar?: string | null
+          availability_en?: string | null
           category_id: string
           created_at?: string
           dial_string: string
@@ -419,6 +425,8 @@ export type Database = {
           name_en: string
           notes?: string | null
           number: string
+          public_note_ar?: string | null
+          public_note_en?: string | null
           sort_order?: number
           source_url?: string | null
           status?: string
@@ -426,6 +434,8 @@ export type Database = {
         }
         Update: {
           availability?: string | null
+          availability_ar?: string | null
+          availability_en?: string | null
           category_id?: string
           created_at?: string
           dial_string?: string
@@ -438,6 +448,8 @@ export type Database = {
           name_en?: string
           notes?: string | null
           number?: string
+          public_note_ar?: string | null
+          public_note_en?: string | null
           sort_order?: number
           source_url?: string | null
           status?: string

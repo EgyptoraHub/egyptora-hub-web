@@ -57,6 +57,20 @@
       "when": 1791109187371,
       "tag": "0007_create_emergency_numbers",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791110036748,
+      "tag": "0008_emergency_numbers_public_notes_availability",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791110052293,
+      "tag": "0009_emergency_numbers_hide_notes_from_anon",
+      "breakpoints": true
     }
   ]
 }

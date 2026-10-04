@@ -21,8 +21,10 @@ type NumberRow = {
   name_en: string;
   number: string;
   dial_string: string;
-  availability: string | null;
-  notes: string | null;
+  availability_ar: string | null;
+  availability_en: string | null;
+  public_note_ar: string | null;
+  public_note_en: string | null;
   is_primary: boolean;
   sort_order: number;
   last_verified_at: string;
@@ -41,7 +43,7 @@ export const Route = createFileRoute("/emergency-numbers")({
       supabase.from("emergency_categories").select("id, slug, name_ar, name_en, color, sort_order").eq("is_active", true).order("sort_order"),
       supabase
         .from("emergency_numbers")
-        .select("id, category_id, name_ar, name_en, number, dial_string, availability, notes, is_primary, sort_order, last_verified_at")
+        .select("id, category_id, name_ar, name_en, number, dial_string, availability_ar, availability_en, public_note_ar, public_note_en, is_primary, sort_order, last_verified_at")
         .eq("is_active", true)
         .eq("status", "verified")
         .order("sort_order"),
@@ -65,7 +67,8 @@ function luminance(hex: string) {
 /** White text when it reaches 4.5:1 on the category colour, otherwise near-black text. */
 function headerTextIsWhite(hex: string | null) {
   if (!hex || !/^#[0-9a-f]{6}$/i.test(hex)) return true;
-  return 1.05 / (luminance(hex) + 0.05) >= 4.5;
+  // Dark text is the navy token (#06213A, luminance ≈ 0.015); keep white unless dark reaches 4.5:1.
+  return (luminance(hex) + 0.05) / (0.015 + 0.05) < 4.5;
 }
 
 const isWhatsAppOnly = (n: NumberRow) => n.dial_string.startsWith("+") && /whatsapp/i.test(n.name_en);
@@ -252,8 +255,10 @@ function Notice({ Icon, text }: { Icon: typeof Info; text: string }) {
 }
 
 function NumberItem({ n, label, onReport }: { n: NumberRow; label: string; onReport: () => void }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [showNote, setShowNote] = useState(false);
+  const note = (lang === "ar" ? n.public_note_ar : n.public_note_en)?.trim() || "";
+  const availability = (lang === "ar" ? n.availability_ar || n.availability_en : n.availability_en || n.availability_ar)?.trim() || "";
   const wa = isWhatsAppOnly(n);
   const copy = async () => {
     try {
@@ -268,14 +273,14 @@ function NumberItem({ n, label, onReport }: { n: NumberRow; label: string; onRep
       <div className="min-w-0 basis-full sm:basis-0 sm:flex-1">
         <p className="flex items-center gap-1 text-sm font-semibold text-navy">
           {label}
-          {n.notes && (
+          {note && (
             <button type="button" onClick={() => setShowNote((v) => !v)} aria-label={t("More info")} aria-expanded={showNote} className="grid size-8 place-items-center rounded-full text-muted-foreground hover:text-navy">
               <Info className="size-3.5" />
             </button>
           )}
         </p>
-        {n.availability && <p className="text-xs text-muted-foreground">{n.availability}</p>}
-        {showNote && n.notes && <p className="mt-1 rounded-lg bg-muted/60 px-2 py-1 text-xs text-text-body">{n.notes}</p>}
+        {availability && <p dir="auto" className="text-xs text-muted-foreground">{availability}</p>}
+        {showNote && note && <p className="mt-1 rounded-lg bg-muted/60 px-2 py-1 text-xs text-text-body">{note}</p>}
       </div>
       <a
         href={callHref(n)}
