@@ -248,7 +248,7 @@ export function MainNav() {
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 items-center justify-center gap-0 xl:flex">
+        <nav className="hidden min-w-0 items-center justify-center gap-2.5 xl:flex min-[1440px]:gap-3">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} />
           ))}
