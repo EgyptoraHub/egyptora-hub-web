@@ -393,7 +393,6 @@ function ErrorState() {
       <SiteHeader />
       <div className={cn(innerWrap, "py-16 text-center")}>
         <p className="text-sm text-text-body">{t("Emergency numbers could not be loaded right now.")}</p>
-        <p className="mt-4 text-sm font-semibold text-navy">{t("In an emergency, dial 122 (Police), 123 (Ambulance) or 180 (Fire).")}</p>
       </div>
       <SiteFooter />
     </div>
