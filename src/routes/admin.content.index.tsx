@@ -82,8 +82,11 @@ function AdminContentIndex() {
           {t("Choose a content set to view, edit, add or remove entries.")}
         </p>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
-          {tables.map((entry) => (
+        {Array.from(new Set(tables.map((x) => x.group))).map((group) => (
+        <section key={group} className="mt-8">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold/80">{t(group)}</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          {tables.filter((x) => x.group === group).map((entry) => (
             <Link
               key={entry.table}
               to="/admin/content/$table"
@@ -97,6 +100,8 @@ function AdminContentIndex() {
             </Link>
           ))}
         </div>
+        </section>
+        ))}
       </div>
     </div>
   );

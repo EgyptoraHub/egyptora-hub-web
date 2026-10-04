@@ -128,12 +128,14 @@ function FieldEditor({
   onChange,
   governorates,
   eras,
+  categories = [],
 }: {
   field: FieldConfig;
   value: any;
   onChange: (next: any) => void;
   governorates: string[];
   eras: string[];
+  categories?: { value: string; label: string }[];
 }) {
   const { t } = useI18n();
   const label = t(field.label ?? humanize(field.name));
@@ -144,6 +146,14 @@ function FieldEditor({
       <div className="normal-case tracking-normal">{children}</div>
     </label>
   );
+
+  if (field.readOnly) {
+    return wrap(
+      <p className="mt-1 whitespace-pre-wrap break-words rounded-xl border border-border bg-muted/40 px-3 py-2 text-sm text-foreground">
+        {value == null || value === "" ? "—" : String(value)}
+      </p>,
+    );
+  }
 
   switch (field.type) {
     case "textarea":
@@ -221,6 +231,18 @@ function FieldEditor({
         </select>,
       );
     case "fk": {
+      if (field.fk === "emergency_categories") {
+        return wrap(
+          <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputClass}>
+            <option value="">—</option>
+            {categories.map((c) => (
+              <option key={c.value} value={c.value}>
+                {c.label}
+              </option>
+            ))}
+          </select>,
+        );
+      }
       const options = field.fk === "eras" ? eras : governorates;
       return wrap(
         <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputClass}>
@@ -264,6 +286,7 @@ function ContentForm({
   const [idTouched, setIdTouched] = useState(false);
   const [governorates, setGovernorates] = useState<string[]>([]);
   const [eras, setEras] = useState<string[]>([]);
+  const [categories, setCategories] = useState<{ value: string; label: string }[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -280,6 +303,7 @@ function ContentForm({
       }
       setGovernorates(result.governorates);
       setEras(result.eras);
+      setCategories(result.categories);
       if (result.row) {
         const row = result.row;
         const next: Record<string, any> = {};
@@ -325,7 +349,7 @@ function ContentForm({
         return;
       }
     }
-    if (isCreate && !idValue.trim()) {
+    if (isCreate && !cfg.autoPk && !idValue.trim()) {
       setError(t("An identifier is required."));
       return;
     }
@@ -335,7 +359,7 @@ function ContentForm({
         data: {
           table: cfg.table,
           mode: isCreate ? "create" : "update",
-          pk: isCreate ? idValue.trim() : pk!,
+          pk: isCreate ? (cfg.autoPk ? "auto" : idValue.trim()) : pk!,
           slug: slugValue.trim() || idValue.trim(),
           values,
         },
@@ -368,6 +392,7 @@ function ContentForm({
       </h2>
 
       <div className="mt-5 grid gap-4 rounded-2xl border border-border bg-card/40 p-5 sm:grid-cols-2">
+        {isCreate && cfg.autoPk ? null : (
         <label className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
           {t("Identifier")}
           <input
@@ -380,6 +405,7 @@ function ContentForm({
             className={`${inputClass} normal-case tracking-normal disabled:opacity-60`}
           />
         </label>
+        )}
         {cfg.slugColumn ? (
           <label className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
             {t("Slug")}
@@ -402,11 +428,13 @@ function ContentForm({
               onChange={(next) => setValue(field.name, next)}
               governorates={governorates}
               eras={eras}
+              categories={categories}
             />
           </div>
         ))}
       </div>
 
+      {governance.length > 0 ? (
       <div className="mt-5 rounded-2xl border border-border bg-card/20 p-5">
         <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold/80">
           {t("Governance")}
@@ -424,6 +452,7 @@ function ContentForm({
           ))}
         </div>
       </div>
+      ) : null}
 
       {error ? <p className="mt-4 text-sm text-destructive">{error}</p> : null}
 
@@ -461,6 +490,7 @@ function AdminContentTable() {
   const [state, setState] = useState<"loading" | "denied" | "ready">("loading");
   const [data, setData] = useState<ContentListPage | null>(null);
   const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState<Record<string, string>>({});
   const [editing, setEditing] = useState<{ pk: string | null } | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<{ pk: string; name: string } | null>(null);
   const [busy, setBusy] = useState(false);
@@ -473,14 +503,14 @@ function AdminContentTable() {
       setState("denied");
       return;
     }
-    const result = await load({ data: { table: cfg.table, page } });
+    const result = await load({ data: { table: cfg.table, page, filters } });
     if (!result.authorized) {
       setState("denied");
       return;
     }
     setData(result.data);
     setState("ready");
-  }, [cfg, load, page]);
+  }, [cfg, load, page, filters]);
 
   useEffect(() => {
     let active = true;
@@ -578,14 +608,37 @@ function AdminContentTable() {
           />
         ) : (
           <>
-            <div className="mt-6">
-              <button
-                type="button"
-                onClick={() => setEditing({ pk: null })}
-                className="rounded-full bg-gold px-5 py-2 text-sm font-semibold text-background"
-              >
-                {t("Add new")}
-              </button>
+            <div className="mt-6 flex flex-wrap items-end gap-3">
+              {cfg.noCreate ? null : (
+                <button
+                  type="button"
+                  onClick={() => setEditing({ pk: null })}
+                  className="rounded-full bg-gold px-5 py-2 text-sm font-semibold text-background"
+                >
+                  {t("Add new")}
+                </button>
+              )}
+              {(cfg.filters ?? []).map((f) => (
+                <label key={f.name} className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                  {t(f.label)}
+                  <select
+                    aria-label={f.label}
+                    value={filters[f.name] ?? ""}
+                    onChange={(e) => {
+                      setPage(1);
+                      setFilters((prev) => ({ ...prev, [f.name]: e.target.value }));
+                    }}
+                    className={`${inputClass} normal-case tracking-normal`}
+                  >
+                    <option value="">{t("All")}</option>
+                    {f.options.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ))}
             </div>
 
             <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
@@ -595,13 +648,16 @@ function AdminContentTable() {
                     <th className="px-4 py-3">{t("Identifier")}</th>
                     {cfg.slugColumn ? <th className="px-4 py-3">{t("Slug")}</th> : null}
                     <th className="px-4 py-3">{t("Name")}</th>
+                    {(cfg.listColumns ?? []).map((c) => (
+                      <th key={c} className="px-4 py-3">{t(humanize(c))}</th>
+                    ))}
                     <th className="px-4 py-3">{t("Actions")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {(data?.rows ?? []).length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="px-4 py-10 text-center text-muted-foreground">
+                      <td colSpan={4 + (cfg.listColumns?.length ?? 0)} className="px-4 py-10 text-center text-muted-foreground">
                         {t("No entries yet.")}
                       </td>
                     </tr>
@@ -612,7 +668,12 @@ function AdminContentTable() {
                       {cfg.slugColumn ? (
                         <td className="px-4 py-3 break-all text-muted-foreground">{row.slug ?? "—"}</td>
                       ) : null}
-                      <td className="px-4 py-3 text-foreground">{row.name ?? "—"}</td>
+                      <td className="px-4 py-3 whitespace-pre-wrap break-words text-foreground">{row.name ?? "—"}</td>
+                      {(cfg.listColumns ?? []).map((c) => (
+                        <td key={c} className="px-4 py-3 break-all text-muted-foreground">
+                          {row.extra?.[c] == null ? "—" : String(row.extra[c])}
+                        </td>
+                      ))}
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap gap-2">
                           <button
