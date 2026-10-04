@@ -11,7 +11,7 @@ export type Dict = Record<string, string>;
 const ar: Dict = {
   "Egypt Apps": "تطبيقات مصر",
   "Egypt Apps Directory": "دليل تطبيقات مصر",
-  "Official government and key service apps in Egypt, with direct links to Google Play, the App Store and official websites.": "التطبيقات الحكومية وتطبيقات الخدمات الأساسية في مصر، مع روابط مباشرة إلى Google Play وApp Store والمواقع الرسمية.",
+  "Key government and everyday service apps in Egypt, with direct links to Google Play, the App Store and official websites.": "تطبيقات حكومية وخدمية رئيسية في مصر، مع روابط مباشرة إلى Google Play وApp Store والمواقع الرسمية.",
   "Search apps by name, publisher or category": "ابحث عن تطبيق بالاسم أو الناشر أو الفئة",
   "Government": "حكومي",
   "Private": "خاص",

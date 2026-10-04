@@ -85,6 +85,13 @@
       "when": 1791112649986,
       "tag": "0011_egypt_apps_hide_internal_notes_from_anon",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791130762122,
+      "tag": "0012_tighten_anon_grants_emergency_apps",
+      "breakpoints": true
     }
   ]
 }
