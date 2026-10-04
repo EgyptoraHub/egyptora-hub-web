@@ -14,6 +14,74 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_categories: {
+        Row: {
+          created_at: string
+          icon: string | null
+          id: string
+          is_active: boolean
+          name_ar: string
+          name_en: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          name_ar: string
+          name_en: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          name_ar?: string
+          name_en?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      app_reports: {
+        Row: {
+          app_id: string | null
+          contact_email: string | null
+          created_at: string
+          handled: boolean
+          id: string
+          message: string
+        }
+        Insert: {
+          app_id?: string | null
+          contact_email?: string | null
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message: string
+        }
+        Update: {
+          app_id?: string | null
+          contact_email?: string | null
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "app_reports_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "egypt_apps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookings: {
         Row: {
           amount: number | null
@@ -349,6 +417,86 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "governorates"
             referencedColumns: ["slug"]
+          },
+        ]
+      }
+      egypt_apps: {
+        Row: {
+          app_store_url: string | null
+          app_type: string
+          category_id: string
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          google_play_url: string | null
+          governance_status: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          is_featured: boolean
+          last_link_check: string | null
+          last_verified_at: string
+          name_ar: string
+          name_en: string
+          publisher: string | null
+          sort_order: number
+          status: string
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          app_store_url?: string | null
+          app_type: string
+          category_id: string
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          google_play_url?: string | null
+          governance_status?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          last_link_check?: string | null
+          last_verified_at?: string
+          name_ar: string
+          name_en: string
+          publisher?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          app_store_url?: string | null
+          app_type?: string
+          category_id?: string
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          google_play_url?: string | null
+          governance_status?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          last_link_check?: string | null
+          last_verified_at?: string
+          name_ar?: string
+          name_en?: string
+          publisher?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "egypt_apps_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "app_categories"
+            referencedColumns: ["id"]
           },
         ]
       }
