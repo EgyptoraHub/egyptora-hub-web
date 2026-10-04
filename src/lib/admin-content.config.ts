@@ -27,6 +27,8 @@ export type FieldConfig = {
   fk?: "governorates" | "eras";
   /** governance fields render in their own section */
   governance?: boolean;
+  /** optional display label override */
+  label?: string;
 };
 
 export type TableConfig = {
@@ -84,14 +86,17 @@ export const CONTENT_TABLES: TableConfig[] = [
       t("name_ar"),
       t("number"),
       t("dial_string"),
-      t("availability"),
+      t("availability_ar"),
+      t("availability_en"),
+      ta("public_note_ar"),
+      ta("public_note_en"),
       { name: "status", type: "select", options: ["verified", "needs_check"] },
       bool("is_active"),
       bool("is_primary"),
       int("sort_order"),
       date("last_verified_at"),
       t("source_url"),
-      ta("notes"),
+      { name: "notes", type: "textarea", label: "Internal notes" },
       t("governance_status"),
     ],
   },
@@ -100,7 +105,7 @@ export const CONTENT_TABLES: TableConfig[] = [
     label: "Emergency number reports",
     pk: "id",
     displayColumn: "message",
-    fields: [bool("handled")],
+    fields: [ta("message"), t("contact_email"), bool("handled")],
   },
   {
     table: "governorates",

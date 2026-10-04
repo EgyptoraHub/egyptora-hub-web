@@ -136,7 +136,7 @@ function FieldEditor({
   eras: string[];
 }) {
   const { t } = useI18n();
-  const label = t(humanize(field.name));
+  const label = t(field.label ?? humanize(field.name));
 
   const wrap = (children: React.ReactNode) => (
     <label className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
