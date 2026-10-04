@@ -265,7 +265,7 @@ function NumberItem({ n, label, onReport }: { n: NumberRow; label: string; onRep
   };
   return (
     <li className="flex flex-wrap items-center gap-x-3 gap-y-1 px-5 py-3">
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0 basis-full sm:basis-0 sm:flex-1">
         <p className="flex items-center gap-1 text-sm font-semibold text-navy">
           {label}
           {n.notes && (
