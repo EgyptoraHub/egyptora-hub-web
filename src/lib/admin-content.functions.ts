@@ -2,12 +2,13 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { CONTENT_TABLES, getTableConfig, type FieldConfig } from "@/lib/admin-content.config";
 
-export type ContentTableSummary = { table: string; label: string; count: number };
+export type ContentTableSummary = { table: string; label: string; group: string; count: number };
 
 export type ContentRowSummary = {
   pk: string;
   slug: string | null;
   name: string | null;
+  extra: Record<string, any>;
 };
 
 export type ContentListPage = {
@@ -124,7 +125,7 @@ export const listContentTables = createServerFn({ method: "POST" })
         const { count } = await supabaseAdmin
           .from(cfg.table as any)
           .select("*", { count: "exact", head: true });
-        return { table: cfg.table, label: cfg.label, count: count ?? 0 };
+        return { table: cfg.table, label: cfg.label, group: cfg.group ?? "Site content", count: count ?? 0 };
       }),
     );
     return { authorized: true, tables };
@@ -133,7 +134,7 @@ export const listContentTables = createServerFn({ method: "POST" })
 /** Admin-only: paginated row list for one configured table. */
 export const listContentRows = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { table: string; page?: number }) => {
+  .inputValidator((input: { table: string; page?: number; filters?: Record<string, string> }) => {
     if (!getTableConfig(input?.table)) throw new Error("Unknown table");
     return input;
   })
@@ -144,11 +145,16 @@ export const listContentRows = createServerFn({ method: "POST" })
 
     const page = Math.max(1, Math.floor(data.page ?? 1));
     const from = (page - 1) * CONTENT_PAGE_SIZE;
-    const cols = [cfg.pk, cfg.slugColumn, cfg.displayColumn].filter(Boolean).join(", ");
+    const extraCols = cfg.listColumns ?? [];
+    const cols = Array.from(new Set([cfg.pk, cfg.slugColumn, cfg.displayColumn, ...extraCols].filter(Boolean))).join(", ");
 
-    const { data: rows, count } = await supabaseAdmin
-      .from(cfg.table as any)
-      .select(cols, { count: "exact" })
+    let query = supabaseAdmin.from(cfg.table as any).select(cols, { count: "exact" });
+    // Only allow-listed filters, equality only.
+    for (const f of cfg.filters ?? []) {
+      const v = data.filters?.[f.name];
+      if (v && f.options.includes(v)) query = query.eq(f.name, v === "true" ? true : v === "false" ? false : v);
+    }
+    const { data: rows, count } = await query
       .order(cfg.displayColumn, { ascending: true })
       .range(from, from + CONTENT_PAGE_SIZE - 1);
 
@@ -156,6 +162,7 @@ export const listContentRows = createServerFn({ method: "POST" })
       pk: String(r[cfg.pk]),
       slug: cfg.slugColumn ? (r[cfg.slugColumn] ?? null) : null,
       name: r[cfg.displayColumn] ?? null,
+      extra: Object.fromEntries(extraCols.map((c) => [c, r[c] ?? null])),
     }));
 
     return {
@@ -182,7 +189,12 @@ export const getContentRow = createServerFn({ method: "POST" })
       data,
       context,
     }): Promise<
-      Denied | Ok<{ row: Record<string, any> | null; governorates: string[]; eras: string[] }>
+      Denied | Ok<{
+        row: Record<string, any> | null;
+        governorates: string[];
+        eras: string[];
+        categories: { value: string; label: string }[];
+      }>
     > => {
       if (!(await isAdmin(context))) return { authorized: false };
       const cfg = getTableConfig(data.table)!;
@@ -212,7 +224,12 @@ export const getContentRow = createServerFn({ method: "POST" })
           }[]).map((e) => e.key)
         : [];
 
-      return { authorized: true, row, governorates, eras };
+      const categories = cfg.fields.some((f) => f.fk === "emergency_categories")
+        ? (((await supabaseAdmin.from("emergency_categories").select("id, name_en").order("sort_order")).data ??
+            []) as { id: string; name_en: string }[]).map((c) => ({ value: c.id, label: c.name_en }))
+        : [];
+
+      return { authorized: true, row, governorates, eras, categories };
     },
   );
 
@@ -242,6 +259,7 @@ export const saveContentRow = createServerFn({ method: "POST" })
       const payload: Record<string, any> = {};
       try {
         for (const field of cfg.fields) {
+          if (field.readOnly) continue;
           const value = coerce(field, data.values?.[field.name]);
           if (value !== undefined) payload[field.name] = value;
         }
@@ -252,7 +270,8 @@ export const saveContentRow = createServerFn({ method: "POST" })
       payload["updated_at"] = new Date().toISOString();
 
       if (data.mode === "create") {
-        const pk = String(data.pk).trim();
+        if (cfg.noCreate) return { authorized: true, ok: false, error: "New entries cannot be added here." };
+        const pk = cfg.autoPk ? crypto.randomUUID() : String(data.pk).trim();
         const { data: existing } = await supabaseAdmin
           .from(cfg.table as any)
           .select(cfg.pk)

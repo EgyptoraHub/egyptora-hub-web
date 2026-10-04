@@ -24,12 +24,16 @@ export type FieldConfig = {
   /** select options */
   options?: string[];
   /** foreign key source for type "fk" */
-  fk?: "governorates" | "eras";
+  fk?: "governorates" | "eras" | "emergency_categories";
   /** governance fields render in their own section */
   governance?: boolean;
   /** optional display label override */
   label?: string;
+  /** shown in the editor but never written */
+  readOnly?: boolean;
 };
+
+export type ListFilter = { name: string; label: string; options: string[] };
 
 export type TableConfig = {
   table: string;
@@ -40,7 +44,19 @@ export type TableConfig = {
   /** column used as the human label in lists */
   displayColumn: string;
   fields: FieldConfig[];
+  /** group heading on the content index */
+  group?: string;
+  /** hide "Add new" */
+  noCreate?: boolean;
+  /** uuid primary key generated on create (no identifier input) */
+  autoPk?: boolean;
+  /** extra columns shown in the list table */
+  listColumns?: string[];
+  /** quick equality filters on the list */
+  filters?: ListFilter[];
 };
+
+export const EMERGENCY_GROUP = "Emergency & Quick Numbers";
 
 const GOVERNANCE: FieldConfig[] = [
   { name: "source_status", type: "select", options: ["DEMO", "VERIFIED", "OFFICIAL"], governance: true },
@@ -70,42 +86,58 @@ export const CONTENT_TABLES: TableConfig[] = [
   {
     table: "emergency_categories",
     label: "Emergency categories",
+    group: EMERGENCY_GROUP,
     pk: "id",
+    autoPk: true,
     slugColumn: "slug",
     displayColumn: "name_en",
-    fields: [t("name_en"), t("name_ar"), t("color"), int("sort_order"), bool("is_active")],
+    listColumns: ["color", "sort_order", "is_active"],
+    fields: [t("name_ar"), t("name_en"), t("color"), int("sort_order"), bool("is_active")],
   },
   {
     table: "emergency_numbers",
     label: "Emergency numbers",
+    group: EMERGENCY_GROUP,
     pk: "id",
+    autoPk: true,
     displayColumn: "name_en",
+    listColumns: ["number", "status", "is_active"],
+    filters: [
+      { name: "status", label: "Status", options: ["verified", "needs_check"] },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
     fields: [
-      t("category_id"),
-      t("name_en"),
       t("name_ar"),
+      t("name_en"),
       t("number"),
       t("dial_string"),
+      { name: "category_id", type: "fk", fk: "emergency_categories", label: "Category" },
       t("availability_ar"),
       t("availability_en"),
       ta("public_note_ar"),
       ta("public_note_en"),
       { name: "status", type: "select", options: ["verified", "needs_check"] },
-      bool("is_active"),
+      t("source_url"),
       bool("is_primary"),
+      bool("is_active"),
       int("sort_order"),
       date("last_verified_at"),
-      t("source_url"),
-      { name: "notes", type: "textarea", label: "Internal notes" },
-      t("governance_status"),
+      { name: "notes", type: "textarea", label: "Internal notes — never shown publicly" },
     ],
   },
   {
     table: "emergency_reports",
     label: "Emergency number reports",
+    group: EMERGENCY_GROUP,
     pk: "id",
+    noCreate: true,
     displayColumn: "message",
-    fields: [ta("message"), t("contact_email"), bool("handled")],
+    listColumns: ["contact_email", "handled", "created_at"],
+    fields: [
+      { name: "message", type: "textarea", readOnly: true },
+      { name: "contact_email", type: "text", readOnly: true },
+      bool("handled"),
+    ],
   },
   {
     table: "governorates",
