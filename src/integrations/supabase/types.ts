@@ -352,6 +352,142 @@ export type Database = {
           },
         ]
       }
+      emergency_categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          name_ar: string
+          name_en: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name_ar: string
+          name_en: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name_ar?: string
+          name_en?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      emergency_numbers: {
+        Row: {
+          availability: string | null
+          category_id: string
+          created_at: string
+          dial_string: string
+          governance_status: string | null
+          id: string
+          is_active: boolean
+          is_primary: boolean
+          last_verified_at: string
+          name_ar: string
+          name_en: string
+          notes: string | null
+          number: string
+          sort_order: number
+          source_url: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          availability?: string | null
+          category_id: string
+          created_at?: string
+          dial_string: string
+          governance_status?: string | null
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
+          last_verified_at?: string
+          name_ar: string
+          name_en: string
+          notes?: string | null
+          number: string
+          sort_order?: number
+          source_url?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          availability?: string | null
+          category_id?: string
+          created_at?: string
+          dial_string?: string
+          governance_status?: string | null
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
+          last_verified_at?: string
+          name_ar?: string
+          name_en?: string
+          notes?: string | null
+          number?: string
+          sort_order?: number
+          source_url?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_numbers_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "emergency_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emergency_reports: {
+        Row: {
+          contact_email: string | null
+          created_at: string
+          handled: boolean
+          id: string
+          message: string
+          number_id: string | null
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message: string
+          number_id?: string | null
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message?: string
+          number_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_reports_number_id_fkey"
+            columns: ["number_id"]
+            isOneToOne: false
+            referencedRelation: "emergency_numbers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       eras: {
         Row: {
           colour: string | null

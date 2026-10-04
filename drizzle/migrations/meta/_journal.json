@@ -50,6 +50,13 @@
       "when": 1790523254261,
       "tag": "0006_partner_changes_requested",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791109187371,
+      "tag": "0007_create_emergency_numbers",
+      "breakpoints": true
     }
   ]
 }
