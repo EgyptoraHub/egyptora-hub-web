@@ -66,6 +66,43 @@ const eraFk: FieldConfig = { name: "era", type: "fk", fk: "eras" };
 
 export const CONTENT_TABLES: TableConfig[] = [
   {
+    table: "emergency_categories",
+    label: "Emergency categories",
+    pk: "id",
+    slugColumn: "slug",
+    displayColumn: "name_en",
+    fields: [t("name_en"), t("name_ar"), t("color"), int("sort_order"), bool("is_active")],
+  },
+  {
+    table: "emergency_numbers",
+    label: "Emergency numbers",
+    pk: "id",
+    displayColumn: "name_en",
+    fields: [
+      t("category_id"),
+      t("name_en"),
+      t("name_ar"),
+      t("number"),
+      t("dial_string"),
+      t("availability"),
+      { name: "status", type: "select", options: ["verified", "needs_check"] },
+      bool("is_active"),
+      bool("is_primary"),
+      int("sort_order"),
+      date("last_verified_at"),
+      t("source_url"),
+      ta("notes"),
+      t("governance_status"),
+    ],
+  },
+  {
+    table: "emergency_reports",
+    label: "Emergency number reports",
+    pk: "id",
+    displayColumn: "message",
+    fields: [bool("handled")],
+  },
+  {
     table: "governorates",
     label: "Governorates",
     pk: "id",

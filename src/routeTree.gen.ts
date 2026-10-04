@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as DoBusinessRouteImport } from './routes/do-business'
 import { Route as EgyptianHeritageWorldwideRouteImport } from './routes/egyptian-heritage-worldwide'
+import { Route as EmergencyNumbersRouteImport } from './routes/emergency-numbers'
 import { Route as EncyclopediaRouteImport } from './routes/encyclopedia'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as ExploreEgyptRouteImport } from './routes/explore-egypt'
@@ -135,6 +136,11 @@ const EgyptianHeritageWorldwideRoute =
     path: '/egyptian-heritage-worldwide',
     getParentRoute: () => rootRouteImport,
   } as any)
+const EmergencyNumbersRoute = EmergencyNumbersRouteImport.update({
+  id: '/emergency-numbers',
+  path: '/emergency-numbers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EncyclopediaRoute = EncyclopediaRouteImport.update({
   id: '/encyclopedia',
   path: '/encyclopedia',
@@ -503,6 +509,7 @@ export interface FileRoutesByFullPath {
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
+  '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
@@ -583,6 +590,7 @@ export interface FileRoutesByTo {
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
+  '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
@@ -665,6 +673,7 @@ export interface FileRoutesById {
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
+  '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
@@ -748,6 +757,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/do-business'
     | '/egyptian-heritage-worldwide'
+    | '/emergency-numbers'
     | '/encyclopedia'
     | '/events'
     | '/explore-egypt'
@@ -828,6 +838,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/do-business'
     | '/egyptian-heritage-worldwide'
+    | '/emergency-numbers'
     | '/encyclopedia'
     | '/events'
     | '/explore-egypt'
@@ -909,6 +920,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/do-business'
     | '/egyptian-heritage-worldwide'
+    | '/emergency-numbers'
     | '/encyclopedia'
     | '/events'
     | '/explore-egypt'
@@ -991,6 +1003,7 @@ export interface RootRouteChildren {
   CountriesRoute: typeof CountriesRoute
   DoBusinessRoute: typeof DoBusinessRoute
   EgyptianHeritageWorldwideRoute: typeof EgyptianHeritageWorldwideRoute
+  EmergencyNumbersRoute: typeof EmergencyNumbersRoute
   EncyclopediaRoute: typeof EncyclopediaRoute
   EventsRoute: typeof EventsRoute
   ExploreEgyptRoute: typeof ExploreEgyptRoute
@@ -1115,6 +1128,13 @@ declare module '@tanstack/react-router' {
       path: '/egyptian-heritage-worldwide'
       fullPath: '/egyptian-heritage-worldwide'
       preLoaderRoute: typeof EgyptianHeritageWorldwideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emergency-numbers': {
+      id: '/emergency-numbers'
+      path: '/emergency-numbers'
+      fullPath: '/emergency-numbers'
+      preLoaderRoute: typeof EmergencyNumbersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/encyclopedia': {
@@ -1650,6 +1670,7 @@ const rootRouteChildren: RootRouteChildren = {
   CountriesRoute: CountriesRoute,
   DoBusinessRoute: DoBusinessRoute,
   EgyptianHeritageWorldwideRoute: EgyptianHeritageWorldwideRoute,
+  EmergencyNumbersRoute: EmergencyNumbersRoute,
   EncyclopediaRoute: EncyclopediaRoute,
   EventsRoute: EventsRoute,
   ExploreEgyptRoute: ExploreEgyptRoute,

@@ -340,13 +340,15 @@ function AccountPage() {
                 {t("Admin Dashboard")}
               </Link>
             )}
-            <a
-              href={mailto("Egyptora Hub — emergency assistance during my trip")}
+            <Link
+              to="/emergency-numbers"
               className="flex items-center gap-2 rounded-full bg-hot px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-hot/20"
             >
               <LifeBuoy className="size-4" />
               {t("Emergency help")}
-            </a>
+            </Link>
+            <a href="tel:122" dir="ltr" aria-label={t("Call police 122")} className="flex min-h-11 items-center rounded-full border border-hot/40 px-3 text-sm font-semibold text-hot">122</a>
+            <a href="tel:123" dir="ltr" aria-label={t("Call ambulance 123")} className="flex min-h-11 items-center rounded-full border border-hot/40 px-3 text-sm font-semibold text-hot">123</a>
             <button
               type="button"
               onClick={() => void handleSignOut()}
