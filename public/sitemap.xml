@@ -16,4 +16,17 @@
   <url><loc>https://egyptora-hub.com/government-directory/digital-services</loc></url>
   <url><loc>https://egyptora-hub.com/real-estate</loc></url>
   <url><loc>https://egyptora-hub.com/emergency-numbers</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/government_services</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/transport</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/health</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/banking_payments</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/telecom</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/social_insurance_tax</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/tourism</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/shopping_delivery</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/ecommerce_marketplace</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/real_estate</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/jobs</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/egypt-apps/news_media</loc><changefreq>monthly</changefreq></url>
 </urlset>

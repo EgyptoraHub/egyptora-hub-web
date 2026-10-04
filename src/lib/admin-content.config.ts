@@ -24,7 +24,7 @@ export type FieldConfig = {
   /** select options */
   options?: string[];
   /** foreign key source for type "fk" */
-  fk?: "governorates" | "eras" | "emergency_categories";
+  fk?: "governorates" | "eras" | "emergency_categories" | "app_categories";
   /** governance fields render in their own section */
   governance?: boolean;
   /** optional display label override */
@@ -33,7 +33,13 @@ export type FieldConfig = {
   readOnly?: boolean;
 };
 
-export type ListFilter = { name: string; label: string; options: string[] };
+export type ListFilter = {
+  name: string;
+  label: string;
+  options: string[];
+  /** options loaded from a category table (value = id, label = name_en) */
+  fromTable?: "app_categories" | "emergency_categories";
+};
 
 export type TableConfig = {
   table: string;
@@ -59,6 +65,7 @@ export type TableConfig = {
 };
 
 export const EMERGENCY_GROUP = "Emergency & Quick Numbers";
+export const APPS_GROUP = "Egypt Apps";
 
 const GOVERNANCE: FieldConfig[] = [
   { name: "source_status", type: "select", options: ["DEMO", "VERIFIED", "OFFICIAL"], governance: true },
@@ -132,6 +139,68 @@ export const CONTENT_TABLES: TableConfig[] = [
     table: "emergency_reports",
     label: "Emergency number reports",
     group: EMERGENCY_GROUP,
+    pk: "id",
+    noCreate: true,
+    noUpdatedAt: true,
+    displayColumn: "message",
+    listColumns: ["contact_email", "handled", "created_at"],
+    fields: [
+      { name: "message", type: "textarea", readOnly: true },
+      { name: "contact_email", type: "text", readOnly: true },
+      bool("handled"),
+    ],
+  },
+  {
+    table: "app_categories",
+    label: "App categories",
+    group: APPS_GROUP,
+    pk: "id",
+    autoPk: true,
+    noUpdatedAt: true,
+    slugColumn: "slug",
+    displayColumn: "name_en",
+    listColumns: ["icon", "sort_order", "is_active"],
+    fields: [t("name_ar"), t("name_en"), t("icon"), int("sort_order"), bool("is_active")],
+  },
+  {
+    table: "egypt_apps",
+    label: "Egypt apps",
+    group: APPS_GROUP,
+    pk: "id",
+    autoPk: true,
+    displayColumn: "name_en",
+    listColumns: ["app_type", "status", "is_active"],
+    filters: [
+      { name: "status", label: "Status", options: ["verified", "needs_check"] },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+      { name: "app_type", label: "Type", options: ["government", "service", "private"] },
+      { name: "category_id", label: "Category", options: [], fromTable: "app_categories" },
+    ],
+    fields: [
+      t("name_ar"),
+      t("name_en"),
+      { name: "category_id", type: "fk", fk: "app_categories", label: "Category" },
+      { name: "app_type", type: "select", options: ["government", "service", "private"] },
+      t("publisher"),
+      t("google_play_url"),
+      t("app_store_url"),
+      t("website_url"),
+      ta("description_ar"),
+      ta("description_en"),
+      { name: "status", type: "select", options: ["verified", "needs_check"] },
+      bool("is_active"),
+      bool("is_featured"),
+      int("sort_order"),
+      date("last_verified_at"),
+      date("last_link_check"),
+      t("governance_status"),
+      { name: "internal_notes", type: "textarea", label: "Internal notes — never shown publicly" },
+    ],
+  },
+  {
+    table: "app_reports",
+    label: "App reports",
+    group: APPS_GROUP,
     pk: "id",
     noCreate: true,
     noUpdatedAt: true,

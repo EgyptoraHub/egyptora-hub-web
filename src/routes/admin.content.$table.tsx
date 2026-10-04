@@ -231,7 +231,7 @@ function FieldEditor({
         </select>,
       );
     case "fk": {
-      if (field.fk === "emergency_categories") {
+      if (field.fk === "emergency_categories" || field.fk === "app_categories") {
         return wrap(
           <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputClass}>
             <option value="">—</option>
@@ -631,9 +631,9 @@ function AdminContentTable() {
                     className={`${inputClass} normal-case tracking-normal`}
                   >
                     <option value="">{t("All")}</option>
-                    {f.options.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
+                    {(data?.filterOptions?.[f.name] ?? f.options.map((o) => ({ value: o, label: o }))).map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
                       </option>
                     ))}
                   </select>
