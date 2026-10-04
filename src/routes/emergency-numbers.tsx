@@ -67,8 +67,8 @@ function luminance(hex: string) {
 /** White text when it reaches 4.5:1 on the category colour, otherwise near-black text. */
 function headerTextIsWhite(hex: string | null) {
   if (!hex || !/^#[0-9a-f]{6}$/i.test(hex)) return true;
-  // Dark text is navy-black (~#0B1622, luminance ≈ 0.008); keep white unless dark reaches 4.5:1.
-  return (luminance(hex) + 0.05) / (0.008 + 0.05) < 4.5;
+  // Dark text is the navy token (#06213A, luminance ≈ 0.015); keep white unless dark reaches 4.5:1.
+  return (luminance(hex) + 0.05) / (0.015 + 0.05) < 4.5;
 }
 
 const isWhatsAppOnly = (n: NumberRow) => n.dial_string.startsWith("+") && /whatsapp/i.test(n.name_en);
