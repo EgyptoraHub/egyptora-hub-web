@@ -17,6 +17,7 @@ import { Route as BecomeAPartnerRouteImport } from './routes/become-a-partner'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as DoBusinessRouteImport } from './routes/do-business'
+import { Route as EgyptAppsRouteImport } from './routes/egypt-apps'
 import { Route as EgyptianHeritageWorldwideRouteImport } from './routes/egyptian-heritage-worldwide'
 import { Route as EmergencyNumbersRouteImport } from './routes/emergency-numbers'
 import { Route as EncyclopediaRouteImport } from './routes/encyclopedia'
@@ -53,6 +54,7 @@ import { Route as AdminPartnersRouteImport } from './routes/admin.partners'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
+import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
 import { Route as EventsIdRouteImport } from './routes/events_.$id'
 import { Route as ExperiencesTypeRouteImport } from './routes/experiences.$type'
@@ -128,6 +130,11 @@ const CountriesRoute = CountriesRouteImport.update({
 const DoBusinessRoute = DoBusinessRouteImport.update({
   id: '/do-business',
   path: '/do-business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EgyptAppsRoute = EgyptAppsRouteImport.update({
+  id: '/egypt-apps',
+  path: '/egypt-apps',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EgyptianHeritageWorldwideRoute =
@@ -309,6 +316,11 @@ const ApiConciergeRoute = ApiConciergeRouteImport.update({
 const CountriesIdRoute = CountriesIdRouteImport.update({
   id: '/countries_/$id',
   path: '/countries/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EgyptAppsCategoryRoute = EgyptAppsCategoryRouteImport.update({
+  id: '/egypt-apps_/$category',
+  path: '/egypt-apps/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EgyptianHeritageWorldwideIdRoute =
@@ -508,6 +520,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
+  '/egypt-apps': typeof EgyptAppsRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
@@ -543,6 +556,7 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
+  '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
@@ -589,6 +603,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
+  '/egypt-apps': typeof EgyptAppsRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
@@ -624,6 +639,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
+  '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
@@ -672,6 +688,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
+  '/egypt-apps': typeof EgyptAppsRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
@@ -707,6 +724,7 @@ export interface FileRoutesById {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries_/$id': typeof CountriesIdRoute
+  '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events_/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
@@ -756,6 +774,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/countries'
     | '/do-business'
+    | '/egypt-apps'
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
@@ -791,6 +810,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries/$id'
+    | '/egypt-apps/$category'
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
     | '/experiences/$type'
@@ -837,6 +857,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/countries'
     | '/do-business'
+    | '/egypt-apps'
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
@@ -872,6 +893,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries/$id'
+    | '/egypt-apps/$category'
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
     | '/experiences/$type'
@@ -919,6 +941,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/countries'
     | '/do-business'
+    | '/egypt-apps'
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
@@ -954,6 +977,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries_/$id'
+    | '/egypt-apps_/$category'
     | '/egyptian-heritage-worldwide_/$id'
     | '/events_/$id'
     | '/experiences/$type'
@@ -1002,6 +1026,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CountriesRoute: typeof CountriesRoute
   DoBusinessRoute: typeof DoBusinessRoute
+  EgyptAppsRoute: typeof EgyptAppsRoute
   EgyptianHeritageWorldwideRoute: typeof EgyptianHeritageWorldwideRoute
   EmergencyNumbersRoute: typeof EmergencyNumbersRoute
   EncyclopediaRoute: typeof EncyclopediaRoute
@@ -1032,6 +1057,7 @@ export interface RootRouteChildren {
   AccountBookingsRoute: typeof AccountBookingsRoute
   ApiConciergeRoute: typeof ApiConciergeRoute
   CountriesIdRoute: typeof CountriesIdRoute
+  EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
   EventsIdRoute: typeof EventsIdRoute
   ExperiencesTypeRoute: typeof ExperiencesTypeRoute
@@ -1121,6 +1147,13 @@ declare module '@tanstack/react-router' {
       path: '/do-business'
       fullPath: '/do-business'
       preLoaderRoute: typeof DoBusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egypt-apps': {
+      id: '/egypt-apps'
+      path: '/egypt-apps'
+      fullPath: '/egypt-apps'
+      preLoaderRoute: typeof EgyptAppsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egyptian-heritage-worldwide': {
@@ -1373,6 +1406,13 @@ declare module '@tanstack/react-router' {
       path: '/countries/$id'
       fullPath: '/countries/$id'
       preLoaderRoute: typeof CountriesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egypt-apps_/$category': {
+      id: '/egypt-apps_/$category'
+      path: '/egypt-apps/$category'
+      fullPath: '/egypt-apps/$category'
+      preLoaderRoute: typeof EgyptAppsCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egyptian-heritage-worldwide_/$id': {
@@ -1669,6 +1709,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CountriesRoute: CountriesRoute,
   DoBusinessRoute: DoBusinessRoute,
+  EgyptAppsRoute: EgyptAppsRoute,
   EgyptianHeritageWorldwideRoute: EgyptianHeritageWorldwideRoute,
   EmergencyNumbersRoute: EmergencyNumbersRoute,
   EncyclopediaRoute: EncyclopediaRoute,
@@ -1699,6 +1740,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountBookingsRoute: AccountBookingsRoute,
   ApiConciergeRoute: ApiConciergeRoute,
   CountriesIdRoute: CountriesIdRoute,
+  EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
   EventsIdRoute: EventsIdRoute,
   ExperiencesTypeRoute: ExperiencesTypeRoute,

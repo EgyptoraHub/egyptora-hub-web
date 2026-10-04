@@ -72,6 +72,7 @@ const discoverLinks: FLink[] = [
   { label: "Investment Opportunities", to: "/investment-opportunities" },
   { label: "Digital Government Services", to: "/government-directory/digital-services" },
   { label: "Emergency & Quick Numbers", to: "/emergency-numbers" },
+  { label: "Egypt Apps", to: "/egypt-apps" },
 ];
 
 const aboutLinks: FLink[] = [

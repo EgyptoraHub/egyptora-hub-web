@@ -13,6 +13,7 @@ export type ContentRowSummary = {
 
 export type ContentListPage = {
   table: string;
+  filterOptions: Record<string, { value: string; label: string }[]>;
   rows: ContentRowSummary[];
   total: number;
   page: number;
@@ -150,9 +151,16 @@ export const listContentRows = createServerFn({ method: "POST" })
 
     let query = supabaseAdmin.from(cfg.table as any).select(cols, { count: "exact" });
     // Only allow-listed filters, equality only.
+    const filterOptions: Record<string, { value: string; label: string }[]> = {};
     for (const f of cfg.filters ?? []) {
+      if (f.fromTable) {
+        const { data: opts } = await supabaseAdmin.from(f.fromTable).select("id, name_en").order("sort_order");
+        filterOptions[f.name] = ((opts ?? []) as { id: string; name_en: string }[]).map((o) => ({ value: o.id, label: o.name_en }));
+      } else {
+        filterOptions[f.name] = f.options.map((o) => ({ value: o, label: o }));
+      }
       const v = data.filters?.[f.name];
-      if (v && f.options.includes(v)) query = query.eq(f.name, v === "true" ? true : v === "false" ? false : v);
+      if (v && filterOptions[f.name]!.some((o) => o.value === v)) query = query.eq(f.name, v === "true" ? true : v === "false" ? false : v);
     }
     const { data: rows, count } = await query
       .order(cfg.displayColumn, { ascending: true })
@@ -169,6 +177,7 @@ export const listContentRows = createServerFn({ method: "POST" })
       authorized: true,
       data: {
         table: cfg.table,
+        filterOptions,
         rows: mapped,
         total: count ?? 0,
         page,
@@ -224,8 +233,12 @@ export const getContentRow = createServerFn({ method: "POST" })
           }[]).map((e) => e.key)
         : [];
 
-      const categories = cfg.fields.some((f) => f.fk === "emergency_categories")
-        ? (((await supabaseAdmin.from("emergency_categories").select("id, name_en").order("sort_order")).data ??
+      const catFk = cfg.fields.find((f) => f.fk === "emergency_categories" || f.fk === "app_categories")?.fk as
+        | "emergency_categories"
+        | "app_categories"
+        | undefined;
+      const categories = catFk
+        ? (((await supabaseAdmin.from(catFk).select("id, name_en").order("sort_order")).data ??
             []) as { id: string; name_en: string }[]).map((c) => ({ value: c.id, label: c.name_en }))
         : [];
 

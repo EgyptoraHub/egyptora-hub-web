@@ -119,6 +119,7 @@ export const mainNav: NavEntry[] = [
       { label: "Official Directory", to: "/government-directory" },
       { label: "Digital Government Services", to: "/government-directory/digital-services" },
       { label: "Emergency & Quick Numbers", to: "/emergency-numbers" },
+      { label: "Egypt Apps", to: "/egypt-apps" },
     ],
   },
   {
