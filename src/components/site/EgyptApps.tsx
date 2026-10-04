@@ -153,8 +153,8 @@ export function EgyptAppsDirectory({
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-primary-foreground/80">
             {category
-              ? `${filtered.length} ${t("apps")}`
-              : t("Official government and key service apps in Egypt, with direct links to Google Play, the App Store and official websites.")}
+              ? appCount(filtered.length, lang)
+              : t("Key government and everyday service apps in Egypt, with direct links to Google Play, the App Store and official websites.")}
           </p>
           <label className="mt-6 flex max-w-xl items-center gap-2 rounded-full bg-background px-4 py-2.5 text-foreground">
             <Search className="size-4 text-muted-foreground" aria-hidden="true" />
@@ -195,7 +195,7 @@ export function EgyptAppsDirectory({
                     >
                       <Icon className="size-6 text-navy" aria-hidden="true" />
                       <span className="text-sm font-semibold text-navy">{name(c)}</span>
-                      <span className="text-xs text-muted-foreground">{counts.get(c.id)} {t("apps")}</span>
+                      <span className="text-xs text-muted-foreground">{appCount(counts.get(c.id) ?? 0, lang)}</span>
                     </Link>
                   );
                 })}
@@ -425,4 +425,18 @@ export function AppsCategoryNotFound() {
       <SiteFooter />
     </div>
   );
+}
+
+/** Proper plural for app counts: Arabic rules for ar, English rule for every other language. */
+export function appCount(n: number, lang: string): string {
+  if (lang === "ar") {
+    const r = new Intl.PluralRules("ar").select(n);
+    const num = n.toLocaleString("ar-EG");
+    if (r === "zero") return `${num} تطبيق`;
+    if (r === "one") return "تطبيق واحد";
+    if (r === "two") return "تطبيقان";
+    if (r === "few") return `${num} تطبيقات`;
+    return `${num} تطبيقًا`;
+  }
+  return `${n} ${n === 1 ? "app" : "apps"}`;
 }

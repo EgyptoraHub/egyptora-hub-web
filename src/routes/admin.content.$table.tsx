@@ -160,6 +160,7 @@ function FieldEditor({
       return wrap(
         <textarea
           rows={4}
+          dir={field.name.endsWith("_ar") ? "auto" : undefined}
           value={value ?? ""}
           onChange={(e) => onChange(e.target.value)}
           className={inputClass}
@@ -257,7 +258,7 @@ function FieldEditor({
     }
     default:
       return wrap(
-        <input value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputClass} />,
+        <input dir={field.name.endsWith("_ar") ? "auto" : undefined} value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputClass} />,
       );
   }
 }
