@@ -129,6 +129,7 @@ function FieldEditor({
   governorates,
   eras,
   categories = [],
+  fkOptions = {},
 }: {
   field: FieldConfig;
   value: any;
@@ -136,6 +137,7 @@ function FieldEditor({
   governorates: string[];
   eras: string[];
   categories?: { value: string; label: string }[];
+  fkOptions?: Record<string, { value: string; label: string }[]>;
 }) {
   const { t } = useI18n();
   const label = t(field.label ?? humanize(field.name));
@@ -232,11 +234,12 @@ function FieldEditor({
         </select>,
       );
     case "fk": {
-      if (field.fk === "emergency_categories" || field.fk === "app_categories") {
+      const uuidOpts = field.fk ? fkOptions[field.fk] ?? (field.fk === "emergency_categories" || field.fk === "app_categories" ? categories : undefined) : undefined;
+      if (uuidOpts) {
         return wrap(
-          <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputClass}>
+          <select value={value ?? ""} onChange={(e) => onChange(e.target.value || null)} className={inputClass}>
             <option value="">—</option>
-            {categories.map((c) => (
+            {uuidOpts.map((c) => (
               <option key={c.value} value={c.value}>
                 {c.label}
               </option>
@@ -288,6 +291,7 @@ function ContentForm({
   const [governorates, setGovernorates] = useState<string[]>([]);
   const [eras, setEras] = useState<string[]>([]);
   const [categories, setCategories] = useState<{ value: string; label: string }[]>([]);
+  const [fkOptions, setFkOptions] = useState<Record<string, { value: string; label: string }[]>>({});
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -305,6 +309,7 @@ function ContentForm({
       setGovernorates(result.governorates);
       setEras(result.eras);
       setCategories(result.categories);
+      setFkOptions(result.fkOptions ?? {});
       if (result.row) {
         const row = result.row;
         const next: Record<string, any> = {};
@@ -430,6 +435,7 @@ function ContentForm({
               governorates={governorates}
               eras={eras}
               categories={categories}
+              fkOptions={fkOptions}
             />
           </div>
         ))}
