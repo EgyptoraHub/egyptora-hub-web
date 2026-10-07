@@ -9,3 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 - Public directory pages that read category/item tables (emergency numbers, Egypt Apps) select explicit public columns, and anon gets column-level SELECT grants so admin-only note columns are unreadable — RLS alone hides rows, not columns.
+- Military History pages read through src/lib/military.ts (explicit public columns); admin edits go through the central admin-content config, with bulk updates and CSV import limited to allow-listed columns — keeps one admin path and no internal notes on public pages.
