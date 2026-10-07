@@ -13,7 +13,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
 import {
-  BASE, OUTCOMES, RECORD_TYPES, TYPE_LABEL, centuryLabel, centuryOf, outcomeLabel, recordCount, regNo,
+  BASE, OUTCOMES, PUBLIC_TYPES, TYPE_LABEL, centuryLabel, centuryOf, outcomeLabel, recordCount, regNo,
   type MilEra, type MilRecord, type RecordsSearch,
 } from "@/lib/military";
 
@@ -32,7 +32,7 @@ export function MilShell({
   crumbs, title, subtitle, search, children,
 }: {
   crumbs: Crumb[];
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   search?: { value: string; onChange: (v: string) => void; placeholder: string };
   children: ReactNode;
@@ -118,8 +118,22 @@ export function ReviewBadge({ status, verifiedAt }: { status: MilRecord["review_
   return null;
 }
 
+/** Title in the current language. English with no English title shows the Arabic title, marked, never transliterated. */
+export function RecordTitle({ r, className }: { r: Pick<MilRecord, "title_en" | "title_ar">; className?: string }) {
+  const { t, lang } = useI18n();
+  const en = r.title_en?.trim();
+  if (lang === "ar" || en) return <span className={className} dir="auto">{lang === "ar" ? r.title_ar || en : en}</span>;
+  return (
+    <span className="inline-flex flex-col gap-0.5">
+      <span lang="ar" dir="rtl" className={className}>{r.title_ar}</span>
+      <span className="text-[11px] font-normal text-muted-foreground">{t("Arabic title · English pending")}</span>
+    </span>
+  );
+}
+
 export function TypeBadge({ type }: { type: MilRecord["record_type"] }) {
   const { t } = useI18n();
+  if (type === "needs_classification") return null;
   return (
     <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[11px] font-semibold text-navy">
       {t(TYPE_LABEL[type])}
@@ -139,13 +153,15 @@ export function RecordCard({ r, era }: { r: MilRecord; era?: MilEra | undefined 
         className="flex w-full flex-col gap-2 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-gold-line"
       >
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="rounded-md bg-navy px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary-foreground" dir="ltr">
-            #{regNo(r.register_no)}
-          </span>
+          {r.register_no != null && (
+            <span className="rounded-md bg-navy px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary-foreground" dir="ltr">
+              #{regNo(r.register_no)}
+            </span>
+          )}
           <TypeBadge type={r.record_type} />
           <ReviewBadge status={r.review_status} />
         </div>
-        <p className="text-base font-semibold text-navy" dir="auto">{bi(r, "title")}</p>
+        <p className="text-base font-semibold text-navy"><RecordTitle r={r} /></p>
         <p className="text-xs text-text-body" dir="auto">
           {bi(r, "date_label")}
           {era ? ` · ${bi(era, "name")}` : ""}
@@ -242,7 +258,7 @@ export function RecordFilters({
   const bi = useBi();
   const [open, setOpen] = useState(false);
   const presentOutcomes = OUTCOMES.filter((o) => outcomeLabel(o) && records.some((r) => r.outcome === o));
-  const presentTypes = RECORD_TYPES.filter((ty) => records.some((r) => r.record_type === ty));
+  const presentTypes = PUBLIC_TYPES.filter((ty) => records.some((r) => r.record_type === ty));
   const presentReview = (["editorial_reviewed", "verified"] as const).filter((s) => records.some((r) => r.review_status === s));
   const cents = records.filter((r) => r.year_from != null).flatMap((r) => [centuryOf(r.year_from!), centuryOf(r.year_to ?? r.year_from!)]);
   const cMin = cents.length ? Math.min(...cents) : -31;
@@ -350,7 +366,7 @@ export function ActiveChips({ eras, search, set }: { eras: MilEra[]; search: Rec
     const e = eras.find((x) => x.slug === search.era);
     if (e) chips.push({ label: bi(e, "name"), clear: { era: undefined } });
   }
-  if (search.type) chips.push({ label: t(TYPE_LABEL[search.type]), clear: { type: undefined } });
+  if (search.type && search.type !== "needs_classification") chips.push({ label: t(TYPE_LABEL[search.type]), clear: { type: undefined } });
   if (search.outcome && outcomeLabel(search.outcome)) chips.push({ label: t(outcomeLabel(search.outcome)!), clear: { outcome: undefined } });
   if (search.review) chips.push({ label: search.review === "verified" ? t("Verified") : t("Under academic review"), clear: { review: undefined } });
   if (search.cfrom != null || search.cto != null)

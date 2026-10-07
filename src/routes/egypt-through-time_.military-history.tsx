@@ -8,7 +8,7 @@ import {
 import { innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { RECORD_TYPES, TYPE_LABEL, loadMilitary, matchesQuery, recordCount } from "@/lib/military";
+import { PUBLIC_TYPES, TYPE_LABEL, byRegister, loadMilitary, matchesQuery, recordCount } from "@/lib/military";
 
 const title = "Egypt's Military History — Editorial Register | Egyptora Hub";
 const description =
@@ -37,8 +37,8 @@ function Landing() {
   const eraById = useMemo(() => new Map(eras.map((e) => [e.id, e])), [eras]);
   const hits = q.trim() ? records.filter((r) => matchesQuery(r, q)) : [];
   const featured = records.filter((r) => r.is_featured);
-  const latest = [...records].sort((a, b) => b.created_at.localeCompare(a.created_at) || b.register_no - a.register_no).slice(0, 4);
-  const types = RECORD_TYPES.filter((ty) => records.some((r) => r.record_type === ty));
+  const latest = [...records].sort((a, b) => b.created_at.localeCompare(a.created_at) || byRegister(a, b)).slice(0, 4);
+  const types = PUBLIC_TYPES.filter((ty) => records.some((r) => r.record_type === ty));
 
   return (
     <MilShell

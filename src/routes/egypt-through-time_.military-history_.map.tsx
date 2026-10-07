@@ -10,7 +10,7 @@ import { TYPE_COLOR } from "@/components/military/mapColors";
 import { innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { BASE, RECORD_TYPES, TYPE_LABEL, applyRecordFilters, loadMilitary, recordCount, recordsSearchSchema } from "@/lib/military";
+import { BASE, PUBLIC_TYPES, TYPE_LABEL, applyRecordFilters, loadMilitary, recordCount, recordsSearchSchema } from "@/lib/military";
 
 const MilitaryMap = lazy(() => import("@/components/military/MilitaryMap"));
 
@@ -41,7 +41,7 @@ function MapPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [located.map((r) => r.id).join(","), lang],
   );
-  const legendTypes = RECORD_TYPES.filter((ty) => located.some((r) => r.record_type === ty));
+  const legendTypes = PUBLIC_TYPES.filter((ty) => located.some((r) => r.record_type === ty));
 
   return (
     <MilShell crumbs={militaryCrumbs(t, [{ label: t("Map") }])} title={t("Map of events")}>

@@ -8,7 +8,7 @@ import { MilError, MilLoading, MilShell, RecordCard, RegisterNotice, SubNav, mil
 import { innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { loadMilitary, recordCount } from "@/lib/military";
+import { byRegister, loadMilitary, recordCount } from "@/lib/military";
 
 const title = "Military History Timeline by Era | Egyptora Hub";
 const description = "Fifteen eras of Egypt's military history on one timeline, with the published register records for each era.";
@@ -50,7 +50,7 @@ function Timeline() {
     pick(eras[next]!.slug);
   };
 
-  const list = selected ? records.filter((r) => r.era_id === selected.id).sort((a, b) => a.register_no - b.register_no) : [];
+  const list = selected ? records.filter((r) => r.era_id === selected.id).sort(byRegister) : [];
 
   return (
     <MilShell crumbs={militaryCrumbs(t, [{ label: t("Timeline") }])} title={t("Timeline of eras")}>
