@@ -17,7 +17,7 @@ import {
   type MilEra, type MilRecord, type RecordsSearch,
 } from "@/lib/military";
 
-export type Crumb = { label: string; to?: string; params?: Record<string, string> };
+export type Crumb = { label: string; to?: string; params?: Record<string, string>; search?: Record<string, string> };
 
 export function useBi() {
   const { lang } = useI18n();
@@ -49,7 +49,7 @@ export function MilShell({
               <ChevronRight className="size-3 rtl:rotate-180" aria-hidden="true" />
               {c.to ? (
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- static typed paths
-                <Link to={c.to as any} params={c.params as any} className="hover:text-navy hover:underline" dir="auto">{c.label}</Link>
+                <Link to={c.to as any} params={c.params as any} search={c.search as any} className="hover:text-navy hover:underline" dir="auto">{c.label}</Link>
               ) : (
                 <span className="font-medium text-navy" dir="auto">{c.label}</span>
               )}

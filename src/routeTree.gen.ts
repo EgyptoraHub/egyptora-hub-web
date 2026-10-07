@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as DoBusinessRouteImport } from './routes/do-business'
 import { Route as EgyptAppsRouteImport } from './routes/egypt-apps'
+import { Route as EgyptThroughTimeRouteImport } from './routes/egypt-through-time'
 import { Route as EgyptianHeritageWorldwideRouteImport } from './routes/egyptian-heritage-worldwide'
 import { Route as EmergencyNumbersRouteImport } from './routes/emergency-numbers'
 import { Route as EncyclopediaRouteImport } from './routes/encyclopedia'
@@ -55,6 +56,7 @@ import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
 import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
+import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/egypt-through-time_.military-history'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
 import { Route as EventsIdRouteImport } from './routes/events_.$id'
 import { Route as ExperiencesTypeRouteImport } from './routes/experiences.$type'
@@ -90,7 +92,9 @@ import { Route as AdminContentTableRouteImport } from './routes/admin.content.$t
 import { Route as AdminCrmInvestmentRouteImport } from './routes/admin.crm.investment'
 import { Route as AdminCrmPropertiesRouteImport } from './routes/admin.crm.properties'
 import { Route as AdminPartnersNewRouteImport } from './routes/admin.partners_.new'
+import { Route as EgyptThroughTimeMilitaryHistoryRecordsRouteImport } from './routes/egypt-through-time_.military-history_.records'
 import { Route as PartnersTypeIdRouteImport } from './routes/partners.$type.$id'
+import { Route as EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport } from './routes/egypt-through-time_.military-history_.records_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -135,6 +139,11 @@ const DoBusinessRoute = DoBusinessRouteImport.update({
 const EgyptAppsRoute = EgyptAppsRouteImport.update({
   id: '/egypt-apps',
   path: '/egypt-apps',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EgyptThroughTimeRoute = EgyptThroughTimeRouteImport.update({
+  id: '/egypt-through-time',
+  path: '/egypt-through-time',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EgyptianHeritageWorldwideRoute =
@@ -323,6 +332,12 @@ const EgyptAppsCategoryRoute = EgyptAppsCategoryRouteImport.update({
   path: '/egypt-apps/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EgyptThroughTimeMilitaryHistoryRoute =
+  EgyptThroughTimeMilitaryHistoryRouteImport.update({
+    id: '/egypt-through-time_/military-history',
+    path: '/egypt-through-time/military-history',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EgyptianHeritageWorldwideIdRoute =
   EgyptianHeritageWorldwideIdRouteImport.update({
     id: '/egyptian-heritage-worldwide_/$id',
@@ -505,11 +520,23 @@ const AdminPartnersNewRoute = AdminPartnersNewRouteImport.update({
   path: '/partners/new',
   getParentRoute: () => AdminRoute,
 } as any)
+const EgyptThroughTimeMilitaryHistoryRecordsRoute =
+  EgyptThroughTimeMilitaryHistoryRecordsRouteImport.update({
+    id: '/egypt-through-time_/military-history_/records',
+    path: '/egypt-through-time/military-history/records',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PartnersTypeIdRoute = PartnersTypeIdRouteImport.update({
   id: '/partners/$type/$id',
   path: '/partners/$type/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EgyptThroughTimeMilitaryHistoryRecordsSlugRoute =
+  EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport.update({
+    id: '/egypt-through-time_/military-history_/records_/$slug',
+    path: '/egypt-through-time/military-history/records/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -521,6 +548,7 @@ export interface FileRoutesByFullPath {
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
   '/egypt-apps': typeof EgyptAppsRoute
+  '/egypt-through-time': typeof EgyptThroughTimeRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
@@ -557,6 +585,7 @@ export interface FileRoutesByFullPath {
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
+  '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
@@ -592,8 +621,10 @@ export interface FileRoutesByFullPath {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners/new': typeof AdminPartnersNewRoute
+  '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/egypt-through-time/military-history/records/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -604,6 +635,7 @@ export interface FileRoutesByTo {
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
   '/egypt-apps': typeof EgyptAppsRoute
+  '/egypt-through-time': typeof EgyptThroughTimeRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
@@ -640,6 +672,7 @@ export interface FileRoutesByTo {
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
+  '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
@@ -675,8 +708,10 @@ export interface FileRoutesByTo {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners/new': typeof AdminPartnersNewRoute
+  '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content': typeof AdminContentIndexRoute
+  '/egypt-through-time/military-history/records/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -689,6 +724,7 @@ export interface FileRoutesById {
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
   '/egypt-apps': typeof EgyptAppsRoute
+  '/egypt-through-time': typeof EgyptThroughTimeRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
@@ -725,6 +761,7 @@ export interface FileRoutesById {
   '/api/concierge': typeof ApiConciergeRoute
   '/countries_/$id': typeof CountriesIdRoute
   '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
+  '/egypt-through-time_/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events_/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
@@ -760,8 +797,10 @@ export interface FileRoutesById {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners_/new': typeof AdminPartnersNewRoute
+  '/egypt-through-time_/military-history_/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/egypt-through-time_/military-history_/records_/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -775,6 +814,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/do-business'
     | '/egypt-apps'
+    | '/egypt-through-time'
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
@@ -811,6 +851,7 @@ export interface FileRouteTypes {
     | '/api/concierge'
     | '/countries/$id'
     | '/egypt-apps/$category'
+    | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
     | '/experiences/$type'
@@ -846,8 +887,10 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners/new'
+    | '/egypt-through-time/military-history/records'
     | '/partners/$type/$id'
     | '/admin/content/'
+    | '/egypt-through-time/military-history/records/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -858,6 +901,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/do-business'
     | '/egypt-apps'
+    | '/egypt-through-time'
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
@@ -894,6 +938,7 @@ export interface FileRouteTypes {
     | '/api/concierge'
     | '/countries/$id'
     | '/egypt-apps/$category'
+    | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
     | '/experiences/$type'
@@ -929,8 +974,10 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners/new'
+    | '/egypt-through-time/military-history/records'
     | '/partners/$type/$id'
     | '/admin/content'
+    | '/egypt-through-time/military-history/records/$slug'
   id:
     | '__root__'
     | '/'
@@ -942,6 +989,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/do-business'
     | '/egypt-apps'
+    | '/egypt-through-time'
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
@@ -978,6 +1026,7 @@ export interface FileRouteTypes {
     | '/api/concierge'
     | '/countries_/$id'
     | '/egypt-apps_/$category'
+    | '/egypt-through-time_/military-history'
     | '/egyptian-heritage-worldwide_/$id'
     | '/events_/$id'
     | '/experiences/$type'
@@ -1013,8 +1062,10 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners_/new'
+    | '/egypt-through-time_/military-history_/records'
     | '/partners/$type/$id'
     | '/admin/content/'
+    | '/egypt-through-time_/military-history_/records_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1027,6 +1078,7 @@ export interface RootRouteChildren {
   CountriesRoute: typeof CountriesRoute
   DoBusinessRoute: typeof DoBusinessRoute
   EgyptAppsRoute: typeof EgyptAppsRoute
+  EgyptThroughTimeRoute: typeof EgyptThroughTimeRoute
   EgyptianHeritageWorldwideRoute: typeof EgyptianHeritageWorldwideRoute
   EmergencyNumbersRoute: typeof EmergencyNumbersRoute
   EncyclopediaRoute: typeof EncyclopediaRoute
@@ -1058,6 +1110,7 @@ export interface RootRouteChildren {
   ApiConciergeRoute: typeof ApiConciergeRoute
   CountriesIdRoute: typeof CountriesIdRoute
   EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
+  EgyptThroughTimeMilitaryHistoryRoute: typeof EgyptThroughTimeMilitaryHistoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
   EventsIdRoute: typeof EventsIdRoute
   ExperiencesTypeRoute: typeof ExperiencesTypeRoute
@@ -1088,7 +1141,9 @@ export interface RootRouteChildren {
   LegalIndexRoute: typeof LegalIndexRoute
   MyTripsIndexRoute: typeof MyTripsIndexRoute
   PartnersIndexRoute: typeof PartnersIndexRoute
+  EgyptThroughTimeMilitaryHistoryRecordsRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   PartnersTypeIdRoute: typeof PartnersTypeIdRoute
+  EgyptThroughTimeMilitaryHistoryRecordsSlugRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1154,6 +1209,13 @@ declare module '@tanstack/react-router' {
       path: '/egypt-apps'
       fullPath: '/egypt-apps'
       preLoaderRoute: typeof EgyptAppsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egypt-through-time': {
+      id: '/egypt-through-time'
+      path: '/egypt-through-time'
+      fullPath: '/egypt-through-time'
+      preLoaderRoute: typeof EgyptThroughTimeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egyptian-heritage-worldwide': {
@@ -1415,6 +1477,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EgyptAppsCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/egypt-through-time_/military-history': {
+      id: '/egypt-through-time_/military-history'
+      path: '/egypt-through-time/military-history'
+      fullPath: '/egypt-through-time/military-history'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/egyptian-heritage-worldwide_/$id': {
       id: '/egyptian-heritage-worldwide_/$id'
       path: '/egyptian-heritage-worldwide/$id'
@@ -1660,11 +1729,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPartnersNewRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/egypt-through-time_/military-history_/records': {
+      id: '/egypt-through-time_/military-history_/records'
+      path: '/egypt-through-time/military-history/records'
+      fullPath: '/egypt-through-time/military-history/records'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners/$type/$id': {
       id: '/partners/$type/$id'
       path: '/partners/$type/$id'
       fullPath: '/partners/$type/$id'
       preLoaderRoute: typeof PartnersTypeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egypt-through-time_/military-history_/records_/$slug': {
+      id: '/egypt-through-time_/military-history_/records_/$slug'
+      path: '/egypt-through-time/military-history/records/$slug'
+      fullPath: '/egypt-through-time/military-history/records/$slug'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -1710,6 +1793,7 @@ const rootRouteChildren: RootRouteChildren = {
   CountriesRoute: CountriesRoute,
   DoBusinessRoute: DoBusinessRoute,
   EgyptAppsRoute: EgyptAppsRoute,
+  EgyptThroughTimeRoute: EgyptThroughTimeRoute,
   EgyptianHeritageWorldwideRoute: EgyptianHeritageWorldwideRoute,
   EmergencyNumbersRoute: EmergencyNumbersRoute,
   EncyclopediaRoute: EncyclopediaRoute,
@@ -1741,6 +1825,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiConciergeRoute: ApiConciergeRoute,
   CountriesIdRoute: CountriesIdRoute,
   EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
+  EgyptThroughTimeMilitaryHistoryRoute: EgyptThroughTimeMilitaryHistoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
   EventsIdRoute: EventsIdRoute,
   ExperiencesTypeRoute: ExperiencesTypeRoute,
@@ -1772,7 +1857,11 @@ const rootRouteChildren: RootRouteChildren = {
   LegalIndexRoute: LegalIndexRoute,
   MyTripsIndexRoute: MyTripsIndexRoute,
   PartnersIndexRoute: PartnersIndexRoute,
+  EgyptThroughTimeMilitaryHistoryRecordsRoute:
+    EgyptThroughTimeMilitaryHistoryRecordsRoute,
   PartnersTypeIdRoute: PartnersTypeIdRoute,
+  EgyptThroughTimeMilitaryHistoryRecordsSlugRoute:
+    EgyptThroughTimeMilitaryHistoryRecordsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

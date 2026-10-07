@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { BookOpen, Crown, Shield } from "lucide-react";
+import { Crown, Shield } from "lucide-react";
 import { simpleHead } from "@/components/site/SimplePage";
 import { SITE } from "@/config/site";
 import { MilShell } from "@/components/military/MilitaryUI";
@@ -20,7 +20,6 @@ export const Route = createFileRoute("/egypt-through-time")({
 const CARDS = [
   { to: "/encyclopedia", Icon: Crown, label: "Eras & Rulers", body: "Egypt's eras and the rulers documented for each, in the visual encyclopedia." },
   { to: "/egypt-through-time/military-history", Icon: Shield, label: "Military History", body: "An editorial register of battles, campaigns and operations, organised by era and under academic review." },
-  { to: "/heritage-sites", Icon: BookOpen, label: "Heritage Sites", body: "Monuments and archaeological sites across the governorates." },
 ] as const;
 
 function Hub() {
