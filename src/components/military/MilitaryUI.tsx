@@ -127,7 +127,7 @@ export function TypeBadge({ type }: { type: MilRecord["record_type"] }) {
   );
 }
 
-export function RecordCard({ r, era }: { r: MilRecord; era?: MilEra }) {
+export function RecordCard({ r, era }: { r: MilRecord; era?: MilEra | undefined }) {
   const { t } = useI18n();
   const bi = useBi();
   const out = outcomeLabel(r.outcome);

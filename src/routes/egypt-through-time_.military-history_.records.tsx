@@ -73,7 +73,8 @@ function Records() {
             <div className="flex items-center gap-3">
               <Link
                 to="."
-                search={(p: typeof search) => ({ ...p, page: page > 2 ? page - 1 : undefined })}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any -- "." reducer
+                search={((p: typeof search) => ({ ...p, page: page > 2 ? page - 1 : undefined })) as any}
                 disabled={page <= 1}
                 className="min-h-11 rounded-full border border-border px-4 py-2.5 text-sm text-navy aria-disabled:opacity-40"
               >
@@ -82,7 +83,8 @@ function Records() {
               <span className="text-sm text-text-body">{t("Page")} {page} / {pages}</span>
               <Link
                 to="."
-                search={(p: typeof search) => ({ ...p, page: page + 1 })}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any -- "." reducer
+                search={((p: typeof search) => ({ ...p, page: page + 1 })) as any}
                 disabled={page >= pages}
                 className="min-h-11 rounded-full border border-border px-4 py-2.5 text-sm text-navy aria-disabled:opacity-40"
               >

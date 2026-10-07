@@ -16,7 +16,7 @@ export type ContentListPage = {
   filterOptions: Record<string, { value: string; label: string }[]>;
   rows: ContentRowSummary[];
   /** per-value counts for cfg.countBy (computed) */
-  counts?: Record<string, number>;
+  counts?: Record<string, number> | undefined;
   total: number;
   page: number;
   pageSize: number;
@@ -159,7 +159,7 @@ export const listContentRows = createServerFn({ method: "POST" })
     for (const f of cfg.filters ?? []) {
       if (f.fromTable) {
         const { data: opts } = await supabaseAdmin.from(f.fromTable as any).select("id, name_en").order("sort_order");
-        filterOptions[f.name] = ((opts ?? []) as { id: string; name_en: string }[]).map((o) => ({ value: o.id, label: o.name_en }));
+        filterOptions[f.name] = ((opts ?? []) as unknown as { id: string; name_en: string }[]).map((o) => ({ value: o.id, label: o.name_en }));
       } else {
         filterOptions[f.name] = f.options.map((o) => ({ value: o, label: o }));
       }
@@ -433,7 +433,7 @@ export const importMilitaryCsv = createServerFn({ method: "POST" })
     if (typeof input?.csv !== "string" || input.csv.length > 2_000_000) throw new Error("CSV too large");
     return { csv: input.csv, dryRun: input.dryRun !== false };
   })
-  .handler(async ({ data, context }): Promise<Denied | Ok<{ ok: boolean; error?: string; rows: CsvRowResult[]; committed: number }>> => {
+  .handler(async ({ data, context }): Promise<Denied | Ok<{ ok: boolean; error?: string | undefined; rows: CsvRowResult[]; committed: number }>> => {
     if (!(await isAdmin(context))) return { authorized: false };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const table = parseCsv(data.csv.replace(/^\uFEFF/, ""));
@@ -458,7 +458,7 @@ export const importMilitaryCsv = createServerFn({ method: "POST" })
       const line = i + 2;
       const no = Number(get("register_no"));
       const title = get("title_en");
-      const fail = (error: string) => results.push({ line, register_no: Number.isFinite(no) ? no : null, title_en: title, action: "error", error });
+      const fail = (error: string): undefined => void results.push({ line, register_no: Number.isFinite(no) ? no : null, title_en: title, action: "error", error });
       if (!Number.isInteger(no) || no < 1) return fail("register_no must be a positive whole number");
       if (seen.has(no)) return fail("register_no appears twice in this file");
       if (!title) return fail("title_en is required");
@@ -489,10 +489,11 @@ export const importMilitaryCsv = createServerFn({ method: "POST" })
           p[k] = n;
         }
       }
-      p.slug = existingNo.get(no) ?? (get("slug") || slugifyRecord(no, title));
+      p['slug'] = existingNo.get(no) ?? (get("slug") || slugifyRecord(no, title));
       seen.add(no);
       payloads.push(p);
       results.push({ line, register_no: no, title_en: title, action: existingNo.has(no) ? "update" : "insert" });
+      return undefined;
     });
 
     const hasErrors = results.some((r) => r.action === "error");
