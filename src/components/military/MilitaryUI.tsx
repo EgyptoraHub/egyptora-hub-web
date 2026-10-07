@@ -256,7 +256,7 @@ export function RecordFilters({
       <select
         value={value ?? ""}
         onChange={(e) => set({ [key]: e.target.value || undefined } as Partial<RecordsSearch>)}
-        className="min-h-11 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
+        className="min-h-11 w-full min-w-0 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
       >
         <option value="">{t("All")}</option>
         {opts.map((o) => <option key={o.v} value={o.v}>{o.l}</option>)}
@@ -307,7 +307,7 @@ export function RecordFilters({
         <select
           value={search.sort ?? "chrono"}
           onChange={(e) => set({ sort: e.target.value === "new" ? "new" : undefined })}
-          className="min-h-11 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
+          className="min-h-11 w-full min-w-0 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
         >
           <option value="chrono">{t("Chronological")}</option>
           <option value="new">{t("Newest added")}</option>

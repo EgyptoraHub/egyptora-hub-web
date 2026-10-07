@@ -47,7 +47,7 @@ function MapPage() {
     <MilShell crumbs={militaryCrumbs(t, [{ label: t("Map") }])} title={t("Map of events")}>
       <SubNav />
       <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-8 py-8 lg:grid-cols-[280px_minmax(0,1fr)]")}>
-        <aside className="grid content-start gap-4">
+        <aside className="grid min-w-0 content-start gap-4">
           <RecordFilters eras={eras} records={records} search={search} set={set} showCentury />
         </aside>
         <div className="grid content-start gap-4">
