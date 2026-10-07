@@ -27,7 +27,10 @@ export type MilEra = {
 
 export const RECORD_TYPES = [
   "battle", "war", "campaign", "siege", "naval", "air", "operation", "defensive_action", "conflict_phase", "other_record",
+  "invasion", "revolt_resistance", "amphibious_landing", "raid", "needs_classification",
 ] as const;
+/** Types that may be shown publicly (needs_classification never is). */
+export const PUBLIC_TYPES = RECORD_TYPES.filter((t) => t !== "needs_classification");
 export type RecordType = (typeof RECORD_TYPES)[number];
 export const OUTCOMES = [
   "egyptian_victory", "defeat", "inconclusive", "disputed", "strategic_withdrawal", "not_assessed",
@@ -37,12 +40,12 @@ export type ReviewStatus = "needs_check" | "editorial_reviewed" | "verified";
 
 export type MilRecord = {
   id: string;
-  register_no: number;
+  register_no: number | null;
   slug: string;
   era_id: string;
   record_type: RecordType;
   title_ar: string | null;
-  title_en: string;
+  title_en: string | null;
   alt_names: string | null;
   date_label_ar: string | null;
   date_label_en: string | null;
@@ -208,7 +211,7 @@ export function matchesQuery(r: MilRecord, q: string | undefined): boolean {
   const hay = normalize(
     [
       r.title_en, r.title_ar, r.alt_names, r.place_en, r.place_ar, r.egyptian_leadership_en, r.egyptian_leadership_ar,
-      r.opposing_side_en, r.opposing_side_ar, String(r.register_no).padStart(3, "0"),
+      r.opposing_side_en, r.opposing_side_ar, r.register_no != null ? regNo(r.register_no) : "",
     ].join(" | "),
   );
   return needle.split(" ").every((w) => hay.includes(w));
@@ -226,6 +229,13 @@ export function inCenturyRange(r: MilRecord, from?: number, to?: number): boolea
 
 export const regNo = (n: number) => String(n).padStart(3, "0");
 
+/** Register order; rows without a register number sort after numbered rows. */
+export const byRegister = (a: MilRecord, b: MilRecord) =>
+  (a.register_no ?? 1e9) - (b.register_no ?? 1e9) || a.created_at.localeCompare(b.created_at);
+
+/** English text for heads/metadata: falls back to the Arabic title, never a transliteration. */
+export const recordTitleEn = (r: Pick<MilRecord, "title_en" | "title_ar">) => r.title_en?.trim() || r.title_ar || "";
+
 export const TYPE_LABEL: Record<RecordType, string> = {
   battle: "Battle",
   war: "War",
@@ -237,6 +247,11 @@ export const TYPE_LABEL: Record<RecordType, string> = {
   defensive_action: "Defensive action",
   conflict_phase: "Conflict phase",
   other_record: "Other record",
+  invasion: "Invasion",
+  revolt_resistance: "Revolt / resistance",
+  amphibious_landing: "Amphibious landing",
+  raid: "Raid",
+  needs_classification: "Needs classification",
 };
 
 /** Outcome line text; null means "show nothing". */
@@ -280,7 +295,7 @@ export function recordCount(n: number, lang: string): string {
 export const recordsSearchSchema = z.object({
   q: z.string().optional(),
   era: z.string().optional(),
-  type: z.enum(RECORD_TYPES).optional(),
+  type: z.enum(RECORD_TYPES).exclude(["needs_classification"]).optional(),
   outcome: z.enum(OUTCOMES).optional(),
   review: z.enum(["editorial_reviewed", "verified"]).optional(),
   cfrom: z.coerce.number().int().optional(),
@@ -302,6 +317,6 @@ export function applyRecordFilters(records: MilRecord[], eras: MilEra[], s: Reco
       matchesQuery(r, s.q),
   );
   return s.sort === "new"
-    ? out.sort((a, b) => b.created_at.localeCompare(a.created_at) || b.register_no - a.register_no)
-    : out.sort((a, b) => a.register_no - b.register_no);
+    ? out.sort((a, b) => b.created_at.localeCompare(a.created_at) || byRegister(a, b))
+    : out.sort(byRegister);
 }
