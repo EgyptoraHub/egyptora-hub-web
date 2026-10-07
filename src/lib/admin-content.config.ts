@@ -49,6 +49,7 @@ export type FieldConfig = {
 };
 
 export type ListFilter = {
+  virtual?: "has_flag" | "dup_title";
   name: string;
   label: string;
   options: string[];

@@ -366,7 +366,7 @@ export function ActiveChips({ eras, search, set }: { eras: MilEra[]; search: Rec
     const e = eras.find((x) => x.slug === search.era);
     if (e) chips.push({ label: bi(e, "name"), clear: { era: undefined } });
   }
-  if (search.type && search.type !== "needs_classification") chips.push({ label: t(TYPE_LABEL[search.type]), clear: { type: undefined } });
+  if (search.type) chips.push({ label: t(TYPE_LABEL[search.type]), clear: { type: undefined } });
   if (search.outcome && outcomeLabel(search.outcome)) chips.push({ label: t(outcomeLabel(search.outcome)!), clear: { outcome: undefined } });
   if (search.review) chips.push({ label: search.review === "verified" ? t("Verified") : t("Under academic review"), clear: { review: undefined } });
   if (search.cfrom != null || search.cto != null)
