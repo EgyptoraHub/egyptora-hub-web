@@ -92,8 +92,13 @@ import { Route as AdminContentTableRouteImport } from './routes/admin.content.$t
 import { Route as AdminCrmInvestmentRouteImport } from './routes/admin.crm.investment'
 import { Route as AdminCrmPropertiesRouteImport } from './routes/admin.crm.properties'
 import { Route as AdminPartnersNewRouteImport } from './routes/admin.partners_.new'
+import { Route as EgyptThroughTimeMilitaryHistoryFiguresRouteImport } from './routes/egypt-through-time_.military-history_.figures'
+import { Route as EgyptThroughTimeMilitaryHistoryLibraryRouteImport } from './routes/egypt-through-time_.military-history_.library'
+import { Route as EgyptThroughTimeMilitaryHistoryMapRouteImport } from './routes/egypt-through-time_.military-history_.map'
 import { Route as EgyptThroughTimeMilitaryHistoryRecordsRouteImport } from './routes/egypt-through-time_.military-history_.records'
+import { Route as EgyptThroughTimeMilitaryHistoryTimelineRouteImport } from './routes/egypt-through-time_.military-history_.timeline'
 import { Route as PartnersTypeIdRouteImport } from './routes/partners.$type.$id'
+import { Route as EgyptThroughTimeMilitaryHistoryFiguresSlugRouteImport } from './routes/egypt-through-time_.military-history_.figures_.$slug'
 import { Route as EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport } from './routes/egypt-through-time_.military-history_.records_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -520,10 +525,34 @@ const AdminPartnersNewRoute = AdminPartnersNewRouteImport.update({
   path: '/partners/new',
   getParentRoute: () => AdminRoute,
 } as any)
+const EgyptThroughTimeMilitaryHistoryFiguresRoute =
+  EgyptThroughTimeMilitaryHistoryFiguresRouteImport.update({
+    id: '/egypt-through-time_/military-history_/figures',
+    path: '/egypt-through-time/military-history/figures',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EgyptThroughTimeMilitaryHistoryLibraryRoute =
+  EgyptThroughTimeMilitaryHistoryLibraryRouteImport.update({
+    id: '/egypt-through-time_/military-history_/library',
+    path: '/egypt-through-time/military-history/library',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EgyptThroughTimeMilitaryHistoryMapRoute =
+  EgyptThroughTimeMilitaryHistoryMapRouteImport.update({
+    id: '/egypt-through-time_/military-history_/map',
+    path: '/egypt-through-time/military-history/map',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EgyptThroughTimeMilitaryHistoryRecordsRoute =
   EgyptThroughTimeMilitaryHistoryRecordsRouteImport.update({
     id: '/egypt-through-time_/military-history_/records',
     path: '/egypt-through-time/military-history/records',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EgyptThroughTimeMilitaryHistoryTimelineRoute =
+  EgyptThroughTimeMilitaryHistoryTimelineRouteImport.update({
+    id: '/egypt-through-time_/military-history_/timeline',
+    path: '/egypt-through-time/military-history/timeline',
     getParentRoute: () => rootRouteImport,
   } as any)
 const PartnersTypeIdRoute = PartnersTypeIdRouteImport.update({
@@ -531,6 +560,12 @@ const PartnersTypeIdRoute = PartnersTypeIdRouteImport.update({
   path: '/partners/$type/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EgyptThroughTimeMilitaryHistoryFiguresSlugRoute =
+  EgyptThroughTimeMilitaryHistoryFiguresSlugRouteImport.update({
+    id: '/egypt-through-time_/military-history_/figures_/$slug',
+    path: '/egypt-through-time/military-history/figures/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EgyptThroughTimeMilitaryHistoryRecordsSlugRoute =
   EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport.update({
     id: '/egypt-through-time_/military-history_/records_/$slug',
@@ -621,9 +656,14 @@ export interface FileRoutesByFullPath {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners/new': typeof AdminPartnersNewRoute
+  '/egypt-through-time/military-history/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
+  '/egypt-through-time/military-history/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
+  '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
+  '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/egypt-through-time/military-history/figures/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   '/egypt-through-time/military-history/records/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 export interface FileRoutesByTo {
@@ -708,9 +748,14 @@ export interface FileRoutesByTo {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners/new': typeof AdminPartnersNewRoute
+  '/egypt-through-time/military-history/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
+  '/egypt-through-time/military-history/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
+  '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
+  '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content': typeof AdminContentIndexRoute
+  '/egypt-through-time/military-history/figures/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   '/egypt-through-time/military-history/records/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 export interface FileRoutesById {
@@ -797,9 +842,14 @@ export interface FileRoutesById {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners_/new': typeof AdminPartnersNewRoute
+  '/egypt-through-time_/military-history_/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
+  '/egypt-through-time_/military-history_/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
+  '/egypt-through-time_/military-history_/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time_/military-history_/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
+  '/egypt-through-time_/military-history_/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/egypt-through-time_/military-history_/figures_/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   '/egypt-through-time_/military-history_/records_/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 export interface FileRouteTypes {
@@ -887,9 +937,14 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners/new'
+    | '/egypt-through-time/military-history/figures'
+    | '/egypt-through-time/military-history/library'
+    | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
+    | '/egypt-through-time/military-history/timeline'
     | '/partners/$type/$id'
     | '/admin/content/'
+    | '/egypt-through-time/military-history/figures/$slug'
     | '/egypt-through-time/military-history/records/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -974,9 +1029,14 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners/new'
+    | '/egypt-through-time/military-history/figures'
+    | '/egypt-through-time/military-history/library'
+    | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
+    | '/egypt-through-time/military-history/timeline'
     | '/partners/$type/$id'
     | '/admin/content'
+    | '/egypt-through-time/military-history/figures/$slug'
     | '/egypt-through-time/military-history/records/$slug'
   id:
     | '__root__'
@@ -1062,9 +1122,14 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners_/new'
+    | '/egypt-through-time_/military-history_/figures'
+    | '/egypt-through-time_/military-history_/library'
+    | '/egypt-through-time_/military-history_/map'
     | '/egypt-through-time_/military-history_/records'
+    | '/egypt-through-time_/military-history_/timeline'
     | '/partners/$type/$id'
     | '/admin/content/'
+    | '/egypt-through-time_/military-history_/figures_/$slug'
     | '/egypt-through-time_/military-history_/records_/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -1141,8 +1206,13 @@ export interface RootRouteChildren {
   LegalIndexRoute: typeof LegalIndexRoute
   MyTripsIndexRoute: typeof MyTripsIndexRoute
   PartnersIndexRoute: typeof PartnersIndexRoute
+  EgyptThroughTimeMilitaryHistoryFiguresRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
+  EgyptThroughTimeMilitaryHistoryLibraryRoute: typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
+  EgyptThroughTimeMilitaryHistoryMapRoute: typeof EgyptThroughTimeMilitaryHistoryMapRoute
   EgyptThroughTimeMilitaryHistoryRecordsRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
+  EgyptThroughTimeMilitaryHistoryTimelineRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
   PartnersTypeIdRoute: typeof PartnersTypeIdRoute
+  EgyptThroughTimeMilitaryHistoryFiguresSlugRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   EgyptThroughTimeMilitaryHistoryRecordsSlugRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
 
@@ -1729,6 +1799,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPartnersNewRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/egypt-through-time_/military-history_/figures': {
+      id: '/egypt-through-time_/military-history_/figures'
+      path: '/egypt-through-time/military-history/figures'
+      fullPath: '/egypt-through-time/military-history/figures'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egypt-through-time_/military-history_/library': {
+      id: '/egypt-through-time_/military-history_/library'
+      path: '/egypt-through-time/military-history/library'
+      fullPath: '/egypt-through-time/military-history/library'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryLibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egypt-through-time_/military-history_/map': {
+      id: '/egypt-through-time_/military-history_/map'
+      path: '/egypt-through-time/military-history/map'
+      fullPath: '/egypt-through-time/military-history/map'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/egypt-through-time_/military-history_/records': {
       id: '/egypt-through-time_/military-history_/records'
       path: '/egypt-through-time/military-history/records'
@@ -1736,11 +1827,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/egypt-through-time_/military-history_/timeline': {
+      id: '/egypt-through-time_/military-history_/timeline'
+      path: '/egypt-through-time/military-history/timeline'
+      fullPath: '/egypt-through-time/military-history/timeline'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners/$type/$id': {
       id: '/partners/$type/$id'
       path: '/partners/$type/$id'
       fullPath: '/partners/$type/$id'
       preLoaderRoute: typeof PartnersTypeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/egypt-through-time_/military-history_/figures_/$slug': {
+      id: '/egypt-through-time_/military-history_/figures_/$slug'
+      path: '/egypt-through-time/military-history/figures/$slug'
+      fullPath: '/egypt-through-time/military-history/figures/$slug'
+      preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egypt-through-time_/military-history_/records_/$slug': {
@@ -1857,9 +1962,19 @@ const rootRouteChildren: RootRouteChildren = {
   LegalIndexRoute: LegalIndexRoute,
   MyTripsIndexRoute: MyTripsIndexRoute,
   PartnersIndexRoute: PartnersIndexRoute,
+  EgyptThroughTimeMilitaryHistoryFiguresRoute:
+    EgyptThroughTimeMilitaryHistoryFiguresRoute,
+  EgyptThroughTimeMilitaryHistoryLibraryRoute:
+    EgyptThroughTimeMilitaryHistoryLibraryRoute,
+  EgyptThroughTimeMilitaryHistoryMapRoute:
+    EgyptThroughTimeMilitaryHistoryMapRoute,
   EgyptThroughTimeMilitaryHistoryRecordsRoute:
     EgyptThroughTimeMilitaryHistoryRecordsRoute,
+  EgyptThroughTimeMilitaryHistoryTimelineRoute:
+    EgyptThroughTimeMilitaryHistoryTimelineRoute,
   PartnersTypeIdRoute: PartnersTypeIdRoute,
+  EgyptThroughTimeMilitaryHistoryFiguresSlugRoute:
+    EgyptThroughTimeMilitaryHistoryFiguresSlugRoute,
   EgyptThroughTimeMilitaryHistoryRecordsSlugRoute:
     EgyptThroughTimeMilitaryHistoryRecordsSlugRoute,
 }
