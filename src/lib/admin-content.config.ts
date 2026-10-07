@@ -24,10 +24,11 @@ export type UuidFkTable =
   | "military_eras"
   | "military_records"
   | "military_figures"
-  | "military_sources";
+  | "military_sources"
+  | "culture_items";
 export type FkTable = "governorates" | "eras" | UuidFkTable;
 export const UUID_FK_TABLES: UuidFkTable[] = [
-  "emergency_categories", "app_categories", "military_eras", "military_records", "military_figures", "military_sources",
+  "emergency_categories", "app_categories", "military_eras", "military_records", "military_figures", "military_sources", "culture_items",
 ];
 
 export type FieldConfig = {
@@ -82,7 +83,7 @@ export type TableConfig = {
   bulk?: { name: string; options: string[]; fromTable?: "military_eras" }[];
   /** list sort column (defaults to displayColumn) */
   orderColumn?: string;
-  /** show the CSV import tool (military_records only) */
+  /** show the CSV import tool (military_records, culture_items) */
   csvImport?: boolean;
   /** column whose per-value counts are shown above the list */
   countBy?: string;
@@ -97,6 +98,18 @@ const MIL_TYPES = [
 ];
 const milEra: FieldConfig = { name: "era_id", type: "fk", fk: "military_eras", label: "Era" };
 export const APPS_GROUP = "Egypt Apps";
+export const CULTURE_GROUP = "Live Like an Egyptian";
+const CULTURE_SECTIONS = ["cuisine", "fashion", "jewelry_accessories"];
+const CULTURE_CATEGORIES = [
+  "main_dish", "street_food", "sweet", "drink", "breakfast", "soup_stew", "bread_pastry",
+  "women", "men", "children", "wedding_occasion", "everyday", "accessories_headwear",
+  "silver", "gold", "beads_stones", "amulets", "headwear", "craft_object",
+];
+const GOV_IDS = [
+  "gov-alexandria", "gov-aswan", "gov-asyut", "gov-beheira", "gov-beni-suef", "gov-cairo", "gov-dakahlia", "gov-damietta", "gov-faiyum",
+  "gov-gharbia", "gov-giza", "gov-ismailia", "gov-kafr-el-sheikh", "gov-luxor", "gov-matrouh", "gov-minya", "gov-monufia", "gov-new-valley",
+  "gov-north-sinai", "gov-port-said", "gov-qalyubia", "gov-qena", "gov-red-sea", "gov-sharqia", "gov-sohag", "gov-south-sinai", "gov-suez",
+];
 
 const GOVERNANCE: FieldConfig[] = [
   { name: "source_status", type: "select", options: ["DEMO", "VERIFIED", "OFFICIAL"], governance: true },
@@ -293,6 +306,72 @@ export const CONTENT_TABLES: TableConfig[] = [
       { name: "contact_email", type: "text", readOnly: true },
       bool("handled"),
     ],
+  },
+  {
+    table: "culture_items",
+    label: "Culture items",
+    group: CULTURE_GROUP,
+    pk: "id",
+    autoPk: true,
+    slugColumn: "slug",
+    displayColumn: "name_ar",
+    orderColumn: "sort_order",
+    listColumns: ["name_en", "section", "category", "review_status", "is_active"],
+    filters: [
+      { name: "section", label: "Section", options: CULTURE_SECTIONS },
+      { name: "category", label: "Category", options: CULTURE_CATEGORIES },
+      { name: "review_status", label: "Review status", options: REVIEW },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+      { name: "governorate_id", label: "Governorate", options: GOV_IDS },
+    ],
+    bulk: [
+      { name: "review_status", options: REVIEW },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    csvImport: true,
+    countBy: "review_status",
+    fields: [
+      { name: "section", type: "select", options: CULTURE_SECTIONS },
+      { name: "category", type: "select", options: CULTURE_CATEGORIES },
+      t("name_ar"), t("name_en"),
+      { name: "governorate_id", type: "select", options: GOV_IDS, label: "Governorate (optional)" },
+      t("region_ar"), t("region_en"), ta("summary_ar"), ta("summary_en"), ta("story_ar"), ta("story_en"),
+      ta("origin_note_ar"), ta("origin_note_en"), ta("ingredients_ar"), ta("ingredients_en"), ta("materials_ar"), ta("materials_en"),
+      t("occasion_ar"), t("occasion_en"),
+      { name: "video_url", type: "text", label: "Video URL (https YouTube or Vimeo only)" },
+      { name: "marketplace_collection", type: "select", options: ["wear-egypt", "handmade-crafts"] },
+      { name: "review_status", type: "select", options: REVIEW }, t("source_url"), date("last_verified_at"),
+      bool("is_featured"), bool("is_active"), int("sort_order"), ta("internal_notes"),
+    ],
+  },
+  {
+    table: "culture_media",
+    label: "Culture media",
+    group: CULTURE_GROUP,
+    pk: "id",
+    autoPk: true,
+    displayColumn: "url",
+    listColumns: ["kind", "institution", "is_active"],
+    filters: [{ name: "is_active", label: "Active", options: ["true", "false"] }],
+    fields: [
+      { name: "item_id", type: "fk", fk: "culture_items", label: "Culture item" },
+      { name: "kind", type: "select", options: ["image", "video"] }, t("url"), t("caption_ar"), t("caption_en"),
+      { name: "institution", type: "text", label: "Institution / credit holder (required to show publicly)" },
+      { name: "rights_statement", type: "text", label: "Rights statement (required)" },
+      { name: "origin_type", type: "select", options: ["photo", "archival", "illustration", "editorial_reconstruction"] },
+      bool("is_active"),
+    ],
+  },
+  {
+    table: "culture_reports",
+    label: "Culture reports",
+    group: CULTURE_GROUP,
+    pk: "id",
+    noCreate: true,
+    noUpdatedAt: true,
+    displayColumn: "message",
+    listColumns: ["handled", "created_at"],
+    fields: [{ name: "message", type: "textarea", readOnly: true }, bool("handled")],
   },
   {
     table: "emergency_categories",

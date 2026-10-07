@@ -292,6 +292,7 @@ export const getContentRow = createServerFn({ method: "POST" })
         },
         military_figures: { cols: "id, name_en", order: "name_en", label: (r) => r.name_en },
         military_sources: { cols: "id, title", order: "title", label: (r) => r.title },
+        culture_items: { cols: "id, section, name_ar, name_en", order: "sort_order", label: (r) => `[${r.section}] ${r.name_en || r.name_ar || "(untitled)"}` },
       };
       for (const fkTable of new Set(cfg.fields.map((f) => f.fk).filter((x): x is UuidFkTable => UUID_FK_TABLES.includes(x as UuidFkTable)))) {
         const l = LABEL[fkTable];
@@ -556,6 +557,117 @@ export const importMilitaryCsv = createServerFn({ method: "POST" })
       }
       for (const m of merges) {
         const { error } = await supabaseAdmin.from("military_records").update(m.patch as any).eq("id", m.id);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: inserts.length };
+      }
+      return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
+    },
+  );
+
+/* ---------------- CSV import for culture_items ---------------- */
+
+const CULTURE_SECTIONS = ["cuisine", "fashion", "jewelry_accessories"] as const;
+const CULTURE_TEXT_COLS = [
+  "category", "name_en", "region_ar", "region_en", "summary_ar", "summary_en", "story_ar", "story_en", "origin_note_ar", "origin_note_en",
+  "ingredients_ar", "ingredients_en", "materials_ar", "materials_en", "occasion_ar", "occasion_en", "video_url", "marketplace_collection", "source_url",
+] as const;
+const VIDEO_RE = /^https:\/\/(www\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com|vimeo\.com|player\.vimeo\.com)\//i;
+
+export type CultureCsvRow = { line: number; key: string; title: string; action: "new" | "merge" | "unchanged" | "rejected"; error?: string };
+
+/**
+ * Admin-only culture import. Upsert key: section + name_ar. New rows land hidden (needs_check, inactive) with a
+ * slug built from section + a running number. Existing rows are merged non-destructively: only empty fields are
+ * filled and internal notes appended once; review_status / is_active are never touched, so re-imports are no-ops.
+ */
+export const importCultureCsv = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { csv: string; dryRun: boolean }) => {
+    if (typeof input?.csv !== "string" || input.csv.length > 3_000_000) throw new Error("CSV too large");
+    return { csv: input.csv, dryRun: input.dryRun !== false };
+  })
+  .handler(
+    async ({ data, context }): Promise<
+      Denied | Ok<{ ok: boolean; error?: string | undefined; rows: CultureCsvRow[]; summary: CsvSummary; committed: number }>
+    > => {
+      if (!(await isAdmin(context))) return { authorized: false };
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const empty: CsvSummary = { new: 0, merge: 0, unchanged: 0, rejected: 0 };
+      const fail = (error: string) => ({ authorized: true as const, ok: false, error, rows: [], summary: empty, committed: 0 });
+      const table = parseCsv(data.csv.replace(/^\uFEFF/, ""));
+      if (table.length < 2) return fail("The file needs a header row and at least one data row.");
+      const header = table[0]!.map((h) => h.trim().toLowerCase());
+      for (const req of ["section", "name_ar"]) if (!header.includes(req)) return fail(`Missing required column "${req}".`);
+      const body = table.slice(1);
+      if (body.length > 1000) return fail("Maximum 1000 rows per import.");
+
+      const { data: govs } = await supabaseAdmin.from("governorates").select("id, slug");
+      const govBySlug = new Map(((govs ?? []) as { id: string; slug: string }[]).map((g) => [g.slug, g.id]));
+      const { data: existing } = await supabaseAdmin.from("culture_items").select("*");
+      const rowsEx = (existing ?? []) as Record<string, any>[];
+      const byKey = new Map(rowsEx.filter((e) => e["name_ar"]).map((e) => [`${e["section"]}|${String(e["name_ar"]).trim()}`, e]));
+      const nextNo: Record<string, number> = {};
+      for (const s of CULTURE_SECTIONS) {
+        const prefix = s.replace(/_/g, "-") + "-";
+        nextNo[s] = Math.max(0, ...rowsEx.map((e) => String(e["slug"])).filter((x) => x.startsWith(prefix)).map((x) => Number(x.slice(prefix.length)) || 0)) + 1;
+      }
+
+      const seen = new Set<string>();
+      const results: CultureCsvRow[] = [];
+      const inserts: Record<string, unknown>[] = [];
+      const merges: { id: string; patch: Record<string, unknown> }[] = [];
+      body.forEach((cells, i) => {
+        const get = (k: string) => (header.includes(k) ? (cells[header.indexOf(k)] ?? "").trim() : "");
+        const line = i + 2;
+        const section = get("section");
+        const name = get("name_ar");
+        const key = `${section}|${name}`;
+        const reject = (error: string) => void results.push({ line, key: section, title: name, action: "rejected", error });
+        if (!(CULTURE_SECTIONS as readonly string[]).includes(section)) return reject(`unknown section "${section}"`);
+        if (!name) return reject("empty name_ar");
+        if (seen.has(key)) return reject("duplicate section + name_ar inside the file");
+        seen.add(key);
+        const govSlug = get("governorate_slug");
+        const govId = govSlug ? govBySlug.get(govSlug) : null;
+        if (govSlug && !govId) return reject(`unknown governorate_slug "${govSlug}"`);
+        const video = get("video_url");
+        if (video && !VIDEO_RE.test(video)) return reject("video_url must be an https YouTube or Vimeo link");
+        const mc = get("marketplace_collection");
+        if (mc && mc !== "wear-egypt" && mc !== "handmade-crafts") return reject(`unknown marketplace_collection "${mc}"`);
+        const src = get("source_url");
+        if (src && !/^https?:\/\//i.test(src)) return reject("source_url must start with http(s)://");
+
+        const vals: Record<string, string> = {};
+        for (const c of CULTURE_TEXT_COLS) if (get(c)) vals[c] = get(c);
+        const notes = get("internal_notes");
+        const ex = byKey.get(key);
+        if (!ex) {
+          const slug = `${section.replace(/_/g, "-")}-${nextNo[section]!++}`;
+          inserts.push({
+            ...vals, section, name_ar: name, slug, governorate_id: govId ?? null, internal_notes: notes || null,
+            review_status: "needs_check", is_active: false,
+          });
+          return void results.push({ line, key: slug, title: name, action: "new" });
+        }
+        const patch: Record<string, unknown> = {};
+        for (const [c, v] of Object.entries(vals)) if (!String(ex[c] ?? "").trim()) patch[c] = v;
+        if (govId && !ex["governorate_id"]) patch["governorate_id"] = govId;
+        if (notes && !String(ex["internal_notes"] ?? "").includes(notes)) {
+          patch["internal_notes"] = String(ex["internal_notes"] ?? "").trim() ? `${String(ex["internal_notes"]).trim()}\n${notes}` : notes;
+        }
+        if (Object.keys(patch).length === 0) return void results.push({ line, key: ex["slug"], title: name, action: "unchanged" });
+        merges.push({ id: ex["id"], patch });
+        return void results.push({ line, key: ex["slug"], title: name, action: "merge" });
+      });
+
+      const summary: CsvSummary = { ...empty };
+      for (const r of results) summary[r.action]++;
+      if (data.dryRun) return { authorized: true, ok: true, rows: results, summary, committed: 0 };
+      for (let k = 0; k < inserts.length; k += 200) {
+        const { error } = await supabaseAdmin.from("culture_items").insert(inserts.slice(k, k + 200) as any);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: k };
+      }
+      for (const m of merges) {
+        const { error } = await supabaseAdmin.from("culture_items").update(m.patch as any).eq("id", m.id);
         if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: inserts.length };
       }
       return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };

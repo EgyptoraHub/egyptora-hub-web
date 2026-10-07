@@ -10,6 +10,8 @@ import { governorates } from "@/data/governorates";
 import { governorateProfiles, type Bilingual } from "@/data/governorate-profiles";
 import { supabase } from "@/integrations/supabase/client";
 import { useLocalizedRows } from "@/lib/localized-content";
+import { loadGovernorateCulture } from "@/lib/culture";
+import { CultureCard } from "@/components/culture/CultureUI";
 
 const TABS = [
   "discover",
@@ -69,7 +71,7 @@ export const Route = createFileRoute("/governorates/$id")({
     if (!gov || !profile) throw notFound();
     const g = gov.id;
 
-    const [content, areas, destinations, heritage, museums, events, invest, properties, providers, products] =
+    const [content, areas, destinations, heritage, museums, events, invest, properties, providers, products, culture] =
       await Promise.all([
         safe<GovContent>("governorate", supabase.from("governorates").select("flag_image_url, history, highlights, famous_food, famous_clothing").eq("slug", g).limit(1)),
         safe<Area>("areas", supabase.from("governorate_areas").select("id, slug, name, name_ar, type, summary, images").eq("governorate_slug", g).order("name")),
@@ -81,6 +83,7 @@ export const Route = createFileRoute("/governorates/$id")({
         safe<{ id: string; name: string; property_type: string | null; city: string | null; summary: string | null; images: string[] | null }>("properties", supabase.from("properties").select("id, name, property_type, city, summary, images").eq("governorate_slug", g).order("name")),
         safe<{ id: string; name: string; type: string; summary: string | null; images: string[] | null }>("providers", supabase.from("providers").select("id, name, type, summary, images").eq("governorate_slug", g).order("name")),
         safe<{ id: string; name: string; category: string | null; summary: string | null; images: string[] | null }>("products", supabase.from("products").select("id, name, category, summary, images").eq("governorate_slug", g).order("name")),
+        loadGovernorateCulture(g).catch(() => []),
       ]);
 
     return {
@@ -98,6 +101,7 @@ export const Route = createFileRoute("/governorates/$id")({
       properties,
       providers,
       products,
+      culture,
     };
   },
   head: ({ loaderData }) => {
@@ -281,6 +285,14 @@ function GovernoratePage() {
                 <ListBox icon={<UtensilsCrossed className="size-4" />} title={t("Famous food")} items={data.content?.famous_food} />
                 <ListBox icon={<Shirt className="size-4" />} title={t("Traditional clothing & crafts")} items={data.content?.famous_clothing} />
               </div>
+              {data.culture.length > 0 && (
+                <div className="mt-8">
+                  <h3 className="font-display text-lg font-bold text-foreground">{t("Local culture")}</h3>
+                  <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {data.culture.map((c) => <CultureCard key={c.id} r={c} />)}
+                  </ul>
+                </div>
+              )}
             </Section>
 
             <Section className="py-6 lg:py-10">
