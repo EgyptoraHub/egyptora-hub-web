@@ -1345,6 +1345,501 @@ export type Database = {
         }
         Relationships: []
       }
+      military_eras: {
+        Row: {
+          created_at: string
+          egypt_era_id: string | null
+          end_label_ar: string | null
+          end_label_en: string | null
+          id: string
+          intro_ar: string | null
+          intro_en: string | null
+          is_active: boolean
+          key_leadership_ar: string | null
+          key_leadership_en: string | null
+          name_ar: string
+          name_en: string
+          number: number
+          rulers_ar: string | null
+          rulers_en: string | null
+          slug: string
+          sort_order: number
+          start_label_ar: string | null
+          start_label_en: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          egypt_era_id?: string | null
+          end_label_ar?: string | null
+          end_label_en?: string | null
+          id?: string
+          intro_ar?: string | null
+          intro_en?: string | null
+          is_active?: boolean
+          key_leadership_ar?: string | null
+          key_leadership_en?: string | null
+          name_ar: string
+          name_en: string
+          number: number
+          rulers_ar?: string | null
+          rulers_en?: string | null
+          slug: string
+          sort_order?: number
+          start_label_ar?: string | null
+          start_label_en?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          egypt_era_id?: string | null
+          end_label_ar?: string | null
+          end_label_en?: string | null
+          id?: string
+          intro_ar?: string | null
+          intro_en?: string | null
+          is_active?: boolean
+          key_leadership_ar?: string | null
+          key_leadership_en?: string | null
+          name_ar?: string
+          name_en?: string
+          number?: number
+          rulers_ar?: string | null
+          rulers_en?: string | null
+          slug?: string
+          sort_order?: number
+          start_label_ar?: string | null
+          start_label_en?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "military_eras_egypt_era_id_fkey"
+            columns: ["egypt_era_id"]
+            isOneToOne: false
+            referencedRelation: "eras"
+            referencedColumns: ["key"]
+          },
+        ]
+      }
+      military_figures: {
+        Row: {
+          bio_ar: string | null
+          bio_en: string | null
+          created_at: string
+          era_id: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          name_ar: string | null
+          name_en: string
+          portrait_media_id: string | null
+          review_status: string
+          role_ar: string | null
+          role_en: string | null
+          slug: string
+          updated_at: string
+          years_label_ar: string | null
+          years_label_en: string | null
+        }
+        Insert: {
+          bio_ar?: string | null
+          bio_en?: string | null
+          created_at?: string
+          era_id?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          name_ar?: string | null
+          name_en: string
+          portrait_media_id?: string | null
+          review_status?: string
+          role_ar?: string | null
+          role_en?: string | null
+          slug: string
+          updated_at?: string
+          years_label_ar?: string | null
+          years_label_en?: string | null
+        }
+        Update: {
+          bio_ar?: string | null
+          bio_en?: string | null
+          created_at?: string
+          era_id?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          name_ar?: string | null
+          name_en?: string
+          portrait_media_id?: string | null
+          review_status?: string
+          role_ar?: string | null
+          role_en?: string | null
+          slug?: string
+          updated_at?: string
+          years_label_ar?: string | null
+          years_label_en?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "military_figures_era_id_fkey"
+            columns: ["era_id"]
+            isOneToOne: false
+            referencedRelation: "military_eras"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      military_media: {
+        Row: {
+          accession_id: string | null
+          caption_ar: string | null
+          caption_en: string | null
+          created_at: string
+          era_id: string | null
+          figure_id: string | null
+          id: string
+          institution: string | null
+          is_active: boolean
+          kind: string
+          origin_type: string
+          record_id: string | null
+          rights_statement: string
+          title_ar: string | null
+          title_en: string | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          accession_id?: string | null
+          caption_ar?: string | null
+          caption_en?: string | null
+          created_at?: string
+          era_id?: string | null
+          figure_id?: string | null
+          id?: string
+          institution?: string | null
+          is_active?: boolean
+          kind: string
+          origin_type: string
+          record_id?: string | null
+          rights_statement: string
+          title_ar?: string | null
+          title_en?: string | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          accession_id?: string | null
+          caption_ar?: string | null
+          caption_en?: string | null
+          created_at?: string
+          era_id?: string | null
+          figure_id?: string | null
+          id?: string
+          institution?: string | null
+          is_active?: boolean
+          kind?: string
+          origin_type?: string
+          record_id?: string | null
+          rights_statement?: string
+          title_ar?: string | null
+          title_en?: string | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "military_media_era_id_fkey"
+            columns: ["era_id"]
+            isOneToOne: false
+            referencedRelation: "military_eras"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "military_media_figure_id_fkey"
+            columns: ["figure_id"]
+            isOneToOne: false
+            referencedRelation: "military_figures"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "military_media_record_id_fkey"
+            columns: ["record_id"]
+            isOneToOne: false
+            referencedRelation: "military_records"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      military_record_figures: {
+        Row: {
+          figure_id: string
+          id: string
+          record_id: string
+          role_label: string | null
+        }
+        Insert: {
+          figure_id: string
+          id?: string
+          record_id: string
+          role_label?: string | null
+        }
+        Update: {
+          figure_id?: string
+          id?: string
+          record_id?: string
+          role_label?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "military_record_figures_figure_id_fkey"
+            columns: ["figure_id"]
+            isOneToOne: false
+            referencedRelation: "military_figures"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "military_record_figures_record_id_fkey"
+            columns: ["record_id"]
+            isOneToOne: false
+            referencedRelation: "military_records"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      military_record_sources: {
+        Row: {
+          citation_detail: string | null
+          id: string
+          record_id: string
+          source_id: string
+        }
+        Insert: {
+          citation_detail?: string | null
+          id?: string
+          record_id: string
+          source_id: string
+        }
+        Update: {
+          citation_detail?: string | null
+          id?: string
+          record_id?: string
+          source_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "military_record_sources_record_id_fkey"
+            columns: ["record_id"]
+            isOneToOne: false
+            referencedRelation: "military_records"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "military_record_sources_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "military_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      military_records: {
+        Row: {
+          alt_names: string | null
+          created_at: string
+          date_label_ar: string | null
+          date_label_en: string | null
+          egyptian_leadership_ar: string | null
+          egyptian_leadership_en: string | null
+          era_id: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          is_featured: boolean
+          last_verified_at: string | null
+          lat: number | null
+          lng: number | null
+          note_ar: string | null
+          note_en: string | null
+          opposing_side_ar: string | null
+          opposing_side_en: string | null
+          outcome: string
+          place_ar: string | null
+          place_en: string | null
+          record_type: string
+          register_no: number
+          review_status: string
+          significance_ar: string | null
+          significance_en: string | null
+          slug: string
+          source_url: string | null
+          title_ar: string | null
+          title_en: string
+          updated_at: string
+          year_from: number | null
+          year_to: number | null
+        }
+        Insert: {
+          alt_names?: string | null
+          created_at?: string
+          date_label_ar?: string | null
+          date_label_en?: string | null
+          egyptian_leadership_ar?: string | null
+          egyptian_leadership_en?: string | null
+          era_id: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          last_verified_at?: string | null
+          lat?: number | null
+          lng?: number | null
+          note_ar?: string | null
+          note_en?: string | null
+          opposing_side_ar?: string | null
+          opposing_side_en?: string | null
+          outcome?: string
+          place_ar?: string | null
+          place_en?: string | null
+          record_type: string
+          register_no: number
+          review_status?: string
+          significance_ar?: string | null
+          significance_en?: string | null
+          slug: string
+          source_url?: string | null
+          title_ar?: string | null
+          title_en: string
+          updated_at?: string
+          year_from?: number | null
+          year_to?: number | null
+        }
+        Update: {
+          alt_names?: string | null
+          created_at?: string
+          date_label_ar?: string | null
+          date_label_en?: string | null
+          egyptian_leadership_ar?: string | null
+          egyptian_leadership_en?: string | null
+          era_id?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          last_verified_at?: string | null
+          lat?: number | null
+          lng?: number | null
+          note_ar?: string | null
+          note_en?: string | null
+          opposing_side_ar?: string | null
+          opposing_side_en?: string | null
+          outcome?: string
+          place_ar?: string | null
+          place_en?: string | null
+          record_type?: string
+          register_no?: number
+          review_status?: string
+          significance_ar?: string | null
+          significance_en?: string | null
+          slug?: string
+          source_url?: string | null
+          title_ar?: string | null
+          title_en?: string
+          updated_at?: string
+          year_from?: number | null
+          year_to?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "military_records_era_id_fkey"
+            columns: ["era_id"]
+            isOneToOne: false
+            referencedRelation: "military_eras"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      military_reports: {
+        Row: {
+          contact_email: string | null
+          created_at: string
+          handled: boolean
+          id: string
+          message: string
+          record_id: string | null
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message: string
+          record_id?: string | null
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message?: string
+          record_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "military_reports_record_id_fkey"
+            columns: ["record_id"]
+            isOneToOne: false
+            referencedRelation: "military_records"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      military_sources: {
+        Row: {
+          author: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          kind: string
+          notes: string | null
+          publisher: string | null
+          review_status: string
+          title: string
+          updated_at: string
+          url: string | null
+          year: string | null
+        }
+        Insert: {
+          author?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          kind: string
+          notes?: string | null
+          publisher?: string | null
+          review_status?: string
+          title: string
+          updated_at?: string
+          url?: string | null
+          year?: string | null
+        }
+        Update: {
+          author?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          kind?: string
+          notes?: string | null
+          publisher?: string | null
+          review_status?: string
+          title?: string
+          updated_at?: string
+          url?: string | null
+          year?: string | null
+        }
+        Relationships: []
+      }
       museums: {
         Row: {
           access: string | null
