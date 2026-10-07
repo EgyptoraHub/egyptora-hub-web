@@ -43,7 +43,11 @@ function LeafLink({ item, onNavigate }: { item: NavLeaf; onNavigate?: () => void
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- static search params
       search={item.search as any}
       onClick={onNavigate}
-      className="block truncate rounded-lg px-3 py-2 text-[13px] text-foreground/85 transition-colors hover:bg-gold-soft hover:text-gold"
+      className={cn(item.indent && "ms-4 border-s border-border ps-3")}
+      // eslint-disable-next-line react/jsx-no-duplicate-props
+      data-indent={item.indent ? "true" : undefined}
+    >
+      <span className="block truncate rounded-lg px-3 py-2 text-[13px] text-foreground/85 transition-colors hover:bg-gold-soft hover:text-gold"
     >
       {t(item.label)}
     </Link>

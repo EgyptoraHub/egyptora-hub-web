@@ -11,6 +11,8 @@ export type NavLeaf = {
   soon?: boolean;
   /** Optional search params for the target route. */
   search?: Record<string, string>;
+  /** Rendered as a child of the entry above it. */
+  indent?: boolean;
 };
 
 export type NavEntry = {
@@ -27,7 +29,8 @@ export const mainNav: NavEntry[] = [
     items: [
       { label: "All Experiences", to: "/explore-egypt" },
       { label: "27 Governorates", to: "/governorates" },
-      { label: "Egypt Through Time", to: "/encyclopedia" },
+      { label: "Egypt Through Time", to: "/egypt-through-time" },
+      { label: "Military History", to: "/egypt-through-time/military-history", indent: true },
       { label: "Cultural & Historical Tours", to: "/heritage-sites" },
       { label: "Nile Cruises", to: "/experiences/nile-cruises" },
       { label: "Diving & Marine Activities", soon: true },
