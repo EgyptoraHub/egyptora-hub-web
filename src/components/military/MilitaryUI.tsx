@@ -265,7 +265,7 @@ export function RecordFilters({
   );
 
   const body = (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-4">
       {select(t("Era"), search.era, eras.map((e) => ({ v: e.slug, l: `${e.number}. ${bi(e, "name")}` })), "era")}
       {select(t("Record type"), search.type, presentTypes.map((ty) => ({ v: ty, l: t(TYPE_LABEL[ty]) })), "type")}
       {presentOutcomes.length > 0 &&
@@ -318,7 +318,7 @@ export function RecordFilters({
 
   return (
     <>
-      <div className="hidden lg:block">{body}</div>
+      <div className="hidden min-w-0 lg:block">{body}</div>
       <button
         type="button"
         onClick={() => setOpen(true)}
