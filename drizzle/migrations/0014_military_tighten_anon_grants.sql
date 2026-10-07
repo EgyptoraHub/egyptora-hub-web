@@ -1,0 +1,12 @@
+REVOKE ALL ON public.military_eras, public.military_records, public.military_figures, public.military_record_figures, public.military_media, public.military_sources, public.military_record_sources, public.military_reports FROM anon;
+GRANT SELECT ON public.military_eras, public.military_record_figures, public.military_record_sources TO anon;
+GRANT SELECT (id, register_no, slug, era_id, record_type, title_ar, title_en, alt_names, date_label_ar, date_label_en, year_from, year_to, place_ar, place_en, lat, lng, egyptian_leadership_ar, egyptian_leadership_en, opposing_side_ar, opposing_side_en, outcome, note_ar, note_en, significance_ar, significance_en, review_status, source_url, last_verified_at, is_featured, is_active, created_at, updated_at) ON public.military_records TO anon;
+GRANT SELECT (id, slug, name_ar, name_en, role_ar, role_en, era_id, years_label_ar, years_label_en, bio_ar, bio_en, portrait_media_id, review_status, is_active, created_at) ON public.military_figures TO anon;
+GRANT SELECT (id, record_id, figure_id, era_id, kind, url, title_ar, title_en, caption_ar, caption_en, institution, accession_id, rights_statement, origin_type, is_active) ON public.military_media TO anon;
+GRANT SELECT (id, kind, title, author, publisher, year, url, review_status, is_active) ON public.military_sources TO anon;
+GRANT INSERT ON public.military_reports TO anon;
+-- Signed-in non-admins: same column limits (RLS limits writes to admins; internal notes stay unreadable to non-admin readers via the admin server path only).
+REVOKE SELECT ON public.military_records, public.military_figures, public.military_sources FROM authenticated;
+GRANT SELECT (id, register_no, slug, era_id, record_type, title_ar, title_en, alt_names, date_label_ar, date_label_en, year_from, year_to, place_ar, place_en, lat, lng, egyptian_leadership_ar, egyptian_leadership_en, opposing_side_ar, opposing_side_en, outcome, note_ar, note_en, significance_ar, significance_en, review_status, source_url, last_verified_at, is_featured, is_active, created_at, updated_at) ON public.military_records TO authenticated;
+GRANT SELECT (id, slug, name_ar, name_en, role_ar, role_en, era_id, years_label_ar, years_label_en, bio_ar, bio_en, portrait_media_id, review_status, is_active, created_at) ON public.military_figures TO authenticated;
+GRANT SELECT (id, kind, title, author, publisher, year, url, review_status, is_active) ON public.military_sources TO authenticated;
