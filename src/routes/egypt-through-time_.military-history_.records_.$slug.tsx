@@ -80,7 +80,7 @@ function Detail() {
         ...(era ? [{ label: bi(era, "name"), to: "/egypt-through-time/military-history/records", search: { era: era.slug } }] : []),
         { label: bi(r, "title") },
       ])}
-      title={<RecordTitle r={r} />}
+      title={<RecordTitle r={r} labelClassName="text-primary-foreground/85" />}
     >
       <SubNav />
       <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_320px]")}>

@@ -119,14 +119,14 @@ export function ReviewBadge({ status, verifiedAt }: { status: MilRecord["review_
 }
 
 /** Title in the current language. English with no English title shows the Arabic title, marked, never transliterated. */
-export function RecordTitle({ r, className }: { r: Pick<MilRecord, "title_en" | "title_ar">; className?: string }) {
+export function RecordTitle({ r, className, labelClassName = "text-muted-foreground" }: { r: Pick<MilRecord, "title_en" | "title_ar">; className?: string; labelClassName?: string }) {
   const { t, lang } = useI18n();
   const en = r.title_en?.trim();
   if (lang === "ar" || en) return <span className={className} dir="auto">{lang === "ar" ? r.title_ar || en : en}</span>;
   return (
     <span className="inline-flex flex-col gap-0.5">
       <span lang="ar" dir="rtl" className={className}>{r.title_ar}</span>
-      <span className="text-[11px] font-normal text-muted-foreground">{t("Arabic title · English pending")}</span>
+      <span className={cn("font-sans text-xs font-normal", labelClassName)}>{t("Arabic title · English pending")}</span>
     </span>
   );
 }
