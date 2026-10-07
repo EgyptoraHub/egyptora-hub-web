@@ -9,6 +9,11 @@ import type { LangCode } from "./languages";
 export type Dict = Record<string, string>;
 
 const ar: Dict = {
+  "Arabic title · English pending": "العنوان بالعربية · الإنجليزية قيد الإعداد",
+  "Invasion": "غزو",
+  "Revolt / resistance": "ثورة / مقاومة",
+  "Amphibious landing": "إنزال برمائي",
+  "Raid": "غارة",
   "Military History": "التاريخ العسكري",
   "Egypt's Military History": "التاريخ العسكري المصري",
   "in the EGYPTORA register": "في سجل إيجبتورا",
