@@ -1668,14 +1668,14 @@ export type Database = {
           place_ar: string | null
           place_en: string | null
           record_type: string
-          register_no: number
+          register_no: number | null
           review_status: string
           significance_ar: string | null
           significance_en: string | null
           slug: string
           source_url: string | null
           title_ar: string | null
-          title_en: string
+          title_en: string | null
           updated_at: string
           year_from: number | null
           year_to: number | null
@@ -1703,14 +1703,14 @@ export type Database = {
           place_ar?: string | null
           place_en?: string | null
           record_type: string
-          register_no: number
+          register_no?: number | null
           review_status?: string
           significance_ar?: string | null
           significance_en?: string | null
           slug: string
           source_url?: string | null
           title_ar?: string | null
-          title_en: string
+          title_en?: string | null
           updated_at?: string
           year_from?: number | null
           year_to?: number | null
@@ -1738,14 +1738,14 @@ export type Database = {
           place_ar?: string | null
           place_en?: string | null
           record_type?: string
-          register_no?: number
+          register_no?: number | null
           review_status?: string
           significance_ar?: string | null
           significance_en?: string | null
           slug?: string
           source_url?: string | null
           title_ar?: string | null
-          title_en?: string
+          title_en?: string | null
           updated_at?: string
           year_from?: number | null
           year_to?: number | null

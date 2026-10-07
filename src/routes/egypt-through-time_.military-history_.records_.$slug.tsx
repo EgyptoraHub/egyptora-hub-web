@@ -2,13 +2,13 @@ import { ClientOnly, createFileRoute, Link, notFound } from "@tanstack/react-rou
 import { lazy, Suspense } from "react";
 import { SITE } from "@/config/site";
 import {
-  MilError, MilLoading, MilNotFound, MilShell, RecordCard, RegisterNotice, ReportButton, ReviewBadge, SubNav, TypeBadge,
+  MilError, MilLoading, MilNotFound, MilShell, RecordCard, RecordTitle, RegisterNotice, ReportButton, ReviewBadge, SubNav, TypeBadge,
   militaryCrumbs, useBi,
 } from "@/components/military/MilitaryUI";
 import { innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { loadMilitary, loadRecordExtras, outcomeLabel, regNo, type MilMedia } from "@/lib/military";
+import { loadMilitary, loadRecordExtras, outcomeLabel, recordTitleEn, regNo, type MilMedia } from "@/lib/military";
 
 const MilitaryMap = lazy(() => import("@/components/military/MilitaryMap"));
 
@@ -23,8 +23,9 @@ export const Route = createFileRoute("/egypt-through-time_/military-history_/rec
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Record not found | Egyptora Hub" }, { name: "robots", content: "noindex" }] };
     const r = loaderData.record;
-    const title = `${r.title_en} (#${regNo(r.register_no)}) — Egypt's Military History | Egyptora Hub`;
-    const description = (r.note_en ?? `${r.title_en}, ${r.date_label_en ?? ""}.`).slice(0, 158);
+    const name = recordTitleEn(r);
+    const title = `${name}${r.register_no != null ? ` (#${regNo(r.register_no)})` : ""} — Egypt's Military History | Egyptora Hub`;
+    const description = (r.note_en ?? `${name}${r.date_label_en ? `, ${r.date_label_en}` : ""}.`).slice(0, 158);
     return {
       meta: [
         { title },
@@ -79,15 +80,17 @@ function Detail() {
         ...(era ? [{ label: bi(era, "name"), to: "/egypt-through-time/military-history/records", search: { era: era.slug } }] : []),
         { label: bi(r, "title") },
       ])}
-      title={bi(r, "title")}
+      title={<RecordTitle r={r} labelClassName="text-primary-foreground/85" />}
     >
       <SubNav />
       <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_320px]")}>
         <article className="grid content-start gap-6">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-md bg-navy px-2 py-0.5 font-mono text-xs font-semibold text-primary-foreground" dir="ltr">
-              {t("Register no.")} {regNo(r.register_no)}
-            </span>
+            {r.register_no != null && (
+              <span className="rounded-md bg-navy px-2 py-0.5 font-mono text-xs font-semibold text-primary-foreground" dir="ltr">
+                {t("Register no.")} {regNo(r.register_no)}
+              </span>
+            )}
             <TypeBadge type={r.record_type} />
             <ReviewBadge status={r.review_status} verifiedAt={r.last_verified_at} />
           </div>
@@ -208,7 +211,7 @@ function Detail() {
 
         <aside className="grid content-start gap-4">
           <RegisterNotice />
-          <ReportButton recordId={r.id} label={`#${regNo(r.register_no)} ${bi(r, "title")}`} />
+          <ReportButton recordId={r.id} label={`${r.register_no != null ? `#${regNo(r.register_no)} ` : ""}${bi(r, "title")}`} />
           {era?.egypt_era_id && (
             <Link to="/encyclopedia" className="min-h-11 rounded-full border border-border px-4 py-3 text-center text-sm font-semibold text-navy">
               {t("Read about this era in the encyclopedia")}

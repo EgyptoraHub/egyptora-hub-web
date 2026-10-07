@@ -12,4 +12,9 @@ export const TYPE_COLOR: Record<RecordType, string> = {
   defensive_action: "#8A5A00",
   conflict_phase: "#6B4E2E",
   other_record: "#4A4A4A",
+  invasion: "#8C2F39",
+  revolt_resistance: "#5A4A8C",
+  amphibious_landing: "#1B6F6A",
+  raid: "#9A4A12",
+  needs_classification: "#6B6B6B",
 };

@@ -14,6 +14,7 @@ export type ContentRowSummary = {
 export type ContentListPage = {
   table: string;
   filterOptions: Record<string, { value: string; label: string }[]>;
+  bulkOptions?: Record<string, { value: string; label: string }[]>;
   rows: ContentRowSummary[];
   /** per-value counts for cfg.countBy (computed) */
   counts?: Record<string, number> | undefined;
@@ -47,6 +48,8 @@ const prettyField = (name: string) =>
  */
 export function friendlyDbError(raw: unknown): string {
   const message = typeof raw === "string" ? raw : ((raw as any)?.message ?? "");
+
+  if (/Placeholder title/i.test(message)) return "This record still has a placeholder title. Replace the Arabic title before switching it to active.";
 
   const notNull = message.match(/null value in column "([^"]+)"/i);
   if (notNull) return `Please fill in "${prettyField(notNull[1]!)}" — it can't be left empty.`;
@@ -152,6 +155,13 @@ export const listContentRows = createServerFn({ method: "POST" })
     const from = (page - 1) * CONTENT_PAGE_SIZE;
     const extraCols = cfg.listColumns ?? [];
     const cols = Array.from(new Set([cfg.pk, cfg.slugColumn, cfg.displayColumn, ...extraCols].filter(Boolean))).join(", ");
+    const bulkOptions: Record<string, { value: string; label: string }[]> = {};
+    for (const b of cfg.bulk ?? []) {
+      if (b.fromTable) {
+        const { data: opts } = await supabaseAdmin.from(b.fromTable as any).select("id, number, name_en").order("sort_order");
+        bulkOptions[b.name] = ((opts ?? []) as any[]).map((o) => ({ value: o.id, label: `${o.number}. ${o.name_en}` }));
+      } else bulkOptions[b.name] = b.options.map((o) => ({ value: o, label: o }));
+    }
 
     let query = supabaseAdmin.from(cfg.table as any).select(cols, { count: "exact" });
     // Only allow-listed filters, equality only.
@@ -164,10 +174,21 @@ export const listContentRows = createServerFn({ method: "POST" })
         filterOptions[f.name] = f.options.map((o) => ({ value: o, label: o }));
       }
       const v = data.filters?.[f.name];
-      if (v && filterOptions[f.name]!.some((o) => o.value === v)) query = query.eq(f.name, v === "true" ? true : v === "false" ? false : v);
+      if (!v || !filterOptions[f.name]!.some((o) => o.value === v)) continue;
+      if (f.virtual === "has_flag") {
+        query = query.not("internal_notes", "is", null).neq("internal_notes", "");
+      } else if (f.virtual === "dup_title") {
+        const { data: titles } = await supabaseAdmin.from(cfg.table as any).select("title_ar");
+        const seen = new Map<string, number>();
+        for (const r of (titles ?? []) as any[]) if (r.title_ar) seen.set(r.title_ar, (seen.get(r.title_ar) ?? 0) + 1);
+        const dups = [...seen].filter(([, n]) => n > 1).map(([k]) => k);
+        query = query.in("title_ar", dups.length ? dups : ["\u0000"]);
+      } else {
+        query = query.eq(f.name, v === "true" ? true : v === "false" ? false : v);
+      }
     }
     const { data: rows, count } = await query
-      .order(cfg.displayColumn, { ascending: true })
+      .order(cfg.orderColumn ?? cfg.displayColumn, { ascending: true, nullsFirst: false })
       .range(from, from + CONTENT_PAGE_SIZE - 1);
 
     let counts: Record<string, number> | undefined;
@@ -192,6 +213,7 @@ export const listContentRows = createServerFn({ method: "POST" })
       data: {
         table: cfg.table,
         filterOptions,
+        bulkOptions,
         counts,
         rows: mapped,
         total: count ?? 0,
@@ -369,7 +391,8 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
     const cfg = getTableConfig(input?.table);
     if (!cfg) throw new Error("Unknown table");
     const b = cfg.bulk?.find((x) => x.name === input.column);
-    if (!b || !b.options.includes(input.value)) throw new Error("Not allowed");
+    if (!b || (!b.fromTable && !b.options.includes(input.value))) throw new Error("Not allowed");
+    if (b.fromTable && !/^[0-9a-f-]{36}$/i.test(input.value)) throw new Error("Not allowed");
     if (!Array.isArray(input.pks) || input.pks.length === 0 || input.pks.length > 500) throw new Error("Select 1–500 rows");
     return input;
   })
@@ -377,6 +400,11 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
     if (!(await isAdmin(context))) return { authorized: false };
     const cfg = getTableConfig(data.table)!;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const b = cfg.bulk!.find((x) => x.name === data.column)!;
+    if (b.fromTable) {
+      const { data: hit } = await supabaseAdmin.from(b.fromTable as any).select("id").eq("id", data.value).maybeSingle();
+      if (!hit) return { authorized: true, ok: false, updated: 0, error: "That option no longer exists." };
+    }
     const value = data.value === "true" ? true : data.value === "false" ? false : data.value;
     const { error, count } = await supabaseAdmin
       .from(cfg.table as any)
@@ -388,14 +416,19 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
 
 /* ---------------- CSV import for military_records ---------------- */
 
-const MIL_TYPES = ["battle", "war", "campaign", "siege", "naval", "air", "operation", "defensive_action", "conflict_phase", "other_record"];
-const MIL_OUTCOMES = ["egyptian_victory", "defeat", "inconclusive", "disputed", "strategic_withdrawal", "not_assessed"];
-const CSV_TEXT = [
-  "title_ar", "alt_names", "date_label_ar", "date_label_en", "place_ar", "place_en", "egyptian_leadership_ar", "egyptian_leadership_en",
-  "opposing_side_ar", "opposing_side_en", "note_ar", "note_en", "significance_ar", "significance_en", "source_url", "slug",
+const MIL_TYPES = [
+  "battle", "war", "campaign", "siege", "naval", "air", "operation", "defensive_action", "conflict_phase", "other_record",
+  "invasion", "revolt_resistance", "amphibious_landing", "raid", "needs_classification",
 ];
 
-export type CsvRowResult = { line: number; register_no: number | null; title_en: string; action: "insert" | "update" | "error"; error?: string };
+export type CsvRowResult = {
+  line: number;
+  register_no: number | null;
+  title: string;
+  action: "new" | "merge" | "unchanged" | "rejected";
+  error?: string;
+};
+export type CsvSummary = { new: number; merge: number; unchanged: number; rejected: number };
 
 /** Minimal RFC-4180 parser: quoted fields, escaped quotes, CRLF. */
 function parseCsv(text: string): string[][] {
@@ -423,84 +456,104 @@ function parseCsv(text: string): string[][] {
   return rows;
 }
 
-const slugifyRecord = (no: number, title: string) =>
-  `${String(no).padStart(3, "0")}-${title.toLowerCase().normalize("NFKD").replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-").slice(0, 70)}`;
-
-/** Admin-only: preview (dryRun) or commit a CSV upsert by register_no. Imported rows are always hidden + needs_check. */
+/**
+ * Admin-only register import. New register numbers are inserted hidden (needs_check, inactive, slug rec-N,
+ * no English title). Existing register numbers are merged non-destructively: title_ar filled only if empty,
+ * CSV internal_notes appended once. Nothing else on an existing row is touched, so re-imports are no-ops.
+ */
 export const importMilitaryCsv = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { csv: string; dryRun: boolean }) => {
-    if (typeof input?.csv !== "string" || input.csv.length > 2_000_000) throw new Error("CSV too large");
+    if (typeof input?.csv !== "string" || input.csv.length > 3_000_000) throw new Error("CSV too large");
     return { csv: input.csv, dryRun: input.dryRun !== false };
   })
-  .handler(async ({ data, context }): Promise<Denied | Ok<{ ok: boolean; error?: string | undefined; rows: CsvRowResult[]; committed: number }>> => {
-    if (!(await isAdmin(context))) return { authorized: false };
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const table = parseCsv(data.csv.replace(/^\uFEFF/, ""));
-    if (table.length < 2) return { authorized: true, ok: false, error: "The file needs a header row and at least one data row.", rows: [], committed: 0 };
-    const header = table[0]!.map((h) => h.trim().toLowerCase());
-    for (const req of ["register_no", "era_slug", "record_type", "title_en"]) {
-      if (!header.includes(req)) return { authorized: true, ok: false, error: `Missing required column "${req}".`, rows: [], committed: 0 };
-    }
-    const body = table.slice(1);
-    if (body.length > 500) return { authorized: true, ok: false, error: "Maximum 500 rows per import.", rows: [], committed: 0 };
-
-    const { data: eras } = await supabaseAdmin.from("military_eras").select("id, slug");
-    const eraBySlug = new Map(((eras ?? []) as { id: string; slug: string }[]).map((e) => [e.slug, e.id]));
-    const { data: existing } = await supabaseAdmin.from("military_records").select("register_no, slug");
-    const existingNo = new Map(((existing ?? []) as { register_no: number; slug: string }[]).map((e) => [e.register_no, e.slug]));
-
-    const results: CsvRowResult[] = [];
-    const payloads: Record<string, any>[] = [];
-    const seen = new Set<number>();
-    body.forEach((cells, i) => {
-      const get = (k: string) => (header.includes(k) ? (cells[header.indexOf(k)] ?? "").trim() : "");
-      const line = i + 2;
-      const no = Number(get("register_no"));
-      const title = get("title_en");
-      const fail = (error: string): undefined => void results.push({ line, register_no: Number.isFinite(no) ? no : null, title_en: title, action: "error", error });
-      if (!Number.isInteger(no) || no < 1) return fail("register_no must be a positive whole number");
-      if (seen.has(no)) return fail("register_no appears twice in this file");
-      if (!title) return fail("title_en is required");
-      const eraId = eraBySlug.get(get("era_slug"));
-      if (!eraId) return fail(`unknown era_slug "${get("era_slug")}"`);
-      const type = get("record_type");
-      if (!MIL_TYPES.includes(type)) return fail(`record_type "${type}" is not allowed`);
-      const outcome = get("outcome") || "not_assessed";
-      if (!MIL_OUTCOMES.includes(outcome)) return fail(`outcome "${outcome}" is not allowed`);
-      const p: Record<string, any> = {
-        register_no: no, era_id: eraId, record_type: type, title_en: title, outcome,
-        review_status: "needs_check", is_active: false, updated_at: new Date().toISOString(),
-      };
-      for (const k of CSV_TEXT) if (header.includes(k) && k !== "slug") p[k] = get(k) || null;
-      for (const k of ["year_from", "year_to"]) {
-        const v = get(k);
-        if (v) {
-          const n = Number(v);
-          if (!Number.isInteger(n)) return fail(`${k} must be a whole number`);
-          p[k] = n;
-        }
+  .handler(
+    async ({ data, context }): Promise<
+      Denied | Ok<{ ok: boolean; error?: string | undefined; rows: CsvRowResult[]; summary: CsvSummary; committed: number }>
+    > => {
+      if (!(await isAdmin(context))) return { authorized: false };
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const empty: CsvSummary = { new: 0, merge: 0, unchanged: 0, rejected: 0 };
+      const table = parseCsv(data.csv.replace(/^\uFEFF/, ""));
+      if (table.length < 2)
+        return { authorized: true, ok: false, error: "The file needs a header row and at least one data row.", rows: [], summary: empty, committed: 0 };
+      const header = table[0]!.map((h) => h.trim().toLowerCase());
+      for (const req of ["register_no", "era_slug", "record_type", "title_ar"]) {
+        if (!header.includes(req))
+          return { authorized: true, ok: false, error: `Missing required column "${req}".`, rows: [], summary: empty, committed: 0 };
       }
-      for (const [k, lo, hi] of [["lat", -90, 90], ["lng", -180, 180]] as const) {
-        const v = get(k);
-        if (v) {
-          const n = Number(v);
-          if (!Number.isFinite(n) || n < lo || n > hi) return fail(`${k} must be between ${lo} and ${hi}`);
-          p[k] = n;
-        }
-      }
-      p['slug'] = existingNo.get(no) ?? (get("slug") || slugifyRecord(no, title));
-      seen.add(no);
-      payloads.push(p);
-      results.push({ line, register_no: no, title_en: title, action: existingNo.has(no) ? "update" : "insert" });
-      return undefined;
-    });
+      const body = table.slice(1);
+      if (body.length > 1000)
+        return { authorized: true, ok: false, error: "Maximum 1000 rows per import.", rows: [], summary: empty, committed: 0 };
 
-    const hasErrors = results.some((r) => r.action === "error");
-    if (data.dryRun || hasErrors) {
-      return { authorized: true, ok: !hasErrors, error: hasErrors ? "Fix the rows marked as errors, then preview again." : undefined, rows: results, committed: 0 };
-    }
-    const { error } = await supabaseAdmin.from("military_records").upsert(payloads as any, { onConflict: "register_no" });
-    if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, committed: 0 };
-    return { authorized: true, ok: true, rows: results, committed: payloads.length };
-  });
+      const { data: eras } = await supabaseAdmin.from("military_eras").select("id, slug");
+      const eraBySlug = new Map(((eras ?? []) as { id: string; slug: string }[]).map((e) => [e.slug, e.id]));
+      const { data: existing } = await supabaseAdmin
+        .from("military_records")
+        .select("id, register_no, title_ar, internal_notes")
+        .not("register_no", "is", null);
+      const byNo = new Map(
+        ((existing ?? []) as { id: string; register_no: number; title_ar: string | null; internal_notes: string | null }[]).map((e) => [
+          e.register_no,
+          e,
+        ]),
+      );
+
+      const counts = new Map<number, number>();
+      for (const cells of body) {
+        const n = Number((cells[header.indexOf("register_no")] ?? "").trim());
+        counts.set(n, (counts.get(n) ?? 0) + 1);
+      }
+
+      const results: CsvRowResult[] = [];
+      const inserts: Record<string, unknown>[] = [];
+      const merges: { id: string; patch: Record<string, unknown> }[] = [];
+      body.forEach((cells, i) => {
+        const get = (k: string) => (header.includes(k) ? (cells[header.indexOf(k)] ?? "").trim() : "");
+        const line = i + 2;
+        const no = Number(get("register_no"));
+        const title = get("title_ar");
+        const reject = (error: string) =>
+          void results.push({ line, register_no: Number.isFinite(no) ? no : null, title, action: "rejected", error });
+        if (!Number.isInteger(no) || no < 1) return reject("register_no must be a positive whole number");
+        if ((counts.get(no) ?? 0) > 1) return reject("duplicate register_no inside the file");
+        const eraId = eraBySlug.get(get("era_slug"));
+        if (!eraId) return reject(`unknown era_slug "${get("era_slug")}"`);
+        const type = get("record_type");
+        if (!MIL_TYPES.includes(type)) return reject(`unknown record_type "${type}"`);
+        if (!title) return reject("empty title_ar");
+        const notes = get("internal_notes");
+
+        const ex = byNo.get(no);
+        if (!ex) {
+          inserts.push({
+            register_no: no, slug: `rec-${no}`, era_id: eraId, record_type: type, title_ar: title, title_en: null,
+            outcome: "not_assessed", review_status: "needs_check", is_active: false, internal_notes: notes || null,
+          });
+          return void results.push({ line, register_no: no, title, action: "new" });
+        }
+        const patch: Record<string, unknown> = {};
+        if (!ex.title_ar?.trim()) patch["title_ar"] = title;
+        if (notes && !(ex.internal_notes ?? "").includes(notes)) {
+          patch["internal_notes"] = ex.internal_notes?.trim() ? `${ex.internal_notes.trim()}\n${notes}` : notes;
+        }
+        if (Object.keys(patch).length === 0) return void results.push({ line, register_no: no, title, action: "unchanged" });
+        merges.push({ id: ex.id, patch });
+        return void results.push({ line, register_no: no, title, action: "merge" });
+      });
+
+      const summary: CsvSummary = { ...empty };
+      for (const r of results) summary[r.action]++;
+      if (data.dryRun) return { authorized: true, ok: true, rows: results, summary, committed: 0 };
+
+      for (let k = 0; k < inserts.length; k += 200) {
+        const { error } = await supabaseAdmin.from("military_records").insert(inserts.slice(k, k + 200) as any);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: k };
+      }
+      for (const m of merges) {
+        const { error } = await supabaseAdmin.from("military_records").update(m.patch as any).eq("id", m.id);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: inserts.length };
+      }
+      return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
+    },
+  );

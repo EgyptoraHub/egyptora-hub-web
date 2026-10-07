@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { importMilitaryCsv, type CsvRowResult } from "@/lib/admin-content.functions";
+import { importMilitaryCsv, type CsvRowResult, type CsvSummary } from "@/lib/admin-content.functions";
 import { useI18n } from "@/i18n";
 
 /** Admin CSV import for military records: preview first, then commit. Rows always land hidden as needs_check. */
@@ -10,6 +10,7 @@ export function MilitaryCsvImport({ onDone, onDenied }: { onDone: () => void; on
   const run = useServerFn(importMilitaryCsv);
   const [csv, setCsv] = useState("");
   const [rows, setRows] = useState<CsvRowResult[] | null>(null);
+  const [summary, setSummary] = useState<CsvSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [previewOk, setPreviewOk] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -21,8 +22,9 @@ export function MilitaryCsvImport({ onDone, onDenied }: { onDone: () => void; on
       const r = await run({ data: { csv, dryRun } });
       if (!r.authorized) return onDenied();
       setRows(r.rows);
+      setSummary(r.summary);
       setError(r.error ?? null);
-      setPreviewOk(r.ok && dryRun);
+      setPreviewOk(r.ok && dryRun && r.summary.new + r.summary.merge > 0);
       if (!dryRun && r.ok) {
         toast.success(`${t("Imported")}: ${r.committed}`);
         setPreviewOk(false);
@@ -38,7 +40,7 @@ export function MilitaryCsvImport({ onDone, onDenied }: { onDone: () => void; on
   return (
     <div className="mt-3 grid gap-3 rounded-2xl border border-border bg-card/50 p-4 text-sm">
       <p className="text-xs text-muted-foreground">
-        {t("Required columns: register_no, era_slug, record_type, title_en. Optional: title_ar, alt_names, date_label_en/ar, year_from, year_to, place_en/ar, lat, lng, egyptian_leadership_en/ar, opposing_side_en/ar, outcome, note_en/ar, significance_en/ar, source_url. Existing register numbers are updated. Every imported row is saved hidden as needs_check. Maximum 500 rows.")}
+        {t("Columns: register_no, era_slug, record_type, title_ar, title_en, internal_notes (first four required). New register numbers are added hidden as needs_check with no English title. Existing register numbers are only merged: the Arabic title is filled if empty and internal notes are appended — nothing else changes. Rejected rows are skipped. Maximum 1000 rows.")}
       </p>
       <input
         type="file"
@@ -65,17 +67,26 @@ export function MilitaryCsvImport({ onDone, onDenied }: { onDone: () => void; on
         </button>
       </div>
       {error ? <p className="text-destructive">{error}</p> : null}
-      {rows ? (
+      {summary ? (
+        <div className="flex flex-wrap gap-2 text-xs">
+          {(["new", "merge", "unchanged", "rejected"] as const).map((k) => (
+            <span key={k} className={k === "rejected" && summary[k] > 0 ? "rounded-full border border-destructive/50 px-3 py-1 text-destructive" : "rounded-full border border-border px-3 py-1 text-foreground"}>
+              {t(k === "new" ? "New" : k === "merge" ? "Merged" : k === "unchanged" ? "Unchanged" : "Rejected")}: <strong>{summary[k]}</strong>
+            </span>
+          ))}
+        </div>
+      ) : null}
+      {rows && rows.some((r) => r.action !== "unchanged") ? (
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="text-muted-foreground"><tr><th className="p-2">{t("Line")}</th><th className="p-2">register_no</th><th className="p-2">title_en</th><th className="p-2">{t("Result")}</th></tr></thead>
+            <thead className="text-muted-foreground"><tr><th className="p-2">{t("Line")}</th><th className="p-2">register_no</th><th className="p-2">title_ar</th><th className="p-2">{t("Result")}</th></tr></thead>
             <tbody>
-              {rows.map((r) => (
+              {[...rows.filter((r) => r.action === "rejected"), ...rows.filter((r) => r.action === "merge"), ...rows.filter((r) => r.action === "new").slice(0, 20)].map((r) => (
                 <tr key={r.line} className="border-t border-border">
                   <td className="p-2">{r.line}</td>
                   <td className="p-2">{r.register_no ?? "—"}</td>
-                  <td className="p-2" dir="auto">{r.title_en || "—"}</td>
-                  <td className={r.action === "error" ? "p-2 text-destructive" : "p-2 text-foreground"}>{r.action === "error" ? r.error : r.action}</td>
+                  <td className="p-2" dir="auto">{r.title || "—"}</td>
+                  <td className={r.action === "rejected" ? "p-2 text-destructive" : "p-2 text-foreground"}>{r.action === "rejected" ? r.error : r.action}</td>
                 </tr>
               ))}
             </tbody>

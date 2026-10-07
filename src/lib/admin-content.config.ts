@@ -49,6 +49,7 @@ export type FieldConfig = {
 };
 
 export type ListFilter = {
+  virtual?: "has_flag" | "dup_title";
   name: string;
   label: string;
   options: string[];
@@ -78,7 +79,9 @@ export type TableConfig = {
   /** table has no updated_at column */
   noUpdatedAt?: boolean;
   /** columns that can be set on many selected rows at once */
-  bulk?: { name: string; options: string[] }[];
+  bulk?: { name: string; options: string[]; fromTable?: "military_eras" }[];
+  /** list sort column (defaults to displayColumn) */
+  orderColumn?: string;
   /** show the CSV import tool (military_records only) */
   csvImport?: boolean;
   /** column whose per-value counts are shown above the list */
@@ -88,7 +91,10 @@ export type TableConfig = {
 export const EMERGENCY_GROUP = "Emergency & Quick Numbers";
 export const MILITARY_GROUP = "Egypt Through Time — Military History";
 const REVIEW = ["needs_check", "editorial_reviewed", "verified"];
-const MIL_TYPES = ["battle", "war", "campaign", "siege", "naval", "air", "operation", "defensive_action", "conflict_phase", "other_record"];
+const MIL_TYPES = [
+  "battle", "war", "campaign", "siege", "naval", "air", "operation", "defensive_action", "conflict_phase", "other_record",
+  "invasion", "revolt_resistance", "amphibious_landing", "raid", "needs_classification",
+];
 const milEra: FieldConfig = { name: "era_id", type: "fk", fk: "military_eras", label: "Era" };
 export const APPS_GROUP = "Egypt Apps";
 
@@ -139,17 +145,22 @@ export const CONTENT_TABLES: TableConfig[] = [
     pk: "id",
     autoPk: true,
     slugColumn: "slug",
-    displayColumn: "title_en",
-    listColumns: ["register_no", "record_type", "review_status", "is_active"],
+    displayColumn: "title_ar",
+    orderColumn: "register_no",
+    listColumns: ["register_no", "title_en", "record_type", "review_status", "is_active"],
     filters: [
       { name: "era_id", label: "Era", options: [], fromTable: "military_eras" },
       { name: "record_type", label: "Record type", options: MIL_TYPES },
       { name: "review_status", label: "Review status", options: REVIEW },
       { name: "is_active", label: "Active", options: ["true", "false"] },
+      { name: "has_flag", label: "Has editorial flag", options: ["true"], virtual: "has_flag" },
+      { name: "dup_title", label: "Duplicate title", options: ["true"], virtual: "dup_title" },
     ],
     bulk: [
       { name: "review_status", options: REVIEW },
       { name: "is_active", options: ["true", "false"] },
+      { name: "record_type", options: MIL_TYPES },
+      { name: "era_id", options: [], fromTable: "military_eras" },
     ],
     csvImport: true,
     countBy: "review_status",
