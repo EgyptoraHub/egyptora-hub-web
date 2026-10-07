@@ -18,6 +18,18 @@ export type FieldType =
   | "select"
   | "fk";
 
+export type UuidFkTable =
+  | "emergency_categories"
+  | "app_categories"
+  | "military_eras"
+  | "military_records"
+  | "military_figures"
+  | "military_sources";
+export type FkTable = "governorates" | "eras" | UuidFkTable;
+export const UUID_FK_TABLES: UuidFkTable[] = [
+  "emergency_categories", "app_categories", "military_eras", "military_records", "military_figures", "military_sources",
+];
+
 export type FieldConfig = {
   name: string;
   type: FieldType;
@@ -38,7 +50,7 @@ export type ListFilter = {
   label: string;
   options: string[];
   /** options loaded from a category table (value = id, label = name_en) */
-  fromTable?: "app_categories" | "emergency_categories";
+  fromTable?: "app_categories" | "emergency_categories" | "military_eras";
 };
 
 export type TableConfig = {
@@ -62,9 +74,19 @@ export type TableConfig = {
   filters?: ListFilter[];
   /** table has no updated_at column */
   noUpdatedAt?: boolean;
+  /** columns that can be set on many selected rows at once */
+  bulk?: { name: string; options: string[] }[];
+  /** show the CSV import tool (military_records only) */
+  csvImport?: boolean;
+  /** column whose per-value counts are shown above the list */
+  countBy?: string;
 };
 
 export const EMERGENCY_GROUP = "Emergency & Quick Numbers";
+export const MILITARY_GROUP = "Egypt Through Time — Military History";
+const REVIEW = ["needs_check", "editorial_reviewed", "verified"];
+const MIL_TYPES = ["battle", "war", "campaign", "siege", "naval", "air", "operation", "defensive_action", "conflict_phase", "other_record"];
+const milEra: FieldConfig = { name: "era_id", type: "fk", fk: "military_eras", label: "Era" };
 export const APPS_GROUP = "Egypt Apps";
 
 const GOVERNANCE: FieldConfig[] = [
@@ -92,6 +114,172 @@ const gov: FieldConfig = { name: "governorate_slug", type: "fk", fk: "governorat
 const eraFk: FieldConfig = { name: "era", type: "fk", fk: "eras" };
 
 export const CONTENT_TABLES: TableConfig[] = [
+  {
+    table: "military_eras",
+    label: "Military eras",
+    group: MILITARY_GROUP,
+    pk: "id",
+    autoPk: true,
+    slugColumn: "slug",
+    displayColumn: "name_en",
+    listColumns: ["number", "start_label_en", "is_active"],
+    fields: [
+      int("number"), t("name_ar"), t("name_en"), t("start_label_ar"), t("start_label_en"), t("end_label_ar"), t("end_label_en"),
+      int("sort_order"), ta("rulers_ar"), ta("rulers_en"), ta("key_leadership_ar"), ta("key_leadership_en"), ta("intro_ar"), ta("intro_en"),
+      { name: "egypt_era_id", type: "fk", fk: "eras", label: "Matching encyclopedia era (optional)" }, bool("is_active"),
+    ],
+  },
+  {
+    table: "military_records",
+    label: "Military records",
+    group: MILITARY_GROUP,
+    pk: "id",
+    autoPk: true,
+    slugColumn: "slug",
+    displayColumn: "title_en",
+    listColumns: ["register_no", "record_type", "review_status", "is_active"],
+    filters: [
+      { name: "era_id", label: "Era", options: [], fromTable: "military_eras" },
+      { name: "record_type", label: "Record type", options: MIL_TYPES },
+      { name: "review_status", label: "Review status", options: REVIEW },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
+    bulk: [
+      { name: "review_status", options: REVIEW },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    csvImport: true,
+    countBy: "review_status",
+    fields: [
+      int("register_no"), milEra, { name: "record_type", type: "select", options: MIL_TYPES },
+      t("title_ar"), t("title_en"), t("alt_names"), t("date_label_ar"), t("date_label_en"),
+      { name: "year_from", type: "integer", label: "Year from (negative = BCE)" },
+      { name: "year_to", type: "integer", label: "Year to (negative = BCE)" },
+      t("place_ar"), t("place_en"),
+      { name: "lat", type: "number", min: -90, max: 90, label: "Latitude (−90 to 90)" },
+      { name: "lng", type: "number", min: -180, max: 180, label: "Longitude (−180 to 180)" },
+      t("egyptian_leadership_ar"), t("egyptian_leadership_en"), t("opposing_side_ar"), t("opposing_side_en"),
+      { name: "outcome", type: "select", options: ["not_assessed", "egyptian_victory", "defeat", "inconclusive", "disputed", "strategic_withdrawal"] },
+      ta("note_ar"), ta("note_en"), ta("significance_ar"), ta("significance_en"),
+      { name: "review_status", type: "select", options: REVIEW }, t("source_url"), date("last_verified_at"),
+      bool("is_featured"), bool("is_active"),
+      { name: "internal_notes", type: "textarea", label: "Internal notes — never shown publicly" },
+    ],
+  },
+  {
+    table: "military_figures",
+    label: "Military figures",
+    group: MILITARY_GROUP,
+    pk: "id",
+    autoPk: true,
+    slugColumn: "slug",
+    displayColumn: "name_en",
+    listColumns: ["review_status", "is_active"],
+    filters: [
+      { name: "era_id", label: "Era", options: [], fromTable: "military_eras" },
+      { name: "review_status", label: "Review status", options: REVIEW },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
+    bulk: [
+      { name: "review_status", options: REVIEW },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    fields: [
+      t("name_ar"), t("name_en"), t("role_ar"), t("role_en"), milEra, t("years_label_ar"), t("years_label_en"),
+      ta("bio_ar"), ta("bio_en"), { name: "review_status", type: "select", options: REVIEW }, bool("is_active"),
+      { name: "internal_notes", type: "textarea", label: "Internal notes — never shown publicly" },
+    ],
+  },
+  {
+    table: "military_record_figures",
+    label: "Record ↔ figure links",
+    group: MILITARY_GROUP,
+    pk: "id",
+    autoPk: true,
+    noUpdatedAt: true,
+    displayColumn: "role_label",
+    listColumns: ["record_id", "figure_id"],
+    fields: [
+      { name: "record_id", type: "fk", fk: "military_records", label: "Record" },
+      { name: "figure_id", type: "fk", fk: "military_figures", label: "Figure" },
+      t("role_label"),
+    ],
+  },
+  {
+    table: "military_media",
+    label: "Military media",
+    group: MILITARY_GROUP,
+    pk: "id",
+    autoPk: true,
+    displayColumn: "title_en",
+    listColumns: ["kind", "origin_type", "is_active"],
+    filters: [{ name: "is_active", label: "Active", options: ["true", "false"] }],
+    fields: [
+      { name: "record_id", type: "fk", fk: "military_records", label: "Record (optional)" },
+      { name: "figure_id", type: "fk", fk: "military_figures", label: "Figure (optional)" },
+      { name: "era_id", type: "fk", fk: "military_eras", label: "Era (optional)" },
+      { name: "kind", type: "select", options: ["image", "video", "map", "document"] },
+      t("url"), t("title_ar"), t("title_en"), ta("caption_ar"), ta("caption_en"),
+      { name: "institution", type: "text", label: "Institution (required to show publicly)" },
+      t("accession_id"),
+      { name: "rights_statement", type: "textarea", label: "Rights statement (required)" },
+      { name: "origin_type", type: "select", options: ["original_artifact", "archival_photo", "historical_artwork", "map", "editorial_reconstruction"] },
+      bool("is_active"),
+    ],
+  },
+  {
+    table: "military_sources",
+    label: "Military sources",
+    group: MILITARY_GROUP,
+    pk: "id",
+    autoPk: true,
+    displayColumn: "title",
+    listColumns: ["kind", "review_status", "is_active"],
+    filters: [
+      { name: "review_status", label: "Review status", options: REVIEW },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
+    bulk: [
+      { name: "review_status", options: REVIEW },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    fields: [
+      { name: "kind", type: "select", options: ["primary", "scholarly", "institutional"] },
+      t("title"), t("author"), t("publisher"), t("year"), t("url"),
+      { name: "notes", type: "textarea", label: "Internal notes — never shown publicly" },
+      { name: "review_status", type: "select", options: REVIEW }, bool("is_active"),
+    ],
+  },
+  {
+    table: "military_record_sources",
+    label: "Record ↔ source links",
+    group: MILITARY_GROUP,
+    pk: "id",
+    autoPk: true,
+    noUpdatedAt: true,
+    displayColumn: "citation_detail",
+    listColumns: ["record_id", "source_id"],
+    fields: [
+      { name: "record_id", type: "fk", fk: "military_records", label: "Record" },
+      { name: "source_id", type: "fk", fk: "military_sources", label: "Source" },
+      t("citation_detail"),
+    ],
+  },
+  {
+    table: "military_reports",
+    label: "Military record reports",
+    group: MILITARY_GROUP,
+    pk: "id",
+    noCreate: true,
+    noUpdatedAt: true,
+    displayColumn: "message",
+    listColumns: ["contact_email", "handled", "created_at"],
+    fields: [
+      { name: "message", type: "textarea", readOnly: true },
+      { name: "contact_email", type: "text", readOnly: true },
+      bool("handled"),
+    ],
+  },
   {
     table: "emergency_categories",
     label: "Emergency categories",
