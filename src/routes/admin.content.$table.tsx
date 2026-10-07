@@ -2,7 +2,9 @@ import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { MilitaryCsvImport } from "@/components/admin/MilitaryCsvImport";
 import {
+  bulkUpdateRows,
   deleteContentRow,
   getContentRow,
   listContentRows,
@@ -493,6 +495,11 @@ function AdminContentTable() {
 
   const load = useServerFn(listContentRows);
   const remove = useServerFn(deleteContentRow);
+  const bulk = useServerFn(bulkUpdateRows);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkCol, setBulkCol] = useState("");
+  const [bulkVal, setBulkVal] = useState("");
+  const [showImport, setShowImport] = useState(false);
 
   const [state, setState] = useState<"loading" | "denied" | "ready">("loading");
   const [data, setData] = useState<ContentListPage | null>(null);
@@ -516,6 +523,7 @@ function AdminContentTable() {
       return;
     }
     setData(result.data);
+    setSelected(new Set());
     setState("ready");
   }, [cfg, load, page, filters]);
 
@@ -585,6 +593,20 @@ function AdminContentTable() {
   };
 
   const totalPages = Math.max(1, Math.ceil((data?.total ?? 0) / (data?.pageSize ?? 25)));
+  const canBulk = !!cfg.bulk?.length;
+  const applyBulk = async () => {
+    if (!bulkCol || !bulkVal || selected.size === 0) return;
+    setBusy(true);
+    try {
+      const result = await bulk({ data: { table: cfg.table, pks: Array.from(selected), column: bulkCol, value: bulkVal } });
+      if (!result.authorized) return setState("denied");
+      if (!result.ok) return void toast.error(result.error ?? t("Something went wrong. Please try again."));
+      toast.success(`${t("Updated")}: ${result.updated}`);
+      await fetchPage();
+    } finally {
+      setBusy(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background px-5 py-14">
@@ -596,6 +618,23 @@ function AdminContentTable() {
         <p className="mt-2 text-sm text-muted-foreground">
           {data?.total ?? 0} {t("entries")}
         </p>
+        {data?.counts ? (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {Object.entries(data.counts).map(([k, v]) => (
+              <span key={k} className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground">
+                {k}: <strong>{v}</strong>
+              </span>
+            ))}
+          </div>
+        ) : null}
+        {cfg.csvImport && !editing ? (
+          <div className="mt-4">
+            <button type="button" onClick={() => setShowImport((v) => !v)} className="rounded-full border border-gold/40 px-4 py-1.5 text-sm text-gold">
+              {showImport ? t("Close CSV import") : t("Import CSV")}
+            </button>
+            {showImport ? <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : null}
+          </div>
+        ) : null}
 
         {notice ? <p className="mt-4 text-sm text-gold">{notice}</p> : null}
 
@@ -648,10 +687,36 @@ function AdminContentTable() {
               ))}
             </div>
 
+            {canBulk ? (
+              <div className="mt-4 flex flex-wrap items-end gap-3 rounded-2xl border border-border bg-card/50 p-3 text-sm">
+                <span className="text-xs text-muted-foreground">{selected.size} {t("selected")}</span>
+                <select aria-label={t("Bulk field")} value={bulkCol} onChange={(e) => { setBulkCol(e.target.value); setBulkVal(""); }} className={inputClass + " w-auto"}>
+                  <option value="">{t("Set field…")}</option>
+                  {cfg.bulk!.map((b) => <option key={b.name} value={b.name}>{b.name}</option>)}
+                </select>
+                <select aria-label={t("Bulk value")} value={bulkVal} onChange={(e) => setBulkVal(e.target.value)} className={inputClass + " w-auto"} disabled={!bulkCol}>
+                  <option value="">{t("Value…")}</option>
+                  {(cfg.bulk!.find((b) => b.name === bulkCol)?.options ?? []).map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
+                <button type="button" disabled={busy || !bulkCol || !bulkVal || selected.size === 0} onClick={() => void applyBulk()} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-background disabled:opacity-40">
+                  {t("Apply to selected")}
+                </button>
+              </div>
+            ) : null}
             <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
               <table className="w-full min-w-[720px] text-left text-sm">
                 <thead className="bg-card/60 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                   <tr>
+                    {canBulk ? (
+                      <th className="px-4 py-3">
+                        <input
+                          type="checkbox"
+                          aria-label={t("Select all")}
+                          checked={!!data?.rows.length && selected.size === data.rows.length}
+                          onChange={(e) => setSelected(e.target.checked ? new Set(data?.rows.map((r) => r.pk)) : new Set())}
+                        />
+                      </th>
+                    ) : null}
                     <th className="px-4 py-3">{t("Identifier")}</th>
                     {cfg.slugColumn ? <th className="px-4 py-3">{t("Slug")}</th> : null}
                     <th className="px-4 py-3">{t("Name")}</th>
@@ -664,13 +729,30 @@ function AdminContentTable() {
                 <tbody>
                   {(data?.rows ?? []).length === 0 ? (
                     <tr>
-                      <td colSpan={4 + (cfg.listColumns?.length ?? 0)} className="px-4 py-10 text-center text-muted-foreground">
+                      <td colSpan={5 + (cfg.listColumns?.length ?? 0)} className="px-4 py-10 text-center text-muted-foreground">
                         {t("No entries yet.")}
                       </td>
                     </tr>
                   ) : null}
                   {(data?.rows ?? []).map((row) => (
                     <tr key={row.pk} className="border-t border-border">
+                      {canBulk ? (
+                        <td className="px-4 py-3">
+                          <input
+                            type="checkbox"
+                            aria-label={`${t("Select")} ${row.name ?? row.pk}`}
+                            checked={selected.has(row.pk)}
+                            onChange={(e) =>
+                              setSelected((prev) => {
+                                const n = new Set(prev);
+                                if (e.target.checked) n.add(row.pk);
+                                else n.delete(row.pk);
+                                return n;
+                              })
+                            }
+                          />
+                        </td>
+                      ) : null}
                       <td className="px-4 py-3 break-all text-muted-foreground">{row.pk}</td>
                       {cfg.slugColumn ? (
                         <td className="px-4 py-3 break-all text-muted-foreground">{row.slug ?? "—"}</td>
