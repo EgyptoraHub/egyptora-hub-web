@@ -17,7 +17,7 @@ import {
   type MilEra, type MilRecord, type RecordsSearch,
 } from "@/lib/military";
 
-export type Crumb = { label: string; to?: string; params?: Record<string, string>; search?: Record<string, string> };
+export type Crumb = { label: string; to?: string | undefined; params?: Record<string, string>; search?: Record<string, string> };
 
 export function useBi() {
   const { lang } = useI18n();
@@ -127,7 +127,7 @@ export function TypeBadge({ type }: { type: MilRecord["record_type"] }) {
   );
 }
 
-export function RecordCard({ r, era }: { r: MilRecord; era?: MilEra }) {
+export function RecordCard({ r, era }: { r: MilRecord; era?: MilEra | undefined }) {
   const { t } = useI18n();
   const bi = useBi();
   const out = outcomeLabel(r.outcome);
@@ -223,7 +223,8 @@ export function useRecordsNav() {
   return (next: Partial<RecordsSearch>) =>
     void navigate({
       to: ".",
-      search: (prev: RecordsSearch) => ({ ...prev, page: undefined, ...next }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- shared "." reducer across routes
+      search: ((prev: RecordsSearch) => ({ ...prev, page: undefined, ...next })) as any,
       replace: true,
     });
 }
@@ -255,7 +256,7 @@ export function RecordFilters({
       <select
         value={value ?? ""}
         onChange={(e) => set({ [key]: e.target.value || undefined } as Partial<RecordsSearch>)}
-        className="min-h-11 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
+        className="min-h-11 w-full min-w-0 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
       >
         <option value="">{t("All")}</option>
         {opts.map((o) => <option key={o.v} value={o.v}>{o.l}</option>)}
@@ -264,7 +265,7 @@ export function RecordFilters({
   );
 
   const body = (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-4">
       {select(t("Era"), search.era, eras.map((e) => ({ v: e.slug, l: `${e.number}. ${bi(e, "name")}` })), "era")}
       {select(t("Record type"), search.type, presentTypes.map((ty) => ({ v: ty, l: t(TYPE_LABEL[ty]) })), "type")}
       {presentOutcomes.length > 0 &&
@@ -306,7 +307,7 @@ export function RecordFilters({
         <select
           value={search.sort ?? "chrono"}
           onChange={(e) => set({ sort: e.target.value === "new" ? "new" : undefined })}
-          className="min-h-11 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
+          className="min-h-11 w-full min-w-0 rounded-xl border border-border bg-background px-3 text-sm font-normal text-foreground"
         >
           <option value="chrono">{t("Chronological")}</option>
           <option value="new">{t("Newest added")}</option>
@@ -317,7 +318,7 @@ export function RecordFilters({
 
   return (
     <>
-      <div className="hidden lg:block">{body}</div>
+      <div className="hidden min-w-0 lg:block">{body}</div>
       <button
         type="button"
         onClick={() => setOpen(true)}

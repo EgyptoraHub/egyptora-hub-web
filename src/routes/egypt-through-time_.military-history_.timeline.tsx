@@ -55,7 +55,7 @@ function Timeline() {
   return (
     <MilShell crumbs={militaryCrumbs(t, [{ label: t("Timeline") }])} title={t("Timeline of eras")}>
       <SubNav />
-      <main className={cn(innerWrap, "grid gap-8 py-8")}>
+      <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-8 py-8")}>
         <div role="tablist" aria-label={t("Eras")} className="relative flex gap-0 overflow-x-auto pb-3">
           <div className="pointer-events-none absolute inset-x-0 top-[22px] h-0.5 bg-border" aria-hidden="true" />
           {eras.map((e, i) => {

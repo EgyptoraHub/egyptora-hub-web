@@ -25,7 +25,7 @@ function Figures() {
   return (
     <MilShell crumbs={militaryCrumbs(t, [{ label: t("Historical figures") }])} title={t("Historical figures")}>
       <SubNav />
-      <main className={cn(innerWrap, "grid gap-6 py-8")}>
+      <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-6 py-8")}>
         {figures.length === 0 ? (
           <p className="rounded-2xl border border-border bg-card p-6 text-sm text-text-body">
             {t("Profiles of historical figures are under academic review and will be published here once checked.")}

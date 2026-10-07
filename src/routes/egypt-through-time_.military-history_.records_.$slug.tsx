@@ -82,7 +82,7 @@ function Detail() {
       title={bi(r, "title")}
     >
       <SubNav />
-      <main className={cn(innerWrap, "grid gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_320px]")}>
+      <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-8 py-8 lg:grid-cols-[minmax(0,1fr)_320px]")}>
         <article className="grid content-start gap-6">
           <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-md bg-navy px-2 py-0.5 font-mono text-xs font-semibold text-primary-foreground" dir="ltr">

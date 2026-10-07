@@ -99,6 +99,13 @@
       "when": 1791359486469,
       "tag": "0013_create_military_history",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1791360260631,
+      "tag": "0014_military_tighten_anon_grants",
+      "breakpoints": true
     }
   ]
 }

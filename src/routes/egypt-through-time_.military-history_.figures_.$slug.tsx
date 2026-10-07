@@ -51,7 +51,7 @@ function Figure() {
       subtitle={[bi(f, "role"), bi(f, "years_label"), era ? bi(era, "name") : ""].filter(Boolean).join(" · ")}
     >
       <SubNav />
-      <main className={cn(innerWrap, "grid gap-6 py-8")}>
+      <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-6 py-8")}>
         {bi(f, "bio") && <p className="max-w-3xl text-sm leading-relaxed text-text-body" dir="auto">{bi(f, "bio")}</p>}
         {linked.length > 0 && (
           <section>
