@@ -285,7 +285,11 @@ export const getContentRow = createServerFn({ method: "POST" })
         emergency_categories: { cols: "id, name_en", order: "sort_order", label: (r) => r.name_en },
         app_categories: { cols: "id, name_en", order: "sort_order", label: (r) => r.name_en },
         military_eras: { cols: "id, number, name_en", order: "sort_order", label: (r) => `${r.number}. ${r.name_en}` },
-        military_records: { cols: "id, register_no, title_en", order: "register_no", label: (r) => `#${String(r.register_no).padStart(3, "0")} ${r.title_en}` },
+        military_records: {
+          cols: "id, register_no, title_en, title_ar",
+          order: "register_no",
+          label: (r) => [r.register_no != null ? `#${String(r.register_no).padStart(3, "0")}` : null, r.title_en || r.title_ar || "(untitled)"].filter(Boolean).join(" "),
+        },
         military_figures: { cols: "id, name_en", order: "name_en", label: (r) => r.name_en },
         military_sources: { cols: "id, title", order: "title", label: (r) => r.title },
       };
