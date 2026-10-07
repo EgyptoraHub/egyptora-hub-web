@@ -103,7 +103,7 @@ function SectionPage() {
   return (
     <MilShell
       crumbs={cultureCrumbs(t, [{ label: lang === "ar" ? cfg.titleAr : t(cfg.titleEn) }])}
-      title={<>{t(cfg.titleEn)} <span lang="ar" dir="rtl" className="block text-lg font-normal opacity-85 lg:text-2xl">{cfg.titleAr}</span></>}
+      title={<>{t(cfg.titleEn)} <span lang="ar" dir="rtl" className="ms-3 inline-block text-lg font-normal opacity-85 lg:text-2xl">{cfg.titleAr}</span></>}
       subtitle={t(cfg.descEn)}
       search={{ value: q, onChange: setQ, placeholder: t("Search by name, region, ingredient or material") }}
     >

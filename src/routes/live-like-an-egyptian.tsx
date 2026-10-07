@@ -33,7 +33,7 @@ function Hub() {
   return (
     <MilShell
       crumbs={[{ label: t("Live Like an Egyptian") }]}
-      title={<>{t("Live Like an Egyptian")} <span lang="ar" dir="rtl" className="block text-lg font-normal opacity-85 lg:text-2xl">عِش كأنك مصري</span></>}
+      title={<>{t("Live Like an Egyptian")} <span lang="ar" dir="rtl" className="ms-3 inline-block text-lg font-normal opacity-85 lg:text-2xl">عِش كأنك مصري</span></>}
       subtitle={t("Food, dress and adornment across Egypt's regions — the everyday culture behind the monuments.")}
     >
       <main className={cn(innerWrap, "grid gap-10 py-8")}>
