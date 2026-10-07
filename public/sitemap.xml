@@ -60,4 +60,7 @@
   <url><loc>https://egyptora-hub.com/live-like-an-egyptian/cuisine</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://egyptora-hub.com/live-like-an-egyptian/fashion</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://egyptora-hub.com/live-like-an-egyptian/jewelry-accessories</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/live-like-an-egyptian/cuisine/test-qa-cuisine</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/live-like-an-egyptian/fashion/test-qa-fashion</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://egyptora-hub.com/live-like-an-egyptian/jewelry-accessories/test-qa-jewel</loc><changefreq>monthly</changefreq></url>
 </urlset>
