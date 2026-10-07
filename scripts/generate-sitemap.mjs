@@ -21,13 +21,20 @@ async function slugs(table) {
 }
 
 const path = new URL("../public/sitemap.xml", import.meta.url);
-const dynamic = /\/military-history\/(records|figures)\/[^<]+<\/loc>/;
+const dynamic = /(\/military-history\/(records|figures)\/[^<]+|\/live-like-an-egyptian[^<]*)<\/loc>/;
 const kept = readFileSync(path, "utf8").split("\n").filter((l) => !dynamic.test(l) && !l.includes("</urlset>"));
 while (kept.length && kept[kept.length - 1].trim() === "") kept.pop();
 
 const records = await slugs("military_records");
 const figures = await slugs("military_figures");
+const cr = await fetch(`${URL_}/rest/v1/culture_items?select=section,slug&is_active=eq.true&order=slug`, { headers: { apikey: KEY } });
+if (!cr.ok) throw new Error(`culture_items: ${cr.status}`);
+const culture = await cr.json();
+const SITE = "https://egyptora-hub.com/live-like-an-egyptian";
+const sec = (s) => s.replace(/_/g, "-");
+const cultureLines = [SITE, `${SITE}/cuisine`, `${SITE}/fashion`, `${SITE}/jewelry-accessories`, ...culture.map((c) => `${SITE}/${sec(c.section)}/${c.slug}`)]
+  .map((u) => `  <url><loc>${u}</loc><changefreq>monthly</changefreq></url>`);
 const line = (p) => `  <url><loc>${BASE}/${p}</loc><changefreq>monthly</changefreq></url>`;
-const out = [...kept, ...records.map((s) => line(`records/${s}`)), ...figures.map((s) => line(`figures/${s}`)), "</urlset>", ""].join("\n");
+const out = [...kept, ...records.map((s) => line(`records/${s}`)), ...figures.map((s) => line(`figures/${s}`)), ...cultureLines, "</urlset>", ""].join("\n");
 writeFileSync(path, out);
-console.log(`sitemap.xml: ${records.length} record pages, ${figures.length} figure pages`);
+console.log(`sitemap.xml: ${records.length} record pages, ${figures.length} figure pages, ${culture.length} culture item pages (+4 culture hub/section pages)`);

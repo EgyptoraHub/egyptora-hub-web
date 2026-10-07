@@ -31,6 +31,7 @@ import { Route as HeritageSitesRouteImport } from './routes/heritage-sites'
 import { Route as InvestInEgyptRouteImport } from './routes/invest-in-egypt'
 import { Route as InvestmentOpportunitiesRouteImport } from './routes/investment-opportunities'
 import { Route as LiveInEgyptRouteImport } from './routes/live-in-egypt'
+import { Route as LiveLikeAnEgyptianRouteImport } from './routes/live-like-an-egyptian'
 import { Route as MuseumsRouteImport } from './routes/museums'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as OurMissionRouteImport } from './routes/our-mission'
@@ -69,6 +70,8 @@ import { Route as LegalIndexRouteImport } from './routes/legal.index'
 import { Route as LegalSlugRouteImport } from './routes/legal.$slug'
 import { Route as LegalConsentRouteImport } from './routes/legal.consent'
 import { Route as LegalReviewChecklistRouteImport } from './routes/legal.review-checklist'
+import { Route as LiveLikeAnEgyptianSectionRouteImport } from './routes/live-like-an-egyptian_.$section'
+import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
 import { Route as MarketplaceEgyptianCottonRouteImport } from './routes/marketplace.egyptian-cotton'
 import { Route as MarketplaceHandmadeCraftsRouteImport } from './routes/marketplace.handmade-crafts'
 import { Route as MarketplaceLocalProducersRouteImport } from './routes/marketplace.local-producers'
@@ -97,6 +100,7 @@ import { Route as EgyptThroughTimeMilitaryHistoryLibraryRouteImport } from './ro
 import { Route as EgyptThroughTimeMilitaryHistoryMapRouteImport } from './routes/egypt-through-time_.military-history_.map'
 import { Route as EgyptThroughTimeMilitaryHistoryRecordsRouteImport } from './routes/egypt-through-time_.military-history_.records'
 import { Route as EgyptThroughTimeMilitaryHistoryTimelineRouteImport } from './routes/egypt-through-time_.military-history_.timeline'
+import { Route as LiveLikeAnEgyptianSectionSlugRouteImport } from './routes/live-like-an-egyptian_.$section_.$slug'
 import { Route as PartnersTypeIdRouteImport } from './routes/partners.$type.$id'
 import { Route as EgyptThroughTimeMilitaryHistoryFiguresSlugRouteImport } from './routes/egypt-through-time_.military-history_.figures_.$slug'
 import { Route as EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport } from './routes/egypt-through-time_.military-history_.records_.$slug'
@@ -210,6 +214,11 @@ const InvestmentOpportunitiesRoute = InvestmentOpportunitiesRouteImport.update({
 const LiveInEgyptRoute = LiveInEgyptRouteImport.update({
   id: '/live-in-egypt',
   path: '/live-in-egypt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveLikeAnEgyptianRoute = LiveLikeAnEgyptianRouteImport.update({
+  id: '/live-like-an-egyptian',
+  path: '/live-like-an-egyptian',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MuseumsRoute = MuseumsRouteImport.update({
@@ -406,6 +415,17 @@ const LegalReviewChecklistRoute = LegalReviewChecklistRouteImport.update({
   path: '/legal/review-checklist',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LiveLikeAnEgyptianSectionRoute =
+  LiveLikeAnEgyptianSectionRouteImport.update({
+    id: '/live-like-an-egyptian_/$section',
+    path: '/live-like-an-egyptian/$section',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const MarketplaceIndexRoute = MarketplaceIndexRouteImport.update({
+  id: '/marketplace/',
+  path: '/marketplace/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MarketplaceEgyptianCottonRoute =
   MarketplaceEgyptianCottonRouteImport.update({
     id: '/marketplace/egyptian-cotton',
@@ -555,6 +575,12 @@ const EgyptThroughTimeMilitaryHistoryTimelineRoute =
     path: '/egypt-through-time/military-history/timeline',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LiveLikeAnEgyptianSectionSlugRoute =
+  LiveLikeAnEgyptianSectionSlugRouteImport.update({
+    id: '/live-like-an-egyptian_/$section_/$slug',
+    path: '/live-like-an-egyptian/$section/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PartnersTypeIdRoute = PartnersTypeIdRouteImport.update({
   id: '/partners/$type/$id',
   path: '/partners/$type/$id',
@@ -596,6 +622,7 @@ export interface FileRoutesByFullPath {
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
+  '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
   '/museums': typeof MuseumsRoute
   '/offers': typeof OffersRoute
   '/our-mission': typeof OurMissionRoute
@@ -631,6 +658,7 @@ export interface FileRoutesByFullPath {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
+  '/live-like-an-egyptian/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
   '/marketplace/local-producers': typeof MarketplaceLocalProducersRoute
@@ -650,6 +678,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/governorates/': typeof GovernoratesIndexRoute
   '/legal/': typeof LegalIndexRoute
+  '/marketplace/': typeof MarketplaceIndexRoute
   '/my-trips/': typeof MyTripsIndexRoute
   '/partners/': typeof PartnersIndexRoute
   '/admin/content/$table': typeof AdminContentTableRoute
@@ -661,6 +690,7 @@ export interface FileRoutesByFullPath {
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/live-like-an-egyptian/$section/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
   '/egypt-through-time/military-history/figures/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
@@ -688,6 +718,7 @@ export interface FileRoutesByTo {
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
+  '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
   '/museums': typeof MuseumsRoute
   '/offers': typeof OffersRoute
   '/our-mission': typeof OurMissionRoute
@@ -723,6 +754,7 @@ export interface FileRoutesByTo {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
+  '/live-like-an-egyptian/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
   '/marketplace/local-producers': typeof MarketplaceLocalProducersRoute
@@ -742,6 +774,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/governorates': typeof GovernoratesIndexRoute
   '/legal': typeof LegalIndexRoute
+  '/marketplace': typeof MarketplaceIndexRoute
   '/my-trips': typeof MyTripsIndexRoute
   '/partners': typeof PartnersIndexRoute
   '/admin/content/$table': typeof AdminContentTableRoute
@@ -753,6 +786,7 @@ export interface FileRoutesByTo {
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/live-like-an-egyptian/$section/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content': typeof AdminContentIndexRoute
   '/egypt-through-time/military-history/figures/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
@@ -782,6 +816,7 @@ export interface FileRoutesById {
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
+  '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
   '/museums': typeof MuseumsRoute
   '/offers': typeof OffersRoute
   '/our-mission': typeof OurMissionRoute
@@ -817,6 +852,7 @@ export interface FileRoutesById {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
+  '/live-like-an-egyptian_/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
   '/marketplace/local-producers': typeof MarketplaceLocalProducersRoute
@@ -836,6 +872,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/governorates/': typeof GovernoratesIndexRoute
   '/legal/': typeof LegalIndexRoute
+  '/marketplace/': typeof MarketplaceIndexRoute
   '/my-trips/': typeof MyTripsIndexRoute
   '/partners/': typeof PartnersIndexRoute
   '/admin/content/$table': typeof AdminContentTableRoute
@@ -847,6 +884,7 @@ export interface FileRoutesById {
   '/egypt-through-time_/military-history_/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time_/military-history_/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time_/military-history_/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/live-like-an-egyptian_/$section_/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
   '/egypt-through-time_/military-history_/figures_/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
@@ -877,6 +915,7 @@ export interface FileRouteTypes {
     | '/invest-in-egypt'
     | '/investment-opportunities'
     | '/live-in-egypt'
+    | '/live-like-an-egyptian'
     | '/museums'
     | '/offers'
     | '/our-mission'
@@ -912,6 +951,7 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
+    | '/live-like-an-egyptian/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
     | '/marketplace/local-producers'
@@ -931,6 +971,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/governorates/'
     | '/legal/'
+    | '/marketplace/'
     | '/my-trips/'
     | '/partners/'
     | '/admin/content/$table'
@@ -942,6 +983,7 @@ export interface FileRouteTypes {
     | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
     | '/egypt-through-time/military-history/timeline'
+    | '/live-like-an-egyptian/$section/$slug'
     | '/partners/$type/$id'
     | '/admin/content/'
     | '/egypt-through-time/military-history/figures/$slug'
@@ -969,6 +1011,7 @@ export interface FileRouteTypes {
     | '/invest-in-egypt'
     | '/investment-opportunities'
     | '/live-in-egypt'
+    | '/live-like-an-egyptian'
     | '/museums'
     | '/offers'
     | '/our-mission'
@@ -1004,6 +1047,7 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
+    | '/live-like-an-egyptian/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
     | '/marketplace/local-producers'
@@ -1023,6 +1067,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/governorates'
     | '/legal'
+    | '/marketplace'
     | '/my-trips'
     | '/partners'
     | '/admin/content/$table'
@@ -1034,6 +1079,7 @@ export interface FileRouteTypes {
     | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
     | '/egypt-through-time/military-history/timeline'
+    | '/live-like-an-egyptian/$section/$slug'
     | '/partners/$type/$id'
     | '/admin/content'
     | '/egypt-through-time/military-history/figures/$slug'
@@ -1062,6 +1108,7 @@ export interface FileRouteTypes {
     | '/invest-in-egypt'
     | '/investment-opportunities'
     | '/live-in-egypt'
+    | '/live-like-an-egyptian'
     | '/museums'
     | '/offers'
     | '/our-mission'
@@ -1097,6 +1144,7 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
+    | '/live-like-an-egyptian_/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
     | '/marketplace/local-producers'
@@ -1116,6 +1164,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/governorates/'
     | '/legal/'
+    | '/marketplace/'
     | '/my-trips/'
     | '/partners/'
     | '/admin/content/$table'
@@ -1127,6 +1176,7 @@ export interface FileRouteTypes {
     | '/egypt-through-time_/military-history_/map'
     | '/egypt-through-time_/military-history_/records'
     | '/egypt-through-time_/military-history_/timeline'
+    | '/live-like-an-egyptian_/$section_/$slug'
     | '/partners/$type/$id'
     | '/admin/content/'
     | '/egypt-through-time_/military-history_/figures_/$slug'
@@ -1156,6 +1206,7 @@ export interface RootRouteChildren {
   InvestInEgyptRoute: typeof InvestInEgyptRoute
   InvestmentOpportunitiesRoute: typeof InvestmentOpportunitiesRoute
   LiveInEgyptRoute: typeof LiveInEgyptRoute
+  LiveLikeAnEgyptianRoute: typeof LiveLikeAnEgyptianRoute
   MuseumsRoute: typeof MuseumsRoute
   OffersRoute: typeof OffersRoute
   OurMissionRoute: typeof OurMissionRoute
@@ -1186,6 +1237,7 @@ export interface RootRouteChildren {
   LegalSlugRoute: typeof LegalSlugRoute
   LegalConsentRoute: typeof LegalConsentRoute
   LegalReviewChecklistRoute: typeof LegalReviewChecklistRoute
+  LiveLikeAnEgyptianSectionRoute: typeof LiveLikeAnEgyptianSectionRoute
   MarketplaceEgyptianCottonRoute: typeof MarketplaceEgyptianCottonRoute
   MarketplaceHandmadeCraftsRoute: typeof MarketplaceHandmadeCraftsRoute
   MarketplaceLocalProducersRoute: typeof MarketplaceLocalProducersRoute
@@ -1204,6 +1256,7 @@ export interface RootRouteChildren {
   VisitEgyptTravelAndTourismRoute: typeof VisitEgyptTravelAndTourismRoute
   GovernoratesIndexRoute: typeof GovernoratesIndexRoute
   LegalIndexRoute: typeof LegalIndexRoute
+  MarketplaceIndexRoute: typeof MarketplaceIndexRoute
   MyTripsIndexRoute: typeof MyTripsIndexRoute
   PartnersIndexRoute: typeof PartnersIndexRoute
   EgyptThroughTimeMilitaryHistoryFiguresRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
@@ -1211,6 +1264,7 @@ export interface RootRouteChildren {
   EgyptThroughTimeMilitaryHistoryMapRoute: typeof EgyptThroughTimeMilitaryHistoryMapRoute
   EgyptThroughTimeMilitaryHistoryRecordsRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   EgyptThroughTimeMilitaryHistoryTimelineRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  LiveLikeAnEgyptianSectionSlugRoute: typeof LiveLikeAnEgyptianSectionSlugRoute
   PartnersTypeIdRoute: typeof PartnersTypeIdRoute
   EgyptThroughTimeMilitaryHistoryFiguresSlugRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   EgyptThroughTimeMilitaryHistoryRecordsSlugRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
@@ -1370,6 +1424,13 @@ declare module '@tanstack/react-router' {
       path: '/live-in-egypt'
       fullPath: '/live-in-egypt'
       preLoaderRoute: typeof LiveInEgyptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-like-an-egyptian': {
+      id: '/live-like-an-egyptian'
+      path: '/live-like-an-egyptian'
+      fullPath: '/live-like-an-egyptian'
+      preLoaderRoute: typeof LiveLikeAnEgyptianRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/museums': {
@@ -1638,6 +1699,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalReviewChecklistRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/live-like-an-egyptian_/$section': {
+      id: '/live-like-an-egyptian_/$section'
+      path: '/live-like-an-egyptian/$section'
+      fullPath: '/live-like-an-egyptian/$section'
+      preLoaderRoute: typeof LiveLikeAnEgyptianSectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace/': {
+      id: '/marketplace/'
+      path: '/marketplace'
+      fullPath: '/marketplace/'
+      preLoaderRoute: typeof MarketplaceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/marketplace/egyptian-cotton': {
       id: '/marketplace/egyptian-cotton'
       path: '/marketplace/egyptian-cotton'
@@ -1834,6 +1909,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/live-like-an-egyptian_/$section_/$slug': {
+      id: '/live-like-an-egyptian_/$section_/$slug'
+      path: '/live-like-an-egyptian/$section/$slug'
+      fullPath: '/live-like-an-egyptian/$section/$slug'
+      preLoaderRoute: typeof LiveLikeAnEgyptianSectionSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners/$type/$id': {
       id: '/partners/$type/$id'
       path: '/partners/$type/$id'
@@ -1911,6 +1993,7 @@ const rootRouteChildren: RootRouteChildren = {
   InvestInEgyptRoute: InvestInEgyptRoute,
   InvestmentOpportunitiesRoute: InvestmentOpportunitiesRoute,
   LiveInEgyptRoute: LiveInEgyptRoute,
+  LiveLikeAnEgyptianRoute: LiveLikeAnEgyptianRoute,
   MuseumsRoute: MuseumsRoute,
   OffersRoute: OffersRoute,
   OurMissionRoute: OurMissionRoute,
@@ -1942,6 +2025,7 @@ const rootRouteChildren: RootRouteChildren = {
   LegalSlugRoute: LegalSlugRoute,
   LegalConsentRoute: LegalConsentRoute,
   LegalReviewChecklistRoute: LegalReviewChecklistRoute,
+  LiveLikeAnEgyptianSectionRoute: LiveLikeAnEgyptianSectionRoute,
   MarketplaceEgyptianCottonRoute: MarketplaceEgyptianCottonRoute,
   MarketplaceHandmadeCraftsRoute: MarketplaceHandmadeCraftsRoute,
   MarketplaceLocalProducersRoute: MarketplaceLocalProducersRoute,
@@ -1960,6 +2044,7 @@ const rootRouteChildren: RootRouteChildren = {
   VisitEgyptTravelAndTourismRoute: VisitEgyptTravelAndTourismRoute,
   GovernoratesIndexRoute: GovernoratesIndexRoute,
   LegalIndexRoute: LegalIndexRoute,
+  MarketplaceIndexRoute: MarketplaceIndexRoute,
   MyTripsIndexRoute: MyTripsIndexRoute,
   PartnersIndexRoute: PartnersIndexRoute,
   EgyptThroughTimeMilitaryHistoryFiguresRoute:
@@ -1972,6 +2057,7 @@ const rootRouteChildren: RootRouteChildren = {
     EgyptThroughTimeMilitaryHistoryRecordsRoute,
   EgyptThroughTimeMilitaryHistoryTimelineRoute:
     EgyptThroughTimeMilitaryHistoryTimelineRoute,
+  LiveLikeAnEgyptianSectionSlugRoute: LiveLikeAnEgyptianSectionSlugRoute,
   PartnersTypeIdRoute: PartnersTypeIdRoute,
   EgyptThroughTimeMilitaryHistoryFiguresSlugRoute:
     EgyptThroughTimeMilitaryHistoryFiguresSlugRoute,

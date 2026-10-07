@@ -346,6 +346,207 @@ export type Database = {
         }
         Relationships: []
       }
+      culture_items: {
+        Row: {
+          access_level: string
+          category: string | null
+          created_at: string
+          governorate_id: string | null
+          id: string
+          ingredients_ar: string | null
+          ingredients_en: string | null
+          internal_notes: string | null
+          is_active: boolean
+          is_featured: boolean
+          last_verified_at: string | null
+          marketplace_collection: string | null
+          materials_ar: string | null
+          materials_en: string | null
+          name_ar: string | null
+          name_en: string | null
+          occasion_ar: string | null
+          occasion_en: string | null
+          origin_note_ar: string | null
+          origin_note_en: string | null
+          region_ar: string | null
+          region_en: string | null
+          review_status: string
+          section: string
+          slug: string
+          sort_order: number
+          source_url: string | null
+          story_ar: string | null
+          story_en: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          access_level?: string
+          category?: string | null
+          created_at?: string
+          governorate_id?: string | null
+          id?: string
+          ingredients_ar?: string | null
+          ingredients_en?: string | null
+          internal_notes?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          last_verified_at?: string | null
+          marketplace_collection?: string | null
+          materials_ar?: string | null
+          materials_en?: string | null
+          name_ar?: string | null
+          name_en?: string | null
+          occasion_ar?: string | null
+          occasion_en?: string | null
+          origin_note_ar?: string | null
+          origin_note_en?: string | null
+          region_ar?: string | null
+          region_en?: string | null
+          review_status?: string
+          section: string
+          slug: string
+          sort_order?: number
+          source_url?: string | null
+          story_ar?: string | null
+          story_en?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          access_level?: string
+          category?: string | null
+          created_at?: string
+          governorate_id?: string | null
+          id?: string
+          ingredients_ar?: string | null
+          ingredients_en?: string | null
+          internal_notes?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          last_verified_at?: string | null
+          marketplace_collection?: string | null
+          materials_ar?: string | null
+          materials_en?: string | null
+          name_ar?: string | null
+          name_en?: string | null
+          occasion_ar?: string | null
+          occasion_en?: string | null
+          origin_note_ar?: string | null
+          origin_note_en?: string | null
+          region_ar?: string | null
+          region_en?: string | null
+          review_status?: string
+          section?: string
+          slug?: string
+          sort_order?: number
+          source_url?: string | null
+          story_ar?: string | null
+          story_en?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "culture_items_governorate_id_fkey"
+            columns: ["governorate_id"]
+            isOneToOne: false
+            referencedRelation: "governorates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      culture_media: {
+        Row: {
+          caption_ar: string | null
+          caption_en: string | null
+          created_at: string
+          id: string
+          institution: string | null
+          is_active: boolean
+          item_id: string
+          kind: string
+          origin_type: string
+          rights_statement: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          caption_ar?: string | null
+          caption_en?: string | null
+          created_at?: string
+          id?: string
+          institution?: string | null
+          is_active?: boolean
+          item_id: string
+          kind?: string
+          origin_type?: string
+          rights_statement: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          caption_ar?: string | null
+          caption_en?: string | null
+          created_at?: string
+          id?: string
+          institution?: string | null
+          is_active?: boolean
+          item_id?: string
+          kind?: string
+          origin_type?: string
+          rights_statement?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "culture_media_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "culture_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      culture_reports: {
+        Row: {
+          created_at: string
+          handled: boolean
+          id: string
+          item_id: string | null
+          message: string
+        }
+        Insert: {
+          created_at?: string
+          handled?: boolean
+          id?: string
+          item_id?: string | null
+          message: string
+        }
+        Update: {
+          created_at?: string
+          handled?: boolean
+          id?: string
+          item_id?: string | null
+          message?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "culture_reports_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "culture_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       destinations: {
         Row: {
           best_season: string | null

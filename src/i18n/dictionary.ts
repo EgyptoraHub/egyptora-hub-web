@@ -1,4 +1,5 @@
 import type { LangCode } from "./languages";
+import { cultureAr } from "./culture-ar";
 
 /**
  * Translation dictionaries keyed by the English source string.
@@ -9,6 +10,7 @@ import type { LangCode } from "./languages";
 export type Dict = Record<string, string>;
 
 const ar: Dict = {
+  ...cultureAr,
   "Arabic title · English pending": "العنوان بالعربية · الإنجليزية قيد الإعداد",
   "Invasion": "غزو",
   "Revolt / resistance": "ثورة / مقاومة",
