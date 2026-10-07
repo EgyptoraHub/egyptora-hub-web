@@ -30,7 +30,7 @@ function Library() {
   return (
     <MilShell crumbs={militaryCrumbs(t, [{ label: t("Library") }])} title={t("Library & references")}>
       <SubNav />
-      <main className={cn(innerWrap, "grid gap-8 py-8")}>
+      <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-8 py-8")}>
         {sources.length === 0 ? (
           <p className="rounded-2xl border border-border bg-card p-6 text-sm text-text-body">
             {t("The reference library is being compiled as part of the academic review and will appear here once sources are checked.")}

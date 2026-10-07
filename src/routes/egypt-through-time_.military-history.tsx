@@ -48,7 +48,7 @@ function Landing() {
       search={{ value: q, onChange: setQ, placeholder: t("Search by title, place, leadership or opposing side") }}
     >
       <SubNav />
-      <main className={cn(innerWrap, "grid gap-10 py-8")}>
+      <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-10 py-8")}>
         {q.trim() && (
           <section aria-labelledby="hits">
             <div className="flex flex-wrap items-baseline justify-between gap-2">

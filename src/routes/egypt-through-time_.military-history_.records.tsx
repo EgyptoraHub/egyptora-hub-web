@@ -53,7 +53,7 @@ function Records() {
       search={{ value: q, onChange: setQ, placeholder: t("Search by title, place, leadership or opposing side") }}
     >
       <SubNav />
-      <main className={cn(innerWrap, "grid gap-8 py-8 lg:grid-cols-[280px_minmax(0,1fr)]")}>
+      <main className={cn(innerWrap, "grid grid-cols-[minmax(0,1fr)] gap-8 py-8 lg:grid-cols-[280px_minmax(0,1fr)]")}>
         <aside className="grid content-start gap-4">
           <RecordFilters eras={eras} records={records} search={search} set={set} />
         </aside>
