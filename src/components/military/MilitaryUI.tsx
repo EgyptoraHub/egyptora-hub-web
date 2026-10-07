@@ -17,7 +17,7 @@ import {
   type MilEra, type MilRecord, type RecordsSearch,
 } from "@/lib/military";
 
-export type Crumb = { label: string; to?: string; params?: Record<string, string>; search?: Record<string, string> };
+export type Crumb = { label: string; to?: string | undefined; params?: Record<string, string>; search?: Record<string, string> };
 
 export function useBi() {
   const { lang } = useI18n();
@@ -223,7 +223,8 @@ export function useRecordsNav() {
   return (next: Partial<RecordsSearch>) =>
     void navigate({
       to: ".",
-      search: (prev: RecordsSearch) => ({ ...prev, page: undefined, ...next }),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- shared "." reducer across routes
+      search: ((prev: RecordsSearch) => ({ ...prev, page: undefined, ...next })) as any,
       replace: true,
     });
 }

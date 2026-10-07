@@ -36,7 +36,10 @@ export type FieldConfig = {
   /** select options */
   options?: string[];
   /** foreign key source for type "fk" */
-  fk?: "governorates" | "eras" | "emergency_categories" | "app_categories";
+  fk?: FkTable;
+  /** numeric bounds, validated on save */
+  min?: number;
+  max?: number;
   /** governance fields render in their own section */
   governance?: boolean;
   /** optional display label override */

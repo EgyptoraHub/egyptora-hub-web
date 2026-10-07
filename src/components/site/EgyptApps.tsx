@@ -110,7 +110,8 @@ export function EgyptAppsDirectory({
   const lastVerified = apps.reduce((m, a) => (a.last_verified_at > m ? a.last_verified_at : m), "");
 
   const setSearch = (next: AppsSearch) =>
-    void navigate({ to: ".", search: (prev: AppsSearch) => ({ ...prev, ...next }), replace: true });
+    void navigate({ to: ".", // eslint-disable-next-line @typescript-eslint/no-explicit-any -- shared "." reducer across two routes
+      search: ((prev: AppsSearch) => ({ ...prev, ...next })) as any, replace: true });
 
   useEffect(() => {
     const id = setTimeout(() => {
