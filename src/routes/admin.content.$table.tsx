@@ -696,7 +696,7 @@ function AdminContentTable() {
                 </select>
                 <select aria-label={t("Bulk value")} value={bulkVal} onChange={(e) => setBulkVal(e.target.value)} className={inputClass + " w-auto"} disabled={!bulkCol}>
                   <option value="">{t("Value…")}</option>
-                  {(cfg.bulk!.find((b) => b.name === bulkCol)?.options ?? []).map((o) => <option key={o} value={o}>{o}</option>)}
+                  {(data?.bulkOptions?.[bulkCol] ?? (cfg.bulk!.find((b) => b.name === bulkCol)?.options ?? []).map((o) => ({ value: o, label: o }))).map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
                 <button type="button" disabled={busy || !bulkCol || !bulkVal || selected.size === 0} onClick={() => void applyBulk()} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-background disabled:opacity-40">
                   {t("Apply to selected")}
@@ -757,7 +757,12 @@ function AdminContentTable() {
                       {cfg.slugColumn ? (
                         <td className="px-4 py-3 break-all text-muted-foreground">{row.slug ?? "—"}</td>
                       ) : null}
-                      <td className="px-4 py-3 whitespace-pre-wrap break-words text-foreground">{row.name ?? "—"}</td>
+                      <td className="px-4 py-3 whitespace-pre-wrap break-words text-foreground" dir="auto">
+                        {row.name ?? "—"}
+                        {cfg.table === "military_records" && row.name?.includes("سجل عسكري تاريخي رقم") ? (
+                          <span className="ms-2 inline-block rounded-full bg-destructive px-2 py-0.5 text-[11px] font-semibold text-destructive-foreground">{t("Placeholder title")}</span>
+                        ) : null}
+                      </td>
                       {(cfg.listColumns ?? []).map((c) => (
                         <td key={c} className="px-4 py-3 break-all text-muted-foreground">
                           {row.extra?.[c] == null ? "—" : String(row.extra[c])}

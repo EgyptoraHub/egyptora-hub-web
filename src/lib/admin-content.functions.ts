@@ -49,6 +49,8 @@ const prettyField = (name: string) =>
 export function friendlyDbError(raw: unknown): string {
   const message = typeof raw === "string" ? raw : ((raw as any)?.message ?? "");
 
+  if (/Placeholder title/i.test(message)) return "This record still has a placeholder title. Replace the Arabic title before switching it to active.";
+
   const notNull = message.match(/null value in column "([^"]+)"/i);
   if (notNull) return `Please fill in "${prettyField(notNull[1]!)}" — it can't be left empty.`;
 
