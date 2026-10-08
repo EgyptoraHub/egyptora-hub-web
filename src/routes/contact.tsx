@@ -15,6 +15,8 @@ const description =
   "Reach the Egyptora Hub team about travel, heritage content, partnerships, investment enquiries and press. Email info@egyptora-hub.com.";
 
 export const Route = createFileRoute("/contact")({
+  validateSearch: (s: Record<string, unknown>): { topic?: string } =>
+    typeof s["topic"] === "string" ? { topic: s["topic"] } : {},
   head: () => ({
     meta: [
       { title },
@@ -48,6 +50,7 @@ const topics: { label: string; subject: string; address?: string }[] = [
   },
   { label: "Content correction", subject: "Egyptora Hub — content correction" },
   { label: "Report an issue", subject: "Egyptora Hub — report an issue" },
+  { label: "Share a tourist experience", subject: "Egyptora Hub — tourist experience" },
 ];
 
 
@@ -127,10 +130,11 @@ const FIELD =
 function ContactForm() {
   const { t } = useI18n();
   const send = useServerFn(submitContactMessage);
+  const { topic: preset } = Route.useSearch();
   const [form, setForm] = useState({
     name: "",
     email: "",
-    topic: topics[0]?.label ?? "General enquiry",
+    topic: topics.find((x) => x.label === preset)?.label ?? topics[0]?.label ?? "General enquiry",
     message: "",
   });
   const [error, setError] = useState<string | null>(null);

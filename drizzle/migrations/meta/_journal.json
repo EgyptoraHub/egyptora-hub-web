@@ -120,6 +120,13 @@
       "when": 1791367775674,
       "tag": "0016_create_culture_items",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1791461154885,
+      "tag": "0017_traveller_stories_video_consent",
+      "breakpoints": true
     }
   ]
 }

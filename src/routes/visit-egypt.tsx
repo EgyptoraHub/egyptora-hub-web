@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { EmergencyQuickLinks } from "@/components/site/EmergencyQuickLinks";
 import {
   Briefcase,
   Lightbulb, Stamp, CalendarDays, Map as MapIcon, Headphones, ArrowRight, ExternalLink, Bus, Hotel, UserRound, ShieldCheck,
@@ -87,6 +88,7 @@ function VisitEgypt() {
               <ViewAll to="/explore-egypt" label="Explore the Map" />
             </div>
           </SidePanel>
+          <EmergencyQuickLinks />
           <SidePanel title="Plan Your Trip">
             <div className="grid grid-cols-4 gap-2">
               {[

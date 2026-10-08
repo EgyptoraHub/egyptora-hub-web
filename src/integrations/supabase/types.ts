@@ -2807,21 +2807,28 @@ export type Database = {
       }
       traveller_stories: {
         Row: {
+          consent_status: string
           country: string | null
           created_at: string | null
+          creator_name: string | null
+          creator_url: string | null
           data_class: string | null
           description: string | null
           destinations: string[] | null
+          duration_seconds: number | null
           governance_status: string
           group_type: string | null
           id: string
           images: string[] | null
+          internal_notes: string | null
+          language_code: string | null
           media_type: string | null
           moderation_state: string | null
           name: string
           negatives: string[] | null
           positives: string[] | null
           rating: number | null
+          rights_statement: string | null
           slug: string
           source_owner: string | null
           source_status: string | null
@@ -2830,23 +2837,31 @@ export type Database = {
           tags: string[] | null
           updated_at: string | null
           verified_at: string | null
+          video_url: string | null
         }
         Insert: {
+          consent_status?: string
           country?: string | null
           created_at?: string | null
+          creator_name?: string | null
+          creator_url?: string | null
           data_class?: string | null
           description?: string | null
           destinations?: string[] | null
+          duration_seconds?: number | null
           governance_status?: string
           group_type?: string | null
           id: string
           images?: string[] | null
+          internal_notes?: string | null
+          language_code?: string | null
           media_type?: string | null
           moderation_state?: string | null
           name: string
           negatives?: string[] | null
           positives?: string[] | null
           rating?: number | null
+          rights_statement?: string | null
           slug: string
           source_owner?: string | null
           source_status?: string | null
@@ -2855,23 +2870,31 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string | null
           verified_at?: string | null
+          video_url?: string | null
         }
         Update: {
+          consent_status?: string
           country?: string | null
           created_at?: string | null
+          creator_name?: string | null
+          creator_url?: string | null
           data_class?: string | null
           description?: string | null
           destinations?: string[] | null
+          duration_seconds?: number | null
           governance_status?: string
           group_type?: string | null
           id?: string
           images?: string[] | null
+          internal_notes?: string | null
+          language_code?: string | null
           media_type?: string | null
           moderation_state?: string | null
           name?: string
           negatives?: string[] | null
           positives?: string[] | null
           rating?: number | null
+          rights_statement?: string | null
           slug?: string
           source_owner?: string | null
           source_status?: string | null
@@ -2880,8 +2903,41 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string | null
           verified_at?: string | null
+          video_url?: string | null
         }
         Relationships: []
+      }
+      traveller_story_reports: {
+        Row: {
+          created_at: string
+          handled: boolean
+          id: string
+          message: string
+          story_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message: string
+          story_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          handled?: boolean
+          id?: string
+          message?: string
+          story_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "traveller_story_reports_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "traveller_stories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       trip_days: {
         Row: {

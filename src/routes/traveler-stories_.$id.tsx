@@ -17,6 +17,10 @@ import { useI18n } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { useLocalizedRow } from "@/lib/localized-content";
+import { Link } from "@tanstack/react-router";
+import { STORY_DETAIL_COLS, destinationToGovernorate, formatDuration } from "@/lib/traveller-stories";
+import { videoEmbed } from "@/lib/culture";
+import { StoryReportButton } from "@/components/site/StoryReportButton";
 
 type TravellerStory = {
   id: string;
@@ -30,45 +34,46 @@ type TravellerStory = {
   negatives: string[] | null;
   suggestions: string[] | null;
   media_type: string | null;
-  moderation_state: string | null;
   summary: string | null;
   description: string | null;
   images: string[] | null;
   tags: string[] | null;
   governance_status: GovernanceStatus;
+  video_url: string | null;
+  creator_name: string | null;
+  creator_url: string | null;
+  consent_status: string;
+  rights_statement: string | null;
+  duration_seconds: number | null;
+  language_code: string | null;
 };
+type GovLink = { slug: string; name: string; name_ar: string; capital: string | null; cities: string[] | null };
 
-// Same tolerant check the list page uses, so a story that is visible in the list is
-// also reachable on its own page (and an unpublished one is not).
-const isPublished = (state: string | null) =>
-  typeof state === "string" && /publish|approved/i.test(state);
 
 export const Route = createFileRoute("/traveler-stories_/$id")({
   loader: async ({ params }) => {
     // Wrapped in try/catch on purpose: a thrown exception (network failure, cold
     // connection) would otherwise crash the route to the generic error boundary.
+    // Visibility (published + video consent/rights) is enforced by the database policy.
     let story: TravellerStory | null = null;
+    let govs: GovLink[] = [];
     try {
-      const { data, error } = await supabase
-        .from("traveller_stories")
-        .select(
-          "id, slug, name, country, group_type, destinations, rating, positives, negatives, suggestions, media_type, moderation_state, summary, description, images, tags, governance_status",
-        )
-        .eq("id", params.id)
-        .maybeSingle();
-
+      const [{ data, error }, g] = await Promise.all([
+        supabase.from("traveller_stories").select(STORY_DETAIL_COLS).eq("id", params.id).maybeSingle(),
+        supabase.from("governorates").select("slug, name, name_ar, capital, cities"),
+      ]);
+      govs = (g.data ?? []) as GovLink[];
       if (error) {
         console.error(`[traveler-stories.$id] failed to load ${params.id}:`, error.message);
       } else {
-        const row = (data as TravellerStory | null) ?? null;
-        story = row && isPublished(row.moderation_state) ? row : null;
+        story = (data as unknown as TravellerStory | null) ?? null;
       }
     } catch (err) {
       console.error(`[traveler-stories.$id] unexpected error loading ${params.id}:`, err);
     }
 
     if (!story) throw notFound();
-    return { story };
+    return { story, govs };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -120,9 +125,13 @@ function Stars({ rating }: { rating: number | null }) {
 }
 
 function StoryDetailPage() {
-  const { story: storySource } = Route.useLoaderData();
+  const { story: storySource, govs } = Route.useLoaderData();
   const story = useLocalizedRow("traveller_stories", storySource);
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const embed = storySource.consent_status !== "none" && storySource.rights_statement?.trim() ? videoEmbed(storySource.video_url) : null;
+  const places = Array.from(new Set((storySource.destinations ?? []).map((d) => destinationToGovernorate(d, govs)).filter((x): x is string => !!x)))
+    .map((slug) => govs.find((g) => g.slug === slug)!)
+    .filter(Boolean);
 
   return (
     <DetailShell>
@@ -150,7 +159,28 @@ function StoryDetailPage() {
           <Stars rating={story.rating} />
         </p>
 
-        <ImageStrip images={story.images} alt={story.name} />
+        {embed ? (
+          <figure className="mt-6 max-w-3xl">
+            <div className="aspect-video overflow-hidden rounded-2xl border border-border">
+              <iframe src={embed} title={story.name} loading="lazy" allow="encrypted-media; picture-in-picture" allowFullScreen className="size-full" />
+            </div>
+            <figcaption className="mt-2 text-xs text-muted-foreground" dir="auto">
+              {storySource.creator_name && (
+                <>
+                  {t("Video by")}{" "}
+                  {storySource.creator_url ? (
+                    <a href={storySource.creator_url} target="_blank" rel="noopener noreferrer" className="text-gold underline">{storySource.creator_name}</a>
+                  ) : storySource.creator_name}
+                  {" · "}
+                </>
+              )}
+              {storySource.rights_statement}
+              {storySource.duration_seconds ? <span dir="ltr"> · {formatDuration(storySource.duration_seconds)}</span> : null}
+            </figcaption>
+          </figure>
+        ) : (
+          <ImageStrip images={story.images} alt={story.name} />
+        )}
 
         <SaveButton
           className="mt-6"
@@ -183,6 +213,25 @@ function StoryDetailPage() {
         <ChipList label={t("What could be better")} items={story.negatives} />
         <ChipList label={t("Suggestions")} items={story.suggestions} />
         <ChipList label={t("Tags")} items={story.tags} />
+
+        {places.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-sm font-semibold text-foreground">{t("Visit this place")}</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {places.map((g) => (
+                <li key={g.slug}>
+                  <Link to="/governorates/$id" params={{ id: g.slug }} className="inline-flex min-h-10 items-center rounded-full border border-gold-line px-4 text-sm text-gold hover:bg-gold-soft">
+                    {lang === "ar" ? g.name_ar : t(g.name)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="mt-8">
+          <StoryReportButton storyId={story.id} label={story.name} />
+        </div>
       </Section>
     </DetailShell>
   );

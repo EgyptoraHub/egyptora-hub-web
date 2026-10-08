@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { EmergencyQuickLinks } from "@/components/site/EmergencyQuickLinks";
 import { ExternalLink, ShieldAlert } from "lucide-react";
 import { InfoCard, SimplePage, simpleHead } from "@/components/site/SimplePage";
 import { SITE } from "@/config/site";
@@ -80,6 +81,7 @@ function EVisaPage() {
       <p className="mt-6 inline-block rounded-full border border-border px-3 py-1 text-[11px] text-muted-foreground">
         {t("Official source")}: visa2egypt.gov.eg · {t("Last verified")}: {LAST_VERIFIED}
       </p>
+      <EmergencyQuickLinks className="mt-6 max-w-xl" />
       <p className="mt-3 text-xs text-muted-foreground">
         {t("This page is informational only. We never ask for passport or visa-application details — apply only on the official portal.")}
       </p>

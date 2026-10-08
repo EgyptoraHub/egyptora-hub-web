@@ -30,6 +30,7 @@ import { Route as GovernmentDirectoryRouteImport } from './routes/government-dir
 import { Route as HeritageSitesRouteImport } from './routes/heritage-sites'
 import { Route as InvestInEgyptRouteImport } from './routes/invest-in-egypt'
 import { Route as InvestmentOpportunitiesRouteImport } from './routes/investment-opportunities'
+import { Route as KnowYourRootsRouteImport } from './routes/know-your-roots'
 import { Route as LiveInEgyptRouteImport } from './routes/live-in-egypt'
 import { Route as LiveLikeAnEgyptianRouteImport } from './routes/live-like-an-egyptian'
 import { Route as MuseumsRouteImport } from './routes/museums'
@@ -209,6 +210,11 @@ const InvestInEgyptRoute = InvestInEgyptRouteImport.update({
 const InvestmentOpportunitiesRoute = InvestmentOpportunitiesRouteImport.update({
   id: '/investment-opportunities',
   path: '/investment-opportunities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowYourRootsRoute = KnowYourRootsRouteImport.update({
+  id: '/know-your-roots',
+  path: '/know-your-roots',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LiveInEgyptRoute = LiveInEgyptRouteImport.update({
@@ -621,6 +627,7 @@ export interface FileRoutesByFullPath {
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
+  '/know-your-roots': typeof KnowYourRootsRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
   '/museums': typeof MuseumsRoute
@@ -717,6 +724,7 @@ export interface FileRoutesByTo {
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
+  '/know-your-roots': typeof KnowYourRootsRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
   '/museums': typeof MuseumsRoute
@@ -815,6 +823,7 @@ export interface FileRoutesById {
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
+  '/know-your-roots': typeof KnowYourRootsRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
   '/museums': typeof MuseumsRoute
@@ -914,6 +923,7 @@ export interface FileRouteTypes {
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
+    | '/know-your-roots'
     | '/live-in-egypt'
     | '/live-like-an-egyptian'
     | '/museums'
@@ -1010,6 +1020,7 @@ export interface FileRouteTypes {
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
+    | '/know-your-roots'
     | '/live-in-egypt'
     | '/live-like-an-egyptian'
     | '/museums'
@@ -1107,6 +1118,7 @@ export interface FileRouteTypes {
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
+    | '/know-your-roots'
     | '/live-in-egypt'
     | '/live-like-an-egyptian'
     | '/museums'
@@ -1205,6 +1217,7 @@ export interface RootRouteChildren {
   HeritageSitesRoute: typeof HeritageSitesRoute
   InvestInEgyptRoute: typeof InvestInEgyptRoute
   InvestmentOpportunitiesRoute: typeof InvestmentOpportunitiesRoute
+  KnowYourRootsRoute: typeof KnowYourRootsRoute
   LiveInEgyptRoute: typeof LiveInEgyptRoute
   LiveLikeAnEgyptianRoute: typeof LiveLikeAnEgyptianRoute
   MuseumsRoute: typeof MuseumsRoute
@@ -1417,6 +1430,13 @@ declare module '@tanstack/react-router' {
       path: '/investment-opportunities'
       fullPath: '/investment-opportunities'
       preLoaderRoute: typeof InvestmentOpportunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/know-your-roots': {
+      id: '/know-your-roots'
+      path: '/know-your-roots'
+      fullPath: '/know-your-roots'
+      preLoaderRoute: typeof KnowYourRootsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/live-in-egypt': {
@@ -1992,6 +2012,7 @@ const rootRouteChildren: RootRouteChildren = {
   HeritageSitesRoute: HeritageSitesRoute,
   InvestInEgyptRoute: InvestInEgyptRoute,
   InvestmentOpportunitiesRoute: InvestmentOpportunitiesRoute,
+  KnowYourRootsRoute: KnowYourRootsRoute,
   LiveInEgyptRoute: LiveInEgyptRoute,
   LiveLikeAnEgyptianRoute: LiveLikeAnEgyptianRoute,
   MuseumsRoute: MuseumsRoute,
