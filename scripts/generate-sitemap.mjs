@@ -21,7 +21,7 @@ async function slugs(table) {
 }
 
 const path = new URL("../public/sitemap.xml", import.meta.url);
-const dynamic = /(\/military-history\/(records|figures)\/[^<]+|\/live-like-an-egyptian[^<]*)<\/loc>/;
+const dynamic = /(\/know-your-roots|\/traveler-stories[^<]*|\/military-history\/(records|figures)\/[^<]+|\/live-like-an-egyptian[^<]*)<\/loc>/;
 const kept = readFileSync(path, "utf8").split("\n").filter((l) => !dynamic.test(l) && !l.includes("</urlset>"));
 while (kept.length && kept[kept.length - 1].trim() === "") kept.pop();
 
@@ -34,7 +34,13 @@ const SITE = "https://egyptora-hub.com/live-like-an-egyptian";
 const sec = (s) => s.replace(/_/g, "-");
 const cultureLines = [SITE, `${SITE}/cuisine`, `${SITE}/fashion`, `${SITE}/jewelry-accessories`, ...culture.map((c) => `${SITE}/${sec(c.section)}/${c.slug}`)]
   .map((u) => `  <url><loc>${u}</loc><changefreq>monthly</changefreq></url>`);
+const sr = await fetch(`${URL_}/rest/v1/traveller_stories?select=id&order=id`, { headers: { apikey: KEY } });
+if (!sr.ok) throw new Error(`traveller_stories: ${sr.status}`);
+const stories = await sr.json();
+const ROOT = "https://egyptora-hub.com";
+const extraLines = [`${ROOT}/know-your-roots`, `${ROOT}/traveler-stories`, ...stories.map((x) => `${ROOT}/traveler-stories/${x.id}`)]
+  .map((u) => `  <url><loc>${u}</loc><changefreq>monthly</changefreq></url>`);
 const line = (p) => `  <url><loc>${BASE}/${p}</loc><changefreq>monthly</changefreq></url>`;
-const out = [...kept, ...records.map((s) => line(`records/${s}`)), ...figures.map((s) => line(`figures/${s}`)), ...cultureLines, "</urlset>", ""].join("\n");
+const out = [...kept, ...records.map((s) => line(`records/${s}`)), ...figures.map((s) => line(`figures/${s}`)), ...cultureLines, ...extraLines, "</urlset>", ""].join("\n");
 writeFileSync(path, out);
-console.log(`sitemap.xml: ${records.length} record pages, ${figures.length} figure pages, ${culture.length} culture item pages (+4 culture hub/section pages)`);
+console.log(`sitemap.xml: ${records.length} record pages, ${figures.length} figure pages, ${culture.length} culture item pages (+4 culture hub/section pages), ${stories.length} visible tourist experiences`);

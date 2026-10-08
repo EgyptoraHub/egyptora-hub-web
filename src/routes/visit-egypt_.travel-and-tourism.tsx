@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { EmergencyQuickLinks } from "@/components/site/EmergencyQuickLinks";
 import { createFileRoute } from "@tanstack/react-router";
 import { ShieldCheck, BadgePercent, Headphones, BadgeCheck, Ship } from "lucide-react";
 import hero from "@/assets/inner/visit-hero.jpg";
@@ -118,10 +119,13 @@ function TravelTourism() {
       chips={visitChips}
       showMore={false}
       bottom={
+        <>
+        <EmergencyQuickLinks className="mb-4" />
         <div className="grid gap-4 md:grid-cols-2">
           <BandPromo Icon={Headphones} title="Need Help Planning?" body="Our team can help you shape the right itinerary for your trip." cta="Contact Us" to="/contact" />
           <AppPromoCard />
         </div>
+        </>
       }
     >
       <section>

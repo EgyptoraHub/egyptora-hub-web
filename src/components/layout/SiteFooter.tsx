@@ -67,6 +67,8 @@ const discoverLinks: FLink[] = [
   { label: "Visual Encyclopedia", to: "/encyclopedia" },
   { label: "Live Like an Egyptian", to: "/live-like-an-egyptian" },
   { label: "Made in Egypt Marketplace", to: "/marketplace" },
+  { label: "Know Your Roots", to: "/know-your-roots" },
+  { label: "Tourist Experiences", to: "/traveler-stories" },
   { label: "Heritage Sites", to: "/heritage-sites" },
   { label: "Museums & Galleries", to: "/museums" },
   { label: "Events & Festivals", to: "/events" },

@@ -24,6 +24,7 @@ import {
   Globe2,
 } from "lucide-react";
 import heroImg from "@/assets/home/hero.jpg";
+import throughTimeImg from "@/assets/card-through-time.jpg";
 import visitImg from "@/assets/home/visit.jpg";
 import divingImg from "@/assets/home/diving.jpg";
 import nileImg from "@/assets/home/nile.jpg";
@@ -52,12 +53,22 @@ import { useSiteSearch } from "@/lib/site-search";
 import { SITE } from "@/config/site";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 const title = "Egyptora Hub — Your Gateway to Egypt";
 const description =
   "Explore. Invest. Live. Do Business. Belong. Egyptora Hub is a private platform connecting the world to Egypt's opportunities, people and possibilities.";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    // Era names for the "Egypt Through Time" band; one taxonomy shared with Military History.
+    try {
+      const { data } = await supabase.from("military_eras").select("slug, number, name_en, name_ar").order("sort_order");
+      return { eras: (data ?? []) as { slug: string; number: number; name_en: string; name_ar: string }[] };
+    } catch {
+      return { eras: [] };
+    }
+  },
   head: () => ({
     meta: [
       { title },
@@ -91,6 +102,7 @@ function Home() {
         <Vision2030 />
         <GovBand />
         <GlobalBand />
+        <ThroughTimeBand />
         <BookingSearch />
         <NewsApp />
         <ImportantNotice />
@@ -283,6 +295,11 @@ function QuickStrip() {
             {sub && <span className="text-xs text-foreground/75">{t(sub)}</span>}
           </Link>
         ))}
+      </div>
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-sm">
+        <Link to="/emergency-numbers" className="font-semibold text-navy underline">{t("Emergency & Quick Numbers")}</Link>
+        <a href="tel:122" className="rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Police")} 122</a>
+        <a href="tel:123" className="rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Ambulance")} 123</a>
       </div>
     </div>
   );
@@ -585,6 +602,44 @@ function GlobalBand() {
       </div>
     </section>
     </>
+  );
+}
+
+/* ---------- 7b. Egypt Through Time ---------- */
+
+function ThroughTimeBand() {
+  const { eras } = Route.useLoaderData();
+  const { t, lang } = useI18n();
+  if (!eras.length) return null;
+  return (
+    <section className="bg-background py-14">
+      <div className={cn(wrap, "grid items-center gap-8 lg:grid-cols-[320px_minmax(0,1fr)]")}>
+        <img src={throughTimeImg} alt="" loading="lazy" className="h-48 w-full rounded-[10px] object-cover lg:h-full" />
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 className="font-display text-3xl font-bold text-navy">{t("Egypt Through Time")}</h2>
+              <p lang="ar" dir="rtl" className="text-sm text-text-body">مصر عبر العصور</p>
+            </div>
+            <ViewAll to="/egypt-through-time" />
+          </div>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {eras.map((e) => (
+              <li key={e.slug}>
+                <Link
+                  to="/egypt-through-time/military-history/records"
+                  search={{ era: e.slug }}
+                  className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-border bg-card px-3.5 text-sm text-navy transition-colors hover:border-gold-line"
+                >
+                  <span className="text-xs font-semibold opacity-70">{e.number.toLocaleString(lang === "ar" ? "ar-EG" : "en")}</span>
+                  <span dir="auto">{lang === "ar" ? e.name_ar : t(e.name_en)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
   );
 }
 

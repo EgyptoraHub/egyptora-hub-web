@@ -72,6 +72,7 @@ const life: CardItem[] = [
   { title: "Education & Schools", desc: "International and local schools, universities and programs.", img: education, to: "/research-programs" },
   { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health, to: "/providers" },
   { title: "Work & Employment", desc: "Job opportunities, work permits and career growth.", img: work, to: "/providers" },
+  { title: "Know Your Roots", desc: "Explore the governorate your family comes from.", img: cairo, to: "/know-your-roots" },
 ];
 
 const stages: CardItem[] = [
