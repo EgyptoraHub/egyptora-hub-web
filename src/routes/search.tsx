@@ -6,6 +6,9 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SmartLink, NavyBadge, innerWrap } from "@/components/layout/InnerPage";
 import { askConcierge } from "@/components/layout/MainNav";
 import { staticSearchIndex, type SearchEntry } from "@/data/search-index.generated";
+import { GUIDE_HUBS, guideHubPath } from "@/data/guideHubs";
+
+const guideEntries: SearchEntry[] = GUIDE_HUBS.map((h) => ({ title: h.title.en, desc: h.intro.en, tag: "Guide", to: guideHubPath(h), category: h.parent === "do-business" ? "Do Business" : "Live in Egypt", page: guideHubPath(h) }));
 import { SITE } from "@/config/site";
 import { useI18n } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
@@ -80,7 +83,7 @@ function SearchPage() {
     if (!terms.length) return [];
     const map = new Map<string, { e: SearchEntry; s: number }[]>();
     const seen = new Set<string>();
-    for (const e of [...staticSearchIndex, ...gov]) {
+    for (const e of [...staticSearchIndex, ...guideEntries, ...gov]) {
       const s = score(e, terms);
       const key = `${e.title}|${e.to}`;
       if (!s || seen.has(key)) continue;
