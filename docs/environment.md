@@ -46,3 +46,6 @@ Powers the EGYPTORA AI concierge (`src/routes/api/concierge.ts`). No API key to 
 - Server secrets: read via `process.env['NAME']` **inside** server function handlers or server routes — never at module scope, never in browser code.
 - Browser values must use the `VITE_` prefix and are public by definition.
 - After changing a server secret, republish the app for the published site to pick it up.
+
+## WEBHOOK_SHARED_SECRET (server-only, not yet set)
+Shared secret for `/api/public/hooks/<provider>`. Callers send `x-egyptora-signature: sha256=<hex HMAC-SHA256 of raw body>`. Without the secret every call returns 401. Nothing is processed yet.

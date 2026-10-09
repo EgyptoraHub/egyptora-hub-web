@@ -28,3 +28,10 @@
 
 ## Prompt 9 — mockup fidelity
 - [x] Desktop nav row, shorter heroes, bold navy icons, dense card grids, save hearts, homepage/Invest/Do Business/Visit fixes. Unpublished.
+
+## Prompt 29 — safe groundwork
+- [x] Translations for Prompt 24–27 page texts (7 languages), coverage script
+- [x] Concierge knows new sections, public-only search, link guard, usage log
+- [x] Audit log, points ledger, culture links, licence fields, AI usage log, trip preview videos, flags (all off), webhook skeleton, notes leak closed
+- [x] Account deletion server functions (no UI yet — awaiting design decision)
+- [ ] WEBHOOK_SHARED_SECRET not set (only needed when a provider is chosen)
