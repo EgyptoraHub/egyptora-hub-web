@@ -134,6 +134,13 @@
       "when": 1791551595442,
       "tag": "0018_0018_safe_groundwork",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1791551889084,
+      "tag": "0019_0019_close_notes_column_leak",
+      "breakpoints": true
     }
   ]
 }
