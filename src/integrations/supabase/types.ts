@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_usage_log: {
+        Row: {
+          cost_estimate: number | null
+          created_at: string
+          feature: string
+          id: string
+          model: string | null
+          tokens_in: number | null
+          tokens_out: number | null
+          user_id: string | null
+        }
+        Insert: {
+          cost_estimate?: number | null
+          created_at?: string
+          feature: string
+          id?: string
+          model?: string | null
+          tokens_in?: number | null
+          tokens_out?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          cost_estimate?: number | null
+          created_at?: string
+          feature?: string
+          id?: string
+          model?: string | null
+          tokens_in?: number | null
+          tokens_out?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       app_categories: {
         Row: {
           created_at: string
@@ -81,6 +114,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      audit_log: {
+        Row: {
+          action: string
+          actor_user_id: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          metadata: Json
+        }
+        Insert: {
+          action: string
+          actor_user_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json
+        }
+        Update: {
+          action?: string
+          actor_user_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json
+        }
+        Relationships: []
       }
       bookings: {
         Row: {
@@ -346,6 +409,78 @@ export type Database = {
         }
         Relationships: []
       }
+      culture_item_products: {
+        Row: {
+          created_at: string
+          culture_item_id: string
+          product_id: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          culture_item_id: string
+          product_id: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          culture_item_id?: string
+          product_id?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "culture_item_products_culture_item_id_fkey"
+            columns: ["culture_item_id"]
+            isOneToOne: false
+            referencedRelation: "culture_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "culture_item_products_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      culture_item_providers: {
+        Row: {
+          created_at: string
+          culture_item_id: string
+          provider_id: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          culture_item_id: string
+          provider_id: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          culture_item_id?: string
+          provider_id?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "culture_item_providers_culture_item_id_fkey"
+            columns: ["culture_item_id"]
+            isOneToOne: false
+            referencedRelation: "culture_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "culture_item_providers_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       culture_items: {
         Row: {
           access_level: string
@@ -464,6 +599,7 @@ export type Database = {
       }
       culture_media: {
         Row: {
+          attribution_text: string | null
           caption_ar: string | null
           caption_en: string | null
           created_at: string
@@ -472,12 +608,17 @@ export type Database = {
           is_active: boolean
           item_id: string
           kind: string
+          license_type: string | null
+          license_url: string | null
           origin_type: string
+          rights_holder: string | null
           rights_statement: string
+          rights_verified_at: string | null
           updated_at: string
           url: string
         }
         Insert: {
+          attribution_text?: string | null
           caption_ar?: string | null
           caption_en?: string | null
           created_at?: string
@@ -486,12 +627,17 @@ export type Database = {
           is_active?: boolean
           item_id: string
           kind?: string
+          license_type?: string | null
+          license_url?: string | null
           origin_type?: string
+          rights_holder?: string | null
           rights_statement: string
+          rights_verified_at?: string | null
           updated_at?: string
           url: string
         }
         Update: {
+          attribution_text?: string | null
           caption_ar?: string | null
           caption_en?: string | null
           created_at?: string
@@ -500,8 +646,12 @@ export type Database = {
           is_active?: boolean
           item_id?: string
           kind?: string
+          license_type?: string | null
+          license_url?: string | null
           origin_type?: string
+          rights_holder?: string | null
           rights_statement?: string
+          rights_verified_at?: string | null
           updated_at?: string
           url?: string
         }
@@ -1694,6 +1844,7 @@ export type Database = {
       military_media: {
         Row: {
           accession_id: string | null
+          attribution_text: string | null
           caption_ar: string | null
           caption_en: string | null
           created_at: string
@@ -1703,9 +1854,13 @@ export type Database = {
           institution: string | null
           is_active: boolean
           kind: string
+          license_type: string | null
+          license_url: string | null
           origin_type: string
           record_id: string | null
+          rights_holder: string | null
           rights_statement: string
+          rights_verified_at: string | null
           title_ar: string | null
           title_en: string | null
           updated_at: string
@@ -1713,6 +1868,7 @@ export type Database = {
         }
         Insert: {
           accession_id?: string | null
+          attribution_text?: string | null
           caption_ar?: string | null
           caption_en?: string | null
           created_at?: string
@@ -1722,9 +1878,13 @@ export type Database = {
           institution?: string | null
           is_active?: boolean
           kind: string
+          license_type?: string | null
+          license_url?: string | null
           origin_type: string
           record_id?: string | null
+          rights_holder?: string | null
           rights_statement: string
+          rights_verified_at?: string | null
           title_ar?: string | null
           title_en?: string | null
           updated_at?: string
@@ -1732,6 +1892,7 @@ export type Database = {
         }
         Update: {
           accession_id?: string | null
+          attribution_text?: string | null
           caption_ar?: string | null
           caption_en?: string | null
           created_at?: string
@@ -1741,9 +1902,13 @@ export type Database = {
           institution?: string | null
           is_active?: boolean
           kind?: string
+          license_type?: string | null
+          license_url?: string | null
           origin_type?: string
           record_id?: string | null
+          rights_holder?: string | null
           rights_statement?: string
+          rights_verified_at?: string | null
           title_ar?: string | null
           title_en?: string | null
           updated_at?: string
@@ -2324,6 +2489,36 @@ export type Database = {
         }
         Relationships: []
       }
+      points_ledger: {
+        Row: {
+          created_at: string
+          delta: number
+          id: string
+          reason: string
+          ref_id: string | null
+          ref_type: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          delta: number
+          id?: string
+          reason: string
+          ref_id?: string | null
+          ref_type?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          delta?: number
+          id?: string
+          reason?: string
+          ref_id?: string | null
+          ref_type?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           category: string | null
@@ -2807,6 +3002,7 @@ export type Database = {
       }
       traveller_stories: {
         Row: {
+          attribution_text: string | null
           consent_status: string
           country: string | null
           created_at: string | null
@@ -2822,13 +3018,17 @@ export type Database = {
           images: string[] | null
           internal_notes: string | null
           language_code: string | null
+          license_type: string | null
+          license_url: string | null
           media_type: string | null
           moderation_state: string | null
           name: string
           negatives: string[] | null
           positives: string[] | null
           rating: number | null
+          rights_holder: string | null
           rights_statement: string | null
+          rights_verified_at: string | null
           slug: string
           source_owner: string | null
           source_status: string | null
@@ -2840,6 +3040,7 @@ export type Database = {
           video_url: string | null
         }
         Insert: {
+          attribution_text?: string | null
           consent_status?: string
           country?: string | null
           created_at?: string | null
@@ -2855,13 +3056,17 @@ export type Database = {
           images?: string[] | null
           internal_notes?: string | null
           language_code?: string | null
+          license_type?: string | null
+          license_url?: string | null
           media_type?: string | null
           moderation_state?: string | null
           name: string
           negatives?: string[] | null
           positives?: string[] | null
           rating?: number | null
+          rights_holder?: string | null
           rights_statement?: string | null
+          rights_verified_at?: string | null
           slug: string
           source_owner?: string | null
           source_status?: string | null
@@ -2873,6 +3078,7 @@ export type Database = {
           video_url?: string | null
         }
         Update: {
+          attribution_text?: string | null
           consent_status?: string
           country?: string | null
           created_at?: string | null
@@ -2888,13 +3094,17 @@ export type Database = {
           images?: string[] | null
           internal_notes?: string | null
           language_code?: string | null
+          license_type?: string | null
+          license_url?: string | null
           media_type?: string | null
           moderation_state?: string | null
           name?: string
           negatives?: string[] | null
           positives?: string[] | null
           rating?: number | null
+          rights_holder?: string | null
           rights_statement?: string | null
+          rights_verified_at?: string | null
           slug?: string
           source_owner?: string | null
           source_status?: string | null
@@ -3030,6 +3240,69 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      trip_preview_videos: {
+        Row: {
+          attribution_text: string | null
+          created_at: string
+          destination_slug: string | null
+          governorate_slug: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          license_type: string | null
+          license_url: string | null
+          review_status: string
+          rights_holder: string | null
+          rights_verified_at: string | null
+          source_url: string | null
+          thumbnail_url: string | null
+          title_ar: string | null
+          title_en: string | null
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          attribution_text?: string | null
+          created_at?: string
+          destination_slug?: string | null
+          governorate_slug?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          license_type?: string | null
+          license_url?: string | null
+          review_status?: string
+          rights_holder?: string | null
+          rights_verified_at?: string | null
+          source_url?: string | null
+          thumbnail_url?: string | null
+          title_ar?: string | null
+          title_en?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          attribution_text?: string | null
+          created_at?: string
+          destination_slug?: string | null
+          governorate_slug?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          license_type?: string | null
+          license_url?: string | null
+          review_status?: string
+          rights_holder?: string | null
+          rights_verified_at?: string | null
+          source_url?: string | null
+          thumbnail_url?: string | null
+          title_ar?: string | null
+          title_en?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
       }
       trip_reviews: {
         Row: {
