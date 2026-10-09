@@ -559,6 +559,10 @@ export const importMilitaryCsv = createServerFn({ method: "POST" })
         const { error } = await supabaseAdmin.from("military_records").update(m.patch as any).eq("id", m.id);
         if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: inserts.length };
       }
+      {
+        const { writeAudit } = await import("@/lib/audit.server");
+        await writeAudit({ actorUserId: context.userId, action: "import.csv", entityType: "military_records", metadata: { summary, committed: inserts.length + merges.length } });
+      }
       return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
     },
   );
@@ -669,6 +673,10 @@ export const importCultureCsv = createServerFn({ method: "POST" })
       for (const m of merges) {
         const { error } = await supabaseAdmin.from("culture_items").update(m.patch as any).eq("id", m.id);
         if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: inserts.length };
+      }
+      {
+        const { writeAudit } = await import("@/lib/audit.server");
+        await writeAudit({ actorUserId: context.userId, action: "import.csv", entityType: "culture_items", metadata: { summary, committed: inserts.length + merges.length } });
       }
       return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
     },

@@ -41,5 +41,7 @@ export const setMaintenance = createServerFn({ method: "POST" })
     await supabaseAdmin
       .from("site_settings")
       .upsert({ key: KEY, value: { enabled: data.enabled }, updated_at: new Date().toISOString() });
+    const { writeAudit } = await import("@/lib/audit.server");
+    await writeAudit({ actorUserId: null, action: "maintenance.toggle", entityType: "site_settings", entityId: KEY, metadata: { enabled: data.enabled, via: "owner_password" } });
     return { ok: true as const, enabled: data.enabled };
   });

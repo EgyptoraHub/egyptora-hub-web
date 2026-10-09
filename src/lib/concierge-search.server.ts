@@ -23,6 +23,10 @@ export const CONCIERGE_TABLES = [
   "investment_opportunities",
   "providers",
   "products",
+  "emergency_numbers",
+  "egypt_apps",
+  "military_records",
+  "culture_items",
 ] as const;
 
 export type ConciergeTable = (typeof CONCIERGE_TABLES)[number];
@@ -88,6 +92,90 @@ async function searchGovernment(term: string, limit: number): Promise<ConciergeM
   }));
 }
 
+/**
+ * Public-only searches for sections added in Prompts 24–27. These run with the PUBLISHABLE key, so the
+ * database's visitor rules decide visibility (hidden, needs_check or inactive rows and internal notes are
+ * never readable), and each query also filters on the public visibility columns explicitly.
+ */
+function publicClient() {
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
+  return import("@supabase/supabase-js").then(({ createClient }) =>
+    createClient(process.env["SUPABASE_URL"]!, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        fetch: (input, init) => {
+          const h = new Headers(init?.headers);
+          if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) h.delete("Authorization");
+          h.set("apikey", key);
+          return fetch(input, { ...init, headers: h });
+        },
+      },
+    }),
+  );
+}
+
+const CULTURE_URL: Record<string, string> = { cuisine: "cuisine", fashion: "fashion", jewelry_accessories: "jewelry-accessories" };
+const VISIBLE = ["editorial_reviewed", "verified"];
+
+async function searchPublicSection(table: ConciergeTable, term: string, limit: number): Promise<ConciergeMatch[] | null> {
+  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items"].includes(table)) return null;
+  const db = (await publicClient()) as any;
+  if (table === "emergency_numbers") {
+    const { data, error } = await db
+      .from("emergency_numbers")
+      .select("id, name_en, name_ar, number, public_note_en")
+      .or(orFilter(term, ["name_en", "name_ar", "number"]))
+      .eq("is_active", true)
+      .eq("status", "verified")
+      .limit(limit);
+    if (error) throw error;
+    return (data ?? []).map((r: any) => ({
+      id: String(r.id), name: `${r.name_en || r.name_ar} — ${r.number}`, slug: String(r.id), type: table,
+      summary: oneLine(r.public_note_en), link: `${SITE}/emergency-numbers`,
+    }));
+  }
+  if (table === "egypt_apps") {
+    const { data, error } = await db
+      .from("egypt_apps")
+      .select("id, name_en, name_ar, publisher, description_en, website_url")
+      .or(orFilter(term, ["name_en", "name_ar", "publisher", "description_en"]))
+      .eq("is_active", true)
+      .limit(limit);
+    if (error) throw error;
+    return (data ?? []).map((r: any) => ({
+      id: String(r.id), name: r.name_en || r.name_ar, slug: String(r.id), type: table,
+      summary: oneLine(r.description_en), category: r.publisher ?? undefined, link: `${SITE}/egypt-apps`,
+    }));
+  }
+  if (table === "military_records") {
+    const { data, error } = await db
+      .from("military_records")
+      .select("id, slug, title_en, title_ar, date_label_en, place_en, significance_en")
+      .or(orFilter(term, ["title_en", "title_ar", "place_en"]))
+      .eq("is_active", true)
+      .in("review_status", VISIBLE)
+      .limit(limit);
+    if (error) throw error;
+    return (data ?? []).map((r: any) => ({
+      id: String(r.id), name: r.title_en || r.title_ar, slug: String(r.slug), type: table,
+      summary: oneLine([r.date_label_en, r.place_en, r.significance_en].filter(Boolean).join(" · ")),
+      link: `${SITE}/egypt-through-time/military-history/records/${r.slug}`,
+    }));
+  }
+  const { data, error } = await db
+    .from("culture_items")
+    .select("id, slug, section, name_en, name_ar, summary_en")
+    .or(orFilter(term, ["name_en", "name_ar", "summary_en"]))
+    .eq("is_active", true)
+    .in("review_status", VISIBLE)
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []).map((r: any) => ({
+    id: String(r.id), name: r.name_en || r.name_ar, slug: String(r.slug), type: table,
+    summary: oneLine(r.summary_en), link: `${SITE}/live-like-an-egyptian/${CULTURE_URL[r.section] ?? "cuisine"}/${r.slug}`,
+  }));
+}
+
 export async function searchSiteContent(
   query: string,
   category?: ConciergeTable,
@@ -104,6 +192,8 @@ export async function searchSiteContent(
     tables.map(async (table) => {
       try {
         if (table === "government_entities") return await searchGovernment(term, perTable);
+        const pub = await searchPublicSection(table, term, perTable);
+        if (pub) return pub;
         let q = (supabaseAdmin.from(table) as any)
           .select("id, name, slug, summary")
           .or(orFilter(term, ["name", "summary"]));

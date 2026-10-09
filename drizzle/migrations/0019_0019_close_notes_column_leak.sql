@@ -1,0 +1,4 @@
+REVOKE SELECT ON public.emergency_numbers FROM authenticated;
+GRANT SELECT (id, category_id, name_ar, name_en, number, dial_string, availability, status, source_url, is_primary, is_active, sort_order, last_verified_at, governance_status, created_at, updated_at, public_note_ar, public_note_en, availability_ar, availability_en) ON public.emergency_numbers TO authenticated;
+REVOKE SELECT ON public.egypt_apps FROM authenticated;
+GRANT SELECT (id, category_id, name_ar, name_en, publisher, app_type, description_ar, description_en, google_play_url, app_store_url, website_url, is_featured, status, last_verified_at, last_link_check, is_active, sort_order, governance_status, created_at, updated_at) ON public.egypt_apps TO authenticated;
