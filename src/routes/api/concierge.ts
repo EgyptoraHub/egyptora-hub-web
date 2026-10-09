@@ -59,7 +59,6 @@ Site structure (all links are on https://egyptora-hub.com — write them as full
 - Tourist Experiences — https://egyptora-hub.com/traveler-stories (traveller stories and videos)
 - Emergency & Quick Numbers — https://egyptora-hub.com/emergency-numbers (verified public numbers; Police 122, Ambulance 123)
 - Egypt Apps — https://egyptora-hub.com/egypt-apps (directory of useful Egyptian apps by category)
-- Guide pages (numbers, apps and official bodies already on the hub): Residency & Visas https://egyptora-hub.com/live-in-egypt/residency-visas ; Healthcare https://egyptora-hub.com/live-in-egypt/healthcare ; Safety & Security https://egyptora-hub.com/live-in-egypt/safety-security ; Transportation https://egyptora-hub.com/live-in-egypt/transportation ; Utilities & Services https://egyptora-hub.com/live-in-egypt/utilities-services ; Work & Employment https://egyptora-hub.com/live-in-egypt/work-employment ; Licenses & Permits https://egyptora-hub.com/do-business/licenses-permits ; Start a Business https://egyptora-hub.com/do-business/start-a-business
 - Site search — https://egyptora-hub.com/search
 When a question maps to one of these pages (e.g. "start a business" → Do Business; "get a visa" → the e-Visa page plus the Government Directory; "become a partner" → Become a Partner), name the page and give its link, in addition to answering.
 

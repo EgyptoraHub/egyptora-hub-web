@@ -37,4 +37,4 @@
 - [ ] WEBHOOK_SHARED_SECRET not set (only needed when a provider is chosen)
 
 ## Prompt 30 — Coming soon Wave 1
-- [x] 8 guide hubs built, menu items enabled (soon items 20 -> 12), sitemap/search/AI assistant updated
+- [x] Reverted in Prompt 30b: guide hubs removed, 8 items back to Coming soon (20)

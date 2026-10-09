@@ -18,4 +18,4 @@
 - AI Concierge searches newer sections (emergency numbers, apps, military records, culture items) with the publishable key so database visitor rules decide visibility, and its output links are filtered to prompt or search-result links — prevents invented URLs and hidden rows.
 - Inbound webhooks use /api/public/hooks/$provider with an HMAC-SHA256 signature from WEBHOOK_SHARED_SECRET; unsigned calls get 401 — one guarded entry point for future providers.
 - Page-text coverage for the 7 non-AR/EN languages is checked with `bun scripts/i18n-missing.ts`; newer translations sit in src/i18n/phase1-translations.ts and existing dictionary entries take precedence.
-- Wave 1 guide hubs (8) are config-driven in src/data/guideHubs.ts and rendered by one GuideHubPage under /live-in-egypt/$guide and /do-business/$guide; they read only public numbers, apps and government entries — new hubs are a config entry, not a new page.
+- "Coming soon" nav items become pages only with their own original reviewed content; hubs that re-list existing directory records were removed (Prompt 30b) to avoid duplicated content.
