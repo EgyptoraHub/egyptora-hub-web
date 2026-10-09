@@ -6,6 +6,7 @@ import {
   createLovableAiGatewayProvider,
   getLovableAiGatewayRunId,
 } from "@/lib/ai-gateway.server";
+import { logAiUsage } from "@/lib/audit.server";
 import { CONCIERGE_TABLES, ITINERARY_TABLES, searchSiteContent } from "@/lib/concierge-search.server";
 
 const MODEL = "google/gemini-2.5-flash";
@@ -53,6 +54,12 @@ Site structure (all links are on https://egyptora-hub.com — write them as full
 - Become a Partner — https://egyptora-hub.com/become-a-partner (hotels, developers, service providers and exporters apply with name, email, company, partnership type and a short description). After applying, the applicant signs in and opens the partner portal — https://egyptora-hub.com/partners — to upload two documents (business registration, and authorization to represent the company; PDF/JPG/PNG, up to 10 MB, stored privately). Statuses: Documents Pending → Under Review → Verified, Rejected, or Changes Requested (the reviewer names which document to re-upload). Applicants get a notification in the bell when the status changes. Only the Verified badge depends on documents.
 - Trust Center — https://egyptora-hub.com/trust-center (security, privacy, AI transparency, verification, data sources, partner disclosure, cookies, accessibility, report a concern)
 - About — Our Mission https://egyptora-hub.com/our-mission, Vision & Values https://egyptora-hub.com/vision-values, FAQ https://egyptora-hub.com/faq
+- Egypt Through Time hub — https://egyptora-hub.com/egypt-through-time, with Military History — https://egyptora-hub.com/egypt-through-time/military-history (a register of historical military records with timeline, map, figures and library; describe counts only as "records in the EGYPTORA register", never as victories/defeats tallies)
+- Live Like an Egyptian — https://egyptora-hub.com/live-like-an-egyptian (Egyptian Cuisine, Traditional Fashion, Jewelry & Accessories)
+- Know Your Roots — https://egyptora-hub.com/know-your-roots (explore the heritage of each of the 27 governorates; no DNA or genealogy service)
+- Tourist Experiences — https://egyptora-hub.com/traveler-stories (traveller stories and videos)
+- Emergency & Quick Numbers — https://egyptora-hub.com/emergency-numbers (verified public numbers; Police 122, Ambulance 123)
+- Egypt Apps — https://egyptora-hub.com/egypt-apps (directory of useful Egyptian apps by category)
 - Site search — https://egyptora-hub.com/search
 When a question maps to one of these pages (e.g. "start a business" → Do Business; "get a visa" → the e-Visa page plus the Government Directory; "become a partner" → Become a Partner), name the page and give its link, in addition to answering.
 
@@ -61,6 +68,7 @@ Identity: your visible name is "EGYPTORA AI". Never mention or reveal the underl
 
 Government services:
 - For any "how do I… / who handles…" government question (passport, visa, residency, tax, company registration, licences…), call search_site_content with category government_entities using the likely authority name, not the service (passport, national ID, civil records, residency permits → "Interior"; embassies/consular → "Foreign Affairs"; company setup → "Investment"; tax → "Tax"). Retry with another keyword if nothing comes back.
+- For emergency phone numbers use category emergency_numbers; for apps use egypt_apps; for battles, wars and military history use military_records; for dishes, dress and jewellery use culture_items. Only quote a phone number that the tool returned; if none is returned, say you don't know and link the Emergency Numbers page.
 - For shopping, crafts, cotton or local goods use category products; for hotels, guides, tour operators use providers; for investment or business opportunities use investment_opportunities. Cite the entity's exact name and its official link from the tool result. Remind the user that procedures must be confirmed with that authority.
 
 Links from tool results:
@@ -128,7 +136,7 @@ export const Route = createFileRoute("/api/concierge")({
             tools: {
               search_site_content: tool({
                 description:
-                  "Search Egyptora Hub's real published content (governorates, destinations, heritage sites, museums, events, properties, offers, government entities with official links, investment opportunities, service providers, products). Returns only name, slug, type, a one-line summary and a public link. Read-only.",
+                  "Search Egyptora Hub's real published content (governorates, destinations, heritage sites, museums, events, properties, offers, government entities with official links, investment opportunities, service providers, products, verified emergency numbers, Egypt apps, military history records, culture items). Returns only name, slug, type, a one-line summary and a public link. Read-only.",
                 inputSchema: z.object({
                   query: z.string().min(2).max(120).describe("Free-text search, e.g. 'Luxor temple'"),
                   category: z
@@ -232,6 +240,12 @@ export const Route = createFileRoute("/api/concierge")({
                   controller.enqueue(
                     encoder.encode(`\n\nTry the site search: https://egyptora-hub.com/search?q=${encodeURIComponent(q).replace(/%2B/g, "+")}`),
                   );
+                }
+                try {
+                  const usage = await result.totalUsage;
+                  await logAiUsage({ feature: "concierge", model: MODEL, tokensIn: usage.inputTokens ?? null, tokensOut: usage.outputTokens ?? null });
+                } catch {
+                  /* usage unavailable — skip */
                 }
               } catch (streamError) {
                 console.error("[concierge] stream failed", streamError);
