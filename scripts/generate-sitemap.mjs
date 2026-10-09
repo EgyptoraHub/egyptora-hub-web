@@ -21,7 +21,7 @@ async function slugs(table) {
 }
 
 const path = new URL("../public/sitemap.xml", import.meta.url);
-const dynamic = /(\/know-your-roots|\/traveler-stories[^<]*|\/military-history\/(records|figures)\/[^<]+|\/live-like-an-egyptian[^<]*)<\/loc>/;
+const dynamic = /(\/live-in-egypt\/[^<]+|\/do-business\/[^<]+|\/know-your-roots|\/traveler-stories[^<]*|\/military-history\/(records|figures)\/[^<]+|\/live-like-an-egyptian[^<]*)<\/loc>/;
 const kept = readFileSync(path, "utf8").split("\n").filter((l) => !dynamic.test(l) && !l.includes("</urlset>"));
 while (kept.length && kept[kept.length - 1].trim() === "") kept.pop();
 
@@ -38,7 +38,8 @@ const sr = await fetch(`${URL_}/rest/v1/traveller_stories?select=id&order=id`, {
 if (!sr.ok) throw new Error(`traveller_stories: ${sr.status}`);
 const stories = await sr.json();
 const ROOT = "https://egyptora-hub.com";
-const extraLines = [`${ROOT}/know-your-roots`, `${ROOT}/traveler-stories`, ...stories.map((x) => `${ROOT}/traveler-stories/${x.id}`)]
+const GUIDES = ["live-in-egypt/residency-visas", "live-in-egypt/healthcare", "live-in-egypt/safety-security", "live-in-egypt/transportation", "live-in-egypt/utilities-services", "live-in-egypt/work-employment", "do-business/licenses-permits", "do-business/start-a-business"];
+const extraLines = [...GUIDES.map((g) => `${ROOT}/${g}`), `${ROOT}/know-your-roots`, `${ROOT}/traveler-stories`, ...stories.map((x) => `${ROOT}/traveler-stories/${x.id}`)]
   .map((u) => `  <url><loc>${u}</loc><changefreq>monthly</changefreq></url>`);
 const line = (p) => `  <url><loc>${BASE}/${p}</loc><changefreq>monthly</changefreq></url>`;
 const out = [...kept, ...records.map((s) => line(`records/${s}`)), ...figures.map((s) => line(`figures/${s}`)), ...cultureLines, ...extraLines, "</urlset>", ""].join("\n");

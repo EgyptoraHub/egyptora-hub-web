@@ -51,8 +51,7 @@ export async function loadGuideHub(hub: GuideHub) {
 }
 
 export function guideHubHead(hub: GuideHub) {
-  const base = simpleHead(guideHubPath(hub), `${hub.title.en} in Egypt | Egyptora Hub`, hub.intro.en, SITE.url);
-  return { ...base, meta: [...base.meta, { name: "description:ar", content: hub.intro.ar }] };
+  return simpleHead(guideHubPath(hub), `${hub.title.en} in Egypt | Egyptora Hub`, hub.intro.en, SITE.url);
 }
 
 const date = (d: string | null) => (d ? d.slice(0, 10) : null);
