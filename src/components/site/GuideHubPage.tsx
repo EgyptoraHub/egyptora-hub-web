@@ -122,7 +122,7 @@ export function GuideHubPage({ hub, data }: { hub: GuideHub; data: Awaited<Retur
               {data.apps.map((a) => (
                 <li key={a.id} className={card}>
                   <p className="font-semibold text-navy" dir="auto">{pick(a.name_en, a.name_ar)}</p>
-                  {a.publisher && <p className="text-xs text-muted-foreground" dir="auto">{a.publisher}</p>}
+                  {a.publisher && !/unconfirmed|\?/i.test(a.publisher) && <p className="text-xs text-muted-foreground" dir="auto">{a.publisher}</p>}
                   {pick(a.description_en ?? "", a.description_ar) && (
                     <p className="mt-2 line-clamp-3 text-sm text-text-body" dir="auto">{pick(a.description_en ?? "", a.description_ar)}</p>
                   )}
