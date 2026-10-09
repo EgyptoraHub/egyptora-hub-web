@@ -6,7 +6,6 @@ import {
   createLovableAiGatewayProvider,
   getLovableAiGatewayRunId,
 } from "@/lib/ai-gateway.server";
-import { logAiUsage } from "@/lib/audit.server";
 import { CONCIERGE_TABLES, ITINERARY_TABLES, searchSiteContent } from "@/lib/concierge-search.server";
 
 const MODEL = "google/gemini-2.5-flash";
@@ -243,6 +242,7 @@ export const Route = createFileRoute("/api/concierge")({
                 }
                 try {
                   const usage = await result.totalUsage;
+                  const { logAiUsage } = await import("@/lib/audit.server");
                   await logAiUsage({ feature: "concierge", model: MODEL, tokensIn: usage.inputTokens ?? null, tokensOut: usage.outputTokens ?? null });
                 } catch {
                   /* usage unavailable — skip */
