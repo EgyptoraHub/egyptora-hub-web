@@ -3,6 +3,10 @@
  * Sub-items point at a real route where one exists today; the rest are marked
  * `soon` and render as non-navigating "Coming soon" entries until their page
  * is built.
+ *
+ * RULE: a `soon: true` item may be turned into a page only when it has its own
+ * original, reviewed content. Pages that merely re-list existing records
+ * (emergency numbers, apps, government entries) are not allowed.
  */
 export type NavLeaf = {
   label: string;
@@ -55,16 +59,16 @@ export const mainNav: NavEntry[] = [
     to: "/live-in-egypt",
     items: [
       { label: "All Living Options", to: "/live-in-egypt" },
-      { label: "Residency & Visas", to: "/live-in-egypt/residency-visas" },
+      { label: "Residency & Visas", soon: true },
       { label: "Housing & Real Estate", to: "/real-estate" },
       { label: "Education & Schools", to: "/research-programs" },
-      { label: "Healthcare & Medical Services", to: "/live-in-egypt/healthcare" },
-      { label: "Work & Employment", to: "/live-in-egypt/work-employment" },
+      { label: "Healthcare & Medical Services", soon: true },
+      { label: "Work & Employment", soon: true },
       { label: "Cost of Living", soon: true },
-      { label: "Safety & Security", to: "/live-in-egypt/safety-security" },
+      { label: "Safety & Security", soon: true },
       { label: "Community & Lifestyle", soon: true },
-      { label: "Transportation & Mobility", to: "/live-in-egypt/transportation" },
-      { label: "Utilities & Services", to: "/live-in-egypt/utilities-services" },
+      { label: "Transportation & Mobility", soon: true },
+      { label: "Utilities & Services", soon: true },
     ],
   },
   {
@@ -89,8 +93,8 @@ export const mainNav: NavEntry[] = [
     to: "/do-business",
     items: [
       { label: "All Business Services", to: "/do-business" },
-      { label: "Start a Business", to: "/do-business/start-a-business" },
-      { label: "Licenses & Permits", to: "/do-business/licenses-permits" },
+      { label: "Start a Business", soon: true },
+      { label: "Licenses & Permits", soon: true },
       { label: "Investment Incentives", to: "/investment-opportunities" },
       { label: "Tenders & Projects", soon: true },
       { label: "Trade & Export", to: "/products" },

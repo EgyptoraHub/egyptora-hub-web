@@ -1,7 +1,6 @@
 import type { LangCode } from "./languages";
 import { cultureAr } from "./culture-ar";
 import { phase1Fr, phase1De, phase1Es, phase1It, phase1Ru, phase1Zh, phase1Hi } from "./phase1-translations";
-import { guideFr, guideDe, guideEs, guideIt, guideRu, guideZh, guideHi } from "./guide-translations";
 
 /**
  * Translation dictionaries keyed by the English source string.
@@ -3073,7 +3072,6 @@ const ar: Dict = {
 
 const fr: Dict = {
   ...phase1Fr,
-  ...guideFr,
   "Account type": "Type de compte",
   "Individual traveller": "Voyageur individuel",
   "Government entity": "Entité gouvernementale",
@@ -5962,7 +5960,6 @@ const fr: Dict = {
 
 const de: Dict = {
   ...phase1De,
-  ...guideDe,
   "Account type": "Kontotyp",
   "Individual traveller": "Einzelreisender",
   "Government entity": "Regierungsbehörde",
@@ -8851,7 +8848,6 @@ const de: Dict = {
 
 const es: Dict = {
   ...phase1Es,
-  ...guideEs,
   "Account type": "Tipo de cuenta",
   "Individual traveller": "Viajero individual",
   "Government entity": "Entidad gubernamental",
@@ -11740,7 +11736,6 @@ const es: Dict = {
 
 const it: Dict = {
   ...phase1It,
-  ...guideIt,
   "Account type": "Tipo di account",
   "Individual traveller": "Viaggiatore individuale",
   "Government entity": "Ente governativo",
@@ -14629,7 +14624,6 @@ const it: Dict = {
 
 const ru: Dict = {
   ...phase1Ru,
-  ...guideRu,
   "Account type": "Тип аккаунта",
   "Individual traveller": "Индивидуальный путешественник",
   "Government entity": "Государственное учреждение",
@@ -17518,7 +17512,6 @@ const ru: Dict = {
 
 const zh: Dict = {
   ...phase1Zh,
-  ...guideZh,
   "Account type": "账户类型",
   "Individual traveller": "个人旅行者",
   "Government entity": "政府机构",
@@ -20407,7 +20400,6 @@ const zh: Dict = {
 
 const hi: Dict = {
   ...phase1Hi,
-  ...guideHi,
   "Account type": "खाता प्रकार",
   "Individual traveller": "व्यक्तिगत यात्री",
   "Government entity": "सरकारी संस्था",
