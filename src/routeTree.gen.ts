@@ -57,7 +57,6 @@ import { Route as AdminPartnersRouteImport } from './routes/admin.partners'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
-import { Route as DoBusinessGuideRouteImport } from './routes/do-business_.$guide'
 import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
 import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/egypt-through-time_.military-history'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
@@ -72,7 +71,6 @@ import { Route as LegalIndexRouteImport } from './routes/legal.index'
 import { Route as LegalSlugRouteImport } from './routes/legal.$slug'
 import { Route as LegalConsentRouteImport } from './routes/legal.consent'
 import { Route as LegalReviewChecklistRouteImport } from './routes/legal.review-checklist'
-import { Route as LiveInEgyptGuideRouteImport } from './routes/live-in-egypt_.$guide'
 import { Route as LiveLikeAnEgyptianSectionRouteImport } from './routes/live-like-an-egyptian_.$section'
 import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
 import { Route as MarketplaceEgyptianCottonRouteImport } from './routes/marketplace.egyptian-cotton'
@@ -350,11 +348,6 @@ const CountriesIdRoute = CountriesIdRouteImport.update({
   path: '/countries/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DoBusinessGuideRoute = DoBusinessGuideRouteImport.update({
-  id: '/do-business_/$guide',
-  path: '/do-business/$guide',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const EgyptAppsCategoryRoute = EgyptAppsCategoryRouteImport.update({
   id: '/egypt-apps_/$category',
   path: '/egypt-apps/$category',
@@ -427,11 +420,6 @@ const LegalConsentRoute = LegalConsentRouteImport.update({
 const LegalReviewChecklistRoute = LegalReviewChecklistRouteImport.update({
   id: '/legal/review-checklist',
   path: '/legal/review-checklist',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LiveInEgyptGuideRoute = LiveInEgyptGuideRouteImport.update({
-  id: '/live-in-egypt_/$guide',
-  path: '/live-in-egypt/$guide',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LiveLikeAnEgyptianSectionRoute =
@@ -671,7 +659,6 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
-  '/do-business/$guide': typeof DoBusinessGuideRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -684,7 +671,6 @@ export interface FileRoutesByFullPath {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
-  '/live-in-egypt/$guide': typeof LiveInEgyptGuideRoute
   '/live-like-an-egyptian/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
@@ -771,7 +757,6 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
-  '/do-business/$guide': typeof DoBusinessGuideRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -784,7 +769,6 @@ export interface FileRoutesByTo {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
-  '/live-in-egypt/$guide': typeof LiveInEgyptGuideRoute
   '/live-like-an-egyptian/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
@@ -873,7 +857,6 @@ export interface FileRoutesById {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries_/$id': typeof CountriesIdRoute
-  '/do-business_/$guide': typeof DoBusinessGuideRoute
   '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time_/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -886,7 +869,6 @@ export interface FileRoutesById {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
-  '/live-in-egypt_/$guide': typeof LiveInEgyptGuideRoute
   '/live-like-an-egyptian_/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
@@ -976,7 +958,6 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries/$id'
-    | '/do-business/$guide'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -989,7 +970,6 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
-    | '/live-in-egypt/$guide'
     | '/live-like-an-egyptian/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
@@ -1076,7 +1056,6 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries/$id'
-    | '/do-business/$guide'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1089,7 +1068,6 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
-    | '/live-in-egypt/$guide'
     | '/live-like-an-egyptian/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
@@ -1177,7 +1155,6 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries_/$id'
-    | '/do-business_/$guide'
     | '/egypt-apps_/$category'
     | '/egypt-through-time_/military-history'
     | '/egyptian-heritage-worldwide_/$id'
@@ -1190,7 +1167,6 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
-    | '/live-in-egypt_/$guide'
     | '/live-like-an-egyptian_/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
@@ -1274,7 +1250,6 @@ export interface RootRouteChildren {
   AccountBookingsRoute: typeof AccountBookingsRoute
   ApiConciergeRoute: typeof ApiConciergeRoute
   CountriesIdRoute: typeof CountriesIdRoute
-  DoBusinessGuideRoute: typeof DoBusinessGuideRoute
   EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
   EgyptThroughTimeMilitaryHistoryRoute: typeof EgyptThroughTimeMilitaryHistoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
@@ -1287,7 +1262,6 @@ export interface RootRouteChildren {
   LegalSlugRoute: typeof LegalSlugRoute
   LegalConsentRoute: typeof LegalConsentRoute
   LegalReviewChecklistRoute: typeof LegalReviewChecklistRoute
-  LiveInEgyptGuideRoute: typeof LiveInEgyptGuideRoute
   LiveLikeAnEgyptianSectionRoute: typeof LiveLikeAnEgyptianSectionRoute
   MarketplaceEgyptianCottonRoute: typeof MarketplaceEgyptianCottonRoute
   MarketplaceHandmadeCraftsRoute: typeof MarketplaceHandmadeCraftsRoute
@@ -1660,13 +1634,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CountriesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/do-business_/$guide': {
-      id: '/do-business_/$guide'
-      path: '/do-business/$guide'
-      fullPath: '/do-business/$guide'
-      preLoaderRoute: typeof DoBusinessGuideRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/egypt-apps_/$category': {
       id: '/egypt-apps_/$category'
       path: '/egypt-apps/$category'
@@ -1763,13 +1730,6 @@ declare module '@tanstack/react-router' {
       path: '/legal/review-checklist'
       fullPath: '/legal/review-checklist'
       preLoaderRoute: typeof LegalReviewChecklistRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/live-in-egypt_/$guide': {
-      id: '/live-in-egypt_/$guide'
-      path: '/live-in-egypt/$guide'
-      fullPath: '/live-in-egypt/$guide'
-      preLoaderRoute: typeof LiveInEgyptGuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/live-like-an-egyptian_/$section': {
@@ -2093,7 +2053,6 @@ const rootRouteChildren: RootRouteChildren = {
   AccountBookingsRoute: AccountBookingsRoute,
   ApiConciergeRoute: ApiConciergeRoute,
   CountriesIdRoute: CountriesIdRoute,
-  DoBusinessGuideRoute: DoBusinessGuideRoute,
   EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
   EgyptThroughTimeMilitaryHistoryRoute: EgyptThroughTimeMilitaryHistoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
@@ -2107,7 +2066,6 @@ const rootRouteChildren: RootRouteChildren = {
   LegalSlugRoute: LegalSlugRoute,
   LegalConsentRoute: LegalConsentRoute,
   LegalReviewChecklistRoute: LegalReviewChecklistRoute,
-  LiveInEgyptGuideRoute: LiveInEgyptGuideRoute,
   LiveLikeAnEgyptianSectionRoute: LiveLikeAnEgyptianSectionRoute,
   MarketplaceEgyptianCottonRoute: MarketplaceEgyptianCottonRoute,
   MarketplaceHandmadeCraftsRoute: MarketplaceHandmadeCraftsRoute,

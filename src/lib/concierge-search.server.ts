@@ -144,7 +144,7 @@ async function searchPublicSection(table: ConciergeTable, term: string, limit: n
     if (error) throw error;
     return (data ?? []).map((r: any) => ({
       id: String(r.id), name: r.name_en || r.name_ar, slug: String(r.id), type: table,
-      summary: oneLine(r.description_en), category: r.publisher ?? undefined, link: `${SITE}/egypt-apps`,
+      summary: oneLine(r.description_en), category: r.publisher && !/unconfirmed|\?/i.test(r.publisher) ? r.publisher : undefined, link: `${SITE}/egypt-apps`,
     }));
   }
   if (table === "military_records") {
