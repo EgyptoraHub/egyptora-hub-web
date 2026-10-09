@@ -125,6 +125,15 @@ export const Route = createFileRoute("/api/concierge")({
           string,
           { id: string; name: string; slug: string; type: string }
         >();
+        // Links the model may show: site-structure links from the prompt + links the search returned.
+        const allowedLinks = new Set<string>(SYSTEM_PROMPT.match(/https:\/\/egyptora-hub\.com[^\s)"',;]*/g) ?? []);
+        const sanitize = (text: string) =>
+          text.replace(/https?:\/\/(?:www\.)?egyptora-hub\.com[^\s)"'<>,;]*/g, (url) => {
+            const clean = url.replace(/[.:!?]+$/, "");
+            const tail = url.slice(clean.length);
+            if (allowedLinks.has(clean) || clean.startsWith("https://egyptora-hub.com/search?q=")) return url;
+            return `https://egyptora-hub.com/search${tail}`;
+          });
 
         try {
           const result = streamText({
@@ -148,6 +157,7 @@ export const Route = createFileRoute("/api/concierge")({
                 execute: async ({ query, category }) => {
                   const matches = await searchSiteContent(query, category);
                   for (const m of matches) {
+                    if (m.link) allowedLinks.add(m.link);
                     grounded.set(`${m.type}:${m.slug}`, {
                       id: m.id,
                       name: m.name,
@@ -176,22 +186,24 @@ export const Route = createFileRoute("/api/concierge")({
                   if (inBlock) continue;
                   const idx = buffer.indexOf("```itinerary");
                   if (idx !== -1) {
-                    const prose = buffer.slice(0, idx);
+                    const prose = sanitize(buffer.slice(0, idx));
                     if (prose) controller.enqueue(encoder.encode(prose));
                     emitted += prose;
                     buffer = buffer.slice(idx);
                     inBlock = true;
                     continue;
                   }
-                  // Hold back a short tail that could be a partial fence marker.
-                  const keep = Math.min(buffer.length, 12);
-                  const emit = buffer.slice(0, buffer.length - keep);
-                  buffer = buffer.slice(buffer.length - keep);
+                  // Emit complete lines only, so every link can be checked before it is shown.
+                  const nl = buffer.lastIndexOf("\n");
+                  if (nl === -1) continue;
+                  const emit = sanitize(buffer.slice(0, nl + 1));
+                  buffer = buffer.slice(nl + 1);
                   if (emit) controller.enqueue(encoder.encode(emit));
                   emitted += emit;
                 }
 
                 if (!inBlock) {
+                  buffer = sanitize(buffer);
                   if (buffer) controller.enqueue(encoder.encode(buffer));
                   emitted += buffer;
                 } else {
