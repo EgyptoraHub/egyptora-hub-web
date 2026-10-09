@@ -178,6 +178,8 @@ export const setUserAdminRole = createServerFn({ method: "POST" })
         .from("user_roles")
         .insert({ user_id: data.userId, role: "admin" });
       if (error) return { authorized: true, ok: false, error: error.message };
+      const { writeAudit } = await import("@/lib/audit.server");
+      await writeAudit({ actorUserId: context.userId, action: "role.admin_granted", entityType: "user", entityId: data.userId });
       return { authorized: true, ok: true };
     }
 
@@ -187,5 +189,7 @@ export const setUserAdminRole = createServerFn({ method: "POST" })
       .eq("user_id", data.userId)
       .eq("role", "admin");
     if (error) return { authorized: true, ok: false, error: error.message };
+    const { writeAudit } = await import("@/lib/audit.server");
+    await writeAudit({ actorUserId: context.userId, action: "role.admin_revoked", entityType: "user", entityId: data.userId });
     return { authorized: true, ok: true };
   });

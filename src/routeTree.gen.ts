@@ -103,6 +103,7 @@ import { Route as EgyptThroughTimeMilitaryHistoryRecordsRouteImport } from './ro
 import { Route as EgyptThroughTimeMilitaryHistoryTimelineRouteImport } from './routes/egypt-through-time_.military-history_.timeline'
 import { Route as LiveLikeAnEgyptianSectionSlugRouteImport } from './routes/live-like-an-egyptian_.$section_.$slug'
 import { Route as PartnersTypeIdRouteImport } from './routes/partners.$type.$id'
+import { Route as ApiPublicHooksProviderRouteImport } from './routes/api/public/hooks/$provider'
 import { Route as EgyptThroughTimeMilitaryHistoryFiguresSlugRouteImport } from './routes/egypt-through-time_.military-history_.figures_.$slug'
 import { Route as EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport } from './routes/egypt-through-time_.military-history_.records_.$slug'
 
@@ -592,6 +593,11 @@ const PartnersTypeIdRoute = PartnersTypeIdRouteImport.update({
   path: '/partners/$type/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksProviderRoute = ApiPublicHooksProviderRouteImport.update({
+  id: '/api/public/hooks/$provider',
+  path: '/api/public/hooks/$provider',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EgyptThroughTimeMilitaryHistoryFiguresSlugRoute =
   EgyptThroughTimeMilitaryHistoryFiguresSlugRouteImport.update({
     id: '/egypt-through-time_/military-history_/figures_/$slug',
@@ -700,6 +706,7 @@ export interface FileRoutesByFullPath {
   '/live-like-an-egyptian/$section/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/api/public/hooks/$provider': typeof ApiPublicHooksProviderRoute
   '/egypt-through-time/military-history/figures/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   '/egypt-through-time/military-history/records/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
@@ -797,6 +804,7 @@ export interface FileRoutesByTo {
   '/live-like-an-egyptian/$section/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content': typeof AdminContentIndexRoute
+  '/api/public/hooks/$provider': typeof ApiPublicHooksProviderRoute
   '/egypt-through-time/military-history/figures/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   '/egypt-through-time/military-history/records/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
@@ -896,6 +904,7 @@ export interface FileRoutesById {
   '/live-like-an-egyptian_/$section_/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
+  '/api/public/hooks/$provider': typeof ApiPublicHooksProviderRoute
   '/egypt-through-time_/military-history_/figures_/$slug': typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   '/egypt-through-time_/military-history_/records_/$slug': typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
@@ -996,6 +1005,7 @@ export interface FileRouteTypes {
     | '/live-like-an-egyptian/$section/$slug'
     | '/partners/$type/$id'
     | '/admin/content/'
+    | '/api/public/hooks/$provider'
     | '/egypt-through-time/military-history/figures/$slug'
     | '/egypt-through-time/military-history/records/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -1093,6 +1103,7 @@ export interface FileRouteTypes {
     | '/live-like-an-egyptian/$section/$slug'
     | '/partners/$type/$id'
     | '/admin/content'
+    | '/api/public/hooks/$provider'
     | '/egypt-through-time/military-history/figures/$slug'
     | '/egypt-through-time/military-history/records/$slug'
   id:
@@ -1191,6 +1202,7 @@ export interface FileRouteTypes {
     | '/live-like-an-egyptian_/$section_/$slug'
     | '/partners/$type/$id'
     | '/admin/content/'
+    | '/api/public/hooks/$provider'
     | '/egypt-through-time_/military-history_/figures_/$slug'
     | '/egypt-through-time_/military-history_/records_/$slug'
   fileRoutesById: FileRoutesById
@@ -1279,6 +1291,7 @@ export interface RootRouteChildren {
   EgyptThroughTimeMilitaryHistoryTimelineRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
   LiveLikeAnEgyptianSectionSlugRoute: typeof LiveLikeAnEgyptianSectionSlugRoute
   PartnersTypeIdRoute: typeof PartnersTypeIdRoute
+  ApiPublicHooksProviderRoute: typeof ApiPublicHooksProviderRoute
   EgyptThroughTimeMilitaryHistoryFiguresSlugRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresSlugRoute
   EgyptThroughTimeMilitaryHistoryRecordsSlugRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsSlugRoute
 }
@@ -1943,6 +1956,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnersTypeIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/$provider': {
+      id: '/api/public/hooks/$provider'
+      path: '/api/public/hooks/$provider'
+      fullPath: '/api/public/hooks/$provider'
+      preLoaderRoute: typeof ApiPublicHooksProviderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/egypt-through-time_/military-history_/figures_/$slug': {
       id: '/egypt-through-time_/military-history_/figures_/$slug'
       path: '/egypt-through-time/military-history/figures/$slug'
@@ -2080,6 +2100,7 @@ const rootRouteChildren: RootRouteChildren = {
     EgyptThroughTimeMilitaryHistoryTimelineRoute,
   LiveLikeAnEgyptianSectionSlugRoute: LiveLikeAnEgyptianSectionSlugRoute,
   PartnersTypeIdRoute: PartnersTypeIdRoute,
+  ApiPublicHooksProviderRoute: ApiPublicHooksProviderRoute,
   EgyptThroughTimeMilitaryHistoryFiguresSlugRoute:
     EgyptThroughTimeMilitaryHistoryFiguresSlugRoute,
   EgyptThroughTimeMilitaryHistoryRecordsSlugRoute:
