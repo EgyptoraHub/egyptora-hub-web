@@ -1214,7 +1214,13 @@ export type Database = {
           entity_name_ar: string | null
           entity_name_en: string
           id: string
+          internal_notes: string | null
+          is_active: boolean
+          last_verified_at: string | null
           official_url: string | null
+          phone: string | null
+          phone_label: string | null
+          phone_source_url: string | null
           sort_order: number
           updated_at: string
           verification_status: string
@@ -1227,7 +1233,13 @@ export type Database = {
           entity_name_ar?: string | null
           entity_name_en: string
           id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
           official_url?: string | null
+          phone?: string | null
+          phone_label?: string | null
+          phone_source_url?: string | null
           sort_order?: number
           updated_at?: string
           verification_status?: string
@@ -1240,7 +1252,13 @@ export type Database = {
           entity_name_ar?: string | null
           entity_name_en?: string
           id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
           official_url?: string | null
+          phone?: string | null
+          phone_label?: string | null
+          phone_source_url?: string | null
           sort_order?: number
           updated_at?: string
           verification_status?: string

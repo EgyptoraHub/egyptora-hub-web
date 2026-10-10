@@ -148,6 +148,13 @@
       "when": 1791632975627,
       "tag": "0020_0020_economic_zones",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1791644318197,
+      "tag": "0021_0021_government_entities_review",
+      "breakpoints": true
     }
   ]
 }
