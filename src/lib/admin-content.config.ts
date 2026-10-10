@@ -349,6 +349,31 @@ export const CONTENT_TABLES: TableConfig[] = [
     ],
   },
   {
+    table: "government_entities",
+    label: "Government entities",
+    group: "Government Directory",
+    pk: "id",
+    autoPk: true,
+    displayColumn: "entity_name_en",
+    orderColumn: "sort_order",
+    listColumns: ["entity_name_ar", "category_en", "verification_status", "is_active"],
+    filters: [
+      { name: "verification_status", label: "Status", options: ["Verified", "Needs check"] },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
+    bulk: [
+      { name: "verification_status", options: ["Verified", "Needs check"] },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    countBy: "verification_status",
+    fields: [
+      t("category_en"), t("category_ar"), t("entity_name_en"), t("entity_name_ar"), ta("description_en"), t("official_url"),
+      { name: "verification_status", type: "select", options: ["Verified", "Needs check"] }, bool("is_active"),
+      t("phone"), t("phone_label"), { name: "phone_source_url", type: "text", label: "Phone source URL (internal)" },
+      date("last_verified_at"), int("sort_order"), ta("internal_notes"),
+    ],
+  },
+  {
     table: "economic_zones",
     label: "Economic zones",
     group: ZONES_GROUP,
