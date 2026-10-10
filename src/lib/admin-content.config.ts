@@ -110,6 +110,10 @@ const GOV_IDS = [
   "gov-gharbia", "gov-giza", "gov-ismailia", "gov-kafr-el-sheikh", "gov-luxor", "gov-matrouh", "gov-minya", "gov-monufia", "gov-new-valley",
   "gov-north-sinai", "gov-port-said", "gov-qalyubia", "gov-qena", "gov-red-sea", "gov-sharqia", "gov-sohag", "gov-south-sinai", "gov-suez",
 ];
+export const ZONES_GROUP = "Economic zones";
+const GOV_SLUGS = GOV_IDS.map((g) => g.replace(/^gov-/, ""));
+const ZONE_TYPE_OPTS = ["public_free_zone", "sczone_industrial_zone", "industrial_zone"];
+const FACT_TOPIC_OPTS = ["general", "industrial_zones", "free_zones", "sczone"];
 
 const GOVERNANCE: FieldConfig[] = [
   { name: "source_status", type: "select", options: ["DEMO", "VERIFIED", "OFFICIAL"], governance: true },
@@ -342,6 +346,63 @@ export const CONTENT_TABLES: TableConfig[] = [
       { name: "marketplace_collection", type: "select", options: ["wear-egypt", "handmade-crafts"] },
       { name: "review_status", type: "select", options: REVIEW }, t("source_url"), date("last_verified_at"),
       bool("is_featured"), bool("is_active"), int("sort_order"), ta("internal_notes"),
+    ],
+  },
+  {
+    table: "economic_zones",
+    label: "Economic zones",
+    group: ZONES_GROUP,
+    pk: "id",
+    autoPk: true,
+    slugColumn: "slug",
+    displayColumn: "name_ar",
+    orderColumn: "name_ar",
+    listColumns: ["name_en", "zone_type", "governorate_slug", "review_status", "is_active"],
+    filters: [
+      { name: "zone_type", label: "Zone type", options: ZONE_TYPE_OPTS },
+      { name: "governorate_slug", label: "Governorate", options: GOV_SLUGS },
+      { name: "review_status", label: "Review status", options: REVIEW },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
+    bulk: [
+      { name: "review_status", options: REVIEW },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    csvImport: true,
+    countBy: "review_status",
+    fields: [
+      { name: "zone_type", type: "select", options: ZONE_TYPE_OPTS },
+      { name: "name_ar", type: "text", label: "Official Arabic name (required)" }, t("name_en"),
+      { name: "governorate_slug", type: "select", options: GOV_SLUGS, label: "Governorate (optional)" },
+      t("listed_under"), t("managing_body_ar"), t("managing_body_en"), ta("summary_ar"), ta("summary_en"),
+      t("source_url"), { name: "source_note", type: "textarea", label: "Source note (internal)" }, date("last_verified_at"),
+      { name: "review_status", type: "select", options: REVIEW }, bool("is_active"), ta("internal_notes"),
+    ],
+  },
+  {
+    table: "zone_facts",
+    label: "Zone facts",
+    group: ZONES_GROUP,
+    pk: "id",
+    autoPk: true,
+    displayColumn: "text_en",
+    orderColumn: "created_at",
+    listColumns: ["topic", "source_name", "review_status", "is_active"],
+    filters: [
+      { name: "topic", label: "Topic", options: FACT_TOPIC_OPTS },
+      { name: "review_status", label: "Review status", options: REVIEW },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
+    bulk: [
+      { name: "review_status", options: REVIEW },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    csvImport: true,
+    countBy: "review_status",
+    fields: [
+      { name: "topic", type: "select", options: FACT_TOPIC_OPTS }, ta("text_ar"), ta("text_en"),
+      t("source_name"), t("source_url"), date("source_date"),
+      { name: "review_status", type: "select", options: REVIEW }, bool("is_active"), ta("internal_notes"),
     ],
   },
   {
