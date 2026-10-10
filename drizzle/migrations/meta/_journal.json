@@ -141,6 +141,13 @@
       "when": 1791551889084,
       "tag": "0019_0019_close_notes_column_leak",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1791632975627,
+      "tag": "0020_0020_economic_zones",
+      "breakpoints": true
     }
   ]
 }
