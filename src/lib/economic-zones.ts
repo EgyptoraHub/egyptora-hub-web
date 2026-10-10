@@ -61,12 +61,12 @@ export async function loadZonePage(page: ZonePage) {
   const [z, f, g] = await Promise.all([
     supabase.from("economic_zones").select(ZONE_PUBLIC_COLS).in("zone_type", cfg.types).order("name_ar"),
     supabase.from("zone_facts").select(FACT_PUBLIC_COLS).in("topic", cfg.topics).order("created_at"),
-    supabase.from("governorates").select("slug, name_en, name_ar").order("name_en"),
+    supabase.from("governorates").select("slug, name, name_ar").order("name"),
   ]);
   if (z.error) throw z.error;
   return {
     zones: (z.data ?? []) as EconomicZone[],
     facts: (f.data ?? []) as ZoneFact[],
-    governorates: ((g.data ?? []) as { slug: string; name_en: string; name_ar: string }[]),
+    governorates: ((g.data ?? []) as { slug: string; name: string; name_ar: string }[]).map((x) => ({ slug: x.slug, name_en: x.name, name_ar: x.name_ar })),
   };
 }
