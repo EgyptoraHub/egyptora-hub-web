@@ -19,3 +19,4 @@
 - Inbound webhooks use /api/public/hooks/$provider with an HMAC-SHA256 signature from WEBHOOK_SHARED_SECRET; unsigned calls get 401 — one guarded entry point for future providers.
 - Page-text coverage for the 7 non-AR/EN languages is checked with `bun scripts/i18n-missing.ts`; newer translations sit in src/i18n/phase1-translations.ts and existing dictionary entries take precedence.
 - "Coming soon" nav items become pages only with their own original reviewed content; hubs that re-list existing directory records were removed (Prompt 30b) to avoid duplicated content.
+- Industrial/Free Zones read through src/lib/economic-zones.ts (explicit public columns; anon column grants exclude internal_notes/source_note); their routes throw notFound until a public row exists, and sitemap/search/concierge link them only under the same condition — no empty or 404-linked pages.
