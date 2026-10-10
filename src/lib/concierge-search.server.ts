@@ -79,6 +79,7 @@ async function searchGovernment(term: string, limit: number): Promise<ConciergeM
     .from("government_entities")
     .select("id, entity_name_en, entity_name_ar, description_en, category_en, official_url")
     .or(orFilter(term, ["entity_name_en", "entity_name_ar", "description_en", "category_en"]))
+    .eq("is_active", true)
     .order("sort_order")
     .limit(limit);
   if (error) throw error;

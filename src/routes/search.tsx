@@ -23,6 +23,7 @@ export const Route = createFileRoute("/search")({
       const { data } = await supabase
         .from("government_entities")
         .select("entity_name_en, entity_name_ar, description_en, category_en, official_url")
+        .eq("is_active", true)
         .order("sort_order");
       for (const e of data ?? []) {
         gov.push({

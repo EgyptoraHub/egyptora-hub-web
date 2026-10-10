@@ -30,6 +30,8 @@ export type GovEntity = {
   official_url: string | null;
   verification_status: string;
   sort_order: number;
+  phone: string | null;
+  phone_label: string | null;
 };
 
 const title = "Egypt Official Government Directory | Egyptora Hub";
@@ -50,8 +52,9 @@ export const Route = createFileRoute("/government-directory")({
       const { data, error } = await supabase
         .from("government_entities")
         .select(
-          "id, category_en, category_ar, entity_name_en, entity_name_ar, description_en, official_url, verification_status, sort_order",
+          "id, category_en, category_ar, entity_name_en, entity_name_ar, description_en, official_url, verification_status, sort_order, phone, phone_label",
         )
+        .eq("is_active", true)
         .order("sort_order");
       if (error) {
         console.error("[government-directory] failed to load entities:", error.message);
@@ -121,6 +124,12 @@ function EntityRow({ entity }: { entity: GovEntity }) {
         <div className="grid gap-3 border-t border-border px-4 py-4">
           {entity.description_en ? (
             <p className="text-sm leading-relaxed text-muted-foreground">{entity.description_en}</p>
+          ) : null}
+          {entity.phone ? (
+            <p className="text-sm text-muted-foreground">
+              <a href={`tel:${entity.phone.replace(/[^0-9+]/g, "")}`} dir="ltr" className="font-semibold text-foreground underline">{entity.phone}</a>
+              {entity.phone_label ? <span> · {entity.phone_label}</span> : null}
+            </p>
           ) : null}
           {entity.official_url ? (
             <a
@@ -279,9 +288,10 @@ function GovernmentDirectoryPage() {
   }, [categories]);
 
   const findUrl = (re: RegExp) => entities.find((e) => re.test(e.entity_name_en) && e.official_url)?.official_url ?? null;
-  const featured: CardItem[] = featuredSpec.map((f) => ({
-    title: f.title, desc: f.desc, img: f.img, badge: f.badge, to: findUrl(f.match) ?? f.fallback,
-  }));
+  // Only featured entities that are currently active (visible) in the directory are shown.
+  const featured: CardItem[] = featuredSpec
+    .filter((f) => entities.some((e) => f.match.test(e.entity_name_en)))
+    .map((f) => ({ title: f.title, desc: f.desc, img: f.img, badge: f.badge, to: findUrl(f.match) ?? f.fallback }));
   const ministriesSlug = categories.find((c) => /ministr/i.test(c.en))?.slug ?? "ministries";
   const ministryRows = categories.find((c) => /ministr/i.test(c.en))?.rows ?? [];
 
