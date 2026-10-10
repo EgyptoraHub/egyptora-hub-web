@@ -340,6 +340,11 @@ export const saveContentRow = createServerFn({ method: "POST" })
 
       if (!cfg.noUpdatedAt) payload["updated_at"] = new Date().toISOString();
 
+      if (cfg.table === "economic_zones") {
+        const err = await checkZoneValues(supabaseAdmin, payload);
+        if (err) return { authorized: true, ok: false, error: err };
+      }
+
       if (data.mode === "create") {
         if (cfg.noCreate) return { authorized: true, ok: false, error: "New entries cannot be added here." };
         const pk = cfg.autoPk ? crypto.randomUUID() : String(data.pk).trim();
@@ -353,9 +358,14 @@ export const saveContentRow = createServerFn({ method: "POST" })
         }
         payload[cfg.pk] = pk;
         if (cfg.slugColumn) payload[cfg.slugColumn] = String(data.slug || pk).trim();
+        if (cfg.table === "economic_zones") {
+          const { zoneSlug } = await import("@/lib/economic-zones");
+          payload["slug"] = zoneSlug(payload["governorate_slug"], String(payload["zone_type"] ?? ""), String(payload["name_ar"] ?? ""));
+        }
 
         const { error } = await supabaseAdmin.from(cfg.table as any).insert(payload as any);
         if (error) return { authorized: true, ok: false, error: friendlyDbError(error) };
+        await auditZones(context.userId, cfg.table, "create", pk);
         return { authorized: true, ok: true, pk };
       }
 
@@ -364,6 +374,7 @@ export const saveContentRow = createServerFn({ method: "POST" })
         .update(payload as any)
         .eq(cfg.pk, data.pk);
       if (error) return { authorized: true, ok: false, error: friendlyDbError(error) };
+      await auditZones(context.userId, cfg.table, "update", data.pk);
       return { authorized: true, ok: true, pk: data.pk };
     },
   );
@@ -386,6 +397,7 @@ export const deleteContentRow = createServerFn({ method: "POST" })
       .delete()
       .eq(cfg.pk, data.pk);
     if (error) return { authorized: true, ok: false, error: friendlyDbError(error) };
+    await auditZones(context.userId, cfg.table, "delete", data.pk);
     return { authorized: true, ok: true };
   });
 
@@ -416,8 +428,30 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
       .update({ [data.column]: value } as any, { count: "exact" })
       .in(cfg.pk, data.pks.map(String));
     if (error) return { authorized: true, ok: false, updated: 0, error: friendlyDbError(error) };
+    await auditZones(context.userId, cfg.table, "bulk_update", null, { column: data.column, value: data.value, count: count ?? 0 });
     return { authorized: true, ok: true, updated: count ?? 0 };
   });
+
+/* ---------------- Economic zones helpers ---------------- */
+
+const ZONE_TABLES = new Set(["economic_zones", "zone_facts"]);
+async function auditZones(userId: string, table: string, action: string, entityId: string | null, metadata: Record<string, unknown> = {}) {
+  if (!ZONE_TABLES.has(table)) return;
+  const { writeAudit } = await import("@/lib/audit.server");
+  await writeAudit({ actorUserId: userId, action: `content.${action}`, entityType: table, ...(entityId ? { entityId } : {}), metadata } as any);
+}
+
+/** Code-level validation for economic_zones: zone_type allow-list, required Arabic name, real governorate slug. */
+async function checkZoneValues(db: any, p: Record<string, any>): Promise<string | null> {
+  const { ZONE_TYPES } = await import("@/lib/economic-zones");
+  if (p["zone_type"] !== undefined && !(ZONE_TYPES as readonly string[]).includes(p["zone_type"])) return "Please choose a zone type.";
+  if (p["name_ar"] !== undefined && !String(p["name_ar"] ?? "").trim()) return "The official Arabic name is required.";
+  if (p["governorate_slug"]) {
+    const { data } = await db.from("governorates").select("slug").eq("slug", p["governorate_slug"]).maybeSingle();
+    if (!data) return "Unknown governorate.";
+  }
+  return null;
+}
 
 /* ---------------- CSV import for military_records ---------------- */
 
