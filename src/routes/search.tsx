@@ -37,6 +37,22 @@ export const Route = createFileRoute("/search")({
     } catch (err) {
       console.error("[search] government entities failed:", err);
     }
+    try {
+      // Public zone rows only (database visibility rules); pages are linked only when they have rows.
+      const { data } = await supabase.from("economic_zones").select("name_en, name_ar, zone_type, managing_body_en");
+      for (const z of data ?? []) {
+        gov.push({
+          title: z.name_en || z.name_ar,
+          desc: [z.name_ar, z.managing_body_en].filter(Boolean).join(" — "),
+          tag: z.zone_type === "industrial_zone" ? "Industrial Zones" : "Free Zones",
+          to: z.zone_type === "industrial_zone" ? "/do-business/industrial-zones" : "/do-business/free-zones",
+          category: "Business",
+          page: "/do-business",
+        });
+      }
+    } catch (err) {
+      console.error("[search] economic zones failed:", err);
+    }
     return { gov };
   },
   head: () => ({

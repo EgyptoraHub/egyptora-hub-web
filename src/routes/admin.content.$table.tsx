@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { MilitaryCsvImport } from "@/components/admin/MilitaryCsvImport";
 import { CultureCsvImport } from "@/components/admin/CultureCsvImport";
+import { ZonesCsvImport } from "@/components/admin/ZonesCsvImport";
 import {
   bulkUpdateRows,
   deleteContentRow,
@@ -633,7 +634,7 @@ function AdminContentTable() {
             <button type="button" onClick={() => setShowImport((v) => !v)} className="rounded-full border border-gold/40 px-4 py-1.5 text-sm text-gold">
               {showImport ? t("Close CSV import") : t("Import CSV")}
             </button>
-            {showImport ? (cfg.table === "culture_items" ? <CultureCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} />) : null}
+            {showImport ? (cfg.table === "economic_zones" || cfg.table === "zone_facts" ? <ZonesCsvImport kind={cfg.table === "economic_zones" ? "zones" : "facts"} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "culture_items" ? <CultureCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} />) : null}
           </div>
         ) : null}
 
