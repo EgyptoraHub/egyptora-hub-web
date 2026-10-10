@@ -340,6 +340,11 @@ export const saveContentRow = createServerFn({ method: "POST" })
 
       if (!cfg.noUpdatedAt) payload["updated_at"] = new Date().toISOString();
 
+      if (cfg.table === "economic_zones") {
+        const err = await checkZoneValues(supabaseAdmin, payload);
+        if (err) return { authorized: true, ok: false, error: err };
+      }
+
       if (data.mode === "create") {
         if (cfg.noCreate) return { authorized: true, ok: false, error: "New entries cannot be added here." };
         const pk = cfg.autoPk ? crypto.randomUUID() : String(data.pk).trim();
@@ -353,9 +358,14 @@ export const saveContentRow = createServerFn({ method: "POST" })
         }
         payload[cfg.pk] = pk;
         if (cfg.slugColumn) payload[cfg.slugColumn] = String(data.slug || pk).trim();
+        if (cfg.table === "economic_zones") {
+          const { zoneSlug } = await import("@/lib/economic-zones");
+          payload["slug"] = zoneSlug(payload["governorate_slug"], String(payload["zone_type"] ?? ""), String(payload["name_ar"] ?? ""));
+        }
 
         const { error } = await supabaseAdmin.from(cfg.table as any).insert(payload as any);
         if (error) return { authorized: true, ok: false, error: friendlyDbError(error) };
+        await auditZones(context.userId, cfg.table, "create", pk);
         return { authorized: true, ok: true, pk };
       }
 
@@ -364,6 +374,7 @@ export const saveContentRow = createServerFn({ method: "POST" })
         .update(payload as any)
         .eq(cfg.pk, data.pk);
       if (error) return { authorized: true, ok: false, error: friendlyDbError(error) };
+      await auditZones(context.userId, cfg.table, "update", data.pk);
       return { authorized: true, ok: true, pk: data.pk };
     },
   );
@@ -386,6 +397,7 @@ export const deleteContentRow = createServerFn({ method: "POST" })
       .delete()
       .eq(cfg.pk, data.pk);
     if (error) return { authorized: true, ok: false, error: friendlyDbError(error) };
+    await auditZones(context.userId, cfg.table, "delete", data.pk);
     return { authorized: true, ok: true };
   });
 
@@ -416,8 +428,30 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
       .update({ [data.column]: value } as any, { count: "exact" })
       .in(cfg.pk, data.pks.map(String));
     if (error) return { authorized: true, ok: false, updated: 0, error: friendlyDbError(error) };
+    await auditZones(context.userId, cfg.table, "bulk_update", null, { column: data.column, value: data.value, count: count ?? 0 });
     return { authorized: true, ok: true, updated: count ?? 0 };
   });
+
+/* ---------------- Economic zones helpers ---------------- */
+
+const ZONE_TABLES = new Set(["economic_zones", "zone_facts"]);
+async function auditZones(userId: string, table: string, action: string, entityId: string | null, metadata: Record<string, unknown> = {}) {
+  if (!ZONE_TABLES.has(table)) return;
+  const { writeAudit } = await import("@/lib/audit.server");
+  await writeAudit({ actorUserId: userId, action: `content.${action}`, entityType: table, ...(entityId ? { entityId } : {}), metadata } as any);
+}
+
+/** Code-level validation for economic_zones: zone_type allow-list, required Arabic name, real governorate slug. */
+async function checkZoneValues(db: any, p: Record<string, any>): Promise<string | null> {
+  const { ZONE_TYPES } = await import("@/lib/economic-zones");
+  if (p["zone_type"] !== undefined && !(ZONE_TYPES as readonly string[]).includes(p["zone_type"])) return "Please choose a zone type.";
+  if (p["name_ar"] !== undefined && !String(p["name_ar"] ?? "").trim()) return "The official Arabic name is required.";
+  if (p["governorate_slug"]) {
+    const { data } = await db.from("governorates").select("slug").eq("slug", p["governorate_slug"]).maybeSingle();
+    if (!data) return "Unknown governorate.";
+  }
+  return null;
+}
 
 /* ---------------- CSV import for military_records ---------------- */
 
@@ -678,6 +712,133 @@ export const importCultureCsv = createServerFn({ method: "POST" })
         const { writeAudit } = await import("@/lib/audit.server");
         await writeAudit({ actorUserId: context.userId, action: "import.csv", entityType: "culture_items", metadata: { summary, committed: inserts.length + merges.length } });
       }
+      return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
+    },
+  );
+
+/* ---------------- CSV import for economic_zones / zone_facts ---------------- */
+
+const ZONE_TEXT_COLS = ["name_en", "listed_under", "managing_body_en", "managing_body_ar", "summary_en", "summary_ar", "source_url", "source_note"] as const;
+const FACT_TEXT_COLS = ["text_ar", "source_name", "source_url", "source_date"] as const;
+
+/**
+ * Admin-only zones import (dry run first). Zones match on zone_type + governorate_slug + name_ar; facts on
+ * topic + first 120 chars of text_en. New rows are ALWAYS hidden (needs_check, inactive); any review_status column
+ * in the file is ignored. Existing rows only get empty fields filled and internal notes appended.
+ */
+export const importZonesCsv = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { kind: "zones" | "facts"; csv: string; dryRun: boolean }) => {
+    if (input?.kind !== "zones" && input?.kind !== "facts") throw new Error("Unknown import");
+    if (typeof input.csv !== "string" || input.csv.length > 3_000_000) throw new Error("CSV too large");
+    return { kind: input.kind, csv: input.csv, dryRun: input.dryRun !== false };
+  })
+  .handler(
+    async ({ data, context }): Promise<
+      Denied | Ok<{ ok: boolean; error?: string | undefined; rows: CultureCsvRow[]; summary: CsvSummary; committed: number }>
+    > => {
+      if (!(await isAdmin(context))) return { authorized: false };
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { ZONE_TYPES, FACT_TOPICS, zoneSlug } = await import("@/lib/economic-zones");
+      const zones = data.kind === "zones";
+      const tableName = zones ? "economic_zones" : "zone_facts";
+      const empty: CsvSummary = { new: 0, merge: 0, unchanged: 0, rejected: 0 };
+      const fail = (error: string) => ({ authorized: true as const, ok: false, error, rows: [], summary: empty, committed: 0 });
+      const table = parseCsv(data.csv.replace(/^\uFEFF/, ""));
+      if (table.length < 2) return fail("The file needs a header row and at least one data row.");
+      const header = table[0]!.map((h) => h.replace(/^\uFEFF/, "").trim().toLowerCase());
+      const required = zones ? ["zone_type", "name_ar"] : ["topic", "text_en"];
+      for (const req of required) if (!header.includes(req)) return fail(`Missing required column "${req}".`);
+      const body = table.slice(1);
+      if (body.length > 1000) return fail("Maximum 1000 rows per import.");
+
+      const { data: govs } = await supabaseAdmin.from("governorates").select("slug");
+      const govSet = new Set(((govs ?? []) as { slug: string }[]).map((g) => g.slug));
+      const { data: existing } = await supabaseAdmin.from(tableName as any).select("*");
+      const rowsEx = (existing ?? []) as Record<string, any>[];
+      const keyOf = (r: Record<string, any>) =>
+        zones
+          ? `${r["zone_type"]}|${r["governorate_slug"] ?? ""}|${String(r["name_ar"] ?? "").trim()}`
+          : `${r["topic"]}|${String(r["text_en"] ?? "").trim().slice(0, 120)}`;
+      const byKey = new Map(rowsEx.map((e) => [keyOf(e), e]));
+      const slugs = new Set(rowsEx.map((e) => String(e["slug"] ?? "")));
+
+      const seen = new Set<string>();
+      const results: CultureCsvRow[] = [];
+      const inserts: Record<string, unknown>[] = [];
+      const merges: { id: string; patch: Record<string, unknown> }[] = [];
+      body.forEach((cells, i) => {
+        const get = (k: string) => (header.includes(k) ? (cells[header.indexOf(k)] ?? "").trim() : "");
+        const line = i + 2;
+        const reject = (key: string, title: string, error: string) => void results.push({ line, key, title, action: "rejected", error });
+        const vals: Record<string, string> = {};
+        let rec: Record<string, any>;
+        let title: string;
+        if (zones) {
+          const type = get("zone_type");
+          const name = get("name_ar");
+          const gov = get("governorate_slug").toLowerCase();
+          title = name || get("name_en");
+          if (!(ZONE_TYPES as readonly string[]).includes(type)) return reject(type, title, `unknown zone_type "${type}"`);
+          if (!name) return reject(type, title, "empty name_ar");
+          if (gov && !govSet.has(gov)) return reject(type, title, `unknown governorate_slug "${gov}"`);
+          rec = { zone_type: type, governorate_slug: gov || null, name_ar: name };
+          for (const c of ZONE_TEXT_COLS) if (get(c)) vals[c] = get(c);
+        } else {
+          const topic = get("topic");
+          const text = get("text_en");
+          title = text.slice(0, 80);
+          if (!FACT_TOPICS.includes(topic)) return reject(topic, title, `unknown topic "${topic}" (use ${FACT_TOPICS.join(", ")})`);
+          if (!text) return reject(topic, title, "empty text_en");
+          const d = get("source_date");
+          if (d && !/^\d{4}-\d{2}-\d{2}$/.test(d)) return reject(topic, title, "source_date must be YYYY-MM-DD");
+          rec = { topic, text_en: text };
+          for (const c of FACT_TEXT_COLS) if (get(c)) vals[c] = get(c);
+        }
+        const src = vals["source_url"];
+        if (src && !/^https?:\/\//i.test(src)) return reject("", title, "source_url must start with http(s)://");
+        const key = keyOf(rec);
+        if (seen.has(key)) return reject("", title, "duplicate row inside the file");
+        seen.add(key);
+        const notes = get("internal_notes");
+        const ex = byKey.get(key);
+        if (!ex) {
+          const row: Record<string, unknown> = { ...rec, ...vals, internal_notes: notes || null, review_status: "needs_check", is_active: false };
+          let label = rec["topic"] ?? "";
+          if (zones) {
+            let slug = zoneSlug(rec["governorate_slug"], rec["zone_type"], rec["name_ar"]);
+            for (let n = 2; slugs.has(slug); n++) slug = `${zoneSlug(rec["governorate_slug"], rec["zone_type"], rec["name_ar"])}-${n}`;
+            slugs.add(slug);
+            row["slug"] = slug;
+            label = slug;
+          }
+          inserts.push(row);
+          return void results.push({ line, key: label, title, action: "new" });
+        }
+        const patch: Record<string, unknown> = {};
+        for (const [c, v] of Object.entries(vals)) if (!String(ex[c] ?? "").trim()) patch[c] = v;
+        if (notes && !String(ex["internal_notes"] ?? "").includes(notes)) {
+          patch["internal_notes"] = String(ex["internal_notes"] ?? "").trim() ? `${String(ex["internal_notes"]).trim()}\n${notes}` : notes;
+        }
+        const label = String(ex["slug"] ?? ex["topic"] ?? "");
+        if (Object.keys(patch).length === 0) return void results.push({ line, key: label, title, action: "unchanged" });
+        merges.push({ id: ex["id"], patch });
+        return void results.push({ line, key: label, title, action: "merge" });
+      });
+
+      const summary: CsvSummary = { ...empty };
+      for (const r of results) summary[r.action]++;
+      if (data.dryRun) return { authorized: true, ok: true, rows: results, summary, committed: 0 };
+      for (let k = 0; k < inserts.length; k += 200) {
+        const { error } = await supabaseAdmin.from(tableName as any).insert(inserts.slice(k, k + 200) as any);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: k };
+      }
+      for (const m of merges) {
+        const { error } = await supabaseAdmin.from(tableName as any).update(m.patch as any).eq("id", m.id);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: inserts.length };
+      }
+      const { writeAudit } = await import("@/lib/audit.server");
+      await writeAudit({ actorUserId: context.userId, action: "import.csv", entityType: tableName, metadata: { summary, committed: inserts.length + merges.length } });
       return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
     },
   );

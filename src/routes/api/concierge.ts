@@ -67,7 +67,7 @@ Identity: your visible name is "EGYPTORA AI". Never mention or reveal the underl
 
 Government services:
 - For any "how do I… / who handles…" government question (passport, visa, residency, tax, company registration, licences…), call search_site_content with category government_entities using the likely authority name, not the service (passport, national ID, civil records, residency permits → "Interior"; embassies/consular → "Foreign Affairs"; company setup → "Investment"; tax → "Tax"). Retry with another keyword if nothing comes back.
-- For emergency phone numbers use category emergency_numbers; for apps use egypt_apps; for battles, wars and military history use military_records; for dishes, dress and jewellery use culture_items. Only quote a phone number that the tool returned; if none is returned, say you don't know and link the Emergency Numbers page.
+- For emergency phone numbers use category emergency_numbers; for apps use egypt_apps; for battles, wars and military history use military_records; for dishes, dress and jewellery use culture_items; for industrial zones and free zones use economic_zones (never link a zones page unless the tool returned a link to it). Only quote a phone number that the tool returned; if none is returned, say you don't know and link the Emergency Numbers page.
 - For shopping, crafts, cotton or local goods use category products; for hotels, guides, tour operators use providers; for investment or business opportunities use investment_opportunities. Cite the entity's exact name and its official link from the tool result. Remind the user that procedures must be confirmed with that authority.
 
 Links from tool results:
@@ -146,7 +146,7 @@ export const Route = createFileRoute("/api/concierge")({
             tools: {
               search_site_content: tool({
                 description:
-                  "Search Egyptora Hub's real published content (governorates, destinations, heritage sites, museums, events, properties, offers, government entities with official links, investment opportunities, service providers, products, verified emergency numbers, Egypt apps, military history records, culture items). Returns only name, slug, type, a one-line summary and a public link. Read-only.",
+                  "Search Egyptora Hub's real published content (governorates, destinations, heritage sites, museums, events, properties, offers, government entities with official links, investment opportunities, service providers, products, verified emergency numbers, Egypt apps, military history records, culture items, industrial and free zones). Returns only name, slug, type, a one-line summary and a public link. Read-only.",
                 inputSchema: z.object({
                   query: z.string().min(2).max(120).describe("Free-text search, e.g. 'Luxor temple'"),
                   category: z

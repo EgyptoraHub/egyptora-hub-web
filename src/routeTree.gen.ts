@@ -57,6 +57,8 @@ import { Route as AdminPartnersRouteImport } from './routes/admin.partners'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
+import { Route as DoBusinessFreeZonesRouteImport } from './routes/do-business_.free-zones'
+import { Route as DoBusinessIndustrialZonesRouteImport } from './routes/do-business_.industrial-zones'
 import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
 import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/egypt-through-time_.military-history'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
@@ -348,6 +350,17 @@ const CountriesIdRoute = CountriesIdRouteImport.update({
   path: '/countries/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DoBusinessFreeZonesRoute = DoBusinessFreeZonesRouteImport.update({
+  id: '/do-business_/free-zones',
+  path: '/do-business/free-zones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoBusinessIndustrialZonesRoute =
+  DoBusinessIndustrialZonesRouteImport.update({
+    id: '/do-business_/industrial-zones',
+    path: '/do-business/industrial-zones',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EgyptAppsCategoryRoute = EgyptAppsCategoryRouteImport.update({
   id: '/egypt-apps_/$category',
   path: '/egypt-apps/$category',
@@ -659,6 +672,8 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
+  '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
+  '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -757,6 +772,8 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries/$id': typeof CountriesIdRoute
+  '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
+  '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -857,6 +874,8 @@ export interface FileRoutesById {
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
   '/countries_/$id': typeof CountriesIdRoute
+  '/do-business_/free-zones': typeof DoBusinessFreeZonesRoute
+  '/do-business_/industrial-zones': typeof DoBusinessIndustrialZonesRoute
   '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time_/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -958,6 +977,8 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries/$id'
+    | '/do-business/free-zones'
+    | '/do-business/industrial-zones'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1056,6 +1077,8 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries/$id'
+    | '/do-business/free-zones'
+    | '/do-business/industrial-zones'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1155,6 +1178,8 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/api/concierge'
     | '/countries_/$id'
+    | '/do-business_/free-zones'
+    | '/do-business_/industrial-zones'
     | '/egypt-apps_/$category'
     | '/egypt-through-time_/military-history'
     | '/egyptian-heritage-worldwide_/$id'
@@ -1250,6 +1275,8 @@ export interface RootRouteChildren {
   AccountBookingsRoute: typeof AccountBookingsRoute
   ApiConciergeRoute: typeof ApiConciergeRoute
   CountriesIdRoute: typeof CountriesIdRoute
+  DoBusinessFreeZonesRoute: typeof DoBusinessFreeZonesRoute
+  DoBusinessIndustrialZonesRoute: typeof DoBusinessIndustrialZonesRoute
   EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
   EgyptThroughTimeMilitaryHistoryRoute: typeof EgyptThroughTimeMilitaryHistoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
@@ -1632,6 +1659,20 @@ declare module '@tanstack/react-router' {
       path: '/countries/$id'
       fullPath: '/countries/$id'
       preLoaderRoute: typeof CountriesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/free-zones': {
+      id: '/do-business_/free-zones'
+      path: '/do-business/free-zones'
+      fullPath: '/do-business/free-zones'
+      preLoaderRoute: typeof DoBusinessFreeZonesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/industrial-zones': {
+      id: '/do-business_/industrial-zones'
+      path: '/do-business/industrial-zones'
+      fullPath: '/do-business/industrial-zones'
+      preLoaderRoute: typeof DoBusinessIndustrialZonesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egypt-apps_/$category': {
@@ -2053,6 +2094,8 @@ const rootRouteChildren: RootRouteChildren = {
   AccountBookingsRoute: AccountBookingsRoute,
   ApiConciergeRoute: ApiConciergeRoute,
   CountriesIdRoute: CountriesIdRoute,
+  DoBusinessFreeZonesRoute: DoBusinessFreeZonesRoute,
+  DoBusinessIndustrialZonesRoute: DoBusinessIndustrialZonesRoute,
   EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
   EgyptThroughTimeMilitaryHistoryRoute: EgyptThroughTimeMilitaryHistoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,

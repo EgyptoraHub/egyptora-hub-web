@@ -40,6 +40,12 @@ const stories = await sr.json();
 const ROOT = "https://egyptora-hub.com";
 const extraLines = [`${ROOT}/know-your-roots`, `${ROOT}/traveler-stories`, ...stories.map((x) => `${ROOT}/traveler-stories/${x.id}`)]
   .map((u) => `  <url><loc>${u}</loc><changefreq>monthly</changefreq></url>`);
+// Zone pages are listed only when they have at least one public record (otherwise they return not-found).
+const zr = await fetch(`${URL_}/rest/v1/economic_zones?select=zone_type`, { headers: { apikey: KEY } });
+if (!zr.ok) throw new Error(`economic_zones: ${zr.status}`);
+const zoneTypes = new Set((await zr.json()).map((z) => z.zone_type));
+if (zoneTypes.has("industrial_zone")) extraLines.push(`  <url><loc>${ROOT}/do-business/industrial-zones</loc><changefreq>monthly</changefreq></url>`);
+if ([...zoneTypes].some((t) => t !== "industrial_zone")) extraLines.push(`  <url><loc>${ROOT}/do-business/free-zones</loc><changefreq>monthly</changefreq></url>`);
 const line = (p) => `  <url><loc>${BASE}/${p}</loc><changefreq>monthly</changefreq></url>`;
 const out = [...kept, ...records.map((s) => line(`records/${s}`)), ...figures.map((s) => line(`figures/${s}`)), ...cultureLines, ...extraLines, "</urlset>", ""].join("\n");
 writeFileSync(path, out);

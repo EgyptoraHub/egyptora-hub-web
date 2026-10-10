@@ -771,6 +771,72 @@ export type Database = {
           },
         ]
       }
+      economic_zones: {
+        Row: {
+          created_at: string
+          governorate_slug: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          last_verified_at: string | null
+          listed_under: string | null
+          managing_body_ar: string | null
+          managing_body_en: string | null
+          name_ar: string
+          name_en: string | null
+          review_status: string
+          slug: string
+          source_note: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          updated_at: string
+          zone_type: string
+        }
+        Insert: {
+          created_at?: string
+          governorate_slug?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          listed_under?: string | null
+          managing_body_ar?: string | null
+          managing_body_en?: string | null
+          name_ar: string
+          name_en?: string | null
+          review_status?: string
+          slug: string
+          source_note?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          zone_type: string
+        }
+        Update: {
+          created_at?: string
+          governorate_slug?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          listed_under?: string | null
+          managing_body_ar?: string | null
+          managing_body_en?: string | null
+          name_ar?: string
+          name_en?: string | null
+          review_status?: string
+          slug?: string
+          source_note?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          zone_type?: string
+        }
+        Relationships: []
+      }
       egypt_apps: {
         Row: {
           app_store_url: string | null
@@ -3462,6 +3528,51 @@ export type Database = {
           id?: string
           role?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      zone_facts: {
+        Row: {
+          created_at: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          review_status: string
+          source_date: string | null
+          source_name: string | null
+          source_url: string | null
+          text_ar: string | null
+          text_en: string | null
+          topic: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          review_status?: string
+          source_date?: string | null
+          source_name?: string | null
+          source_url?: string | null
+          text_ar?: string | null
+          text_en?: string | null
+          topic: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          review_status?: string
+          source_date?: string | null
+          source_name?: string | null
+          source_url?: string | null
+          text_ar?: string | null
+          text_en?: string | null
+          topic?: string
+          updated_at?: string
         }
         Relationships: []
       }
