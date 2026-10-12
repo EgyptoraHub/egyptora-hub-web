@@ -254,7 +254,7 @@ export const getContentRow = createServerFn({ method: "POST" })
         eras: string[];
         categories: { value: string; label: string }[];
         fkOptions: Partial<Record<UuidFkTable, { value: string; label: string }[]>>;
-        children?: { pk: string; label: string; status: string | null }[];
+        children?: { pk: string; label: string; status: string | null }[] | undefined;
       }>
     > => {
       if (!(await isAdmin(context))) return { authorized: false };
