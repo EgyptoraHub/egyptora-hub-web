@@ -51,6 +51,7 @@ import { Route as VisitEgyptRouteImport } from './routes/visit-egypt'
 import { Route as AccountBookingsRouteImport } from './routes/account_.bookings'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
+import { Route as AdminDataAuditRouteImport } from './routes/admin.data-audit'
 import { Route as AdminIntegrationsRouteImport } from './routes/admin.integrations'
 import { Route as AdminMaintenanceRouteImport } from './routes/admin.maintenance'
 import { Route as AdminPartnersRouteImport } from './routes/admin.partners'
@@ -319,6 +320,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDataAuditRoute = AdminDataAuditRouteImport.update({
+  id: '/data-audit',
+  path: '/data-audit',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminIntegrationsRoute = AdminIntegrationsRouteImport.update({
@@ -672,6 +678,7 @@ export interface FileRoutesByFullPath {
   '/visit-egypt': typeof VisitEgyptRoute
   '/account/bookings': typeof AccountBookingsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/data-audit': typeof AdminDataAuditRoute
   '/admin/integrations': typeof AdminIntegrationsRoute
   '/admin/maintenance': typeof AdminMaintenanceRoute
   '/admin/partners': typeof AdminPartnersRoute
@@ -773,6 +780,7 @@ export interface FileRoutesByTo {
   '/visit-egypt': typeof VisitEgyptRoute
   '/account/bookings': typeof AccountBookingsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/data-audit': typeof AdminDataAuditRoute
   '/admin/integrations': typeof AdminIntegrationsRoute
   '/admin/maintenance': typeof AdminMaintenanceRoute
   '/admin/partners': typeof AdminPartnersRoute
@@ -876,6 +884,7 @@ export interface FileRoutesById {
   '/visit-egypt': typeof VisitEgyptRoute
   '/account_/bookings': typeof AccountBookingsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/data-audit': typeof AdminDataAuditRoute
   '/admin/integrations': typeof AdminIntegrationsRoute
   '/admin/maintenance': typeof AdminMaintenanceRoute
   '/admin/partners': typeof AdminPartnersRoute
@@ -980,6 +989,7 @@ export interface FileRouteTypes {
     | '/visit-egypt'
     | '/account/bookings'
     | '/admin/bookings'
+    | '/admin/data-audit'
     | '/admin/integrations'
     | '/admin/maintenance'
     | '/admin/partners'
@@ -1081,6 +1091,7 @@ export interface FileRouteTypes {
     | '/visit-egypt'
     | '/account/bookings'
     | '/admin/bookings'
+    | '/admin/data-audit'
     | '/admin/integrations'
     | '/admin/maintenance'
     | '/admin/partners'
@@ -1183,6 +1194,7 @@ export interface FileRouteTypes {
     | '/visit-egypt'
     | '/account_/bookings'
     | '/admin/bookings'
+    | '/admin/data-audit'
     | '/admin/integrations'
     | '/admin/maintenance'
     | '/admin/partners'
@@ -1632,6 +1644,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/data-audit': {
+      id: '/admin/data-audit'
+      path: '/data-audit'
+      fullPath: '/admin/data-audit'
+      preLoaderRoute: typeof AdminDataAuditRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/integrations': {
       id: '/admin/integrations'
       path: '/integrations'
@@ -2043,6 +2062,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminDataAuditRoute: typeof AdminDataAuditRoute
   AdminIntegrationsRoute: typeof AdminIntegrationsRoute
   AdminMaintenanceRoute: typeof AdminMaintenanceRoute
   AdminPartnersRoute: typeof AdminPartnersRoute
@@ -2057,6 +2077,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminDataAuditRoute: AdminDataAuditRoute,
   AdminIntegrationsRoute: AdminIntegrationsRoute,
   AdminMaintenanceRoute: AdminMaintenanceRoute,
   AdminPartnersRoute: AdminPartnersRoute,
