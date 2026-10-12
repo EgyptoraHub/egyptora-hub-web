@@ -300,7 +300,12 @@ export function recordCount(n: number, lang: string): string {
     if (r === "few") return `${num} سجلات`;
     return `${num} سجلًا`;
   }
-  return `${n} ${n === 1 ? "record" : "records"}`;
+  const W: Record<string, [string, string]> = {
+    fr: ["fiche", "fiches"], de: ["Eintrag", "Einträge"], es: ["registro", "registros"], it: ["scheda", "schede"],
+    ru: ["запись", "записей"], zh: ["条记录", "条记录"], hi: ["रिकॉर्ड", "रिकॉर्ड"],
+  };
+  const [one, many] = W[lang] ?? ["record", "records"];
+  return lang === "zh" ? `${n} ${one}` : `${n} ${n === 1 ? one : many}`;
 }
 
 export const recordsSearchSchema = z.object({

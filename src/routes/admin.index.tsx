@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { getAdminStats, type AdminStats, type AdminStatsResult } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { DemoStoriesSwitch } from "@/components/admin/DemoStoriesSwitch";
 import { SITE } from "@/config/site";
 import { useI18n } from "@/i18n";
 
@@ -86,6 +87,7 @@ function AdminDashboard() {
       <div className="mx-auto w-full max-w-5xl">
         <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">{SITE.name}</p>
         <h1 className="mt-3 font-display text-3xl text-foreground">{t("Admin dashboard")}</h1>
+        <DemoStoriesSwitch />
 
         <h2 className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           {t("Overview")}

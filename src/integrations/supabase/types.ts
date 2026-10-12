@@ -3692,6 +3692,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      show_demo_stories: { Args: never; Returns: boolean }
       submit_partner_document: {
         Args: { app_id: string; doc_kind: string; doc_path: string }
         Returns: string

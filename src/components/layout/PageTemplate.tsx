@@ -56,6 +56,7 @@ export function HeroSearch({
             "linear-gradient(to right, oklch(0.243 0.058 249.8 / 92%) 0%, oklch(0.243 0.058 249.8 / 68%) 55%, oklch(0.243 0.058 249.8 / 32%) 100%)",
         }}
       />
+
       <div className="on-dark relative mx-auto w-full max-w-[1500px] px-4 pb-12 pt-6 lg:px-8 lg:pb-16">
         {breadcrumb && breadcrumb.length > 0 && (
           <nav className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-foreground/70">

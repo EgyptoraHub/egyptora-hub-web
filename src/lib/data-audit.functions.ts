@@ -44,7 +44,7 @@ const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: 
   { table: "government_entities", field: "official_url", nameCol: "entity_name_en", nameCol2: "entity_name_ar" },
   { table: "government_entities", field: "phone_source_url", nameCol: "entity_name_en", nameCol2: "entity_name_ar" },
   { table: "emergency_numbers", field: "source_url", nameCol: "name_en", nameCol2: "name_ar" },
-  { table: "egypt_apps", field: "website_url", nameCol: "name_en", nameCol2: "name_ar" },
+  // egypt_apps.website_url and store links are the developer's own links, not sources — never flagged.
   { table: "military_records", field: "source_url", nameCol: "title_en", nameCol2: "title_ar" },
   { table: "military_sources", field: "url", nameCol: "title" },
 ];
