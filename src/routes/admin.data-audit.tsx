@@ -104,6 +104,8 @@ function DataAuditPage() {
       try {
         const result = await run({ data: {} as never });
         if (active) setData(result);
+      } catch {
+        if (active) setData({ authorized: false, a: [], b: [], c: [], storeLinks: { play: 0, appStore: 0 }, mediaLinks: [] });
       } finally {
         if (active) setLoading(false);
       }
