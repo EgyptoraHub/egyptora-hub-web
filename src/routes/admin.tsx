@@ -22,6 +22,7 @@ const LINKS: NavLink[] = [
   { to: "/admin/users", label: "Users", exact: false, show: ADMIN_ONLY },
   { to: "/admin/partners", label: "Partners", exact: false, show: ADMIN_ONLY },
   { to: "/admin/integrations", label: "Integrations", exact: false, show: ADMIN_ONLY },
+  { to: "/admin/data-audit", label: "Data audit", exact: false, show: ADMIN_ONLY },
   {
     to: "/admin/crm/properties",
     label: "Properties CRM",
