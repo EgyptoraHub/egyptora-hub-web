@@ -254,6 +254,7 @@ export const getContentRow = createServerFn({ method: "POST" })
         eras: string[];
         categories: { value: string; label: string }[];
         fkOptions: Partial<Record<UuidFkTable, { value: string; label: string }[]>>;
+        children?: { pk: string; label: string; status: string | null }[];
       }>
     > => {
       if (!(await isAdmin(context))) return { authorized: false };
@@ -313,7 +314,16 @@ export const getContentRow = createServerFn({ method: "POST" })
         fkOptions[fkTable] = ((opts ?? []) as any[]).map((o) => ({ value: o.id, label: l.label(o) }));
       }
 
-      return { authorized: true, row, governorates, eras, categories, fkOptions };
+      let children: { pk: string; label: string; status: string | null }[] | undefined;
+      if (cfg.table === "military_records" && data.pk) {
+        const { data: kids } = await supabaseAdmin.from("military_records").select("id, register_no, title_en, title_ar, merge_status").eq("merged_into_record_id", data.pk).order("register_no");
+        children = ((kids ?? []) as any[]).map((k) => ({
+          pk: k.id,
+          label: `${k.register_no != null ? `#${String(k.register_no).padStart(3, "0")} ` : ""}${k.title_en || k.title_ar || "(untitled)"}`,
+          status: k.merge_status,
+        }));
+      }
+      return { authorized: true, row, governorates, eras, categories, fkOptions, children };
     },
   );
 
