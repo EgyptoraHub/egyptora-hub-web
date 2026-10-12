@@ -49,13 +49,16 @@ export function HeroSearch({
         fetchPriority="high"
         className="absolute inset-0 size-full object-cover"
       />
+      {/* Dark side follows the text side (flipped in RTL); phones get extra shade since text spans the full width. */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 rtl:-scale-x-100"
         style={{
           background:
             "linear-gradient(to right, oklch(0.243 0.058 249.8 / 92%) 0%, oklch(0.243 0.058 249.8 / 68%) 55%, oklch(0.243 0.058 249.8 / 32%) 100%)",
         }}
       />
+      <div className="absolute inset-0 bg-navy/45 sm:hidden" aria-hidden="true" />
+
       <div className="on-dark relative mx-auto w-full max-w-[1500px] px-4 pb-12 pt-6 lg:px-8 lg:pb-16">
         {breadcrumb && breadcrumb.length > 0 && (
           <nav className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-foreground/70">
