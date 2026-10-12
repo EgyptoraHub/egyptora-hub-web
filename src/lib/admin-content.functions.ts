@@ -186,6 +186,8 @@ export const listContentRows = createServerFn({ method: "POST" })
         query = query.not("internal_notes", "is", null).neq("internal_notes", "");
       } else if (f.virtual === "merge_status") {
         query = v === "none" ? query.is("merge_status", null) : query.eq("merge_status", v);
+      } else if (f.virtual === "auto_reviewed") {
+        query = query.ilike("internal_notes", v === "any" ? "%[auto-review-34%" : `%[auto-review-34%${v}%`);
       } else if (f.virtual === "has_children") {
         const { data: kids } = await supabaseAdmin.from(cfg.table as any).select("merged_into_record_id").not("merged_into_record_id", "is", null);
         const ids = [...new Set(((kids ?? []) as any[]).map((k) => k.merged_into_record_id))];
@@ -445,6 +447,10 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
       const { data: hit } = await supabaseAdmin.from(b.fromTable as any).select("id").eq("id", data.value).maybeSingle();
       if (!hit) return { authorized: true, ok: false, updated: 0, error: "That option no longer exists." };
     }
+    if (data.column === "__undo_auto_review") {
+      if (cfg.table !== "military_records") return { authorized: true, ok: false, updated: 0, error: "Not allowed" };
+      return { authorized: true, ...(await undoAutoReview34(supabaseAdmin, context.userId, data.pks.map(String))) };
+    }
     const value = data.value === "__clear__" ? null : data.value === "true" ? true : data.value === "false" ? false : data.value;
     // Changing a parent re-proposes the merge; clearing it (unmerge) lets the trigger clear status/confidence.
     const patch: Record<string, unknown> = { [data.column]: value };
@@ -462,6 +468,35 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
     }
     return { authorized: true, ok: true, updated: count ?? 0 };
   });
+
+/** Reverts Prompt 34 auto-review changes for the selected rows, using the audit_log batch. Skips rows an admin changed since. */
+async function undoAutoReview34(admin: any, userId: string, pks: string[]): Promise<{ ok: boolean; updated: number; error?: string }> {
+  const { data: batches } = await admin.from("audit_log").select("entity_id, metadata").eq("action", "military.auto_review_34");
+  const { data: recs } = await admin.from("military_records").select("id, register_no").in("id", pks);
+  const byNo = new Map<number, string>(((recs ?? []) as any[]).map((r) => [r.register_no, r.id]));
+  let updated = 0;
+  for (const b of (batches ?? []) as any[]) {
+    for (const c of (b.metadata?.changes ?? []) as any[]) {
+      const id = byNo.get(c.no);
+      if (!id) continue;
+      let q: any = null;
+      if (c.kind === "merge_confirm") q = admin.from("military_records").update({ merge_status: "proposed" }, { count: "exact" }).eq("id", id).eq("merge_status", "confirmed");
+      else if (c.kind === "merge_reparent") {
+        const { data: op } = await admin.from("military_records").select("id").eq("register_no", c.old_parent).maybeSingle();
+        const { data: np } = await admin.from("military_records").select("id").eq("register_no", c.new_parent).maybeSingle();
+        if (!op || !np) continue;
+        q = admin.from("military_records").update({ merged_into_record_id: op.id, merge_status: "proposed" }, { count: "exact" }).eq("id", id).eq("merged_into_record_id", np.id).eq("merge_status", "confirmed");
+      } else if (c.kind === "type") q = admin.from("military_records").update({ record_type: "needs_classification" }, { count: "exact" }).eq("id", id).eq("record_type", c.new);
+      if (!q) continue;
+      const { count, error } = await q;
+      if (error) return { ok: false, updated, error: friendlyDbError(error) };
+      updated += count ?? 0;
+    }
+  }
+  const { writeAudit } = await import("@/lib/audit.server");
+  await writeAudit({ actorUserId: userId, action: "military.auto_review_34.undo", entityType: "military_records", metadata: { reverted: updated, pks: pks.slice(0, 500) } } as any);
+  return { ok: true, updated };
+}
 
 /* ---------------- Economic zones helpers ---------------- */
 
