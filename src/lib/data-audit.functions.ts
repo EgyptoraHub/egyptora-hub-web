@@ -80,9 +80,10 @@ const PUBLIC_TABLES: PublicDef[] = [
   { table: "military_records", nameCol: "title_en", nameCol2: "title_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: true, requiredPairs: [["title_ar", "title_en"]] },
 ];
 
-export const getDataAudit = createServerFn({ method: "POST" }).handler(
-  async (ctx: any): Promise<DataAudit> => {
-    if (!(await isAdmin(ctx.context))) {
+export const getDataAudit = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<DataAudit> => {
+    if (!(await isAdmin(context))) {
       return { authorized: false, a: [], b: [], c: [], storeLinks: { play: 0, appStore: 0 }, mediaLinks: [] };
     }
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
