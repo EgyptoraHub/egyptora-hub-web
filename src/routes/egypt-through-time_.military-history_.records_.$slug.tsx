@@ -1,4 +1,4 @@
-import { ClientOnly, createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { SITE } from "@/config/site";
 import {
@@ -8,7 +8,7 @@ import {
 import { innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { loadMilitary, loadRecordExtras, outcomeLabel, recordTitleEn, regNo, type MilMedia } from "@/lib/military";
+import { byRegister, loadMilitary, loadRecordExtras, outcomeLabel, recordTitleEn, regNo, type MilMedia } from "@/lib/military";
 
 const MilitaryMap = lazy(() => import("@/components/military/MilitaryMap"));
 
@@ -16,9 +16,19 @@ export const Route = createFileRoute("/egypt-through-time_/military-history_/rec
   loader: async ({ params }) => {
     const data = await loadMilitary();
     const record = data.records.find((r) => r.slug === params.slug);
-    if (!record) throw notFound();
+    if (!record) {
+      // A merged child has no standalone page: send visitors to its parent record.
+      const child = data.merged.find((r) => r.slug === params.slug);
+      const parent = child ? data.records.find((r) => r.id === child.merged_into_record_id) : undefined;
+      if (parent) throw redirect({ to: "/egypt-through-time/military-history/records/$slug", params: { slug: parent.slug }, statusCode: 301 });
+      throw notFound();
+    }
     const extras = await loadRecordExtras(record.id);
-    return { ...data, record, extras };
+    // Key moments: only confirmed merges whose child row is itself public (RLS already hides unreviewed rows).
+    const keyMoments = data.merged
+      .filter((c) => c.merged_into_record_id === record.id && c.merge_status === "confirmed")
+      .sort(byRegister);
+    return { ...data, record, extras, keyMoments };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Record not found | Egyptora Hub" }, { name: "robots", content: "noindex" }] };
@@ -53,7 +63,7 @@ const ORIGIN_LABEL: Record<MilMedia["origin_type"], string> = {
 };
 
 function Detail() {
-  const { record: r, eras, records, extras } = Route.useLoaderData();
+  const { record: r, eras, records, extras, keyMoments } = Route.useLoaderData();
   const { t } = useI18n();
   const bi = useBi();
   const era = eras.find((e) => e.id === r.era_id);
@@ -114,6 +124,23 @@ function Detail() {
             <section>
               <h2 className="font-display text-lg font-bold text-navy">{t("Significance")}</h2>
               <p className="mt-2 text-sm leading-relaxed text-text-body" dir="auto">{bi(r, "significance")}</p>
+            </section>
+          )}
+
+          {keyMoments.length > 0 && (
+            <section>
+              <h2 className="font-display text-lg font-bold text-navy">{t("Key moments")}</h2>
+              <ul className="mt-2 grid gap-2">
+                {keyMoments.map((k) => {
+                  const meta = [bi(k, "date_label"), bi(k, "place")].filter(Boolean).join(" · ");
+                  return (
+                    <li key={k.id} className="rounded-2xl border border-border bg-card px-4 py-3 text-sm">
+                      <span className="font-semibold text-navy" dir="auto"><RecordTitle r={k} /></span>
+                      {meta ? <span className="mt-0.5 block text-xs text-text-body" dir="auto">{meta}</span> : null}
+                    </li>
+                  );
+                })}
+              </ul>
             </section>
           )}
 

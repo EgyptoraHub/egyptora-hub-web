@@ -25,7 +25,10 @@ const dynamic = /(\/live-in-egypt\/[^<]+|\/do-business\/[^<]+|\/know-your-roots|
 const kept = readFileSync(path, "utf8").split("\n").filter((l) => !dynamic.test(l) && !l.includes("</urlset>"));
 while (kept.length && kept[kept.length - 1].trim() === "") kept.pop();
 
-const records = await slugs("military_records");
+// Merged child records have no standalone page (they redirect to the parent), so they are never listed.
+const recRes = await fetch(`${URL_}/rest/v1/military_records?select=slug&is_active=eq.true&merged_into_record_id=is.null&order=slug`, { headers: { apikey: KEY } });
+if (!recRes.ok) throw new Error(`military_records: ${recRes.status}`);
+const records = (await recRes.json()).map((x) => x.slug);
 const figures = await slugs("military_figures");
 const cr = await fetch(`${URL_}/rest/v1/culture_items?select=section,slug&is_active=eq.true&order=slug`, { headers: { apikey: KEY } });
 if (!cr.ok) throw new Error(`culture_items: ${cr.status}`);

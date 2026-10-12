@@ -296,6 +296,7 @@ function ContentForm({
   const [eras, setEras] = useState<string[]>([]);
   const [categories, setCategories] = useState<{ value: string; label: string }[]>([]);
   const [fkOptions, setFkOptions] = useState<Record<string, { value: string; label: string }[]>>({});
+  const [children, setChildren] = useState<{ pk: string; label: string; status: string | null }[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -314,6 +315,7 @@ function ContentForm({
       setEras(result.eras);
       setCategories(result.categories);
       setFkOptions(result.fkOptions ?? {});
+      setChildren(result.children ?? []);
       if (result.row) {
         const row = result.row;
         const next: Record<string, any> = {};
@@ -444,6 +446,20 @@ function ContentForm({
           </div>
         ))}
       </div>
+
+      {children.length > 0 ? (
+        <div className="mt-5 rounded-2xl border border-border bg-card/40 p-5">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold/80">{t("Merged children")} ({children.length})</h3>
+          <ul className="mt-3 grid gap-1.5 text-sm">
+            {children.map((c) => (
+              <li key={c.pk} className="flex flex-wrap items-center gap-2">
+                <span dir="auto" className="text-foreground">{c.label}</span>
+                <span className="rounded-full border border-border px-2 py-0.5 text-[10px] uppercase text-muted-foreground">{c.status ?? "—"}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       {governance.length > 0 ? (
       <div className="mt-5 rounded-2xl border border-border bg-card/20 p-5">
@@ -694,7 +710,7 @@ function AdminContentTable() {
                 <span className="text-xs text-muted-foreground">{selected.size} {t("selected")}</span>
                 <select aria-label={t("Bulk field")} value={bulkCol} onChange={(e) => { setBulkCol(e.target.value); setBulkVal(""); }} className={inputClass + " w-auto"}>
                   <option value="">{t("Set field…")}</option>
-                  {cfg.bulk!.map((b) => <option key={b.name} value={b.name}>{b.name}</option>)}
+                  {cfg.bulk!.map((b) => <option key={b.name} value={b.name}>{b.label ?? b.name}</option>)}
                 </select>
                 <select aria-label={t("Bulk value")} value={bulkVal} onChange={(e) => setBulkVal(e.target.value)} className={inputClass + " w-auto"} disabled={!bulkCol}>
                   <option value="">{t("Value…")}</option>

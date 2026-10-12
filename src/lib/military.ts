@@ -68,6 +68,8 @@ export type MilRecord = {
   last_verified_at: string | null;
   is_featured: boolean;
   created_at: string;
+  merged_into_record_id?: string | null;
+  merge_status?: "proposed" | "confirmed" | null;
 };
 
 export type MilFigure = {
@@ -111,14 +113,22 @@ export type MilMedia = {
 const ERA_COLS =
   "id, slug, number, name_ar, name_en, start_label_ar, start_label_en, end_label_ar, end_label_en, sort_order, rulers_ar, rulers_en, key_leadership_ar, key_leadership_en, intro_ar, intro_en, egypt_era_id";
 const RECORD_COLS =
-  "id, register_no, slug, era_id, record_type, title_ar, title_en, alt_names, date_label_ar, date_label_en, year_from, year_to, place_ar, place_en, lat, lng, egyptian_leadership_ar, egyptian_leadership_en, opposing_side_ar, opposing_side_en, outcome, note_ar, note_en, significance_ar, significance_en, review_status, last_verified_at, is_featured, created_at";
+  "id, register_no, slug, era_id, record_type, title_ar, title_en, alt_names, date_label_ar, date_label_en, year_from, year_to, place_ar, place_en, lat, lng, egyptian_leadership_ar, egyptian_leadership_en, opposing_side_ar, opposing_side_en, outcome, note_ar, note_en, significance_ar, significance_en, review_status, last_verified_at, is_featured, created_at, merged_into_record_id, merge_status";
 const FIGURE_COLS =
   "id, slug, name_ar, name_en, role_ar, role_en, era_id, years_label_ar, years_label_en, bio_ar, bio_en";
 const SOURCE_COLS = "id, kind, title, author, publisher, year, url";
 const MEDIA_COLS =
   "id, kind, url, title_ar, title_en, caption_ar, caption_en, institution, accession_id, rights_statement, origin_type";
 
-export type MilitaryData = { eras: MilEra[]; records: MilRecord[]; figures: MilFigure[]; sources: MilSource[] };
+export type MilitaryData = {
+  eras: MilEra[];
+  /** Standalone records only — a record merged into a parent is never listed on its own. */
+  records: MilRecord[];
+  figures: MilFigure[];
+  sources: MilSource[];
+  /** Visible records that are merged into a parent (used for redirects and confirmed "key moments"). */
+  merged: MilRecord[];
+};
 
 export async function loadMilitary(): Promise<MilitaryData> {
   const [eras, records, figures, sources] = await Promise.all([
@@ -135,7 +145,8 @@ export async function loadMilitary(): Promise<MilitaryData> {
   }));
   return {
     eras: (eras.data ?? []) as unknown as MilEra[],
-    records: recs,
+    records: recs.filter((r) => !r.merged_into_record_id),
+    merged: recs.filter((r) => !!r.merged_into_record_id),
     figures: (figures.data ?? []) as unknown as MilFigure[],
     sources: (sources.data ?? []) as unknown as MilSource[],
   };

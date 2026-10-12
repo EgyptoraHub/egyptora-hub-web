@@ -2110,6 +2110,9 @@ export type Database = {
           last_verified_at: string | null
           lat: number | null
           lng: number | null
+          merge_confidence: string | null
+          merge_status: string | null
+          merged_into_record_id: string | null
           note_ar: string | null
           note_en: string | null
           opposing_side_ar: string | null
@@ -2145,6 +2148,9 @@ export type Database = {
           last_verified_at?: string | null
           lat?: number | null
           lng?: number | null
+          merge_confidence?: string | null
+          merge_status?: string | null
+          merged_into_record_id?: string | null
           note_ar?: string | null
           note_en?: string | null
           opposing_side_ar?: string | null
@@ -2180,6 +2186,9 @@ export type Database = {
           last_verified_at?: string | null
           lat?: number | null
           lng?: number | null
+          merge_confidence?: string | null
+          merge_status?: string | null
+          merged_into_record_id?: string | null
           note_ar?: string | null
           note_en?: string | null
           opposing_side_ar?: string | null
@@ -2206,6 +2215,13 @@ export type Database = {
             columns: ["era_id"]
             isOneToOne: false
             referencedRelation: "military_eras"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "military_records_merged_into_record_id_fkey"
+            columns: ["merged_into_record_id"]
+            isOneToOne: false
+            referencedRelation: "military_records"
             referencedColumns: ["id"]
           },
         ]
