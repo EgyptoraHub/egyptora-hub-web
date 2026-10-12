@@ -12,6 +12,7 @@ import { LanguageSwitcher } from "@/components/site/LanguageSwitcher";
 import { NotificationsBell } from "@/components/site/NotificationsBell";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
+import { useNavAvailability } from "@/lib/nav-availability";
 
 /** Hands a question to the live AI assistant, same behaviour as the hero search. */
 export function askConcierge(question: string) {
@@ -22,7 +23,9 @@ export function askConcierge(question: string) {
 
 function LeafLink({ item, onNavigate }: { item: NavLeaf; onNavigate?: () => void }) {
   const { t } = useI18n();
-  if (item.soon || !item.to) {
+  const avail = useNavAvailability();
+  const open = !!item.gate && !!avail[item.gate];
+  if ((item.soon && !open) || !item.to) {
     return (
       <button
         type="button"

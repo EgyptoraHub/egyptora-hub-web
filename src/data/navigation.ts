@@ -15,6 +15,11 @@ export type NavLeaf = {
   soon?: boolean;
   /** Optional search params for the target route. */
   search?: Record<string, string>;
+  /**
+   * Data-driven item: shown as a link to `to` only when this section has at least one
+   * public record (checked at runtime); otherwise it stays "Coming soon".
+   */
+  gate?: "protected_areas" | "industrial_zones" | "free_zones";
   /** Rendered as a child of the entry above it. */
   indent?: boolean;
 };
@@ -49,7 +54,7 @@ export const mainNav: NavEntry[] = [
       { label: "Beaches & Water Sports", to: "/experiences/beaches" },
       { label: "Cities & Destinations", to: "/countries" },
       { label: "Religious & Spiritual Tourism", soon: true },
-      { label: "Eco & Nature Tourism", soon: true },
+      { label: "Eco & Nature Tourism", soon: true, to: "/experiences/eco-nature", gate: "protected_areas" },
       { label: "Family Experiences", soon: true },
       { label: "Events & Festivals", to: "/events" },
     ],
@@ -102,8 +107,8 @@ export const mainNav: NavEntry[] = [
       { label: "Regulations & Laws", to: "/legal" },
       { label: "Business Support", to: "/providers" },
       { label: "SMEs & Entrepreneurship", soon: true },
-      { label: "Industrial Zones", soon: true },
-      { label: "Free Zones", soon: true },
+      { label: "Industrial Zones", soon: true, to: "/do-business/industrial-zones", gate: "industrial_zones" },
+      { label: "Free Zones", soon: true, to: "/do-business/free-zones", gate: "free_zones" },
       { label: "Contact Authorities", to: "/government-directory" },
     ],
   },
