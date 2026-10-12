@@ -157,7 +157,14 @@ export const listContentRows = createServerFn({ method: "POST" })
     const cols = Array.from(new Set([cfg.pk, cfg.slugColumn, cfg.displayColumn, ...extraCols].filter(Boolean))).join(", ");
     const bulkOptions: Record<string, { value: string; label: string }[]> = {};
     for (const b of cfg.bulk ?? []) {
-      if (b.fromTable) {
+      if (b.fromTable === "military_records") {
+        // Parent picker: only records that are not themselves merged.
+        const { data: opts } = await supabaseAdmin.from("military_records").select("id, register_no, title_en, title_ar").is("merged_into_record_id", null).order("register_no");
+        bulkOptions[b.name] = [
+          ...(b.allowClear ? [{ value: "__clear__", label: "— Unmerge (clear) —" }] : []),
+          ...((opts ?? []) as any[]).map((o) => ({ value: o.id, label: `${o.register_no != null ? `#${String(o.register_no).padStart(3, "0")} ` : ""}${o.title_en || o.title_ar || "(untitled)"}` })),
+        ];
+      } else if (b.fromTable) {
         const { data: opts } = await supabaseAdmin.from(b.fromTable as any).select("id, number, name_en").order("sort_order");
         bulkOptions[b.name] = ((opts ?? []) as any[]).map((o) => ({ value: o.id, label: `${o.number}. ${o.name_en}` }));
       } else bulkOptions[b.name] = b.options.map((o) => ({ value: o, label: o }));
@@ -177,6 +184,12 @@ export const listContentRows = createServerFn({ method: "POST" })
       if (!v || !filterOptions[f.name]!.some((o) => o.value === v)) continue;
       if (f.virtual === "has_flag") {
         query = query.not("internal_notes", "is", null).neq("internal_notes", "");
+      } else if (f.virtual === "merge_status") {
+        query = v === "none" ? query.is("merge_status", null) : query.eq("merge_status", v);
+      } else if (f.virtual === "has_children") {
+        const { data: kids } = await supabaseAdmin.from(cfg.table as any).select("merged_into_record_id").not("merged_into_record_id", "is", null);
+        const ids = [...new Set(((kids ?? []) as any[]).map((k) => k.merged_into_record_id))];
+        query = query.in("id", ids.length ? ids : ["00000000-0000-0000-0000-000000000000"]);
       } else if (f.virtual === "dup_title") {
         const { data: titles } = await supabaseAdmin.from(cfg.table as any).select("title_ar");
         const seen = new Map<string, number>();
@@ -409,7 +422,7 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
     if (!cfg) throw new Error("Unknown table");
     const b = cfg.bulk?.find((x) => x.name === input.column);
     if (!b || (!b.fromTable && !b.options.includes(input.value))) throw new Error("Not allowed");
-    if (b.fromTable && !/^[0-9a-f-]{36}$/i.test(input.value)) throw new Error("Not allowed");
+    if (b.fromTable && !(b.allowClear && input.value === "__clear__") && !/^[0-9a-f-]{36}$/i.test(input.value)) throw new Error("Not allowed");
     if (!Array.isArray(input.pks) || input.pks.length === 0 || input.pks.length > 500) throw new Error("Select 1–500 rows");
     return input;
   })
@@ -418,17 +431,25 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
     const cfg = getTableConfig(data.table)!;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const b = cfg.bulk!.find((x) => x.name === data.column)!;
-    if (b.fromTable) {
+    if (b.fromTable && data.value !== "__clear__") {
       const { data: hit } = await supabaseAdmin.from(b.fromTable as any).select("id").eq("id", data.value).maybeSingle();
       if (!hit) return { authorized: true, ok: false, updated: 0, error: "That option no longer exists." };
     }
-    const value = data.value === "true" ? true : data.value === "false" ? false : data.value;
+    const value = data.value === "__clear__" ? null : data.value === "true" ? true : data.value === "false" ? false : data.value;
+    // Changing a parent re-proposes the merge; clearing it (unmerge) lets the trigger clear status/confidence.
+    const patch: Record<string, unknown> = { [data.column]: value };
+    if (data.column === "merged_into_record_id" && value) patch["merge_status"] = "proposed";
     const { error, count } = await supabaseAdmin
       .from(cfg.table as any)
-      .update({ [data.column]: value } as any, { count: "exact" })
+      .update(patch as any, { count: "exact" })
       .in(cfg.pk, data.pks.map(String));
     if (error) return { authorized: true, ok: false, updated: 0, error: friendlyDbError(error) };
     await auditZones(context.userId, cfg.table, "bulk_update", null, { column: data.column, value: data.value, count: count ?? 0 });
+    if (cfg.table === "military_records" && (data.column === "merge_status" || data.column === "merged_into_record_id")) {
+      const { writeAudit } = await import("@/lib/audit.server");
+      const action = data.value === "__clear__" ? "merge.unmerge" : data.column === "merge_status" ? "merge.confirm" : "merge.change_parent";
+      await writeAudit({ actorUserId: context.userId, action, entityType: "military_records", metadata: { count: count ?? 0, pks: data.pks.slice(0, 500) } });
+    }
     return { authorized: true, ok: true, updated: count ?? 0 };
   });
 

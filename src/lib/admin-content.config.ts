@@ -50,7 +50,7 @@ export type FieldConfig = {
 };
 
 export type ListFilter = {
-  virtual?: "has_flag" | "dup_title";
+  virtual?: "has_flag" | "dup_title" | "merge_status" | "has_children";
   name: string;
   label: string;
   options: string[];
@@ -80,7 +80,7 @@ export type TableConfig = {
   /** table has no updated_at column */
   noUpdatedAt?: boolean;
   /** columns that can be set on many selected rows at once */
-  bulk?: { name: string; options: string[]; fromTable?: "military_eras" }[];
+  bulk?: { name: string; label?: string; options: string[]; fromTable?: "military_eras" | "military_records"; allowClear?: boolean }[];
   /** list sort column (defaults to displayColumn) */
   orderColumn?: string;
   /** show the CSV import tool (military_records, culture_items) */
@@ -164,7 +164,7 @@ export const CONTENT_TABLES: TableConfig[] = [
     slugColumn: "slug",
     displayColumn: "title_ar",
     orderColumn: "register_no",
-    listColumns: ["register_no", "title_en", "record_type", "review_status", "is_active"],
+    listColumns: ["register_no", "title_en", "record_type", "review_status", "is_active", "merge_status", "merge_confidence"],
     filters: [
       { name: "era_id", label: "Era", options: [], fromTable: "military_eras" },
       { name: "record_type", label: "Record type", options: MIL_TYPES },
@@ -172,12 +172,16 @@ export const CONTENT_TABLES: TableConfig[] = [
       { name: "is_active", label: "Active", options: ["true", "false"] },
       { name: "has_flag", label: "Has editorial flag", options: ["true"], virtual: "has_flag" },
       { name: "dup_title", label: "Duplicate title", options: ["true"], virtual: "dup_title" },
+      { name: "merge_status", label: "Merge status", options: ["proposed", "confirmed", "none"], virtual: "merge_status" },
+      { name: "has_children", label: "Has merged children", options: ["true"], virtual: "has_children" },
     ],
     bulk: [
       { name: "review_status", options: REVIEW },
       { name: "is_active", options: ["true", "false"] },
       { name: "record_type", options: MIL_TYPES },
       { name: "era_id", options: [], fromTable: "military_eras" },
+      { name: "merge_status", label: "Confirm merge", options: ["confirmed"] },
+      { name: "merged_into_record_id", label: "Change parent / Unmerge", options: [], fromTable: "military_records", allowClear: true },
     ],
     csvImport: true,
     countBy: "review_status",
@@ -194,6 +198,9 @@ export const CONTENT_TABLES: TableConfig[] = [
       ta("note_ar"), ta("note_en"), ta("significance_ar"), ta("significance_en"),
       { name: "review_status", type: "select", options: REVIEW }, t("source_url"), date("last_verified_at"),
       bool("is_featured"), bool("is_active"),
+      { name: "merged_into_record_id", type: "fk", fk: "military_records", label: "Merged into (parent record)" },
+      { name: "merge_status", type: "select", options: ["proposed", "confirmed"] },
+      { name: "merge_confidence", type: "select", options: ["medium", "low"] },
       { name: "internal_notes", type: "textarea", label: "Internal notes — never shown publicly" },
     ],
   },
