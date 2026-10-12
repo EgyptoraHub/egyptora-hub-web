@@ -296,6 +296,8 @@ function InnerHero({ h }: { h: HeroConfig }) {
     <section className="on-dark relative isolate overflow-hidden">
       <img src={h.image} alt="" fetchPriority="high" className="absolute inset-0 -z-10 size-full object-cover" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy/90 via-navy/55 to-transparent to-[62%] rtl:bg-gradient-to-l" />
+      {/* Phones: text spans the full width, so shade the whole image for ≥4.5:1 contrast. */}
+      <div className="absolute inset-0 -z-10 bg-navy/55 sm:hidden" aria-hidden="true" />
       <div className={cn(innerWrap, "relative pb-16 pt-8 lg:pb-20 lg:pt-10")}>
         <div className="absolute end-6 top-8 hidden text-end md:block lg:end-10">
           <p className="font-display text-5xl italic text-foreground drop-shadow">{t("Egypt")}</p>
