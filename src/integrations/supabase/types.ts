@@ -2821,6 +2821,66 @@ export type Database = {
           },
         ]
       }
+      protected_areas: {
+        Row: {
+          area_km2: number | null
+          created_at: string
+          declared_year: number | null
+          governorate_slug: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          name_ar: string
+          name_en: string | null
+          review_status: string
+          slug: string
+          sort_order: number
+          source_note: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          updated_at: string
+        }
+        Insert: {
+          area_km2?: number | null
+          created_at?: string
+          declared_year?: number | null
+          governorate_slug?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          name_ar: string
+          name_en?: string | null
+          review_status?: string
+          slug: string
+          sort_order?: number
+          source_note?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+        }
+        Update: {
+          area_km2?: number | null
+          created_at?: string
+          declared_year?: number | null
+          governorate_slug?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          name_ar?: string
+          name_en?: string | null
+          review_status?: string
+          slug?: string
+          sort_order?: number
+          source_note?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       providers: {
         Row: {
           accessibility: string[] | null
