@@ -111,6 +111,7 @@ const GOV_IDS = [
   "gov-north-sinai", "gov-port-said", "gov-qalyubia", "gov-qena", "gov-red-sea", "gov-sharqia", "gov-sohag", "gov-south-sinai", "gov-suez",
 ];
 export const ZONES_GROUP = "Economic zones";
+export const ECO_GROUP = "Eco & Nature";
 const GOV_SLUGS = GOV_IDS.map((g) => g.replace(/^gov-/, ""));
 const ZONE_TYPE_OPTS = ["public_free_zone", "sczone_industrial_zone", "industrial_zone"];
 const FACT_TOPIC_OPTS = ["general", "industrial_zones", "free_zones", "sczone"];
@@ -380,6 +381,36 @@ export const CONTENT_TABLES: TableConfig[] = [
       { name: "verification_status", type: "select", options: ["Verified", "Needs check"] }, bool("is_active"),
       t("phone"), t("phone_label"), { name: "phone_source_url", type: "text", label: "Phone source URL (internal)" },
       date("last_verified_at"), int("sort_order"), ta("internal_notes"),
+    ],
+  },
+  {
+    table: "protected_areas",
+    label: "Protected areas",
+    group: ECO_GROUP,
+    pk: "id",
+    autoPk: true,
+    slugColumn: "slug",
+    displayColumn: "name_ar",
+    orderColumn: "name_ar",
+    listColumns: ["name_en", "governorate_slug", "declared_year", "review_status", "is_active"],
+    filters: [
+      { name: "governorate_slug", label: "Governorate", options: GOV_SLUGS },
+      { name: "review_status", label: "Review status", options: REVIEW },
+      { name: "is_active", label: "Active", options: ["true", "false"] },
+    ],
+    bulk: [
+      { name: "review_status", options: REVIEW },
+      { name: "is_active", options: ["true", "false"] },
+    ],
+    csvImport: true,
+    countBy: "review_status",
+    fields: [
+      { name: "name_ar", type: "text", label: "Official Arabic name (required)" }, t("name_en"),
+      { name: "governorate_slug", type: "select", options: GOV_SLUGS, label: "Governorate (optional; leave empty if it spans several)" },
+      { name: "declared_year", type: "integer", min: 1800, max: 2100, label: "Declaration year" },
+      { name: "area_km2", type: "number", min: 0, label: "Area (km²)" },
+      ta("summary_ar"), ta("summary_en"), t("source_url"), t("source_note"),
+      { name: "review_status", type: "select", options: REVIEW }, bool("is_active"), int("sort_order"), ta("internal_notes"),
     ],
   },
   {

@@ -383,6 +383,10 @@ export const saveContentRow = createServerFn({ method: "POST" })
         }
         payload[cfg.pk] = pk;
         if (cfg.slugColumn) payload[cfg.slugColumn] = String(data.slug || pk).trim();
+        if (cfg.table === "protected_areas") {
+          const { protectedSlug } = await import("@/lib/protected-areas");
+          payload["slug"] = protectedSlug(String(payload["name_ar"] ?? ""), payload["name_en"] as string | null);
+        }
         if (cfg.table === "economic_zones") {
           const { zoneSlug } = await import("@/lib/economic-zones");
           payload["slug"] = zoneSlug(payload["governorate_slug"], String(payload["zone_type"] ?? ""), String(payload["name_ar"] ?? ""));
@@ -676,7 +680,7 @@ const CULTURE_TEXT_COLS = [
 ] as const;
 const VIDEO_RE = /^https:\/\/(www\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com|vimeo\.com|player\.vimeo\.com)\//i;
 
-export type CultureCsvRow = { line: number; key: string; title: string; action: "new" | "merge" | "unchanged" | "rejected"; error?: string };
+export type CultureCsvRow = { line: number; key: string; title: string; action: "new" | "merge" | "unchanged" | "rejected"; error?: string; warning?: string };
 
 /**
  * Admin-only culture import. Upsert key: section + name_ar. New rows land hidden (needs_check, inactive) with a
@@ -905,6 +909,101 @@ export const importZonesCsv = createServerFn({ method: "POST" })
       }
       const { writeAudit } = await import("@/lib/audit.server");
       await writeAudit({ actorUserId: context.userId, action: "import.csv", entityType: tableName, metadata: { summary, committed: inserts.length + merges.length } });
+      return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
+    },
+  );
+
+/* ---------------- CSV import for protected_areas ---------------- */
+
+const PROTECTED_TEXT_COLS = ["name_en", "summary_ar", "summary_en", "source_url", "source_note"] as const;
+
+export const importProtectedCsv = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { csv: string; dryRun: boolean }) => {
+    if (typeof input?.csv !== "string" || input.csv.length > 3_000_000) throw new Error("CSV too large");
+    return { csv: input.csv, dryRun: input.dryRun !== false };
+  })
+  .handler(
+    async ({ data, context }): Promise<
+      Denied | Ok<{ ok: boolean; error?: string | undefined; rows: CultureCsvRow[]; summary: CsvSummary; committed: number }>
+    > => {
+      if (!(await isAdmin(context))) return { authorized: false };
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { protectedSlug, sourceUrlWarning } = await import("@/lib/protected-areas");
+      const empty: CsvSummary = { new: 0, merge: 0, unchanged: 0, rejected: 0 };
+      const fail = (error: string) => ({ authorized: true as const, ok: false, error, rows: [], summary: empty, committed: 0 });
+      const table = parseCsv(data.csv.replace(/^\uFEFF/, ""));
+      if (table.length < 2) return fail("The file needs a header row and at least one data row.");
+      const header = table[0]!.map((h) => h.replace(/^\uFEFF/, "").trim().toLowerCase());
+      if (!header.includes("name_ar")) return fail('Missing required column "name_ar".');
+      const body = table.slice(1).filter((r) => r.some((c) => c.trim()));
+      if (body.length > 1000) return fail("Maximum 1000 rows per import.");
+
+      const { data: govs } = await supabaseAdmin.from("governorates").select("slug");
+      const govSet = new Set(((govs ?? []) as { slug: string }[]).map((g) => g.slug));
+      const { data: existing } = await supabaseAdmin.from("protected_areas").select("*");
+      const rowsEx = (existing ?? []) as Record<string, any>[];
+      const byKey = new Map(rowsEx.map((e) => [String(e["name_ar"]).trim(), e]));
+      const slugs = new Set(rowsEx.map((e) => String(e["slug"])));
+      const seen = new Set<string>();
+      const results: CultureCsvRow[] = [];
+      const inserts: Record<string, unknown>[] = [];
+      const merges: { id: string; patch: Record<string, unknown> }[] = [];
+      body.forEach((cells, i) => {
+        const get = (k: string) => (header.includes(k) ? (cells[header.indexOf(k)] ?? "").trim() : "");
+        const line = i + 2;
+        const name = get("name_ar");
+        const title = name || get("name_en");
+        const reject = (error: string) => void results.push({ line, key: "", title, action: "rejected", error });
+        if (!name) return reject("missing name_ar");
+        const gov = get("governorate_slug").toLowerCase();
+        if (gov && !govSet.has(gov)) return reject(`unknown governorate_slug "${gov}"`);
+        const yr = get("declared_year");
+        if (yr && !/^\d{4}$/.test(yr)) return reject(`non-numeric declared_year "${yr}"`);
+        const areaRaw = get("area_km2").replace(/,/g, "");
+        if (areaRaw && !/^\d+(\.\d+)?$/.test(areaRaw)) return reject(`non-numeric area_km2 "${get("area_km2")}"`);
+        const vals: Record<string, unknown> = {};
+        for (const c of PROTECTED_TEXT_COLS) if (get(c)) vals[c] = get(c);
+        if (gov) vals["governorate_slug"] = gov;
+        if (yr) vals["declared_year"] = Number(yr);
+        if (areaRaw) vals["area_km2"] = Number(areaRaw);
+        const src = get("source_url");
+        if (src && !/^https?:\/\//i.test(src)) return reject("source_url must start with http(s)://");
+        const warning = sourceUrlWarning(src) ?? undefined;
+        if (seen.has(name)) return reject("duplicate name_ar inside the file");
+        seen.add(name);
+        const notes = get("internal_notes");
+        const ex = byKey.get(name);
+        if (!ex) {
+          let slug = protectedSlug(name, get("name_en"));
+          for (let n = 2; slugs.has(slug); n++) slug = `${protectedSlug(name, get("name_en"))}-${n}`;
+          slugs.add(slug);
+          inserts.push({ name_ar: name, ...vals, slug, internal_notes: notes || null, review_status: "needs_check", is_active: false });
+          return void results.push({ line, key: slug, title, action: "new", ...(warning ? { warning } : {}) });
+        }
+        const patch: Record<string, unknown> = {};
+        for (const [c, v] of Object.entries(vals)) if (ex[c] === null || ex[c] === undefined || String(ex[c]).trim() === "") patch[c] = v;
+        if (notes && !String(ex["internal_notes"] ?? "").includes(notes)) {
+          patch["internal_notes"] = String(ex["internal_notes"] ?? "").trim() ? `${String(ex["internal_notes"]).trim()}\n${notes}` : notes;
+        }
+        const action = Object.keys(patch).length ? "merge" : "unchanged";
+        if (action === "merge") merges.push({ id: ex["id"], patch });
+        return void results.push({ line, key: String(ex["slug"]), title, action, ...(warning ? { warning } : {}) });
+      });
+
+      const summary: CsvSummary = { ...empty };
+      for (const r of results) summary[r.action]++;
+      if (data.dryRun) return { authorized: true, ok: true, rows: results, summary, committed: 0 };
+      for (let k = 0; k < inserts.length; k += 200) {
+        const { error } = await supabaseAdmin.from("protected_areas").insert(inserts.slice(k, k + 200) as any);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: k };
+      }
+      for (const m of merges) {
+        const { error } = await supabaseAdmin.from("protected_areas").update(m.patch as any).eq("id", m.id);
+        if (error) return { authorized: true, ok: false, error: friendlyDbError(error), rows: results, summary, committed: inserts.length };
+      }
+      const { writeAudit } = await import("@/lib/audit.server");
+      await writeAudit({ actorUserId: context.userId, action: "import.csv", entityType: "protected_areas", metadata: { summary, committed: inserts.length + merges.length } });
       return { authorized: true, ok: true, rows: results, summary, committed: inserts.length + merges.length };
     },
   );

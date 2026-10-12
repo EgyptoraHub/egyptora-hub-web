@@ -28,6 +28,7 @@ export const CONCIERGE_TABLES = [
   "military_records",
   "culture_items",
   "economic_zones",
+  "protected_areas",
 ] as const;
 
 export type ConciergeTable = (typeof CONCIERGE_TABLES)[number];
@@ -120,8 +121,22 @@ const CULTURE_URL: Record<string, string> = { cuisine: "cuisine", fashion: "fash
 const VISIBLE = ["editorial_reviewed", "verified"];
 
 async function searchPublicSection(table: ConciergeTable, term: string, limit: number): Promise<ConciergeMatch[] | null> {
-  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones"].includes(table)) return null;
+  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones", "protected_areas"].includes(table)) return null;
   const db = (await publicClient()) as any;
+  if (table === "protected_areas") {
+    // Public rows only (RLS + column grants); the page exists only when it has rows.
+    const { data, error } = await db
+      .from("protected_areas")
+      .select("id, slug, name_en, name_ar, summary_en, declared_year")
+      .or(orFilter(term, ["name_en", "name_ar", "summary_en"]))
+      .limit(limit);
+    if (error) throw error;
+    return (data ?? []).map((r: any) => ({
+      id: String(r.id), name: r.name_en || r.name_ar, slug: String(r.slug), type: table,
+      summary: oneLine([r.declared_year ? `Declared ${r.declared_year}` : "", r.summary_en].filter(Boolean).join(" · ")),
+      link: `${SITE}/experiences/eco-nature`,
+    }));
+  }
   if (table === "economic_zones") {
     // Public rows only (RLS + column grants); a page link exists only when that page has rows, so it never 404s.
     const { data, error } = await db

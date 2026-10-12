@@ -49,6 +49,10 @@ if (!zr.ok) throw new Error(`economic_zones: ${zr.status}`);
 const zoneTypes = new Set((await zr.json()).map((z) => z.zone_type));
 if (zoneTypes.has("industrial_zone")) extraLines.push(`  <url><loc>${ROOT}/do-business/industrial-zones</loc><changefreq>monthly</changefreq></url>`);
 if ([...zoneTypes].some((t) => t !== "industrial_zone")) extraLines.push(`  <url><loc>${ROOT}/do-business/free-zones</loc><changefreq>monthly</changefreq></url>`);
+// Protected areas page is listed only when it has at least one public record.
+const pr = await fetch(`${URL_}/rest/v1/protected_areas?select=id&limit=1`, { headers: { apikey: KEY } });
+if (!pr.ok) throw new Error(`protected_areas: ${pr.status}`);
+if ((await pr.json()).length > 0) extraLines.push(`  <url><loc>${ROOT}/experiences/eco-nature</loc><changefreq>monthly</changefreq></url>`);
 const line = (p) => `  <url><loc>${BASE}/${p}</loc><changefreq>monthly</changefreq></url>`;
 const out = [...kept, ...records.map((s) => line(`records/${s}`)), ...figures.map((s) => line(`figures/${s}`)), ...cultureLines, ...extraLines, "</urlset>", ""].join("\n");
 writeFileSync(path, out);

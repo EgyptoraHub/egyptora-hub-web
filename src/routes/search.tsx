@@ -54,6 +54,22 @@ export const Route = createFileRoute("/search")({
     } catch (err) {
       console.error("[search] economic zones failed:", err);
     }
+    try {
+      // Public protected-area rows only; the page is linked only when it has rows.
+      const { data } = await supabase.from("protected_areas").select("name_en, name_ar, declared_year");
+      for (const a of data ?? []) {
+        gov.push({
+          title: a.name_en || a.name_ar,
+          desc: [a.name_ar, a.declared_year].filter(Boolean).join(" — "),
+          tag: "Protected Areas",
+          to: "/experiences/eco-nature",
+          category: "Travel & Tourism",
+          page: "/experiences/eco-nature",
+        });
+      }
+    } catch (err) {
+      console.error("[search] protected areas failed:", err);
+    }
     return { gov };
   },
   head: () => ({
