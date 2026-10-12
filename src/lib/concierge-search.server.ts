@@ -170,6 +170,7 @@ async function searchPublicSection(table: ConciergeTable, term: string, limit: n
       .or(orFilter(term, ["title_en", "title_ar", "place_en"]))
       .eq("is_active", true)
       .in("review_status", VISIBLE)
+      .is("merged_into_record_id", null)
       .limit(limit);
     if (error) throw error;
     return (data ?? []).map((r: any) => ({
