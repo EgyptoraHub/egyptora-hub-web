@@ -3,7 +3,7 @@
  * Uses the visitor client, so database visibility rules decide. Cached for 5 minutes;
  * any failure keeps the item as "Coming soon" (never a link to a missing page).
  */
-import { useEffect, useState } from "react";
+import { useLoaderData } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 
 export type NavGate = "protected_areas" | "industrial_zones" | "free_zones";
@@ -17,7 +17,7 @@ async function has(q: PromiseLike<{ count: number | null; error: unknown }>) {
   return !error && (count ?? 0) > 0;
 }
 
-function fetchAvail(): Promise<Avail> {
+export function fetchNavAvailability(): Promise<Avail> {
   if (cache && Date.now() - cache.at < TTL) return cache.p;
   const head = { count: "exact" as const, head: true };
   const p = Promise.all([
@@ -31,13 +31,7 @@ function fetchAvail(): Promise<Avail> {
   return p;
 }
 
-/** Starts as "nothing available" (server render + first paint), then fills in on the client. */
+/** Availability comes from the root loader, so the first (server) render already has the right state. */
 export function useNavAvailability(): Avail {
-  const [avail, setAvail] = useState<Avail>({});
-  useEffect(() => {
-    let alive = true;
-    void fetchAvail().then((a) => alive && setAvail(a));
-    return () => { alive = false; };
-  }, []);
-  return avail;
+  return ((useLoaderData({ from: "__root__" }) as { nav?: Avail } | undefined)?.nav) ?? {};
 }

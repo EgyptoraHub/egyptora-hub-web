@@ -27,6 +27,15 @@ export function protectedSlug(nameAr: string, nameEn?: string | null): string {
 }
 
 /** Owner policy: public sources must be Egyptian web pages (.eg or manshurat.org), never PDFs. Returns a warning or null. */
+/** Established Egyptian outlets/institutions on non-.eg domains (subdomains included). Owner-approved list — do not extend without the owner. */
+export const EGYPTIAN_SOURCE_ALLOWLIST = [
+  "elwatannews.com", "elbalad.news", "albawabhnews.com", "youm7.com", "egyptindependent.com", "egypttoday.com",
+  "dostor.org", "mobtada.com", "almasryalyoum.com", "shorouknews.com", "masrawy.com", "akhbarelyom.com",
+  "egypt.travel", "dar-alifta.org", "bibalex.org", "manshurat.org",
+];
+export const isEgyptianHost = (host: string) =>
+  host.endsWith(".eg") || EGYPTIAN_SOURCE_ALLOWLIST.some((d) => host === d || host.endsWith("." + d));
+
 export function sourceUrlWarning(url: string | null | undefined): string | null {
   if (!url) return null;
   let host = "";
@@ -34,7 +43,7 @@ export function sourceUrlWarning(url: string | null | undefined): string | null 
   try { const u = new URL(url); host = u.hostname.toLowerCase(); path = u.pathname.toLowerCase(); } catch { return "source_url is not a valid link"; }
   const warn: string[] = [];
   if (path.endsWith(".pdf")) warn.push("PDF link");
-  if (!(host.endsWith(".eg") || host === "manshurat.org" || host.endsWith(".manshurat.org"))) warn.push("not an Egyptian website");
+  if (!isEgyptianHost(host)) warn.push("not an Egyptian website");
   return warn.length ? `warning: source_url is ${warn.join(" and ")}` : null;
 }
 

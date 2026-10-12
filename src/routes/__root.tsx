@@ -17,6 +17,7 @@ import { GA_MEASUREMENT_ID, GA_INLINE_SNIPPET, trackPageView } from "../lib/anal
 import { SITE } from "../config/site";
 import { I18nProvider, useI18n } from "../i18n";
 import { CurrencyProvider } from "../i18n/currency";
+import { fetchNavAvailability } from "../lib/nav-availability";
 import { FloatingConcierge } from "../components/site/FloatingConcierge";
 import { Toaster } from "../components/ui/sonner";
 import { MaintenanceGate } from "../components/site/MaintenanceGate";
@@ -106,6 +107,8 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: async () => ({ nav: await fetchNavAvailability() }),
+  staleTime: 5 * 60 * 1000,
   head: () => ({
     meta: [
       { charSet: "utf-8" },
