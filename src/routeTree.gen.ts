@@ -64,6 +64,7 @@ import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/eg
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
 import { Route as EventsIdRouteImport } from './routes/events_.$id'
 import { Route as ExperiencesTypeRouteImport } from './routes/experiences.$type'
+import { Route as ExperiencesEcoNatureRouteImport } from './routes/experiences.eco-nature'
 import { Route as GovernmentDirectoryDigitalServicesRouteImport } from './routes/government-directory_.digital-services'
 import { Route as GovernoratesIndexRouteImport } from './routes/governorates.index'
 import { Route as GovernoratesIdRouteImport } from './routes/governorates.$id'
@@ -388,6 +389,11 @@ const ExperiencesTypeRoute = ExperiencesTypeRouteImport.update({
   path: '/experiences/$type',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExperiencesEcoNatureRoute = ExperiencesEcoNatureRouteImport.update({
+  id: '/experiences/eco-nature',
+  path: '/experiences/eco-nature',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GovernmentDirectoryDigitalServicesRoute =
   GovernmentDirectoryDigitalServicesRouteImport.update({
     id: '/government-directory_/digital-services',
@@ -679,6 +685,7 @@ export interface FileRoutesByFullPath {
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
+  '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
@@ -779,6 +786,7 @@ export interface FileRoutesByTo {
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
+  '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
@@ -881,6 +889,7 @@ export interface FileRoutesById {
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
   '/events_/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
+  '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
   '/government-directory_/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/heritage-sites_/$id': typeof HeritageSitesIdRoute
@@ -984,6 +993,7 @@ export interface FileRouteTypes {
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
     | '/experiences/$type'
+    | '/experiences/eco-nature'
     | '/government-directory/digital-services'
     | '/governorates/$id'
     | '/heritage-sites/$id'
@@ -1084,6 +1094,7 @@ export interface FileRouteTypes {
     | '/egyptian-heritage-worldwide/$id'
     | '/events/$id'
     | '/experiences/$type'
+    | '/experiences/eco-nature'
     | '/government-directory/digital-services'
     | '/governorates/$id'
     | '/heritage-sites/$id'
@@ -1185,6 +1196,7 @@ export interface FileRouteTypes {
     | '/egyptian-heritage-worldwide_/$id'
     | '/events_/$id'
     | '/experiences/$type'
+    | '/experiences/eco-nature'
     | '/government-directory_/digital-services'
     | '/governorates/$id'
     | '/heritage-sites_/$id'
@@ -1282,6 +1294,7 @@ export interface RootRouteChildren {
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
   EventsIdRoute: typeof EventsIdRoute
   ExperiencesTypeRoute: typeof ExperiencesTypeRoute
+  ExperiencesEcoNatureRoute: typeof ExperiencesEcoNatureRoute
   GovernmentDirectoryDigitalServicesRoute: typeof GovernmentDirectoryDigitalServicesRoute
   GovernoratesIdRoute: typeof GovernoratesIdRoute
   HeritageSitesIdRoute: typeof HeritageSitesIdRoute
@@ -1710,6 +1723,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExperiencesTypeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/experiences/eco-nature': {
+      id: '/experiences/eco-nature'
+      path: '/experiences/eco-nature'
+      fullPath: '/experiences/eco-nature'
+      preLoaderRoute: typeof ExperiencesEcoNatureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/government-directory_/digital-services': {
       id: '/government-directory_/digital-services'
       path: '/government-directory/digital-services'
@@ -2101,6 +2121,7 @@ const rootRouteChildren: RootRouteChildren = {
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
   EventsIdRoute: EventsIdRoute,
   ExperiencesTypeRoute: ExperiencesTypeRoute,
+  ExperiencesEcoNatureRoute: ExperiencesEcoNatureRoute,
   GovernmentDirectoryDigitalServicesRoute:
     GovernmentDirectoryDigitalServicesRoute,
   GovernoratesIdRoute: GovernoratesIdRoute,
