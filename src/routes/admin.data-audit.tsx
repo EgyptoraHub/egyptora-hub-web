@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Download, Loader2, ShieldCheck } from "lucide-react";
+import { EnglishNamesPanel } from "@/components/admin/EnglishNamesPanel";
 import { getDataAudit, type AuditRow, type DataAudit } from "@/lib/data-audit.functions";
 
 export const Route = createFileRoute("/admin/data-audit")({
@@ -161,6 +162,8 @@ function DataAuditPage() {
         rows={data.c}
         filename="audit-c-duplicates.csv"
       />
+
+      <EnglishNamesPanel />
     </div>
   );
 }

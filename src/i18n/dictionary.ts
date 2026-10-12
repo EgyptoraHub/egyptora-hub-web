@@ -1,5 +1,6 @@
 import type { LangCode } from "./languages";
 import { cultureAr } from "./culture-ar";
+import { phase36 } from "./phase36-translations";
 import { phase1Fr, phase1De, phase1Es, phase1It, phase1Ru, phase1Zh, phase1Hi } from "./phase1-translations";
 
 /**
@@ -23286,4 +23287,8 @@ const hi: Dict = {
   "south-sinai": "दक्षिणी-सिनाई",
 };
 
-export const dictionaries: Record<LangCode, Dict> = { en: {}, ar, fr, de, es, it, ru, zh, hi };
+const withMt = (lang: keyof typeof phase36, d: Dict): Dict => ({ ...phase36[lang], ...d });
+export const dictionaries: Record<LangCode, Dict> = {
+  en: {}, ar: withMt("ar", ar), fr: withMt("fr", fr), de: withMt("de", de), es: withMt("es", es),
+  it: withMt("it", it), ru: withMt("ru", ru), zh: withMt("zh", zh), hi: withMt("hi", hi),
+};
