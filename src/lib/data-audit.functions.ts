@@ -181,5 +181,4 @@ export const getDataAudit = createServerFn({ method: "POST" })
     }
 
     return { authorized: true, a, b, c, storeLinks, mediaLinks };
-  },
-);
+  });
