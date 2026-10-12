@@ -50,7 +50,7 @@ export type FieldConfig = {
 };
 
 export type ListFilter = {
-  virtual?: "has_flag" | "dup_title" | "merge_status" | "has_children";
+  virtual?: "has_flag" | "dup_title" | "merge_status" | "has_children" | "auto_reviewed";
   name: string;
   label: string;
   options: string[];
@@ -174,6 +174,7 @@ export const CONTENT_TABLES: TableConfig[] = [
       { name: "dup_title", label: "Duplicate title", options: ["true"], virtual: "dup_title" },
       { name: "merge_status", label: "Merge status", options: ["proposed", "confirmed", "none"], virtual: "merge_status" },
       { name: "has_children", label: "Has merged children", options: ["true"], virtual: "has_children" },
+      { name: "auto_reviewed", label: "Auto-reviewed (34)", options: ["any", "non-military event", "place-name only", "unsure", "no parent found", "merge left proposed"], virtual: "auto_reviewed" },
     ],
     bulk: [
       { name: "review_status", options: REVIEW },
@@ -182,6 +183,7 @@ export const CONTENT_TABLES: TableConfig[] = [
       { name: "era_id", options: [], fromTable: "military_eras" },
       { name: "merge_status", label: "Confirm merge", options: ["confirmed"] },
       { name: "merged_into_record_id", label: "Change parent / Unmerge", options: [], fromTable: "military_records", allowClear: true },
+      { name: "__undo_auto_review", label: "Undo auto-review (34)", options: ["undo"] },
     ],
     csvImport: true,
     countBy: "review_status",
