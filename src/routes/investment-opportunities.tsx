@@ -227,7 +227,7 @@ function InvestmentOpportunitiesPage() {
           image={heroImage}
           imageAlt={t("Investment and development in Egypt")}
           placeholder="Search a sector, governorate or project..."
-          breadcrumb={[{ label: "Home", to: "/" }, { label: "Invest in Egypt" }]}
+          breadcrumb={[{ label: "Home", to: "/" }, { label: "Invest in Egypt", to: "/invest-in-egypt" }, { label: "Investment Opportunities" }]}
           sideNote={[
             `${opportunities.length} ${t("opportunities")}`,
             `${sectors.length} ${t("sectors")}`,

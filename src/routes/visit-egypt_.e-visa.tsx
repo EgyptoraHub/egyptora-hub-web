@@ -39,6 +39,7 @@ function EVisaPage() {
   const { t } = useI18n();
   return (
     <SimplePage
+      parent={{ label: "Visit Egypt", to: "/visit-egypt" }}
       title="Egypt e-Visa"
       intro="Citizens of many countries can apply for an Egyptian tourist visa online through the official portal run by the Ministry of Interior."
       banner={
