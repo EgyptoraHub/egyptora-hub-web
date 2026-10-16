@@ -82,7 +82,7 @@ function MyTripsPage() {
           action={
             <Link
               to="/my-trips/new"
-              className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-gold-foreground"
             >
               <Plus className="size-4" />
               {t("New trip")}
@@ -92,7 +92,7 @@ function MyTripsPage() {
 
         {loading || sessionLoading ? (
           <div className="flex justify-center py-16">
-            <Loader2 className="size-6 animate-spin text-gold" />
+            <Loader2 className="size-6 animate-spin text-gold-text" />
           </div>
         ) : trips.length === 0 ? (
           <div className="rounded-2xl border border-border/60 bg-card/40 p-10 text-center">
@@ -101,7 +101,7 @@ function MyTripsPage() {
             </p>
             <Link
               to="/my-trips/new"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-gold-foreground"
             >
               <Plus className="size-4" />
               {t("Create your first trip")}
@@ -127,16 +127,16 @@ function MyTripsPage() {
                 <div className="p-5">
                   <div className="flex items-start justify-between gap-3">
                     <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                      <MapPin className="size-4 shrink-0 text-gold" />
+                      <MapPin className="size-4 shrink-0 text-gold-text" />
                       {trip.title}
                     </h2>
-                    <span className="rounded-full border border-gold-line/60 bg-gold-soft px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">
+                    <span className="rounded-full border border-gold-line/60 bg-gold-soft px-2.5 py-0.5 text-2xs font-semibold eyebrow text-gold-text">
                       {t(trip.status)}
                     </span>
                   </div>
                   {(trip.start_date || trip.end_date) && (
                     <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <CalendarDays className="size-3.5 text-gold/70" />
+                      <CalendarDays className="size-3.5 text-gold-text" />
                       {[trip.start_date, trip.end_date].filter(Boolean).join(" → ")}
                     </p>
                   )}

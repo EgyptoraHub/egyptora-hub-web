@@ -117,7 +117,7 @@ function Stars({ rating }: { rating: number | null }) {
       {[1, 2, 3, 4, 5].map((n) => (
         <Star
           key={n}
-          className={cn("size-4", n <= rounded ? "fill-gold text-gold" : "text-muted-foreground")}
+          className={cn("size-4", n <= rounded ? "fill-gold text-gold-text" : "text-muted-foreground")}
         />
       ))}
     </span>
@@ -142,7 +142,7 @@ function StoryDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <Quote className="size-6 shrink-0 text-gold" />
+            <Quote className="size-6 shrink-0 text-gold-text" />
             {t(story.name)}
           </h1>
           <SourceBadge status="DEMO" />
@@ -169,7 +169,7 @@ function StoryDetailPage() {
                 <>
                   {t("Video by")}{" "}
                   {storySource.creator_url ? (
-                    <a href={storySource.creator_url} target="_blank" rel="noopener noreferrer" className="text-gold underline">{storySource.creator_name}</a>
+                    <a href={storySource.creator_url} target="_blank" rel="noopener noreferrer" className="text-gold-text underline">{storySource.creator_name}</a>
                   ) : storySource.creator_name}
                   {" · "}
                 </>
@@ -220,7 +220,7 @@ function StoryDetailPage() {
             <ul className="mt-3 flex flex-wrap gap-2">
               {places.map((g) => (
                 <li key={g.slug}>
-                  <Link to="/governorates/$id" params={{ id: g.slug }} className="inline-flex min-h-10 items-center rounded-full border border-gold-line px-4 text-sm text-gold hover:bg-gold-soft">
+                  <Link to="/governorates/$id" params={{ id: g.slug }} className="inline-flex min-h-10 items-center rounded-full border border-gold-line px-4 text-sm text-gold-text hover:bg-gold-soft">
                     {lang === "ar" ? g.name_ar : t(g.name)}
                   </Link>
                 </li>

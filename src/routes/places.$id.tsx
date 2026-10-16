@@ -75,7 +75,7 @@ function PlacePage() {
       <Section className="py-10 lg:py-14">
         <BackLink to={`/governorates/${place.governorate_slug}`} label={`${t("Back to")} ${t(gov?.name ?? "")}`} />
         <h1 className="mt-5 flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-          <MapPin className="size-6 shrink-0 text-gold" />
+          <MapPin className="size-6 shrink-0 text-gold-text" />
           {lang === "ar" && place.name_ar ? place.name_ar : place.name}
         </h1>
         {place.name_ar && lang !== "ar" && <p className="mt-1 text-sm text-muted-foreground" dir="rtl">{place.name_ar}</p>}

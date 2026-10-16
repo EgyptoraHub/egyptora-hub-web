@@ -110,9 +110,9 @@ function EmergencyPage() {
       <SiteHeader />
       <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
         <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
-          <Link to="/" className="hover:text-shell-gold">{t("Home")}</Link>
+          <Link to="/" className="hover:text-gold-text">{t("Home")}</Link>
           <ChevronRight className="size-3 rtl:rotate-180" />
-          <Link to="/government-directory" className="hover:text-shell-gold">{t("Government Directory")}</Link>
+          <Link to="/government-directory" className="hover:text-gold-text">{t("Government Directory")}</Link>
           <ChevronRight className="size-3 rtl:rotate-180" />
           <span className="font-medium text-navy">{t("Emergency & Quick Numbers")}</span>
         </div>

@@ -44,7 +44,7 @@ export function SectionHeader({
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4 lg:mb-12">
       <div className="max-w-2xl">
         {eyebrow && (
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold/80">
+          <p className="mb-2 text-2xs font-semibold eyebrow text-gold-text">
             {t(eyebrow)}
           </p>
         )}
@@ -75,7 +75,7 @@ export function SourceBadge({ status, className }: { status: Status; className?:
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border bg-background/60 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] backdrop-blur",
+        "inline-flex items-center rounded-full border bg-background/60 px-2 py-0.5 text-2xs font-semibold eyebrow backdrop-blur",
         statusStyles[status],
         className,
       )}
@@ -103,7 +103,7 @@ export function GoldButton({
       type={href ? undefined : "button"}
       onClick={onClick}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
     >
@@ -125,7 +125,7 @@ export function GhostButton({
     <a
       href={href}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full border border-gold-line px-6 py-3 text-sm font-semibold text-gold transition-colors hover:bg-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "inline-flex items-center justify-center gap-2 rounded-full border border-gold-line px-6 py-3 text-sm font-semibold text-gold-text transition-colors hover:bg-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
     >

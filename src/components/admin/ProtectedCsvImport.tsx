@@ -50,8 +50,8 @@ export function ProtectedCsvImport({ onDone, onDenied }: { onDone: () => void; o
       <input type="file" accept=".csv,text/csv" onChange={async (e) => { const f = e.target.files?.[0]; if (f) reset(await f.text()); }} />
       <textarea value={csv} onChange={(e) => reset(e.target.value)} rows={6} dir="auto" placeholder={COLS.replace(/, /g, ",")} className="rounded-xl border border-border bg-background p-3 font-mono text-xs" />
       <div className="flex flex-wrap gap-2">
-        <button type="button" disabled={busy || !csv.trim()} onClick={() => void go(true)} className="rounded-full border border-gold/40 px-4 py-1.5 text-gold disabled:opacity-40">{t("Preview (dry run)")}</button>
-        <button type="button" disabled={busy || !previewOk} onClick={() => void go(false)} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-background disabled:opacity-40">{t("Import now")}</button>
+        <button type="button" disabled={busy || !csv.trim()} onClick={() => void go(true)} className="rounded-full border border-gold/40 px-4 py-1.5 text-gold-text disabled:opacity-40">{t("Preview (dry run)")}</button>
+        <button type="button" disabled={busy || !previewOk} onClick={() => void go(false)} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-gold-foreground disabled:opacity-40">{t("Import now")}</button>
       </div>
       {error ? <p className="text-destructive">{error}</p> : null}
       {summary ? (
@@ -61,7 +61,7 @@ export function ProtectedCsvImport({ onDone, onDenied }: { onDone: () => void; o
               {t(k === "new" ? "New" : k === "merge" ? "Updated" : k === "unchanged" ? "Unchanged" : "Rejected")}: <strong>{summary[k]}</strong>
             </span>
           ))}
-          {warnings > 0 ? <span className="rounded-full border border-gold/50 px-3 py-1 text-gold">{t("Source warnings")}: <strong>{warnings}</strong></span> : null}
+          {warnings > 0 ? <span className="rounded-full border border-gold/50 px-3 py-1 text-gold-text">{t("Source warnings")}: <strong>{warnings}</strong></span> : null}
         </div>
       ) : null}
       {rows && rows.length > 0 ? (
@@ -76,7 +76,7 @@ export function ProtectedCsvImport({ onDone, onDenied }: { onDone: () => void; o
                   <td className="p-2" dir="auto">{r.title || "—"}</td>
                   <td className="p-2">
                     <span className={r.action === "rejected" ? "text-destructive" : "text-foreground"}>{r.action === "rejected" ? r.error : r.action === "merge" ? "updated" : r.action}</span>
-                    {r.warning ? <span className="block text-gold">{r.warning}</span> : null}
+                    {r.warning ? <span className="block text-gold-text">{r.warning}</span> : null}
                   </td>
                 </tr>
               ))}

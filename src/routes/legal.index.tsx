@@ -52,18 +52,18 @@ function LegalCenter() {
           />
 
           <div className="rounded-2xl border border-gold-line bg-card p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="text-2xs font-semibold eyebrow text-gold-text">
               {t("Legal review status")}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               {t(LEGAL_DRAFT_NOTICE)}
             </p>
-            <p className="mt-2 text-xs text-muted-foreground/80">
+            <p className="mt-2 text-xs text-muted-foreground">
               {t(
                 "These drafts do not guarantee compliance with Egyptian or international law. A full legal review checklist is published below.",
               )}
             </p>
-            <p className="mt-2 text-xs text-muted-foreground/80">
+            <p className="mt-2 text-xs text-muted-foreground">
               {t("Egyptora Hub is a brand operated by")} {SITE.parentCompany},{" "}
               {t("the registered legal entity for this platform.")}
             </p>
@@ -81,7 +81,7 @@ function LegalCenter() {
               { icon: ScrollText, label: t("Approval status"), value: t("DRAFT") },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border border-border bg-card p-5">
-                <s.icon className="size-4 text-gold" />
+                <s.icon className="size-4 text-gold-text" />
                 <p className="mt-3 font-display text-2xl text-foreground">{s.value}</p>
                 <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
               </div>
@@ -91,7 +91,7 @@ function LegalCenter() {
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               to="/legal/consent"
-              className="rounded-xl border border-gold-line bg-gold/10 px-5 py-3 text-sm text-gold transition-colors hover:bg-gold/20"
+              className="rounded-xl border border-gold-line bg-gold/10 px-5 py-3 text-sm text-gold-text transition-colors hover:bg-gold/20"
             >
               {t("Open the Consent Centre")}
             </Link>
@@ -114,16 +114,16 @@ function LegalCenter() {
                     params={{ slug: d.slug }}
                     className="group rounded-2xl border border-border bg-card p-5 transition-colors hover:border-gold-line"
                   >
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-gold/80">
+                    <p className="text-2xs eyebrow text-gold-text">
                       {t("Document")} {String(d.index).padStart(2, "0")}
                     </p>
-                    <h3 className="mt-2 font-display text-base leading-snug text-foreground group-hover:text-gold">
+                    <h3 className="mt-2 font-display text-base leading-snug text-foreground group-hover:text-gold-text">
                       {t(d.title)}
                     </h3>
                     <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
                       {t(d.summary)}
                     </p>
-                    <p className="mt-3 text-[11px] text-muted-foreground/80">
+                    <p className="mt-3 text-2xs text-muted-foreground">
                       v{d.version} · {t("Effective")} {d.effectiveDate} · {t(d.status)}
                     </p>
                   </Link>
@@ -144,7 +144,7 @@ function LegalCenter() {
           </p>
           <div className="mt-5 overflow-hidden rounded-2xl border border-border">
             <table className="w-full text-left text-sm">
-              <thead className="bg-sidebar text-[11px] uppercase tracking-[0.16em] text-gold/80">
+              <thead className="bg-sidebar text-2xs eyebrow text-gold-text">
                 <tr>
                   <th className="px-4 py-3">{t("Entity")}</th>
                   <th className="px-4 py-3">{t("Scope")}</th>
@@ -157,7 +157,7 @@ function LegalCenter() {
                     <td className="px-4 py-3 text-foreground">{t(g.entity)}</td>
                     <td className="px-4 py-3 text-muted-foreground">{t(g.scope)}</td>
                     <td className="px-4 py-3">
-                      <span className="rounded-full border border-gold-line px-3 py-1 text-[11px] text-gold">
+                      <span className="rounded-full border border-gold-line px-3 py-1 text-2xs text-gold-text">
                         {g.status}
                       </span>
                     </td>
@@ -181,7 +181,7 @@ function LegalCenter() {
                 key={gate}
                 className="rounded-2xl border border-border bg-card p-4 text-sm text-muted-foreground"
               >
-                <span className="mr-2 text-gold">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mr-2 text-gold-text">{String(i + 1).padStart(2, "0")}</span>
                 {t(gate)}
               </li>
             ))}

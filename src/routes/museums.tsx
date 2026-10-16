@@ -96,8 +96,8 @@ function MuseumsPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               gov === null
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("All governorates")}
@@ -110,8 +110,8 @@ function MuseumsPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 gov === slug
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t(govName(slug))}
@@ -128,11 +128,11 @@ function MuseumsPage() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                    <Building2 className="size-4 shrink-0 text-gold" />
+                    <Building2 className="size-4 shrink-0 text-gold-text" />
                     <Link
                       to="/museums/$id"
                       params={{ id: museum.id }}
-                      className="transition-colors hover:text-gold"
+                      className="transition-colors hover:text-gold-text"
                     >
                       {t(museum.name)}
                     </Link>
@@ -141,11 +141,11 @@ function MuseumsPage() {
                 </div>
 
                 <p className="mt-2 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-                  <MapPin className="size-3.5 text-gold/70" />
+                  <MapPin className="size-3.5 text-gold-text" />
                   <Link
                     to="/governorates/$id"
                     params={{ id: museum.governorate_slug }}
-                    className="hover:text-gold"
+                    className="hover:text-gold-text"
                   >
                     {t(govName(museum.governorate_slug))}
                   </Link>
@@ -168,7 +168,7 @@ function MuseumsPage() {
                     {museum.highlights.slice(0, 3).map((h) => (
                       <span
                         key={h}
-                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[10px] text-gold"
+                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs text-gold-text"
                       >
                         {t(h)}
                       </span>

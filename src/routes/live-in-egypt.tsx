@@ -134,8 +134,8 @@ function LiveInEgypt() {
                 ["Dining", "from $5/meal"],
               ].map(([a, b]) => (
                 <div key={a} className="rounded-lg bg-foreground/10 p-2 text-center">
-                  <p className="text-[11px] font-bold text-shell-gold">{t(a!)}</p>
-                  <p className="mt-0.5 text-[10px] text-foreground/85">{t(b!)}</p>
+                  <p className="text-2xs font-bold text-gold-text">{t(a!)}</p>
+                  <p className="mt-0.5 text-2xs text-foreground/85">{t(b!)}</p>
                 </div>
               ))}
             </div>
@@ -164,7 +164,7 @@ function LiveInEgypt() {
             </div>
             <div className="text-end">
               <p className="font-display text-5xl italic text-foreground">{t("Egypt")}</p>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground">{t("A home for every story")}</p>
+              <p className="text-2xs font-semibold eyebrow text-foreground">{t("A home for every story")}</p>
             </div>
           </div>
         </section>

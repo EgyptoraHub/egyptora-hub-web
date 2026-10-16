@@ -130,13 +130,13 @@ export function EgyptAppsDirectory({
       <SiteHeader />
       <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
         <div className={cn(innerWrap, "flex flex-wrap items-center gap-1.5 py-2 text-xs text-text-body")}>
-          <Link to="/" className="hover:text-shell-gold">{t("Home")}</Link>
+          <Link to="/" className="hover:text-gold-text">{t("Home")}</Link>
           <ChevronRight className="size-3 rtl:rotate-180" />
-          <Link to="/government-directory" className="hover:text-shell-gold">{t("Government Directory")}</Link>
+          <Link to="/government-directory" className="hover:text-gold-text">{t("Government Directory")}</Link>
           <ChevronRight className="size-3 rtl:rotate-180" />
           {category ? (
             <>
-              <Link to="/egypt-apps" className="hover:text-shell-gold">{t("Egypt Apps")}</Link>
+              <Link to="/egypt-apps" className="hover:text-gold-text">{t("Egypt Apps")}</Link>
               <ChevronRight className="size-3 rtl:rotate-180" />
               <span className="font-medium text-navy">{name(category)}</span>
             </>
@@ -261,7 +261,7 @@ function AppCard({ app, ios, onReport }: { app: EgyptApp; ios: boolean; onReport
           <p className="text-base font-semibold text-navy" dir="auto">{lang === "ar" ? app.name_ar : app.name_en}</p>
           {showPublisher(app.publisher) && <p className="text-xs text-muted-foreground" dir="auto">{app.publisher}</p>}
         </div>
-        <span className="shrink-0 rounded-full border border-border bg-muted/50 px-2 py-0.5 text-[11px] font-semibold text-navy">
+        <span className="shrink-0 rounded-full border border-border bg-muted/50 px-2 py-0.5 text-2xs font-semibold text-navy">
           {t(TYPE_LABEL[app.app_type])}
         </span>
       </div>

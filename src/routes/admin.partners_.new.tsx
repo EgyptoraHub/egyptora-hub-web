@@ -74,7 +74,7 @@ function AddPartnerPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-5 py-10">
-      <Link to="/admin/partners" className="text-xs text-muted-foreground hover:text-gold">
+      <Link to="/admin/partners" className="text-xs text-muted-foreground hover:text-gold-text">
         ← {t("Back to Partners")}
       </Link>
       <h1 className="mt-3 font-display text-3xl text-foreground">
@@ -114,7 +114,7 @@ function AddPartnerPage() {
             type="button"
             disabled={busy || !form.orgName.trim()}
             onClick={() => void submit()}
-            className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs text-gold disabled:opacity-50"
+            className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs text-gold-text disabled:opacity-50"
           >
             {id ? t("Save partner") : t("Create partner")}
           </button>

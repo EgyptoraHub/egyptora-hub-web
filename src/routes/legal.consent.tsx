@@ -62,7 +62,7 @@ function ConsentCentre() {
           />
 
           <div className="rounded-2xl border border-gold-line bg-card p-6">
-            <ShieldCheck className="size-5 text-gold" />
+            <ShieldCheck className="size-5 text-gold-text" />
             <p className="mt-3 text-sm text-muted-foreground">
               {t("Preview — consent recording isn't connected to a backend yet")}
             </p>
@@ -85,17 +85,17 @@ function ConsentCentre() {
                     <span
                       className={
                         c.required
-                          ? "shrink-0 rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-[0.14em] text-muted-foreground"
-                          : "shrink-0 rounded-full border border-gold-line px-3 py-1 text-[10px] uppercase tracking-[0.14em] text-gold"
+                          ? "shrink-0 rounded-full border border-border px-3 py-1 text-2xs eyebrow text-muted-foreground"
+                          : "shrink-0 rounded-full border border-gold-line px-3 py-1 text-2xs eyebrow text-gold-text"
                       }
                     >
                       {c.required ? t("Required") : t("Optional")}
                     </span>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap items-center gap-3 text-[11px] text-muted-foreground/80">
+                  <div className="mt-4 flex flex-wrap items-center gap-3 text-2xs text-muted-foreground">
                     {policy && (
-                      <Link to="/legal/$slug" params={{ slug: policy.slug }} className="text-gold hover:underline">
+                      <Link to="/legal/$slug" params={{ slug: policy.slug }} className="text-gold-text hover:underline">
                         {t(policy.title)} · v{policy.version}
                       </Link>
                     )}
@@ -114,7 +114,7 @@ function ConsentCentre() {
 
                   <div className="mt-4">
                     {c.required ? (
-                      <p className="text-xs text-muted-foreground/80">
+                      <p className="text-xs text-muted-foreground">
                         {t("Necessary for the service to operate — cannot be withdrawn while you use the platform.")}
                       </p>
                     ) : (
@@ -122,7 +122,7 @@ function ConsentCentre() {
                         type="button"
                         disabled={busy === c.key}
                         onClick={() => setConsent(c.key, !granted)}
-                        className="rounded-xl border border-gold-line bg-gold/10 px-4 py-2 text-xs text-gold transition-colors hover:bg-gold/20 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="rounded-xl border border-gold-line bg-gold/10 px-4 py-2 text-xs text-gold-text transition-colors hover:bg-gold/20 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {granted ? t("Withdraw consent") : t("Give consent")}
                       </button>
@@ -133,7 +133,7 @@ function ConsentCentre() {
             })}
           </div>
 
-          <p className="mt-8 max-w-3xl text-xs leading-relaxed text-muted-foreground/80">
+          <p className="mt-8 max-w-3xl text-xs leading-relaxed text-muted-foreground">
             {t(
               "Each record stores the user, policy, policy version, consent type, status, grant timestamp, withdrawal timestamp and audit metadata. Withdrawal does not affect processing carried out lawfully before it.",
             )}

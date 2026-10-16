@@ -127,11 +127,11 @@ function OpportunityCard({ opp }: { opp: InvestmentOpportunity }) {
       <GovernanceBanner status={opp.governance_status} className="mb-3" />
       <div className="flex items-start justify-between gap-3">
         <h3 className="flex min-w-0 items-center gap-2 font-display text-base text-foreground">
-          <Landmark className="size-4 shrink-0 text-gold" />
+          <Landmark className="size-4 shrink-0 text-gold-text" />
           <Link
             to="/investment-opportunities/$id"
             params={{ id: opp.id }}
-            className="min-w-0 transition-colors hover:text-gold"
+            className="min-w-0 transition-colors hover:text-gold-text"
           >
             {t(opp.name)}
           </Link>
@@ -141,11 +141,11 @@ function OpportunityCard({ opp }: { opp: InvestmentOpportunity }) {
 
       {opp.governorate_slug && (
         <p className="mt-2 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-          <MapPin className="size-3.5 text-gold/70" />
+          <MapPin className="size-3.5 text-gold-text" />
           <Link
             to="/governorates/$id"
             params={{ id: opp.governorate_slug }}
-            className="hover:text-gold"
+            className="hover:text-gold-text"
           >
             {t(govName(opp.governorate_slug))}
           </Link>
@@ -162,7 +162,7 @@ function OpportunityCard({ opp }: { opp: InvestmentOpportunity }) {
       )}
       <div className="mt-auto pt-3">
         {range && (
-          <p className="flex items-center gap-1.5 text-xs font-semibold text-gold">
+          <p className="flex items-center gap-1.5 text-xs font-semibold text-gold-text">
             <TrendingUp className="size-3.5 shrink-0" />
             {range}
           </p>

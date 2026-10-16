@@ -111,7 +111,7 @@ function ExploreEgypt() {
             />
           </SidePanel>
           <NavyPromo>
-            <p className="text-xs uppercase tracking-[0.2em] text-shell-gold">{t("Explore on the Go")}</p>
+            <p className="text-xs eyebrow text-gold-text">{t("Explore on the Go")}</p>
             <p className="mt-1 font-display text-xl font-bold">{t("Download EGYPTORA App")}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {["App Store", "Google Play"].map((s) => (

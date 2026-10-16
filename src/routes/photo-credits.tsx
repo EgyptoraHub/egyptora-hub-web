@@ -61,7 +61,7 @@ function PhotoCredits() {
             {AI_GROUPS.map((g) => (
               <li key={g.type} className="flex justify-between gap-2 border-b border-border py-1">
                 <span className="text-navy">{ar ? g.ar : g.en} ({aiAll.filter((i) => i.type === g.type).length})</span>
-                <span className="text-xs font-semibold text-shell-gold">{L("AI-generated", "مولّدة بالذكاء الاصطناعي")}</span>
+                <span className="text-xs font-semibold text-gold-text">{L("AI-generated", "مولّدة بالذكاء الاصطناعي")}</span>
               </li>
             ))}
           </ul>
@@ -70,7 +70,7 @@ function PhotoCredits() {
         <ul className="divide-y divide-border rounded-xl border border-border">
           {rows.map((c) => (
             <li key={c.page} className="flex flex-col gap-1 px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
-              <a href={c.page} target="_blank" rel="noreferrer noopener" className="font-medium text-navy hover:text-shell-gold">
+              <a href={c.page} target="_blank" rel="noreferrer noopener" className="font-medium text-navy hover:text-gold-text">
                 {c.title.replace(/^File:/, "").replace(/\.\w+$/, "")}
               </a>
               <span className="text-xs text-muted-foreground">

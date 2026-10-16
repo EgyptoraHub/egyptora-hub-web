@@ -29,7 +29,7 @@ export function BackLink({ to, label }: { to: string; label: string }) {
     <Link
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- static, typed route paths
       to={to as any}
-      className="inline-flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-gold"
+      className="inline-flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-gold-text"
     >
       <ArrowLeft className={dir === "rtl" ? "size-4 rotate-180" : "size-4"} />
       {label}
@@ -42,7 +42,7 @@ export function Fact({ label, value }: { label: string; value: ReactNode }) {
   if (value === null || value === undefined || value === "") return null;
   return (
     <div className="rounded-2xl border border-border/60 bg-card/60 p-4">
-      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+      <div className="text-2xs font-semibold eyebrow text-muted-foreground">
         {label}
       </div>
       <div className="mt-1.5 text-sm text-foreground/90">{value}</div>
@@ -60,12 +60,12 @@ export function ChipList({ label, items }: { label: string; items: string[] | nu
   if (!items || items.length === 0) return null;
   return (
     <div className="mt-6">
-      <h2 className="font-display text-sm text-gold">{label}</h2>
+      <h2 className="font-display text-sm text-gold-text">{label}</h2>
       <div className="mt-2 flex flex-wrap gap-1.5">
         {items.map((item) => (
           <span
             key={item}
-            className="rounded-full border border-gold-line/60 bg-gold-soft px-2.5 py-1 text-[11px] text-gold"
+            className="rounded-full border border-gold-line/60 bg-gold-soft px-2.5 py-1 text-2xs text-gold-text"
           >
             {t(item)}
           </span>
@@ -101,7 +101,7 @@ export function DetailNotFound({ backTo, backLabel }: { backTo: string; backLabe
   return (
     <DetailShell>
       <Section className="py-24 text-center">
-        <h1 className="font-display text-3xl text-gold">{t("We couldn't find this record")}</h1>
+        <h1 className="font-display text-3xl text-gold-text">{t("We couldn't find this record")}</h1>
         <p className="mt-3 text-sm text-muted-foreground">
           {t("It may have been removed, or the link you followed is incorrect.")}
         </p>

@@ -101,7 +101,7 @@ function ExperiencePage() {
                   <div className="grid h-40 place-items-center bg-muted"><MapPin className="size-8 text-navy/40" /></div>
                 )}
                 <div className="p-4">
-                  <span className="text-[11px] font-semibold uppercase tracking-wide text-shell-gold">{t(d.category)}</span>
+                  <span className="text-2xs font-semibold uppercase tracking-wide text-gold-text">{t(d.category)}</span>
                   <h2 className="mt-1 font-display text-lg font-bold text-navy">{t(d.name)}</h2>
                   {d.summary && <p className="mt-1 line-clamp-3 text-sm text-text-body">{t(d.summary)}</p>}
                 </div>

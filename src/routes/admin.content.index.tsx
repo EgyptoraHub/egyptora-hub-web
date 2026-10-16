@@ -76,7 +76,7 @@ function AdminContentIndex() {
   return (
     <div className="min-h-screen bg-background px-5 py-14">
       <div className="mx-auto w-full max-w-5xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">{SITE.name}</p>
+        <p className="text-2xs font-semibold eyebrow text-gold-text">{SITE.name}</p>
         <h1 className="mt-3 font-display text-3xl text-foreground">{t("Content management")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {t("Choose a content set to view, edit, add or remove entries.")}
@@ -84,7 +84,7 @@ function AdminContentIndex() {
 
         {Array.from(new Set(tables.map((x) => x.group))).map((group) => (
         <section key={group} className="mt-8">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold/80">{t(group)}</h2>
+        <h2 className="text-xs font-semibold eyebrow text-gold-text">{t(group)}</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {tables.filter((x) => x.group === group).map((entry) => (
             <Link

@@ -102,8 +102,8 @@ function ProductsPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               category === null
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("All categories")}
@@ -116,8 +116,8 @@ function ProductsPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 category === c
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t(c)}
@@ -135,11 +135,11 @@ function ProductsPage() {
                 <GovernanceBanner status={product.governance_status} className="mb-3" />
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                    <ShoppingBag className="size-4 shrink-0 text-gold" />
+                    <ShoppingBag className="size-4 shrink-0 text-gold-text" />
                     <Link
                       to="/products/$id"
                       params={{ id: product.id }}
-                      className="transition-colors hover:text-gold"
+                      className="transition-colors hover:text-gold-text"
                     >
                       {t(product.name)}
                     </Link>
@@ -148,11 +148,11 @@ function ProductsPage() {
                 </div>
 
                 <p className="mt-2 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-                  <MapPin className="size-3.5 text-gold/70" />
+                  <MapPin className="size-3.5 text-gold-text" />
                   <Link
                     to="/governorates/$id"
                     params={{ id: product.governorate_slug }}
-                    className="hover:text-gold"
+                    className="hover:text-gold-text"
                   >
                     {t(govName(product.governorate_slug))}
                   </Link>
@@ -172,7 +172,7 @@ function ProductsPage() {
 
                 <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-foreground/85">
                   {product.price_egp !== null && (
-                    <span className="text-gold">{formatEgp(product.price_egp, lang)}</span>
+                    <span className="text-gold-text">{formatEgp(product.price_egp, lang)}</span>
                   )}
                   {product.maker && <span>{t(product.maker)}</span>}
                 </div>
@@ -182,7 +182,7 @@ function ProductsPage() {
                     {product.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[10px] text-gold"
+                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs text-gold-text"
                       >
                         {t(tag)}
                       </span>

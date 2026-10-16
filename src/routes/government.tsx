@@ -88,7 +88,7 @@ function GovernmentPage() {
   return (
     <div className="min-h-screen bg-background px-5 py-14">
       <div className="mx-auto w-full max-w-5xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">
+        <p className="text-2xs font-semibold eyebrow text-gold-text">
           {SITE.name} · {t("Government dashboard")}
         </p>
         <h1 className="mt-3 font-display text-3xl text-foreground">{t("Governance overview")}</h1>
@@ -192,13 +192,13 @@ function GovernmentPage() {
                     href={row.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-gold"
+                    className="flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-gold-text"
                   >
                     <ExternalLink className="size-3.5" />
                     {t("View public page")}
                   </a>
                 ) : (
-                  <span className="text-xs text-muted-foreground/70">{t("No public page")}</span>
+                  <span className="text-xs text-muted-foreground">{t("No public page")}</span>
                 )}
               </div>
             ))

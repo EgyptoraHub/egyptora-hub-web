@@ -107,7 +107,7 @@ function CountryDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <Globe2 className="size-6 shrink-0 text-gold" />
+            <Globe2 className="size-6 shrink-0 text-gold-text" />
             {t(country.name)}
           </h1>
           <SourceBadge status="DEMO" />
@@ -128,7 +128,7 @@ function CountryDetailPage() {
             value={
               country.visa_route ? (
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="size-3.5 text-gold/70" />
+                  <ShieldCheck className="size-3.5 text-gold-text" />
                   {t(country.visa_route)}
                 </span>
               ) : null
@@ -155,7 +155,7 @@ function CountryDetailPage() {
             value={
               country.direct_flights && country.direct_flights.length > 0 ? (
                 <span className="flex items-center gap-1.5">
-                  <Plane className="size-3.5 text-gold/70" />
+                  <Plane className="size-3.5 text-gold-text" />
                   {country.direct_flights.map((f) => t(f)).join(", ")}
                 </span>
               ) : null

@@ -102,24 +102,24 @@ function EventsPage() {
     <article className="rounded-2xl border border-border/60 bg-card/60 p-5 transition-colors hover:border-gold-line">
       <div className="flex items-start justify-between gap-3">
         <h3 className="flex items-center gap-2 font-display text-base text-foreground">
-          <CalendarDays className="size-4 shrink-0 text-gold" />
-          <Link to="/events/$id" params={{ id: event.id }} className="transition-colors hover:text-gold">
+          <CalendarDays className="size-4 shrink-0 text-gold-text" />
+          <Link to="/events/$id" params={{ id: event.id }} className="transition-colors hover:text-gold-text">
             {t(event.name)}
           </Link>
         </h3>
         <SourceBadge status="VERIFIED" />
       </div>
 
-      <p className="mt-2 text-xs font-semibold text-gold">
+      <p className="mt-2 text-xs font-semibold text-gold-text">
         {formatDateRange(event.start_date, event.end_date, lang)}
       </p>
 
       <p className="mt-1 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-        <MapPin className="size-3.5 text-gold/70" />
+        <MapPin className="size-3.5 text-gold-text" />
         <Link
           to="/governorates/$id"
           params={{ id: event.governorate_slug }}
-          className="hover:text-gold"
+          className="hover:text-gold-text"
         >
           {t(govName(event.governorate_slug))}
         </Link>
@@ -135,7 +135,7 @@ function EventsPage() {
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t(event.summary)}</p>
       )}
       {event.ticketed && (
-        <span className="mt-3 inline-flex items-center gap-1 rounded-full border border-info/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-info">
+        <span className="mt-3 inline-flex items-center gap-1 rounded-full border border-info/40 px-2 py-0.5 text-2xs font-semibold eyebrow text-info">
           <Ticket className="size-3" /> {t("Ticketed")}
         </span>
       )}
@@ -160,8 +160,8 @@ function EventsPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               category === null
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("All categories")}
@@ -174,8 +174,8 @@ function EventsPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 category === c
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t(c)}
@@ -185,7 +185,7 @@ function EventsPage() {
 
         {upcoming.length > 0 && (
           <>
-            <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold/80">
+            <h2 className="mb-4 text-2xs font-semibold eyebrow text-gold-text">
               {t("Upcoming")}
             </h2>
             <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -198,7 +198,7 @@ function EventsPage() {
 
         {past.length > 0 && (
           <>
-            <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+            <h2 className="mb-4 text-2xs font-semibold eyebrow text-muted-foreground">
               {t("Past events")}
             </h2>
             <div className="grid gap-4 opacity-70 sm:grid-cols-2 lg:grid-cols-3">

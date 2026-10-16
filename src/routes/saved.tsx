@@ -142,11 +142,11 @@ function SavedPage() {
 
         {loading || sessionLoading ? (
           <div className="flex justify-center py-16">
-            <Loader2 className="size-6 animate-spin text-gold" />
+            <Loader2 className="size-6 animate-spin text-gold-text" />
           </div>
         ) : rows.length === 0 ? (
           <div className="rounded-2xl border border-border/60 bg-card/40 p-10 text-center">
-            <Heart className="mx-auto size-6 text-gold" />
+            <Heart className="mx-auto size-6 text-gold-text" />
             <p className="mt-3 text-sm text-muted-foreground">
               {t("You haven't saved anything yet.")}
             </p>
@@ -162,7 +162,7 @@ function SavedPage() {
                   className={cn(
                     "rounded-full border px-4 py-1.5 text-xs font-medium transition-colors",
                     filter === type
-                      ? "border-gold-line bg-gold-soft text-gold"
+                      ? "border-gold-line bg-gold-soft text-gold-text"
                       : "border-border text-muted-foreground hover:border-gold-line hover:text-foreground",
                   )}
                 >
@@ -189,21 +189,21 @@ function SavedPage() {
                       />
                     )}
                     <div className="p-5">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">
+                      <p className="text-2xs font-semibold eyebrow text-gold-text">
                         {t(TYPE_LABEL[row.item_type] ?? row.item_type)}
                       </p>
                       {base ? (
                         <Link
                           to={`${base}/$id` as never}
                           params={{ id: row.item_id } as never}
-                          className="mt-1 block font-display text-base text-foreground hover:text-gold"
+                          className="mt-1 block font-display text-base text-foreground hover:text-gold-text"
                         >
                           {name}
                         </Link>
                       ) : row.item_type === "page" && row.item_id.includes("|/") ? (
                         <Link
                           to={row.item_id.slice(row.item_id.indexOf("|") + 1) as never}
-                          className="mt-1 block font-display text-base text-foreground hover:text-gold"
+                          className="mt-1 block font-display text-base text-foreground hover:text-gold-text"
                         >
                           {name}
                         </Link>
@@ -213,7 +213,7 @@ function SavedPage() {
                       <button
                         type="button"
                         onClick={() => void unsave(row)}
-                        className="mt-4 inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-gold-line hover:text-gold"
+                        className="mt-4 inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-gold-line hover:text-gold-text"
                       >
                         <Trash2 className="size-4" />
                         {t("Remove")}

@@ -97,7 +97,7 @@ function OfferDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <Tag className="size-6 shrink-0 text-gold" />
+            <Tag className="size-6 shrink-0 text-gold-text" />
             {t(offer.name)}
           </h1>
           <SourceBadge status="DEMO" />

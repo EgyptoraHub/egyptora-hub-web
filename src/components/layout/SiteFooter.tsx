@@ -125,7 +125,7 @@ function FooterLink({ link }: { link: FLink }) {
   return (
     <span className="inline-flex items-center gap-2 text-sm text-foreground/50">
       {t(link.label)}
-      <span className="rounded border border-border px-1.5 py-0.5 text-[9px] uppercase tracking-wide">
+      <span className="rounded border border-border px-1.5 py-0.5 text-2xs uppercase tracking-wide">
         {t("Coming soon")}
       </span>
     </span>
@@ -164,13 +164,13 @@ function Newsletter() {
         />
         <button
           type="submit"
-          className="shrink-0 rounded-lg bg-gold-cta px-4 py-2.5 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+          className="shrink-0 rounded-lg bg-gold-cta px-4 py-2.5 text-xs font-semibold text-gold-foreground transition-opacity hover:opacity-90"
         >
           {t("Subscribe")}
         </button>
       </form>
 
-      <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-shell-gold">
+      <p className="mt-6 text-xs font-semibold eyebrow text-shell-gold">
         {t("Download the app")}
       </p>
       <ul className="mt-3 flex items-center gap-3">
@@ -212,7 +212,7 @@ export function SiteFooter() {
                 <span className="block whitespace-nowrap font-display text-base tracking-[0.18em] text-foreground">
                   EGYPTORA <span className="text-shell-gold">HUB</span>
                 </span>
-                <span className="block whitespace-nowrap text-[10px] tracking-[0.08em] text-foreground/70">
+                <span className="block whitespace-nowrap text-2xs tracking-[0.08em] text-foreground/70">
                   {t(SITE.tagline)}
                 </span>
               </span>

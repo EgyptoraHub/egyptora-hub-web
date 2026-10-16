@@ -93,10 +93,10 @@ function HeroTiles() {
     <div className="mt-8 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-xl bg-foreground/15 backdrop-blur md:grid-cols-4">
       {benefits.map((b) => (
         <div key={b.t} className="flex items-center gap-3 bg-navy/60 p-3">
-          <b.Icon className="size-6 shrink-0 text-shell-gold" />
+          <b.Icon className="size-6 shrink-0 text-gold-text" />
           <div>
             <p className="text-xs font-bold text-foreground">{t(b.t)}</p>
-            <p className="text-[11px] text-foreground/75">{t(b.s)}</p>
+            <p className="text-2xs text-foreground/75">{t(b.s)}</p>
           </div>
         </div>
       ))}
@@ -146,7 +146,7 @@ function InvestInEgypt() {
             <div className="absolute inset-0 bg-gradient-to-t from-navy/90 to-transparent" />
             <div className="absolute inset-x-5 bottom-5">
               <p className="font-display text-2xl font-bold text-foreground">{t("Invest in People")}</p>
-              <p className="font-display text-2xl font-bold text-shell-gold">{t("Invest in Egypt")}</p>
+              <p className="font-display text-2xl font-bold text-gold-text">{t("Invest in Egypt")}</p>
             </div>
           </div>
         </>

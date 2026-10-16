@@ -101,8 +101,8 @@ function ResearchProgramsPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               field === null
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("All fields")}
@@ -115,8 +115,8 @@ function ResearchProgramsPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 field === f
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t(f)}
@@ -134,11 +134,11 @@ function ResearchProgramsPage() {
                 <GovernanceBanner status={program.governance_status} className="mb-3" />
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                    <GraduationCap className="size-4 shrink-0 text-gold" />
+                    <GraduationCap className="size-4 shrink-0 text-gold-text" />
                     <Link
                       to="/research-programs/$id"
                       params={{ id: program.id }}
-                      className="transition-colors hover:text-gold"
+                      className="transition-colors hover:text-gold-text"
                     >
                       {t(program.name)}
                     </Link>
@@ -151,11 +151,11 @@ function ResearchProgramsPage() {
                   {program.governorate_slug && (
                     <>
                       {program.university && " · "}
-                      <MapPin className="size-3.5 text-gold/70" />
+                      <MapPin className="size-3.5 text-gold-text" />
                       <Link
                         to="/governorates/$id"
                         params={{ id: program.governorate_slug }}
-                        className="hover:text-gold"
+                        className="hover:text-gold-text"
                       >
                         {t(govName(program.governorate_slug))}
                       </Link>
@@ -178,7 +178,7 @@ function ResearchProgramsPage() {
                     {program.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[10px] text-gold"
+                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs text-gold-text"
                       >
                         {t(tag)}
                       </span>

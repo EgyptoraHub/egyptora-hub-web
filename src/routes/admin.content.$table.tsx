@@ -91,7 +91,7 @@ function ListEditor({
         <button
           type="button"
           onClick={add}
-          className="rounded-xl border border-gold/40 px-3 py-2 text-xs text-gold"
+          className="rounded-xl border border-gold/40 px-3 py-2 text-xs text-gold-text"
         >
           +
         </button>
@@ -148,7 +148,7 @@ function FieldEditor({
   const label = t(field.label ?? humanize(field.name));
 
   const wrap = (children: React.ReactNode) => (
-    <label className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
+    <label className="block text-xs eyebrow text-muted-foreground">
       {label}
       <div className="normal-case tracking-normal">{children}</div>
     </label>
@@ -406,7 +406,7 @@ function ContentForm({
 
       <div className="mt-5 grid gap-4 rounded-2xl border border-border bg-card/40 p-5 sm:grid-cols-2">
         {isCreate && cfg.autoPk ? null : (
-        <label className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
+        <label className="block text-xs eyebrow text-muted-foreground">
           {t("Identifier")}
           <input
             value={idValue}
@@ -420,7 +420,7 @@ function ContentForm({
         </label>
         )}
         {cfg.slugColumn ? (
-          <label className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
+          <label className="block text-xs eyebrow text-muted-foreground">
             {t("Slug")}
             <input
               value={slugValue}
@@ -450,12 +450,12 @@ function ContentForm({
 
       {children.length > 0 ? (
         <div className="mt-5 rounded-2xl border border-border bg-card/40 p-5">
-          <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold/80">{t("Merged children")} ({children.length})</h3>
+          <h3 className="text-xs font-semibold eyebrow text-gold-text">{t("Merged children")} ({children.length})</h3>
           <ul className="mt-3 grid gap-1.5 text-sm">
             {children.map((c) => (
               <li key={c.pk} className="flex flex-wrap items-center gap-2">
                 <span dir="auto" className="text-foreground">{c.label}</span>
-                <span className="rounded-full border border-border px-2 py-0.5 text-[10px] uppercase text-muted-foreground">{c.status ?? "—"}</span>
+                <span className="rounded-full border border-border px-2 py-0.5 text-2xs uppercase text-muted-foreground">{c.status ?? "—"}</span>
               </li>
             ))}
           </ul>
@@ -464,7 +464,7 @@ function ContentForm({
 
       {governance.length > 0 ? (
       <div className="mt-5 rounded-2xl border border-border bg-card/20 p-5">
-        <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-gold/80">
+        <h3 className="text-xs font-semibold eyebrow text-gold-text">
           {t("Governance")}
         </h3>
         <div className="mt-4 grid gap-5 sm:grid-cols-2">
@@ -496,7 +496,7 @@ function ContentForm({
           type="button"
           disabled={busy}
           onClick={submit}
-          className="rounded-full bg-gold px-5 py-2 text-sm font-semibold text-background disabled:opacity-50"
+          className="rounded-full bg-gold px-5 py-2 text-sm font-semibold text-gold-foreground disabled:opacity-50"
         >
           {busy ? t("Saving…") : t("Save")}
         </button>
@@ -630,7 +630,7 @@ function AdminContentTable() {
   return (
     <div className="min-h-screen bg-background px-5 py-14">
       <div className="mx-auto w-full max-w-6xl">
-        <Link to="/admin/content" className="text-xs text-muted-foreground hover:text-gold">
+        <Link to="/admin/content" className="text-xs text-muted-foreground hover:text-gold-text">
           ← {t("All content sets")}
         </Link>
         <h1 className="mt-3 font-display text-3xl text-foreground">{t(cfg.label)}</h1>
@@ -648,14 +648,14 @@ function AdminContentTable() {
         ) : null}
         {cfg.csvImport && !editing ? (
           <div className="mt-4">
-            <button type="button" onClick={() => setShowImport((v) => !v)} className="rounded-full border border-gold/40 px-4 py-1.5 text-sm text-gold">
+            <button type="button" onClick={() => setShowImport((v) => !v)} className="rounded-full border border-gold/40 px-4 py-1.5 text-sm text-gold-text">
               {showImport ? t("Close CSV import") : t("Import CSV")}
             </button>
             {showImport ? (cfg.table === "protected_areas" ? <ProtectedCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "economic_zones" || cfg.table === "zone_facts" ? <ZonesCsvImport kind={cfg.table === "economic_zones" ? "zones" : "facts"} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "culture_items" ? <CultureCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} />) : null}
           </div>
         ) : null}
 
-        {notice ? <p className="mt-4 text-sm text-gold">{notice}</p> : null}
+        {notice ? <p className="mt-4 text-sm text-gold-text">{notice}</p> : null}
 
         {editing ? (
           <ContentForm
@@ -678,13 +678,13 @@ function AdminContentTable() {
                 <button
                   type="button"
                   onClick={() => setEditing({ pk: null })}
-                  className="rounded-full bg-gold px-5 py-2 text-sm font-semibold text-background"
+                  className="rounded-full bg-gold px-5 py-2 text-sm font-semibold text-gold-foreground"
                 >
                   {t("Add new")}
                 </button>
               )}
               {(cfg.filters ?? []).map((f) => (
-                <label key={f.name} className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                <label key={f.name} className="text-xs eyebrow text-muted-foreground">
                   {t(f.label)}
                   <select
                     aria-label={f.label}
@@ -717,14 +717,14 @@ function AdminContentTable() {
                   <option value="">{t("Value…")}</option>
                   {(data?.bulkOptions?.[bulkCol] ?? (cfg.bulk!.find((b) => b.name === bulkCol)?.options ?? []).map((o) => ({ value: o, label: o }))).map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
-                <button type="button" disabled={busy || !bulkCol || !bulkVal || selected.size === 0} onClick={() => void applyBulk()} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-background disabled:opacity-40">
+                <button type="button" disabled={busy || !bulkCol || !bulkVal || selected.size === 0} onClick={() => void applyBulk()} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-gold-foreground disabled:opacity-40">
                   {t("Apply to selected")}
                 </button>
               </div>
             ) : null}
             <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
               <table className="w-full min-w-[720px] text-left text-sm">
-                <thead className="bg-card/60 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                <thead className="bg-card/60 text-2xs eyebrow text-muted-foreground">
                   <tr>
                     {canBulk ? (
                       <th className="px-4 py-3">
@@ -779,7 +779,7 @@ function AdminContentTable() {
                       <td className="px-4 py-3 whitespace-pre-wrap break-words text-foreground" dir="auto">
                         {row.name ?? "—"}
                         {cfg.table === "military_records" && row.name?.includes("سجل عسكري تاريخي رقم") ? (
-                          <span className="ms-2 inline-block rounded-full bg-destructive px-2 py-0.5 text-[11px] font-semibold text-destructive-foreground">{t("Placeholder title")}</span>
+                          <span className="ms-2 inline-block rounded-full bg-destructive px-2 py-0.5 text-2xs font-semibold text-destructive-foreground">{t("Placeholder title")}</span>
                         ) : null}
                       </td>
                       {(cfg.listColumns ?? []).map((c) => (
@@ -792,7 +792,7 @@ function AdminContentTable() {
                           <button
                             type="button"
                             onClick={() => setEditing({ pk: row.pk })}
-                            className="rounded-full border border-gold/40 px-3 py-1 text-xs text-gold"
+                            className="rounded-full border border-gold/40 px-3 py-1 text-xs text-gold-text"
                           >
                             {t("Edit")}
                           </button>

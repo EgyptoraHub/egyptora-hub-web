@@ -53,12 +53,12 @@ function AdminIntegrationsPage() {
           <li key={entry.key} className="rounded-2xl border border-border bg-card/40 p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="font-display text-lg text-foreground">{t(entry.name)}</h2>
-              <span className="rounded-full border border-border/70 px-3 py-1 text-[11px] uppercase tracking-wide text-muted-foreground">
+              <span className="rounded-full border border-border/70 px-3 py-1 text-2xs uppercase tracking-wide text-muted-foreground">
                 {t(INTEGRATION_STATUS_LABEL[entry.status])}
               </span>
             </div>
             <p className="mt-2 text-sm text-muted-foreground">{t(entry.description)}</p>
-            <p className="mt-3 text-xs text-muted-foreground/80">{t(entry.notes)}</p>
+            <p className="mt-3 text-xs text-muted-foreground">{t(entry.notes)}</p>
           </li>
         ))}
       </ul>

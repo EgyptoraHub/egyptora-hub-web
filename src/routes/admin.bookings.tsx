@@ -49,9 +49,9 @@ function StatusPill({ status, label }: { status: string; label: string }) {
       ? "border-emerald-500/40 text-emerald-400"
       : status === "cancelled"
         ? "border-destructive/40 text-destructive"
-        : "border-gold/40 text-gold";
+        : "border-gold/40 text-gold-text";
   return (
-    <span className={`inline-flex rounded-full border px-2.5 py-0.5 text-[11px] uppercase tracking-[0.12em] ${tone}`}>
+    <span className={`inline-flex rounded-full border px-2.5 py-0.5 text-2xs eyebrow ${tone}`}>
       {label}
     </span>
   );
@@ -147,14 +147,14 @@ function AdminBookings() {
   return (
     <div className="min-h-screen bg-background px-5 py-14">
       <div className="mx-auto w-full max-w-6xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">{SITE.name}</p>
+        <p className="text-2xs font-semibold eyebrow text-gold-text">{SITE.name}</p>
         <h1 className="mt-3 font-display text-3xl text-foreground">{t("Bookings management")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {t("Review booking requests and update their status.")}
         </p>
 
         <div className="mt-6 flex flex-wrap items-end gap-3">
-          <label className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          <label className="text-xs eyebrow text-muted-foreground">
             {t("Status")}
             <select
               value={status}
@@ -173,7 +173,7 @@ function AdminBookings() {
             </select>
           </label>
 
-          <label className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          <label className="text-xs eyebrow text-muted-foreground">
             {t("Item type")}
             <select
               value={itemType}
@@ -197,11 +197,11 @@ function AdminBookings() {
           </p>
         </div>
 
-        {notice ? <p className="mt-4 text-sm text-gold">{notice}</p> : null}
+        {notice ? <p className="mt-4 text-sm text-gold-text">{notice}</p> : null}
 
         <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
           <table className="w-full min-w-[900px] text-left text-sm">
-            <thead className="bg-card/60 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+            <thead className="bg-card/60 text-2xs eyebrow text-muted-foreground">
               <tr>
                 <th className="px-4 py-3">{t("Requested")}</th>
                 <th className="px-4 py-3">{t("Requester")}</th>
@@ -250,7 +250,7 @@ function AdminBookings() {
                           key={s}
                           type="button"
                           onClick={() => setConfirming({ id: row.id, status: s })}
-                          className="rounded-full border border-gold/40 px-3 py-1 text-xs text-gold"
+                          className="rounded-full border border-gold/40 px-3 py-1 text-xs text-gold-text"
                         >
                           {t("Mark as")} {t(s)}
                         </button>
@@ -331,7 +331,7 @@ function AdminBookings() {
                 type="button"
                 disabled={busy}
                 onClick={applyStatus}
-                className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-background disabled:opacity-50"
+                className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-gold-foreground disabled:opacity-50"
               >
                 {busy ? t("Saving…") : t("Confirm")}
               </button>

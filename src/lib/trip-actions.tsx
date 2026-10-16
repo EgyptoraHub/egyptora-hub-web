@@ -95,7 +95,7 @@ export function RequestBookingButton({
       disabled={busy}
       className={cn(
         BUTTON_BASE,
-        "border border-gold-line bg-gold-soft text-gold hover:bg-gold hover:text-primary-foreground",
+        "border border-gold-line bg-gold-soft text-gold-text hover:bg-gold hover:text-primary-foreground",
         className,
       )}
     >
@@ -261,7 +261,7 @@ export function ItemActions({
         <button
           type="button"
           onClick={() => void openDialog()}
-          className={cn(BUTTON_BASE, "border border-gold-line bg-gold-soft text-gold hover:bg-gold hover:text-primary-foreground")}
+          className={cn(BUTTON_BASE, "border border-gold-line bg-gold-soft text-gold-text hover:bg-gold hover:text-primary-foreground")}
         >
           <CalendarPlus className="size-4" />
           {t("Add to trip")}
@@ -270,7 +270,7 @@ export function ItemActions({
           type="button"
           onClick={() => void requestBooking()}
           disabled={booking}
-          className={cn(BUTTON_BASE, "border border-border text-muted-foreground hover:border-gold-line hover:text-gold")}
+          className={cn(BUTTON_BASE, "border border-border text-muted-foreground hover:border-gold-line hover:text-gold-text")}
         >
           {booking ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
           {t("Request booking")}
@@ -340,7 +340,7 @@ export function ItemActions({
               type="button"
               onClick={() => void addToTrip()}
               disabled={busy}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-gold-foreground disabled:opacity-60"
             >
               {busy && <Loader2 className="size-4 animate-spin" />}
               {t("Add to trip")}

@@ -80,7 +80,7 @@ function MaintenanceAdmin() {
   return (
     <div className="grid min-h-screen place-items-center bg-background px-5 py-16">
       <div className="w-full max-w-lg rounded-3xl border border-gold-line bg-card/60 p-8 backdrop-blur">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">{SITE.name}</p>
+        <p className="text-2xs font-semibold eyebrow text-gold-text">{SITE.name}</p>
         <h1 className="mt-3 font-display text-3xl text-foreground">Maintenance Mode</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Close or open the site to visitors instantly. The backend, database and your editing tools keep
@@ -110,7 +110,7 @@ function MaintenanceAdmin() {
             type="button"
             disabled={!password || status === "saving"}
             onClick={() => apply(true)}
-            className="rounded-full bg-gold px-5 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-40"
+            className="rounded-full bg-gold px-5 py-3 text-sm font-semibold text-gold-foreground disabled:opacity-40"
           >
             Close site (Maintenance ON)
           </button>
@@ -118,7 +118,7 @@ function MaintenanceAdmin() {
             type="button"
             disabled={!password || status === "saving"}
             onClick={() => apply(false)}
-            className="rounded-full border border-gold-line px-5 py-3 text-sm font-semibold text-gold disabled:opacity-40"
+            className="rounded-full border border-gold-line px-5 py-3 text-sm font-semibold text-gold-text disabled:opacity-40"
           >
             Open site (Maintenance OFF)
           </button>
@@ -127,7 +127,7 @@ function MaintenanceAdmin() {
         {status === "error" && (
           <p className="mt-4 text-sm text-destructive">Wrong password or the change could not be saved.</p>
         )}
-        {status === "saved" && <p className="mt-4 text-sm text-gold">Saved — live for all visitors.</p>}
+        {status === "saved" && <p className="mt-4 text-sm text-gold-text">Saved — live for all visitors.</p>}
       </div>
     </div>
   );

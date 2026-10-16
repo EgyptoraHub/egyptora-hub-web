@@ -128,7 +128,7 @@ function HeritageWorldwideDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <Globe2 className="size-6 shrink-0 text-gold" />
+            <Globe2 className="size-6 shrink-0 text-gold-text" />
             {t(item.name)}
           </h1>
           <SourceBadge status="DEMO" />

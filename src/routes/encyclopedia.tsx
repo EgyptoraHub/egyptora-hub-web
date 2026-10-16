@@ -126,7 +126,7 @@ function EncyclopediaPage() {
           />
           <div className="absolute inset-x-0 bottom-0">
             <div className="mx-auto w-full max-w-[1360px] px-5 pb-8 lg:px-10 lg:pb-12">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+              <p className="mb-2 text-2xs font-semibold eyebrow text-gold-text">
                 {t("Visual encyclopedia")}
               </p>
               <h1 className="max-w-3xl font-display text-3xl leading-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -227,7 +227,7 @@ function Chapter({
               key={s.label}
               className="flex items-baseline justify-between gap-4 rounded-2xl border border-gold-line bg-card px-4 py-3"
             >
-              <span className="font-display text-xl text-gold">{t(s.value)}</span>
+              <span className="font-display text-xl text-gold-text">{t(s.value)}</span>
               <span className="text-right text-xs text-muted-foreground">{t(s.label)}</span>
             </div>
           ))}
@@ -255,7 +255,7 @@ function Chapter({
             <AiBadge src={plate.image} force={!!generatedBySrc(plate.image)} />
             </div>
             {generatedBySrc(plate.image) && (
-              <figcaption className="border-t border-border/60 px-4 pt-2 text-[11px] italic text-muted-foreground">
+              <figcaption className="border-t border-border/60 px-4 pt-2 text-2xs italic text-muted-foreground">
                 {isPlaceholderImage(plate.image)
                   ? (lang === "ar" ? "صورة بديلة: " : "Placeholder image: ")
                   : (lang === "ar" ? "صورة توضيحية: " : "Illustrative image: ")}
@@ -272,8 +272,8 @@ function Chapter({
 
       {liveSection}
 
-      <div className="mt-4 flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-        <ArrowRight className="h-3.5 w-3.5 text-gold" aria-hidden />
+      <div className="mt-4 flex items-center gap-2 text-2xs eyebrow text-muted-foreground">
+        <ArrowRight className="h-3.5 w-3.5 text-gold-text" aria-hidden />
         {chapter.api}
       </div>
     </Section>
@@ -293,7 +293,7 @@ function EraRulerSection({
 
   return (
     <div className="mt-8">
-      <h3 className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold/80">
+      <h3 className="mb-4 flex items-center gap-2 text-2xs font-semibold eyebrow text-gold-text">
         <Crown className="size-3.5" aria-hidden />
         {t("Eras and rulers, live from the archive")}
       </h3>

@@ -15,7 +15,7 @@ function MaintenancePage() {
   return (
     <div className="grid min-h-screen place-items-center bg-background px-5 py-16">
       <div className="w-full max-w-xl rounded-3xl border border-gold-line bg-card/60 p-8 text-center backdrop-blur sm:p-12">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">
+        <p className="text-2xs font-semibold eyebrow text-gold-text">
           {SITE.name}
         </p>
         <h1 className="mt-4 font-display text-4xl leading-tight text-foreground sm:text-5xl">
@@ -26,11 +26,11 @@ function MaintenancePage() {
         </p>
         <a
           href={`mailto:${SITE.email}`}
-          className="mt-8 inline-flex items-center justify-center rounded-full border border-gold-line px-6 py-3 text-sm font-semibold text-gold transition-colors hover:bg-gold-soft"
+          className="mt-8 inline-flex items-center justify-center rounded-full border border-gold-line px-6 py-3 text-sm font-semibold text-gold-text transition-colors hover:bg-gold-soft"
         >
           {SITE.email}
         </a>
-        <p className="mt-8 text-[11px] text-muted-foreground/70" dir="ltr">
+        <p className="mt-8 text-2xs text-muted-foreground" dir="ltr">
           {SITE.url.replace(/^https?:\/\//, "")}
         </p>
       </div>
@@ -91,7 +91,7 @@ export function MaintenanceGate({ children }: { children: ReactNode }) {
           }
           window.location.reload();
         }}
-        className="fixed bottom-4 start-4 z-[60] rounded-full border border-gold-line bg-gold-soft px-4 py-2 text-xs font-semibold text-gold shadow-lg"
+        className="fixed bottom-4 start-4 z-[60] rounded-full border border-gold-line bg-gold-soft px-4 py-2 text-xs font-semibold text-gold-text shadow-lg"
         title="Maintenance Mode is ON — click to exit owner preview"
       >
         Maintenance Mode

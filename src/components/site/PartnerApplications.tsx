@@ -18,7 +18,7 @@ const STATUS_LABEL: Record<string, string> = {
 export function PartnerStatusBadge({ status }: { status: string }) {
   const { t } = useI18n();
   return (
-    <span className="inline-block rounded-full border border-border bg-muted/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-navy">
+    <span className="inline-block rounded-full border border-border bg-muted/50 px-3 py-1 text-2xs font-semibold uppercase tracking-wide text-navy">
       {t(STATUS_LABEL[status] ?? status)}
     </span>
   );
@@ -39,9 +39,9 @@ export function VerificationBadge({ status }: { status: string }) {
       ? "border-primary bg-primary text-primary-foreground"
       : status === "rejected"
         ? "border-destructive text-destructive"
-        : "border-gold/60 text-gold";
+        : "border-gold/60 text-gold-text";
   return (
-    <span className={`inline-block rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-wide ${tone}`}>
+    <span className={`inline-block rounded-full border px-3 py-1 text-2xs font-semibold uppercase tracking-wide ${tone}`}>
       {t(VERIFICATION_LABEL[status] ?? status)}
     </span>
   );
@@ -112,12 +112,12 @@ function DocRow({ app, doc, canUpload, onDone }: { app: App; doc: (typeof DOCS)[
       <div className="text-xs">
         <p className="text-foreground">{t(doc.label)}</p>
         <p className={path ? "text-primary" : "text-muted-foreground"}>{path ? t("Uploaded") : t("Missing")}</p>
-        {flagged && <p className="font-semibold text-gold">{t("Needs re-upload")}</p>}
+        {flagged && <p className="font-semibold text-gold-text">{t("Needs re-upload")}</p>}
         {err && <p className="text-destructive" role="alert">{err}</p>}
       </div>
       <div className="flex items-center gap-2">
         {path && (
-          <button type="button" onClick={() => openDoc(path)} className="text-xs font-semibold text-gold hover:underline">
+          <button type="button" onClick={() => openDoc(path)} className="text-xs font-semibold text-gold-text hover:underline">
             {t("View")}
           </button>
         )}
@@ -191,7 +191,7 @@ function AdminReview({ app, onDone }: { app: App; onDone: () => void }) {
         <button disabled={busy} onClick={() => decide("rejected")} className="rounded-lg border border-destructive px-4 py-1.5 text-xs font-semibold text-destructive disabled:opacity-60">
           {t("Reject")}
         </button>
-        <button disabled={busy} onClick={() => decide("changes_requested")} className="rounded-lg border border-gold px-4 py-1.5 text-xs font-semibold text-gold disabled:opacity-60">
+        <button disabled={busy} onClick={() => decide("changes_requested")} className="rounded-lg border border-gold px-4 py-1.5 text-xs font-semibold text-gold-text disabled:opacity-60">
           {t("Request changes")}
         </button>
       </div>
@@ -264,7 +264,7 @@ function AppCard({ r, uid, isAdmin, reload }: { r: App; uid: string | null; isAd
         </p>
       )}
       {r.verification_status === "changes_requested" && r.verification_note && (
-        <p className="mt-3 text-xs text-gold">
+        <p className="mt-3 text-xs text-gold-text">
           {t("Changes requested")}: {r.verification_note}
           {isOwner && ` — ${t("Please re-upload the highlighted document(s) below.")}`}
         </p>
@@ -344,7 +344,7 @@ export function PartnerApplicationsList() {
         {rest.length === 0 ? (
           <p className="mt-3 text-sm text-muted-foreground">
             {rows.length === 0 && t("No applications yet.")}{" "}
-            <Link to="/become-a-partner" className="text-gold hover:underline">{t("Become a Partner")}</Link>
+            <Link to="/become-a-partner" className="text-gold-text hover:underline">{t("Become a Partner")}</Link>
           </p>
         ) : (
           <div className="mt-4 space-y-3">

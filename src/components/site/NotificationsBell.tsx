@@ -87,11 +87,11 @@ export function NotificationsBell({ className }: { className?: string }) {
           setOpen((v) => !v);
           if (!open) void load();
         }}
-        className="relative grid size-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:text-gold"
+        className="relative grid size-10 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:text-gold-text"
       >
         <Bell className="size-4" />
         {unread > 0 && (
-          <span className="absolute -right-0.5 -top-0.5 grid min-w-4 place-items-center rounded-full bg-gold px-1 text-[9px] font-bold text-primary-foreground">
+          <span className="absolute -right-0.5 -top-0.5 grid min-w-4 place-items-center rounded-full bg-gold px-1 text-2xs font-bold text-gold-foreground">
             {unread > 9 ? "9+" : unread}
           </span>
         )}
@@ -105,7 +105,7 @@ export function NotificationsBell({ className }: { className?: string }) {
               <button
                 type="button"
                 onClick={() => void markRead(rows.filter((r) => !r.read).map((r) => r.id))}
-                className="text-[11px] text-gold hover:underline"
+                className="text-2xs text-gold-text hover:underline"
               >
                 {t("Mark all as read")}
               </button>
@@ -141,11 +141,11 @@ export function NotificationsBell({ className }: { className?: string }) {
                             {t(row.title)}
                           </span>
                           {row.body && (
-                            <span className="mt-0.5 block text-[11px] leading-snug text-muted-foreground">
+                            <span className="mt-0.5 block text-2xs leading-snug text-muted-foreground">
                               {row.body}
                             </span>
                           )}
-                          <span className="mt-1 block text-[10px] text-muted-foreground/70">
+                          <span className="mt-1 block text-2xs text-muted-foreground">
                             {new Date(row.created_at).toLocaleString()}
                           </span>
                         </span>

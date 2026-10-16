@@ -147,7 +147,7 @@ function AdminUsers() {
   return (
     <div className="min-h-screen bg-background px-5 py-14">
       <div className="mx-auto w-full max-w-6xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">{SITE.name}</p>
+        <p className="text-2xs font-semibold eyebrow text-gold-text">{SITE.name}</p>
         <h1 className="mt-3 font-display text-3xl text-foreground">{t("User management")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {t("Disable sign-in access or manage admin privileges. No account is ever deleted here.")}
@@ -161,7 +161,7 @@ function AdminUsers() {
             setSearch(searchInput);
           }}
         >
-          <label className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          <label className="text-xs eyebrow text-muted-foreground">
             {t("Search by email")}
             <input
               value={searchInput}
@@ -172,7 +172,7 @@ function AdminUsers() {
           </label>
           <button
             type="submit"
-            className="rounded-full border border-gold/40 px-4 py-2 text-xs text-gold"
+            className="rounded-full border border-gold/40 px-4 py-2 text-xs text-gold-text"
           >
             {t("Search")}
           </button>
@@ -194,11 +194,11 @@ function AdminUsers() {
           </p>
         </form>
 
-        {notice ? <p className="mt-4 text-sm text-gold">{notice}</p> : null}
+        {notice ? <p className="mt-4 text-sm text-gold-text">{notice}</p> : null}
 
         <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
           <table className="w-full min-w-[900px] text-left text-sm">
-            <thead className="bg-card/60 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+            <thead className="bg-card/60 text-2xs eyebrow text-muted-foreground">
               <tr>
                 <th className="px-4 py-3">{t("Email")}</th>
                 <th className="px-4 py-3">{t("Signed up")}</th>
@@ -223,7 +223,7 @@ function AdminUsers() {
                     <p className="text-foreground">{row.email ?? "—"}</p>
                     <p className="break-all text-xs text-muted-foreground">{row.id}</p>
                     {row.is_self ? (
-                      <p className="mt-1 text-xs text-gold">{t("This is you")}</p>
+                      <p className="mt-1 text-xs text-gold-text">{t("This is you")}</p>
                     ) : null}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">{formatDate(row.created_at)}</td>
@@ -232,7 +232,7 @@ function AdminUsers() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className={`inline-flex rounded-full border px-2.5 py-0.5 text-[11px] uppercase tracking-[0.12em] ${
+                      className={`inline-flex rounded-full border px-2.5 py-0.5 text-2xs eyebrow ${
                         row.disabled
                           ? "border-destructive/40 text-destructive"
                           : "border-emerald-500/40 text-emerald-400"
@@ -243,8 +243,8 @@ function AdminUsers() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className={`inline-flex rounded-full border px-2.5 py-0.5 text-[11px] uppercase tracking-[0.12em] ${
-                        row.is_admin ? "border-gold/40 text-gold" : "border-border text-muted-foreground"
+                      className={`inline-flex rounded-full border px-2.5 py-0.5 text-2xs eyebrow ${
+                        row.is_admin ? "border-gold/40 text-gold-text" : "border-border text-muted-foreground"
                       }`}
                     >
                       {row.is_admin ? t("Admin") : t("Standard")}
@@ -276,7 +276,7 @@ function AdminUsers() {
                           onClick={() =>
                             setPending({ kind: "role", user: row, makeAdmin: !row.is_admin })
                           }
-                          className="rounded-full border border-gold/40 px-3 py-1 text-xs text-gold"
+                          className="rounded-full border border-gold/40 px-3 py-1 text-xs text-gold-text"
                         >
                           {row.is_admin ? t("Revoke admin") : t("Grant admin")}
                         </button>
@@ -340,7 +340,7 @@ function AdminUsers() {
                 type="button"
                 disabled={busy}
                 onClick={apply}
-                className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-background disabled:opacity-50"
+                className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-gold-foreground disabled:opacity-50"
               >
                 {busy ? t("Saving…") : t("Confirm")}
               </button>

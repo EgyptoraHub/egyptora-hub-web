@@ -96,7 +96,7 @@ function BookingsPage() {
 
         {loading || sessionLoading ? (
           <div className="flex justify-center py-16">
-            <Loader2 className="size-6 animate-spin text-gold" />
+            <Loader2 className="size-6 animate-spin text-gold-text" />
           </div>
         ) : bookings.length === 0 ? (
           <p className="rounded-2xl border border-border/60 bg-card/40 p-10 text-center text-sm text-muted-foreground">
@@ -111,7 +111,7 @@ function BookingsPage() {
               >
                 <div>
                   <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                    <Ticket className="size-4 shrink-0 text-gold" />
+                    <Ticket className="size-4 shrink-0 text-gold-text" />
                     {t(booking.item_name ?? booking.item_id)}
                   </h2>
                   <p className="mt-1 text-xs text-muted-foreground">
@@ -120,7 +120,7 @@ function BookingsPage() {
                     {new Date(booking.requested_at).toLocaleDateString(lang)}
                   </p>
                 </div>
-                <span className="rounded-full border border-gold-line/60 bg-gold-soft px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold">
+                <span className="rounded-full border border-gold-line/60 bg-gold-soft px-2.5 py-1 text-2xs font-semibold eyebrow text-gold-text">
                   {t(booking.status)}
                 </span>
               </article>

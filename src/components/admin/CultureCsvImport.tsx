@@ -55,8 +55,8 @@ export function CultureCsvImport({ onDone, onDenied }: { onDone: () => void; onD
         className="rounded-xl border border-border bg-background p-3 font-mono text-xs"
       />
       <div className="flex flex-wrap gap-2">
-        <button type="button" disabled={busy || !csv.trim()} onClick={() => void go(true)} className="rounded-full border border-gold/40 px-4 py-1.5 text-gold disabled:opacity-40">{t("Preview (dry run)")}</button>
-        <button type="button" disabled={busy || !previewOk} onClick={() => void go(false)} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-background disabled:opacity-40">{t("Import now")}</button>
+        <button type="button" disabled={busy || !csv.trim()} onClick={() => void go(true)} className="rounded-full border border-gold/40 px-4 py-1.5 text-gold-text disabled:opacity-40">{t("Preview (dry run)")}</button>
+        <button type="button" disabled={busy || !previewOk} onClick={() => void go(false)} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-gold-foreground disabled:opacity-40">{t("Import now")}</button>
       </div>
       {error ? <p className="text-destructive">{error}</p> : null}
       {summary ? (

@@ -30,10 +30,10 @@ function LeafLink({ item, onNavigate }: { item: NavLeaf; onNavigate?: () => void
       <button
         type="button"
         onClick={() => toast(t("Coming soon"))}
-        className="flex w-full cursor-default items-center gap-2 rounded-lg px-3 py-2 text-start text-[13px] text-muted-foreground/70"
+        className="flex w-full cursor-default items-center gap-2 rounded-lg px-3 py-2 text-start text-[13px] text-muted-foreground"
       >
         <span className="min-w-0 flex-1 truncate">{t(item.label)}</span>
-        <span className="shrink-0 rounded-full border border-border bg-muted/40 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-muted-foreground">
+        <span className="shrink-0 rounded-full border border-border bg-muted/40 px-1.5 py-0.5 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">
           {t("Coming soon")}
         </span>
       </button>
@@ -89,7 +89,7 @@ function DesktopEntry({ entry }: { entry: NavEntry }) {
         to={entry.to as any}
         activeProps={{ className: "font-bold text-navy after:absolute after:inset-x-2 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-shell-gold" }}
         activeOptions={{ exact: entry.to === "/" }}
-        className="relative whitespace-nowrap rounded-lg px-0.5 py-2 text-[11px] font-medium text-navy/85 transition-colors hover:text-shell-gold"
+        className="relative whitespace-nowrap rounded-lg px-0.5 py-2 text-2xs font-medium text-navy/85 transition-colors hover:text-gold-text"
       >
         {t(entry.label)}
       </Link>
@@ -110,8 +110,8 @@ function DesktopEntry({ entry }: { entry: NavEntry }) {
           aria-haspopup="true"
           onClick={() => setOpen(false)}
           className={cn(
-          "relative flex items-center gap-1 whitespace-nowrap rounded-lg px-0.5 py-2 text-[11px] font-medium transition-colors",
-          open ? "text-shell-gold" : "text-navy/85 hover:text-shell-gold",
+          "relative flex items-center gap-1 whitespace-nowrap rounded-lg px-0.5 py-2 text-2xs font-medium transition-colors",
+          open ? "text-gold-text" : "text-navy/85 hover:text-gold-text",
           active &&
             "font-bold text-navy after:absolute after:inset-x-2 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-shell-gold",
         )}
@@ -126,8 +126,8 @@ function DesktopEntry({ entry }: { entry: NavEntry }) {
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "relative flex items-center gap-1 whitespace-nowrap rounded-lg px-0.5 py-2 text-[11px] font-medium transition-colors",
-          open ? "text-shell-gold" : "text-navy/85 hover:text-shell-gold",
+          "relative flex items-center gap-1 whitespace-nowrap rounded-lg px-0.5 py-2 text-2xs font-medium transition-colors",
+          open ? "text-gold-text" : "text-navy/85 hover:text-gold-text",
           active &&
             "font-bold text-navy after:absolute after:inset-x-2 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-shell-gold",
         )}
@@ -157,7 +157,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 flex flex-col bg-background xl:hidden">
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <span className="font-display text-sm tracking-[0.2em] text-foreground">
-          EGYPTORA <span className="text-gold">HUB</span>
+          EGYPTORA <span className="text-gold-text">HUB</span>
         </span>
         <div className="flex items-center gap-2">
           <NotificationsBell className="sm:hidden" />
@@ -246,9 +246,9 @@ export function MainNav() {
           />
           <span className="block min-w-0 leading-tight">
             <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy">
-              EGYPTORA <span className="text-shell-gold">HUB</span>
+              EGYPTORA <span className="text-gold-text">HUB</span>
             </span>
-            <span className="block whitespace-nowrap text-[9.5px] tracking-[0.06em] text-muted-foreground xl:hidden">
+            <span className="block whitespace-nowrap text-2xs tracking-[0.06em] text-muted-foreground xl:hidden">
               {t(SITE.tagline)}
             </span>
           </span>
@@ -267,7 +267,7 @@ export function MainNav() {
             onClick={() => setSearchOpen((v) => !v)}
             aria-label={t("Search")}
             aria-expanded={searchOpen}
-            className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-gold-line hover:text-gold"
+            className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-gold-line hover:text-gold-text"
           >
             <Search className="size-4" />
           </button>
@@ -304,7 +304,7 @@ export function MainNav() {
             />
             <button
               type="submit"
-              className="shrink-0 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              className="shrink-0 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground"
             >
               {t("Search")}
             </button>

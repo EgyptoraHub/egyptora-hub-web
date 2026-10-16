@@ -113,14 +113,14 @@ export function ReviewBadge({ status, verifiedAt }: { status: MilRecord["review_
   const { t } = useI18n();
   if (status === "verified")
     return (
-      <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[11px] font-semibold text-navy">
+      <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-2xs font-semibold text-navy">
         {t("Verified")}
         {verifiedAt && <span dir="ltr" className="ms-1 font-normal">· {verifiedAt}</span>}
       </span>
     );
   if (status === "editorial_reviewed")
     return (
-      <span className="inline-flex items-center rounded-full border border-gold-line bg-gold-soft px-2.5 py-0.5 text-[11px] font-semibold text-navy">
+      <span className="inline-flex items-center rounded-full border border-gold-line bg-gold-soft px-2.5 py-0.5 text-2xs font-semibold text-navy">
         {t("Under academic review")}
       </span>
     );
@@ -144,7 +144,7 @@ export function TypeBadge({ type }: { type: MilRecord["record_type"] }) {
   const { t } = useI18n();
   if (type === "needs_classification") return null;
   return (
-    <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[11px] font-semibold text-navy">
+    <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-2xs font-semibold text-navy">
       {t(TYPE_LABEL[type])}
     </span>
   );
@@ -163,7 +163,7 @@ export function RecordCard({ r, era }: { r: MilRecord; era?: MilEra | undefined 
       >
         <div className="flex flex-wrap items-center gap-1.5">
           {r.register_no != null && (
-            <span className="rounded-md bg-navy px-1.5 py-0.5 font-mono text-[11px] font-semibold text-primary-foreground" dir="ltr">
+            <span className="rounded-md bg-navy px-1.5 py-0.5 font-mono text-2xs font-semibold text-primary-foreground" dir="ltr">
               #{regNo(r.register_no)}
             </span>
           )}
@@ -202,10 +202,10 @@ export function EraStrip({
         const inner = (
           <>
             <GenImage k={eraImageKey(e)} aiBadge sizes="224px" className="-mx-3 -mt-2 mb-1 aspect-[3/2] w-[calc(100%+1.5rem)] max-w-none rounded-t-xl" />
-            <span className="text-[11px] font-semibold opacity-80">{t("Era")} {e.number.toLocaleString(lang === "ar" ? "ar-EG" : "en")}</span>
+            <span className="text-2xs font-semibold opacity-80">{t("Era")} {e.number.toLocaleString(lang === "ar" ? "ar-EG" : "en")}</span>
             <span className="line-clamp-2 text-sm font-semibold" dir="auto">{bi(e, "name")}</span>
-            <span className="text-[11px] opacity-85" dir="auto">{bi(e, "start_label")}</span>
-            <span className="text-[11px] opacity-85">{recordCount(counts.get(e.id) ?? 0, lang)}</span>
+            <span className="text-2xs opacity-85" dir="auto">{bi(e, "start_label")}</span>
+            <span className="text-2xs opacity-85">{recordCount(counts.get(e.id) ?? 0, lang)}</span>
           </>
         );
         return (

@@ -51,7 +51,7 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
       <Crumbs parent={{ label: "Do Business", to: "/do-business" }} page={page === "free" ? "Free Zones" : "Industrial Zones"} />
       <section className="border-b border-border bg-bg-band">
         <div className={`${innerWrap} py-10`}>
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-shell-gold">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold eyebrow text-gold-text">
             <Factory className="size-4" /> {t("Do Business")}
           </span>
           <h1 className="mt-2 font-display text-3xl font-bold text-navy sm:text-4xl">{ar ? copy.title : t(copy.title)}</h1>
@@ -60,9 +60,9 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
           {(page === "free" ? avail.industrial_zones : avail.free_zones) && (
             <p className="mt-3 text-sm">
               {page === "free" ? (
-                <Link to="/do-business/industrial-zones" className="font-semibold text-navy underline hover:text-shell-gold">{t("Industrial Zones")}</Link>
+                <Link to="/do-business/industrial-zones" className="font-semibold text-navy underline hover:text-gold-text">{t("Industrial Zones")}</Link>
               ) : (
-                <Link to="/do-business/free-zones" className="font-semibold text-navy underline hover:text-shell-gold">{t("Free Zones")}</Link>
+                <Link to="/do-business/free-zones" className="font-semibold text-navy underline hover:text-gold-text">{t("Free Zones")}</Link>
               )}
             </p>
           )}
@@ -120,7 +120,7 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
                     <p dir="auto">{text}</p>
                     <p className="mt-2 text-xs text-text-body">
                       {L(lang, t("Source"), "المصدر")}:{" "}
-                      {f.source_url ? <a href={f.source_url} target="_blank" rel="noopener noreferrer" className="font-semibold text-shell-gold underline">{f.source_name || f.source_url}</a> : <span>{f.source_name}</span>}
+                      {f.source_url ? <a href={f.source_url} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold-text underline">{f.source_name || f.source_url}</a> : <span>{f.source_name}</span>}
                       {f.source_date ? <> · {f.source_date}</> : null}
                     </p>
                   </li>
@@ -144,7 +144,7 @@ function SourceLine({ lang, url, date, dateLabel }: { lang: string; url: string 
       {url ? (
         <>
           {L(lang, "Source", "المصدر")}:{" "}
-          <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-shell-gold underline">
+          <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-gold-text underline">
             {host} <ExternalLink className="size-3" />
           </a>
         </>

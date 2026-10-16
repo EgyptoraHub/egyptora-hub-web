@@ -148,7 +148,7 @@ function EntityRow({ entity }: { entity: GovEntity }) {
               href={entity.official_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center gap-2 rounded-xl bg-gold px-4 py-2.5 text-xs font-semibold text-primary-foreground"
+              className="inline-flex w-fit items-center gap-2 rounded-xl bg-gold px-4 py-2.5 text-xs font-semibold text-gold-foreground"
             >
               {t("Visit Official Website")} <ExternalLink className="size-3.5" />
             </a>
@@ -268,7 +268,7 @@ function FindServicesForm({ categories, onSearch }: { categories: string[]; onSe
         <option value="">{t("Service Type")}</option>
         {services.map((s) => <option key={s.label} value={s.label}>{t(s.label)}</option>)}
       </select>
-      <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-primary-foreground">
+      <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground">
         <Search className="size-4" /> {t("Search")}
       </button>
     </form>
@@ -342,7 +342,7 @@ function GovernmentDirectoryPage() {
                 ["Verified", entities.filter((e) => e.verification_status === "Verified").length],
               ].map(([l, v]) => (
                 <div key={l} className="rounded-lg bg-bg-band p-2">
-                  <dt className="text-[10px] uppercase text-text-body">{t(String(l))}</dt>
+                  <dt className="text-2xs uppercase text-text-body">{t(String(l))}</dt>
                   <dd className="font-display text-xl font-bold text-navy">{v}</dd>
                 </div>
               ))}
@@ -383,7 +383,7 @@ function GovernmentDirectoryPage() {
               href={DS}
               className="flex items-center gap-2.5 rounded-[10px] border border-border bg-card px-3 py-3 text-xs font-semibold text-navy shadow-sm transition-colors hover:border-shell-gold"
             >
-              <s.Icon className="size-4 shrink-0 text-shell-gold" />
+              <s.Icon className="size-4 shrink-0 text-gold-text" />
               <span className="min-w-0">{t(s.label)}</span>
             </a>
           ))}
@@ -398,7 +398,7 @@ function GovernmentDirectoryPage() {
             {[filter.cat, filter.gov, filter.type].filter(Boolean).map((x) => (
               <span key={x} className="rounded-full bg-card px-2.5 py-0.5 text-xs">{t(x)}</span>
             ))}
-            <button type="button" onClick={() => setFilter(null)} className="ms-auto text-xs font-semibold text-shell-gold underline">
+            <button type="button" onClick={() => setFilter(null)} className="ms-auto text-xs font-semibold text-gold-text underline">
               {t("Clear filters")}
             </button>
           </div>
@@ -417,7 +417,7 @@ function GovernmentDirectoryPage() {
                 <div key={c.en} id={c.slug} className="grid scroll-mt-28 gap-4">
                   <div className="flex items-center gap-3 border-b border-border pb-3">
                     <GenImage k={categoryImage(c.en)} decorative sizes="64px" className="h-10 w-16 shrink-0 rounded-md" />
-                    <Icon className="size-5 text-shell-gold" />
+                    <Icon className="size-5 text-gold-text" />
                     <h3 className="font-display text-lg font-bold text-navy sm:text-xl">{t(c.en)}</h3>
                     <span className="ms-auto text-xs text-text-body">{rows.length}</span>
                   </div>

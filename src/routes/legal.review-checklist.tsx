@@ -46,13 +46,13 @@ function ReviewChecklist() {
             )}
           />
 
-          <div className="rounded-2xl border border-gold-line bg-gold/5 p-5 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+          <div className="rounded-2xl border border-gold-line bg-gold/5 p-5 text-xs font-semibold eyebrow text-gold-text">
             {t(LEGAL_DRAFT_NOTICE)}
           </div>
 
           <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
             <table className="w-full min-w-[720px] text-left text-sm">
-              <thead className="bg-sidebar text-[11px] uppercase tracking-[0.16em] text-gold/80">
+              <thead className="bg-sidebar text-2xs eyebrow text-gold-text">
                 <tr>
                   <th className="px-4 py-3">#</th>
                   <th className="px-4 py-3">{t("Document")}</th>
@@ -66,13 +66,13 @@ function ReviewChecklist() {
                   <tr key={d.slug} className="border-t border-border bg-card">
                     <td className="px-4 py-3 text-muted-foreground">{String(d.index).padStart(2, "0")}</td>
                     <td className="px-4 py-3">
-                      <Link to="/legal/$slug" params={{ slug: d.slug }} className="text-foreground hover:text-gold">
+                      <Link to="/legal/$slug" params={{ slug: d.slug }} className="text-foreground hover:text-gold-text">
                         {t(d.title)}
                       </Link>
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">v{d.version}</td>
                     <td className="px-4 py-3 text-muted-foreground">{t(d.status)}</td>
-                    <td className="px-4 py-3 text-gold">
+                    <td className="px-4 py-3 text-gold-text">
                       {d.counselReviewRequired ? t("Required") : t("Not required")}
                     </td>
                   </tr>
@@ -87,7 +87,7 @@ function ReviewChecklist() {
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {external.map((d) => (
               <div key={d.slug} className="rounded-2xl border border-border bg-card p-5">
-                <Link to="/legal/$slug" params={{ slug: d.slug }} className="font-display text-base text-foreground hover:text-gold">
+                <Link to="/legal/$slug" params={{ slug: d.slug }} className="font-display text-base text-foreground hover:text-gold-text">
                   {t(d.title)}
                 </Link>
                 <ul className="mt-3 space-y-1.5">

@@ -289,7 +289,7 @@ function AccountPage() {
       <div className="min-h-screen bg-background">
         <SiteHeader />
         <Container className="grid place-items-center py-24">
-          <Loader2 className="size-6 animate-spin text-gold" />
+          <Loader2 className="size-6 animate-spin text-gold-text" />
         </Container>
         <SiteFooter />
       </div>
@@ -303,30 +303,30 @@ function AccountPage() {
       <SiteHeader />
 
       <Container className="py-8 lg:py-12">
-        <div className="mb-5 flex items-center gap-2.5 rounded-xl border border-gold-line/50 bg-gold-soft px-4 py-3 text-xs text-gold">
+        <div className="mb-5 flex items-center gap-2.5 rounded-xl border border-gold-line/50 bg-gold-soft px-4 py-3 text-xs text-gold-text">
           <Info className="size-4 shrink-0" />
           {t("Rewards points and membership tiers are still preview values — your trips and reviews below are real.")}
         </div>
 
         {/* Identity header */}
         <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-gold-line/50 bg-gold-soft p-5 lg:p-6">
-          <div className="grid size-16 place-items-center rounded-full bg-gold text-xl font-bold text-primary-foreground">
+          <div className="grid size-16 place-items-center rounded-full bg-gold text-xl font-bold text-gold-foreground">
             {name.slice(0, 1).toUpperCase()}
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] uppercase tracking-[0.24em] text-gold/80">{t("My profile")}</p>
+            <p className="text-2xs eyebrow text-gold-text">{t("My profile")}</p>
             <h1 className="truncate font-display text-2xl text-foreground lg:text-3xl">{name}</h1>
             <p className="truncate text-sm text-muted-foreground" dir="ltr">
               {profile.email}
             </p>
-            <p className="mt-1 inline-flex rounded-full border border-gold-line/60 px-2.5 py-0.5 text-[11px] text-gold">
+            <p className="mt-1 inline-flex rounded-full border border-gold-line/60 px-2.5 py-0.5 text-2xs text-gold-text">
               {t(ACCOUNT_TYPE_LABEL[toAccountType(profile.account_type)])}
             </p>
           </div>
           <div className="ms-auto flex flex-wrap items-center gap-2">
             <Link
               to="/saved"
-              className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:border-gold-line hover:text-gold"
+              className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:border-gold-line hover:text-gold-text"
             >
               <Star className="size-4" />
               {t("Saved items")}
@@ -334,7 +334,7 @@ function AccountPage() {
             {isAdmin && (
               <Link
                 to="/admin"
-                className="flex items-center gap-2 rounded-full border border-gold-line bg-gold-soft px-4 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold/15"
+                className="flex items-center gap-2 rounded-full border border-gold-line bg-gold-soft px-4 py-2.5 text-sm font-semibold text-gold-text transition-colors hover:bg-gold/15"
               >
                 <Settings className="size-4" />
                 {t("Admin Dashboard")}
@@ -352,7 +352,7 @@ function AccountPage() {
             <button
               type="button"
               onClick={() => void handleSignOut()}
-              className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-gold-line hover:text-gold"
+              className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-gold-line hover:text-gold-text"
             >
               <LogOut className="size-4" />
               {t("Sign out")}
@@ -381,7 +381,7 @@ function AccountPage() {
               className={cn(
                 "rounded-full border px-4 py-2 text-sm transition-colors",
                 tab === key
-                  ? "border-gold-line bg-gold-soft text-gold"
+                  ? "border-gold-line bg-gold-soft text-gold-text"
                   : "border-border text-muted-foreground hover:text-foreground",
               )}
             >
@@ -437,8 +437,8 @@ function StatCard({
 }) {
   return (
     <div className="rounded-2xl border border-border bg-card/60 p-5">
-      <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-        <Icon className="size-4 text-gold" />
+      <div className="flex items-center gap-2 text-2xs eyebrow text-muted-foreground">
+        <Icon className="size-4 text-gold-text" />
         {label}
       </div>
       <p className="mt-3 font-display text-3xl text-foreground">{value}</p>
@@ -462,7 +462,7 @@ function LiveTripCard({ trip }: { trip: Trip }) {
     <article className="rounded-2xl border border-border bg-card/60 p-5 lg:p-6">
       <div className="flex flex-wrap items-start gap-3">
         <div className="min-w-0">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-gold/80">{trip.reference}</p>
+          <p className="text-2xs eyebrow text-gold-text">{trip.reference}</p>
           <h3 className="font-display text-xl text-foreground">{t(trip.title)}</h3>
           <p className="mt-1 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
@@ -492,7 +492,7 @@ function LiveTripCard({ trip }: { trip: Trip }) {
               key={stage}
               className={cn(
                 "rounded-lg border px-2.5 py-2 text-center",
-                i <= stageIndex ? "border-gold-line bg-gold-soft text-gold" : "border-border text-muted-foreground",
+                i <= stageIndex ? "border-gold-line bg-gold-soft text-gold-text" : "border-border text-muted-foreground",
               )}
             >
               {t(stage)}
@@ -520,22 +520,22 @@ function PastTripCard({
   return (
     <article className="grid gap-5 rounded-2xl border border-border bg-card/60 p-5 lg:grid-cols-[1fr_320px] lg:p-6">
       <div>
-        <p className="text-[11px] uppercase tracking-[0.2em] text-gold/80">{trip.reference}</p>
+        <p className="text-2xs eyebrow text-gold-text">{trip.reference}</p>
         <h3 className="font-display text-xl text-foreground">{t(trip.title)}</h3>
         <p className="mt-1 text-xs text-muted-foreground">
           {t(trip.destination)} · {trip.start_date} → {trip.end_date}
         </p>
         <p className="mt-3 text-sm text-muted-foreground">
-          {t("Points earned")}: <span className="text-gold">{trip.points_earned}</span>
+          {t("Points earned")}: <span className="text-gold-text">{trip.points_earned}</span>
         </p>
       </div>
 
       <div className="rounded-xl border border-gold-line/40 bg-gold-soft p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold/80">{t("Rate this trip")}</p>
+        <p className="text-xs font-semibold eyebrow text-gold-text">{t("Rate this trip")}</p>
         <div className="mt-2 flex gap-1">
           {[1, 2, 3, 4, 5].map((n) => (
             <button key={n} onClick={() => setRating(n)} aria-label={`${n}`}>
-              <Star className={cn("size-5", n <= rating ? "fill-gold text-gold" : "text-muted-foreground")} />
+              <Star className={cn("size-5", n <= rating ? "fill-gold text-gold-text" : "text-muted-foreground")} />
             </button>
           ))}
         </div>
@@ -548,7 +548,7 @@ function PastTripCard({
         />
         <button
           onClick={() => onSave(trip.id, rating, comment)}
-          className="mt-3 w-full rounded-lg bg-gold py-2 text-sm font-semibold text-primary-foreground"
+          className="mt-3 w-full rounded-lg bg-gold py-2 text-sm font-semibold text-gold-foreground"
         >
           {t(review ? "Update review" : "Submit review")}
         </button>
@@ -591,7 +591,7 @@ function SettingsPanel({
     <div className="grid gap-5 lg:grid-cols-[1fr_340px]">
       <div className="rounded-2xl border border-border bg-card/60 p-5 lg:p-6">
         <h3 className="flex items-center gap-2 font-display text-lg text-foreground">
-          <Settings className="size-4 text-gold" />
+          <Settings className="size-4 text-gold-text" />
           {t("Account details")}
         </h3>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -645,7 +645,7 @@ function SettingsPanel({
         <button
           onClick={() => onSave(form)}
           disabled={saving}
-          className="mt-6 flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+          className="mt-6 flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-gold-foreground disabled:opacity-60"
         >
           {saving && <Loader2 className="size-4 animate-spin" />}
           {t("Save changes")}
@@ -653,7 +653,7 @@ function SettingsPanel({
       </div>
 
       <aside className="rounded-2xl border border-gold-line/50 bg-gold-soft p-5">
-        <p className="font-display text-lg text-gold">{t("Egyptora Hub Pass")}</p>
+        <p className="font-display text-lg text-gold-text">{t("Egyptora Hub Pass")}</p>
         <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
           {t("One digital pass for attractions, rewards and partner benefits.")}
         </p>
@@ -661,7 +661,7 @@ function SettingsPanel({
           {["Priority museum entry", "Member-only hotel rates", "Free airport meet & assist", "Points on every booking"].map(
             (b) => (
               <li key={b} className="flex items-start gap-2">
-                <BadgeCheck className="mt-0.5 size-4 shrink-0 text-gold" />
+                <BadgeCheck className="mt-0.5 size-4 shrink-0 text-gold-text" />
                 {t(b)}
               </li>
             ),
@@ -669,7 +669,7 @@ function SettingsPanel({
         </ul>
         <a
           href={mailto("Egyptora Hub — 24/7 traveller support")}
-          className="mt-5 flex items-center justify-center gap-2 rounded-lg border border-gold-line py-2 text-sm text-gold"
+          className="mt-5 flex items-center justify-center gap-2 rounded-lg border border-gold-line py-2 text-sm text-gold-text"
         >
           <Phone className="size-4" />
           {t("24/7 Support")}
@@ -685,7 +685,7 @@ function SettingsPanel({
 function Labelled({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="grid gap-1.5">
-      <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{label}</span>
+      <span className="text-2xs eyebrow text-muted-foreground">{label}</span>
       {children}
     </label>
   );

@@ -128,7 +128,7 @@ function OpportunityDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <Landmark className="size-6 shrink-0 text-gold" />
+            <Landmark className="size-6 shrink-0 text-gold-text" />
             {t(opportunity.name)}
           </h1>
           <SourceBadge status="DEMO" />
@@ -136,11 +136,11 @@ function OpportunityDetailPage() {
 
         {opportunity.governorate_slug && (
           <p className="mt-3 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-            <MapPin className="size-4 text-gold/70" />
+            <MapPin className="size-4 text-gold-text" />
             <Link
               to="/governorates/$id"
               params={{ id: opportunity.governorate_slug }}
-              className="hover:text-gold"
+              className="hover:text-gold-text"
             >
               {t(govName(opportunity.governorate_slug))}
             </Link>
@@ -169,7 +169,7 @@ function OpportunityDetailPage() {
                 opportunity.investment_max_usd,
                 locale,
               ) && (
-                <span className="flex items-center gap-1.5 text-gold">
+                <span className="flex items-center gap-1.5 text-gold-text">
                   <TrendingUp className="size-3.5" />
                   {formatRange(
                     opportunity.investment_min_usd,
