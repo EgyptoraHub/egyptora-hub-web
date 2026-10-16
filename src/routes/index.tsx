@@ -1,3 +1,4 @@
+import { ArrowCta } from "@/components/layout/InnerPage";
 import { useState, type ComponentType, type SVGProps } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
 import { altForSrc } from "@/lib/generated-images";
@@ -116,31 +117,6 @@ function Home() {
 
 /* ---------- shared bits ---------- */
 
-function ArrowCta({ to, label }: { to?: string | undefined; label: string }) {
-  const { t } = useI18n();
-  // Coming-soon card (nav item is `soon`): inert, same toast as the menu.
-  if (!to)
-    return (
-      <button
-        type="button"
-        onClick={() => toast(t("Coming soon"))}
-        aria-label={`${label} — ${t("Coming soon")}`}
-        className="grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
-      >
-        <ArrowRight className="size-4 rtl:rotate-180" />
-      </button>
-    );
-  return (
-    <Link
-      to={L(to)}
-      aria-label={label}
-      className="grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-gold-foreground shadow-sm transition-transform hover:scale-105"
-    >
-      <ArrowRight className="size-4 rtl:rotate-180" />
-    </Link>
-  );
-}
-
 function NavyBadge({ children }: { children: React.ReactNode }) {
   return (
     <span className="absolute start-2 top-2 rounded-full bg-navy px-2.5 py-0.5 text-2xs font-semibold text-primary-foreground">
@@ -156,7 +132,7 @@ function ViewAll({ to }: { to: string }) {
       to={L(to)}
       className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-gold-text"
     >
-      {t("View All")} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
+      {t("View all")} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
     </Link>
   );
 }

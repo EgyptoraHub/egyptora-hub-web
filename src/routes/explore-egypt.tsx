@@ -112,7 +112,7 @@ function ExploreEgypt() {
           </SidePanel>
           <NavyPromo>
             <p className="text-xs eyebrow text-gold-text">{t("Explore on the Go")}</p>
-            <p className="mt-1 font-display text-xl font-bold">{t("Download EGYPTORA App")}</p>
+            <p className="mt-1 font-display text-xl font-bold">{t("Download the Egyptora Hub app")}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {["App Store", "Google Play"].map((s) => (
                 <span key={s} className="rounded-lg border border-foreground/30 px-3 py-1.5 text-xs font-semibold">

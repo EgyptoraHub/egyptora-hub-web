@@ -17,7 +17,7 @@ export const Route = createFileRoute("/trust-center")({
 const SECTIONS: { id: string; title: string; body: string; link?: { label: string; slug: string } }[] = [
   { id: "security", title: "Security", body: "Accounts use secure sign-in, and access to personal records is limited to the account owner and authorised staff. Detailed security practices will be published here." },
   { id: "privacy", title: "Privacy", body: "We collect only what is needed to run your account, trips and requests. Read the full privacy policy for details.", link: { label: "Privacy Policy", slug: "privacy" } },
-  { id: "ai", title: "AI Transparency", body: "The EGYPTORA AI concierge is an automated assistant, not a human or a government official. Its answers are not legal, medical or investment advice.", link: { label: "AI Transparency Policy", slug: "ai-transparency" } },
+  { id: "ai", title: "AI Transparency", body: "The Egyptora AI concierge is an automated assistant, not a human or a government official. Its answers are not legal, medical or investment advice.", link: { label: "AI Transparency Policy", slug: "ai-transparency" } },
   { id: "verification", title: "Verification", body: "Listings carry a status label showing whether their information is verified, pending review or demo content. Formal partner verification is planned." },
   { id: "data-sources", title: "Data Sources", body: "Content is compiled from official government portals, public sources and partners, and is labelled with its source where available. Photos are credited on the Photo Credits page." },
   { id: "partners", title: "Partner Disclosure", body: "Some listings and booking tools come from commercial partners, and we may earn a commission. Partner content is labelled as such." },

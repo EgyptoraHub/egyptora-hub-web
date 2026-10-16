@@ -110,7 +110,7 @@ function DigitalServices() {
       }
       bottom={
         <div className="grid gap-4 md:grid-cols-2">
-          <AppPromoCard eyebrow="Services on the Go" title="Download EGYPTORA App" />
+          <AppPromoCard eyebrow="Services on the Go" title="Download the Egyptora Hub app" />
           <BandPromo Icon={Headphones} title="Need Help?" body="Not sure which service or portal you need? Our team can point you in the right direction." cta="Contact Us" to="/contact" />
         </div>
       }

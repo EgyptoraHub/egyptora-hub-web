@@ -204,7 +204,7 @@ export function FloatingConcierge() {
             />
             <span className="min-w-0">
               <span className="block truncate font-display text-sm text-gold-text">
-                EGYPTORA AI
+                Egyptora AI
               </span>
               <span className="block truncate text-2xs text-muted-foreground">
                 {t("Your personal assistant for everything Egypt")}

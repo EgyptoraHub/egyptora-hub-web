@@ -139,7 +139,7 @@ function RealEstate() {
               </GoldButton>
             </div>
           </section>
-          <AppPromoCard eyebrow="Browse on the Go" title="Download EGYPTORA App" />
+          <AppPromoCard eyebrow="Browse on the Go" title="Download the Egyptora Hub app" />
         </div>
       }
     >

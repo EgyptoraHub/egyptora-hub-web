@@ -19,7 +19,7 @@ function MaintenancePage() {
           {SITE.name}
         </p>
         <h1 className="mt-4 font-display text-4xl leading-tight text-foreground sm:text-5xl">
-          {t("This Page Not Available")}
+          {t("This page is not available")}
         </h1>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
           {t("We are performing scheduled maintenance. The platform will be back shortly.")}
@@ -92,7 +92,7 @@ export function MaintenanceGate({ children }: { children: ReactNode }) {
           window.location.reload();
         }}
         className="fixed bottom-4 start-4 z-[60] rounded-full border border-gold-line bg-gold-soft px-4 py-2 text-xs font-semibold text-gold-text shadow-lg"
-        title="Maintenance Mode is ON — click to exit owner preview"
+        title={t("Maintenance Mode is ON — click to exit owner preview")}
       >
         Maintenance Mode
       </button>

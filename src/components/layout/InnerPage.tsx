@@ -64,7 +64,7 @@ export function ArrowCta({ to, label }: { to?: string | undefined; label: string
         type="button"
         onClick={() => toast(t("Coming soon"))}
         aria-label={`${label} — ${t("Coming soon")}`}
-        className="grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
+        className="hit-44 grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
       >
         <ArrowRight className="size-4 rtl:rotate-180" />
       </button>
@@ -73,7 +73,7 @@ export function ArrowCta({ to, label }: { to?: string | undefined; label: string
     <SmartLink
       to={to}
       label={label}
-      className="grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-gold-foreground shadow-sm transition-transform hover:scale-105"
+      className="hit-44 grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-gold-foreground shadow-sm transition-transform hover:scale-105"
     >
       <ArrowRight className="size-4 rtl:rotate-180" />
     </SmartLink>
@@ -88,7 +88,7 @@ export function NavyBadge({ children }: { children: ReactNode }) {
   );
 }
 
-export function ViewAll({ to, label = "View All" }: { to: string; label?: string | undefined }) {
+export function ViewAll({ to, label = "View all" }: { to: string; label?: string | undefined }) {
   const { t, lang } = useI18n();
   return (
     <SmartLink
@@ -581,7 +581,7 @@ export function CircleTile({ label, Icon: I, to }: { label: string; Icon: Icon; 
 }
 
 /** Dark navy app-download promo used in bottom banner rows. */
-export function AppPromoCard({ eyebrow = "Explore on the Go", title = "Download EGYPTORA App" }: { eyebrow?: string; title?: string }) {
+export function AppPromoCard({ eyebrow = "Explore on the Go", title = "Download the Egyptora Hub app" }: { eyebrow?: string; title?: string }) {
   const { t, lang } = useI18n();
   return (
     <section className="on-dark rounded-[10px] bg-navy p-6">
