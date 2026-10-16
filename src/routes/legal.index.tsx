@@ -95,12 +95,6 @@ function LegalCenter() {
             >
               {t("Open the Consent Centre")}
             </Link>
-            <Link
-              to="/legal/review-checklist"
-              className="rounded-xl border border-border bg-card px-5 py-3 text-sm text-foreground transition-colors hover:border-gold-line"
-            >
-              {t("Legal review checklist")}
-            </Link>
           </div>
         </Section>
 

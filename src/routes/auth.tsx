@@ -26,6 +26,7 @@ export const Route = createFileRoute("/auth")({
         content: "One account for trips, live status, rewards and 24/7 traveller support in Egypt.",
       },
       { property: "og:type", content: "website" },
+      { name: "robots", content: "noindex" },
       { property: "og:url", content: `${SITE.url}/auth` },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: `${SITE.url}/og-banner.jpg` },
