@@ -1,4 +1,4 @@
-import { GenBanner, GenImage } from "@/components/site/GenImage";
+import { GenImage } from "@/components/site/GenImage";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   LayoutDashboard, Rocket, FileCheck2, Scale, BadgePercent, PieChart, LifeBuoy, Factory, Gavel,

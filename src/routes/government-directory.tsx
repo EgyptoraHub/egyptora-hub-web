@@ -1,4 +1,4 @@
-import { GenBanner, GenImage } from "@/components/site/GenImage";
+import { GenImage } from "@/components/site/GenImage";
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
