@@ -79,7 +79,6 @@ export function MaintenanceGate({ children }: { children: ReactNode }) {
   if (!bypass) return <MaintenancePage />;
 
   const { t } = useI18n();
-  return (
     <>
       {children}
       <button
