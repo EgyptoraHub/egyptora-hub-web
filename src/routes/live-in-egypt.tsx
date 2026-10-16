@@ -115,12 +115,12 @@ function LiveInEgypt() {
           <SidePanel title="Quick Tools">
             <LinkList
               items={[
-                { label: "Visa Information", to: GD, Icon: Stamp },
-                { label: "Cost of Living Calculator", to: "/properties", Icon: Calculator },
+                { label: "Visa Information", Icon: Stamp },
+                { label: "Cost of Living Calculator", Icon: Calculator },
                 { label: "International Schools Directory", to: "/research-programs", Icon: School },
-                { label: "Hospitals & Clinics Near You", to: "/providers", Icon: Hospital },
-                { label: "Public Transportation Guide", to: GD, Icon: TrainFront },
-                { label: "Emergency Contacts", to: "/contact", Icon: Phone },
+                { label: "Hospitals & Clinics Near You", Icon: Hospital },
+                { label: "Public Transportation Guide", Icon: TrainFront },
+                { label: "Emergency Contacts", to: "/emergency-numbers", Icon: Phone },
               ]}
             />
           </SidePanel>

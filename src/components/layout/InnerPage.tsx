@@ -46,8 +46,11 @@ export function SmartLink({
         {children}
       </a>
     );
+  // "/path?key=value" → typed search params, so filters (e.g. ?sector=) survive the router.
+  const [path, qs] = to.split("?");
+  const search = qs ? Object.fromEntries(new URLSearchParams(qs)) : undefined;
   return (
-    <Link to={L(to)} aria-label={label} className={className}>
+    <Link to={L(path)} search={search as never} aria-label={label} className={className}>
       {children}
     </Link>
   );
@@ -217,12 +220,23 @@ export function SidePanel({ title, body, children }: { title: string; body?: str
   );
 }
 
-export function LinkList({ items }: { items: { label: string; to: string; Icon?: Icon }[] }) {
+export function LinkList({ items }: { items: { label: string; to?: string | undefined; Icon?: Icon }[] }) {
   const { t, lang } = useI18n();
   return (
     <ul className="divide-y divide-border">
       {items.map((i) => (
         <li key={i.label}>
+          {!i.to ? (
+            <button
+              type="button"
+              onClick={() => toast(t("Coming soon"))}
+              className="flex w-full cursor-default items-center gap-3 py-2.5 text-start text-sm text-muted-foreground"
+            >
+              {i.Icon && <i.Icon className="size-4 shrink-0 text-muted-foreground" />}
+              <span className="flex-1">{t(i.label)}</span>
+              <span className="rounded-full border border-border px-1.5 py-0.5 text-[9px] font-semibold uppercase">{t("Coming soon")}</span>
+            </button>
+          ) : (
           <SmartLink
             to={i.to}
             className="flex items-center gap-3 py-2.5 text-sm text-navy transition-colors hover:text-shell-gold"
@@ -231,6 +245,7 @@ export function LinkList({ items }: { items: { label: string; to: string; Icon?:
             <span className="flex-1">{t(i.label)}</span>
             <ChevronRight className="size-4 text-text-body rtl:rotate-180" />
           </SmartLink>
+          )}
         </li>
       ))}
     </ul>

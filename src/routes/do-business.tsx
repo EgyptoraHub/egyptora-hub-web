@@ -79,7 +79,7 @@ const services: CardItem[] = [
   { title: "Licenses & Permits", desc: "Find required licenses and procedures.", img: licenses },
   { title: "Investment Incentives", desc: "Explore incentives and support programs.", img: incentives, to: IO },
   { title: "Tenders & Projects", desc: "Government and private sector opportunities.", img: tenders },
-  { title: "Trade & Export", desc: "Access export services and international markets.", img: trade, to: IO },
+  { title: "Trade & Export", desc: "Access export services and international markets.", img: trade, to: "/products" },
   { title: "Business Support", desc: "Find advisory, legal and financial support.", img: support, to: "/providers" },
 ];
 
