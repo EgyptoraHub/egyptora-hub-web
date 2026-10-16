@@ -4,6 +4,8 @@
  * switcher translates it site-wide.
  */
 import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc } from "@/lib/generated-images";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Info, Search } from "lucide-react";
 import { toast } from "sonner";
@@ -139,7 +141,8 @@ export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
     <article className="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
       {c.img && (
         <div className={cn("relative overflow-hidden", h)}>
-          <img src={c.img} alt={t(c.title)} loading="lazy" className="size-full object-cover" />
+          <img src={c.img} alt={altForSrc(c.img, lang, t(c.title))} loading="lazy" className="size-full object-cover" />
+          <AiBadge src={c.img} />
           {c.badge && <NavyBadge>{t(c.badge)}</NavyBadge>}
           <SaveButton
             variant="icon"

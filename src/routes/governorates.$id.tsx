@@ -1,4 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc } from "@/lib/generated-images";
 import type { ReactNode } from "react";
 import { ArrowRight, Bot, Clock, Landmark, MapPin, Sparkles, UtensilsCrossed, Shirt } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -202,11 +204,12 @@ function GovernoratePage() {
         <section className="relative">
           <img
             src={profile.image}
-            alt={`${gov.name} — ${profile.tagline.en}`}
+            alt={altForSrc(profile.image, lang, `${gov.name} — ${profile.tagline.en}`)}
             width={1280}
             height={720}
             className="h-[40vh] min-h-[300px] w-full object-cover lg:h-[50vh]"
           />
+          <AiBadge src={profile.image} className="bottom-auto top-2" />
           <div
             className="absolute inset-0"
             style={{
@@ -464,12 +467,13 @@ function CardGrid({ cards, empty }: { cards: Card[]; empty: string }) {
               <div className="relative h-40 overflow-hidden">
                 <img
                   src={img}
-                  alt={c.name}
+                  alt={altForSrc(img, lang, c.name)}
                   loading="lazy"
                   width={1280}
                   height={720}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                <AiBadge src={img} />
               </div>
             ) : (
               <div className="flex h-20 items-center justify-center bg-surface-2">

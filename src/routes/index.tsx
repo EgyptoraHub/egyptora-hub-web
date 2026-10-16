@@ -1,4 +1,6 @@
 import { useState, type ComponentType, type SVGProps } from "react";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc } from "@/lib/generated-images";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -165,7 +167,8 @@ function ImgCard({ c, h = "h-32" }: { c: CardData; h?: string }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
       <div className={cn("relative overflow-hidden", h)}>
-        <img src={c.img} alt={t(c.title)} loading="lazy" className="size-full object-cover" />
+        <img src={c.img} alt={altForSrc(c.img, lang, t(c.title))} loading="lazy" className="size-full object-cover" />
+        <AiBadge src={c.img} />
         {c.badge && <NavyBadge>{t(c.badge)}</NavyBadge>}
         <SaveButton
           variant="icon"
@@ -674,7 +677,10 @@ function NewsApp() {
           <div className="grid gap-4 sm:grid-cols-3">
             {news.map((n) => (
               <article key={n.title} className="overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
-                <img src={n.img} alt={t(n.title)} loading="lazy" className="h-36 w-full object-cover" />
+                <div className="relative">
+                  <img src={n.img} alt={altForSrc(n.img, lang, t(n.title))} loading="lazy" className="h-36 w-full object-cover" />
+                  <AiBadge src={n.img} />
+                </div>
                 <div className="p-4">
                   <span className="rounded-full bg-bg-band px-2.5 py-0.5 text-[10px] font-semibold uppercase text-navy">
                     {t(n.tag)}
