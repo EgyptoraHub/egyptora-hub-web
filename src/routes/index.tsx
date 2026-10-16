@@ -44,7 +44,6 @@ import newsRedSeaImg from "@/assets/home/news-redsea.jpg";
 import phonesImg from "@/assets/generated/ill-egypt-apps.webp";
 import worldImg from "@/assets/generated/card-infrastructure-suez.webp";
 import globeImg from "@/assets/generated/ill-global-network.webp";
-import vision2030Logo from "@/assets/vision-2030.png";
 import { BookingSearch } from "@/components/site/BookingSearch";
 import { SaveButton } from "@/components/site/SaveButton";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -480,12 +479,8 @@ function Vision2030() {
         <div className="hidden h-full w-px bg-border lg:block" />
         <div className="mx-auto flex w-full max-w-[260px] flex-col items-center gap-4">
           <div className="w-full overflow-hidden rounded-[10px] border border-shell-gold/60 bg-background p-3">
-            <img
-              src={vision2030Logo}
-              alt="Egypt Vision 2030 official logo"
-              loading="lazy"
-              className="mx-auto h-44 w-full scale-125 object-contain"
-            />
+            {/* Logo removed until written permission exists; text mention only. */}
+            <p className="grid h-44 place-items-center text-center font-display text-2xl font-bold text-navy">{t("Egypt Vision 2030")}</p>
           </div>
           <Link
             to="/legal"
