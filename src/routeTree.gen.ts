@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -60,6 +61,8 @@ import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
 import { Route as DoBusinessFreeZonesRouteImport } from './routes/do-business_.free-zones'
 import { Route as DoBusinessIndustrialZonesRouteImport } from './routes/do-business_.industrial-zones'
+import { Route as DoBusinessLicensesPermitsRouteImport } from './routes/do-business_.licenses-permits'
+import { Route as DoBusinessStartABusinessRouteImport } from './routes/do-business_.start-a-business'
 import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
 import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/egypt-through-time_.military-history'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
@@ -75,6 +78,12 @@ import { Route as LegalIndexRouteImport } from './routes/legal.index'
 import { Route as LegalSlugRouteImport } from './routes/legal.$slug'
 import { Route as LegalConsentRouteImport } from './routes/legal.consent'
 import { Route as LegalReviewChecklistRouteImport } from './routes/legal.review-checklist'
+import { Route as LiveInEgyptHealthcareRouteImport } from './routes/live-in-egypt_.healthcare'
+import { Route as LiveInEgyptResidencyVisasRouteImport } from './routes/live-in-egypt_.residency-visas'
+import { Route as LiveInEgyptSafetySecurityRouteImport } from './routes/live-in-egypt_.safety-security'
+import { Route as LiveInEgyptTransportationRouteImport } from './routes/live-in-egypt_.transportation'
+import { Route as LiveInEgyptUtilitiesServicesRouteImport } from './routes/live-in-egypt_.utilities-services'
+import { Route as LiveInEgyptWorkEmploymentRouteImport } from './routes/live-in-egypt_.work-employment'
 import { Route as LiveLikeAnEgyptianSectionRouteImport } from './routes/live-like-an-egyptian_.$section'
 import { Route as MarketplaceIndexRouteImport } from './routes/marketplace.index'
 import { Route as MarketplaceEgyptianCottonRouteImport } from './routes/marketplace.egyptian-cotton'
@@ -114,6 +123,11 @@ import { Route as EgyptThroughTimeMilitaryHistoryRecordsSlugRouteImport } from '
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountRoute = AccountRouteImport.update({
@@ -368,6 +382,18 @@ const DoBusinessIndustrialZonesRoute =
     path: '/do-business/industrial-zones',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DoBusinessLicensesPermitsRoute =
+  DoBusinessLicensesPermitsRouteImport.update({
+    id: '/do-business_/licenses-permits',
+    path: '/do-business/licenses-permits',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DoBusinessStartABusinessRoute =
+  DoBusinessStartABusinessRouteImport.update({
+    id: '/do-business_/start-a-business',
+    path: '/do-business/start-a-business',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EgyptAppsCategoryRoute = EgyptAppsCategoryRouteImport.update({
   id: '/egypt-apps_/$category',
   path: '/egypt-apps/$category',
@@ -447,6 +473,41 @@ const LegalReviewChecklistRoute = LegalReviewChecklistRouteImport.update({
   path: '/legal/review-checklist',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LiveInEgyptHealthcareRoute = LiveInEgyptHealthcareRouteImport.update({
+  id: '/live-in-egypt_/healthcare',
+  path: '/live-in-egypt/healthcare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveInEgyptResidencyVisasRoute =
+  LiveInEgyptResidencyVisasRouteImport.update({
+    id: '/live-in-egypt_/residency-visas',
+    path: '/live-in-egypt/residency-visas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LiveInEgyptSafetySecurityRoute =
+  LiveInEgyptSafetySecurityRouteImport.update({
+    id: '/live-in-egypt_/safety-security',
+    path: '/live-in-egypt/safety-security',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LiveInEgyptTransportationRoute =
+  LiveInEgyptTransportationRouteImport.update({
+    id: '/live-in-egypt_/transportation',
+    path: '/live-in-egypt/transportation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LiveInEgyptUtilitiesServicesRoute =
+  LiveInEgyptUtilitiesServicesRouteImport.update({
+    id: '/live-in-egypt_/utilities-services',
+    path: '/live-in-egypt/utilities-services',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LiveInEgyptWorkEmploymentRoute =
+  LiveInEgyptWorkEmploymentRouteImport.update({
+    id: '/live-in-egypt_/work-employment',
+    path: '/live-in-egypt/work-employment',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LiveLikeAnEgyptianSectionRoute =
   LiveLikeAnEgyptianSectionRouteImport.update({
     id: '/live-like-an-egyptian_/$section',
@@ -638,6 +699,7 @@ const EgyptThroughTimeMilitaryHistoryRecordsSlugRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
@@ -687,6 +749,8 @@ export interface FileRoutesByFullPath {
   '/countries/$id': typeof CountriesIdRoute
   '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
+  '/do-business/licenses-permits': typeof DoBusinessLicensesPermitsRoute
+  '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -700,6 +764,12 @@ export interface FileRoutesByFullPath {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
+  '/live-in-egypt/healthcare': typeof LiveInEgyptHealthcareRoute
+  '/live-in-egypt/residency-visas': typeof LiveInEgyptResidencyVisasRoute
+  '/live-in-egypt/safety-security': typeof LiveInEgyptSafetySecurityRoute
+  '/live-in-egypt/transportation': typeof LiveInEgyptTransportationRoute
+  '/live-in-egypt/utilities-services': typeof LiveInEgyptUtilitiesServicesRoute
+  '/live-in-egypt/work-employment': typeof LiveInEgyptWorkEmploymentRoute
   '/live-like-an-egyptian/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
@@ -741,6 +811,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/become-a-partner': typeof BecomeAPartnerRoute
@@ -789,6 +860,8 @@ export interface FileRoutesByTo {
   '/countries/$id': typeof CountriesIdRoute
   '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
+  '/do-business/licenses-permits': typeof DoBusinessLicensesPermitsRoute
+  '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -802,6 +875,12 @@ export interface FileRoutesByTo {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
+  '/live-in-egypt/healthcare': typeof LiveInEgyptHealthcareRoute
+  '/live-in-egypt/residency-visas': typeof LiveInEgyptResidencyVisasRoute
+  '/live-in-egypt/safety-security': typeof LiveInEgyptSafetySecurityRoute
+  '/live-in-egypt/transportation': typeof LiveInEgyptTransportationRoute
+  '/live-in-egypt/utilities-services': typeof LiveInEgyptUtilitiesServicesRoute
+  '/live-in-egypt/work-employment': typeof LiveInEgyptWorkEmploymentRoute
   '/live-like-an-egyptian/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
@@ -844,6 +923,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
@@ -893,6 +973,8 @@ export interface FileRoutesById {
   '/countries_/$id': typeof CountriesIdRoute
   '/do-business_/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business_/industrial-zones': typeof DoBusinessIndustrialZonesRoute
+  '/do-business_/licenses-permits': typeof DoBusinessLicensesPermitsRoute
+  '/do-business_/start-a-business': typeof DoBusinessStartABusinessRoute
   '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time_/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -906,6 +988,12 @@ export interface FileRoutesById {
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
+  '/live-in-egypt_/healthcare': typeof LiveInEgyptHealthcareRoute
+  '/live-in-egypt_/residency-visas': typeof LiveInEgyptResidencyVisasRoute
+  '/live-in-egypt_/safety-security': typeof LiveInEgyptSafetySecurityRoute
+  '/live-in-egypt_/transportation': typeof LiveInEgyptTransportationRoute
+  '/live-in-egypt_/utilities-services': typeof LiveInEgyptUtilitiesServicesRoute
+  '/live-in-egypt_/work-employment': typeof LiveInEgyptWorkEmploymentRoute
   '/live-like-an-egyptian_/$section': typeof LiveLikeAnEgyptianSectionRoute
   '/marketplace/egyptian-cotton': typeof MarketplaceEgyptianCottonRoute
   '/marketplace/handmade-crafts': typeof MarketplaceHandmadeCraftsRoute
@@ -949,6 +1037,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/account'
     | '/admin'
     | '/auth'
@@ -998,6 +1087,8 @@ export interface FileRouteTypes {
     | '/countries/$id'
     | '/do-business/free-zones'
     | '/do-business/industrial-zones'
+    | '/do-business/licenses-permits'
+    | '/do-business/start-a-business'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1011,6 +1102,12 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
+    | '/live-in-egypt/healthcare'
+    | '/live-in-egypt/residency-visas'
+    | '/live-in-egypt/safety-security'
+    | '/live-in-egypt/transportation'
+    | '/live-in-egypt/utilities-services'
+    | '/live-in-egypt/work-employment'
     | '/live-like-an-egyptian/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
@@ -1052,6 +1149,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/account'
     | '/auth'
     | '/become-a-partner'
@@ -1100,6 +1198,8 @@ export interface FileRouteTypes {
     | '/countries/$id'
     | '/do-business/free-zones'
     | '/do-business/industrial-zones'
+    | '/do-business/licenses-permits'
+    | '/do-business/start-a-business'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1113,6 +1213,12 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
+    | '/live-in-egypt/healthcare'
+    | '/live-in-egypt/residency-visas'
+    | '/live-in-egypt/safety-security'
+    | '/live-in-egypt/transportation'
+    | '/live-in-egypt/utilities-services'
+    | '/live-in-egypt/work-employment'
     | '/live-like-an-egyptian/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
@@ -1154,6 +1260,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/account'
     | '/admin'
     | '/auth'
@@ -1203,6 +1310,8 @@ export interface FileRouteTypes {
     | '/countries_/$id'
     | '/do-business_/free-zones'
     | '/do-business_/industrial-zones'
+    | '/do-business_/licenses-permits'
+    | '/do-business_/start-a-business'
     | '/egypt-apps_/$category'
     | '/egypt-through-time_/military-history'
     | '/egyptian-heritage-worldwide_/$id'
@@ -1216,6 +1325,12 @@ export interface FileRouteTypes {
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
+    | '/live-in-egypt_/healthcare'
+    | '/live-in-egypt_/residency-visas'
+    | '/live-in-egypt_/safety-security'
+    | '/live-in-egypt_/transportation'
+    | '/live-in-egypt_/utilities-services'
+    | '/live-in-egypt_/work-employment'
     | '/live-like-an-egyptian_/$section'
     | '/marketplace/egyptian-cotton'
     | '/marketplace/handmade-crafts'
@@ -1258,6 +1373,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
@@ -1301,6 +1417,8 @@ export interface RootRouteChildren {
   CountriesIdRoute: typeof CountriesIdRoute
   DoBusinessFreeZonesRoute: typeof DoBusinessFreeZonesRoute
   DoBusinessIndustrialZonesRoute: typeof DoBusinessIndustrialZonesRoute
+  DoBusinessLicensesPermitsRoute: typeof DoBusinessLicensesPermitsRoute
+  DoBusinessStartABusinessRoute: typeof DoBusinessStartABusinessRoute
   EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
   EgyptThroughTimeMilitaryHistoryRoute: typeof EgyptThroughTimeMilitaryHistoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
@@ -1314,6 +1432,12 @@ export interface RootRouteChildren {
   LegalSlugRoute: typeof LegalSlugRoute
   LegalConsentRoute: typeof LegalConsentRoute
   LegalReviewChecklistRoute: typeof LegalReviewChecklistRoute
+  LiveInEgyptHealthcareRoute: typeof LiveInEgyptHealthcareRoute
+  LiveInEgyptResidencyVisasRoute: typeof LiveInEgyptResidencyVisasRoute
+  LiveInEgyptSafetySecurityRoute: typeof LiveInEgyptSafetySecurityRoute
+  LiveInEgyptTransportationRoute: typeof LiveInEgyptTransportationRoute
+  LiveInEgyptUtilitiesServicesRoute: typeof LiveInEgyptUtilitiesServicesRoute
+  LiveInEgyptWorkEmploymentRoute: typeof LiveInEgyptWorkEmploymentRoute
   LiveLikeAnEgyptianSectionRoute: typeof LiveLikeAnEgyptianSectionRoute
   MarketplaceEgyptianCottonRoute: typeof MarketplaceEgyptianCottonRoute
   MarketplaceHandmadeCraftsRoute: typeof MarketplaceHandmadeCraftsRoute
@@ -1355,6 +1479,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account': {
@@ -1707,6 +1838,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DoBusinessIndustrialZonesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/do-business_/licenses-permits': {
+      id: '/do-business_/licenses-permits'
+      path: '/do-business/licenses-permits'
+      fullPath: '/do-business/licenses-permits'
+      preLoaderRoute: typeof DoBusinessLicensesPermitsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/start-a-business': {
+      id: '/do-business_/start-a-business'
+      path: '/do-business/start-a-business'
+      fullPath: '/do-business/start-a-business'
+      preLoaderRoute: typeof DoBusinessStartABusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/egypt-apps_/$category': {
       id: '/egypt-apps_/$category'
       path: '/egypt-apps/$category'
@@ -1810,6 +1955,48 @@ declare module '@tanstack/react-router' {
       path: '/legal/review-checklist'
       fullPath: '/legal/review-checklist'
       preLoaderRoute: typeof LegalReviewChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-in-egypt_/healthcare': {
+      id: '/live-in-egypt_/healthcare'
+      path: '/live-in-egypt/healthcare'
+      fullPath: '/live-in-egypt/healthcare'
+      preLoaderRoute: typeof LiveInEgyptHealthcareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-in-egypt_/residency-visas': {
+      id: '/live-in-egypt_/residency-visas'
+      path: '/live-in-egypt/residency-visas'
+      fullPath: '/live-in-egypt/residency-visas'
+      preLoaderRoute: typeof LiveInEgyptResidencyVisasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-in-egypt_/safety-security': {
+      id: '/live-in-egypt_/safety-security'
+      path: '/live-in-egypt/safety-security'
+      fullPath: '/live-in-egypt/safety-security'
+      preLoaderRoute: typeof LiveInEgyptSafetySecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-in-egypt_/transportation': {
+      id: '/live-in-egypt_/transportation'
+      path: '/live-in-egypt/transportation'
+      fullPath: '/live-in-egypt/transportation'
+      preLoaderRoute: typeof LiveInEgyptTransportationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-in-egypt_/utilities-services': {
+      id: '/live-in-egypt_/utilities-services'
+      path: '/live-in-egypt/utilities-services'
+      fullPath: '/live-in-egypt/utilities-services'
+      preLoaderRoute: typeof LiveInEgyptUtilitiesServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live-in-egypt_/work-employment': {
+      id: '/live-in-egypt_/work-employment'
+      path: '/live-in-egypt/work-employment'
+      fullPath: '/live-in-egypt/work-employment'
+      preLoaderRoute: typeof LiveInEgyptWorkEmploymentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/live-like-an-egyptian_/$section': {
@@ -2094,6 +2281,7 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
@@ -2137,6 +2325,8 @@ const rootRouteChildren: RootRouteChildren = {
   CountriesIdRoute: CountriesIdRoute,
   DoBusinessFreeZonesRoute: DoBusinessFreeZonesRoute,
   DoBusinessIndustrialZonesRoute: DoBusinessIndustrialZonesRoute,
+  DoBusinessLicensesPermitsRoute: DoBusinessLicensesPermitsRoute,
+  DoBusinessStartABusinessRoute: DoBusinessStartABusinessRoute,
   EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
   EgyptThroughTimeMilitaryHistoryRoute: EgyptThroughTimeMilitaryHistoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
@@ -2151,6 +2341,12 @@ const rootRouteChildren: RootRouteChildren = {
   LegalSlugRoute: LegalSlugRoute,
   LegalConsentRoute: LegalConsentRoute,
   LegalReviewChecklistRoute: LegalReviewChecklistRoute,
+  LiveInEgyptHealthcareRoute: LiveInEgyptHealthcareRoute,
+  LiveInEgyptResidencyVisasRoute: LiveInEgyptResidencyVisasRoute,
+  LiveInEgyptSafetySecurityRoute: LiveInEgyptSafetySecurityRoute,
+  LiveInEgyptTransportationRoute: LiveInEgyptTransportationRoute,
+  LiveInEgyptUtilitiesServicesRoute: LiveInEgyptUtilitiesServicesRoute,
+  LiveInEgyptWorkEmploymentRoute: LiveInEgyptWorkEmploymentRoute,
   LiveLikeAnEgyptianSectionRoute: LiveLikeAnEgyptianSectionRoute,
   MarketplaceEgyptianCottonRoute: MarketplaceEgyptianCottonRoute,
   MarketplaceHandmadeCraftsRoute: MarketplaceHandmadeCraftsRoute,
