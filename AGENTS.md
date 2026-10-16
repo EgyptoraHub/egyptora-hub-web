@@ -29,3 +29,4 @@
 - AI-generated images in src/assets/generated/ are read only through src/lib/generated-images.ts (getGeneratedImage/GenImage); `hidden` entries never render and culture-* images carry an "Illustrative AI image" badge — one place for alt text and approval state.
 - Language is mirrored into the `egyptora_lang` cookie and read by the root loader, so the first HTML already has the right lang/dir — no LTR flash for Arabic.
 - Gold text on light surfaces uses `text-gold-text` (darker token; dark surfaces reset it to brand gold via CSS), and text on gold fills uses `text-gold-foreground` — keeps contrast at 4.5:1 without changing the brand gold.
+- The Home intro video is configured only in src/lib/intro-video.ts and is a click-to-load YouTube facade that renders nothing while youtubeId is empty — no iframe cost on load and no empty section.
