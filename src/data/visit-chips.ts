@@ -1,5 +1,5 @@
 import {
-  Globe2, Landmark, Waves, Ship, Building, Mountain, Fish, MapPinned, Church, Users, PartyPopper, Briefcase,
+  Globe2, Landmark, Waves, Ship, Building, Mountain, Fish, MapPinned, Church, Users, PartyPopper, Briefcase, Stamp, UtensilsCrossed,
 } from "lucide-react";
 import type { Chip } from "@/components/layout/InnerPage";
 
@@ -18,4 +18,6 @@ export const visitChips: Chip[] = [
   { label: "Family-Friendly", Icon: Users },
   { label: "Events & Festivals", Icon: PartyPopper, to: "/events" },
   { label: "Travel & Tourism Services", Icon: Briefcase, to: TT },
+  { label: "Egypt e-Visa", Icon: Stamp, to: "/visit-egypt/e-visa" },
+  { label: "Food & Cuisine", Icon: UtensilsCrossed, to: "/live-like-an-egyptian/cuisine" },
 ];

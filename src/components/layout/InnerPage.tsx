@@ -1,3 +1,4 @@
+import { useNavAvailability, type NavGate } from "@/lib/nav-availability";
 /**
  * Shared inner-page template (Explore / Invest / Live / Do Business and future
  * landing pages). Every visible string goes through `t()` so the language
@@ -45,14 +46,29 @@ export function SmartLink({
         {children}
       </a>
     );
+  // "/path?key=value" → typed search params, so filters (e.g. ?sector=) survive the router.
+  const [path = to, qs] = to.split("?");
+  const search = qs ? Object.fromEntries(new URLSearchParams(qs)) : undefined;
   return (
-    <Link to={L(to)} aria-label={label} className={className}>
+    <Link to={L(path)} search={search as never} aria-label={label} className={className}>
       {children}
     </Link>
   );
 }
 
-export function ArrowCta({ to, label }: { to: string; label: string }) {
+export function ArrowCta({ to, label }: { to?: string | undefined; label: string }) {
+  const { t } = useI18n();
+  if (!to)
+    return (
+      <button
+        type="button"
+        onClick={() => toast(t("Coming soon"))}
+        aria-label={`${label} — ${t("Coming soon")}`}
+        className="grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
+      >
+        <ArrowRight className="size-4 rtl:rotate-180" />
+      </button>
+    );
   return (
     <SmartLink
       to={to}
@@ -131,7 +147,8 @@ export type CardItem = {
   img?: string;
   badge?: string;
   meta?: string[];
-  to: string;
+  /** Omitted for Coming-soon cards: the arrow becomes inert (toast), same as the menu. */
+  to?: string | undefined;
   Icon?: Icon;
 };
 
@@ -147,7 +164,7 @@ export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
           <SaveButton
             variant="icon"
             itemType="page"
-            itemId={`${c.title}|${c.to}`}
+            itemId={`${c.title}|${c.to ?? ""}`}
             itemName={c.title}
             itemImage={c.img}
             className="absolute end-2 top-2 size-7 border-primary-foreground/60 bg-navy/35 text-primary-foreground"
@@ -203,12 +220,23 @@ export function SidePanel({ title, body, children }: { title: string; body?: str
   );
 }
 
-export function LinkList({ items }: { items: { label: string; to: string; Icon?: Icon }[] }) {
+export function LinkList({ items }: { items: { label: string; to?: string | undefined; Icon?: Icon }[] }) {
   const { t, lang } = useI18n();
   return (
     <ul className="divide-y divide-border">
       {items.map((i) => (
         <li key={i.label}>
+          {!i.to ? (
+            <button
+              type="button"
+              onClick={() => toast(t("Coming soon"))}
+              className="flex w-full cursor-default items-center gap-3 py-2.5 text-start text-sm text-muted-foreground"
+            >
+              {i.Icon && <i.Icon className="size-4 shrink-0 text-muted-foreground" />}
+              <span className="flex-1">{t(i.label)}</span>
+              <span className="rounded-full border border-border px-1.5 py-0.5 text-[9px] font-semibold uppercase">{t("Coming soon")}</span>
+            </button>
+          ) : (
           <SmartLink
             to={i.to}
             className="flex items-center gap-3 py-2.5 text-sm text-navy transition-colors hover:text-shell-gold"
@@ -217,6 +245,7 @@ export function LinkList({ items }: { items: { label: string; to: string; Icon?:
             <span className="flex-1">{t(i.label)}</span>
             <ChevronRight className="size-4 text-text-body rtl:rotate-180" />
           </SmartLink>
+          )}
         </li>
       ))}
     </ul>
@@ -365,7 +394,8 @@ function InnerHero({ h }: { h: HeroConfig }) {
 
 /* ---------------- chip strip ---------------- */
 
-export type Chip = { label: string; Icon: Icon; to?: string | undefined };
+/** `gate`: data-driven chip — links to `to` only while the section has a public record (same check as the menu). */
+export type Chip = { label: string; Icon: Icon; to?: string | undefined; gate?: NavGate | undefined };
 
 function MoreDots({ className }: { className?: string }) {
   return (
@@ -379,7 +409,8 @@ function MoreDots({ className }: { className?: string }) {
 }
 
 function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?: string | undefined; showMore?: boolean | undefined }) {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
+  const avail = useNavAvailability();
   const all: (Chip & { more?: boolean })[] = showMore
     ? [...chips, { label: "More", Icon: MoreDots, to: moreTo, more: true }]
     : chips;
@@ -398,7 +429,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
               <span className="text-[12px] font-semibold leading-tight text-navy">{t(c.label)}</span>
             </>
           );
-          if (c.to && !active)
+          if (c.to && !active && (!c.gate || avail[c.gate]))
             return (
               <SmartLink key={c.label} to={c.to} className={cls}>
                 {inner}
@@ -418,6 +449,32 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
         })}
       </div>
     </div>
+  );
+}
+
+/* ---------------- breadcrumb ---------------- */
+
+/** Shared "Home › parent › page" trail (parent is a link). */
+export function Crumbs({ parent, page }: { parent?: { label: string; to: string } | undefined; page: string }) {
+  const { t } = useI18n();
+  return (
+    <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
+      <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
+        <Link to="/" className="hover:text-shell-gold">
+          {t("Home")}
+        </Link>
+        <ChevronRight className="size-3 rtl:rotate-180" />
+        {parent && (
+          <>
+            <SmartLink to={parent.to} className="hover:text-shell-gold">
+              {t(parent.label)}
+            </SmartLink>
+            <ChevronRight className="size-3 rtl:rotate-180" />
+          </>
+        )}
+        <span className="font-medium text-navy">{t(page)}</span>
+      </div>
+    </nav>
   );
 }
 
@@ -450,23 +507,7 @@ export function InnerPage({
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
-        <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
-          <Link to="/" className="hover:text-shell-gold">
-            {t("Home")}
-          </Link>
-          <ChevronRight className="size-3 rtl:rotate-180" />
-          {parent && (
-            <>
-              <SmartLink to={parent.to} className="hover:text-shell-gold">
-                {t(parent.label)}
-              </SmartLink>
-              <ChevronRight className="size-3 rtl:rotate-180" />
-            </>
-          )}
-          <span className="font-medium text-navy">{t(pageName)}</span>
-        </div>
-      </nav>
+      <Crumbs parent={parent} page={pageName} />
       <InnerHero h={hero} />
       <ChipStrip chips={chips} moreTo={moreTo} showMore={showMore} />
       {notice && <div className={cn(innerWrap, "pt-8")}>{notice}</div>}

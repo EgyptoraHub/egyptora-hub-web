@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { LayoutDashboard, LogIn, UserPlus } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/use-auth";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -19,17 +20,32 @@ export function AuthButtons({
   if (loading) return <div className={cn("h-10 w-24", className)} />;
 
   if (user) {
+    const items = [
+      { to: "/account", label: "Account" },
+      { to: "/my-trips", label: "My trips" },
+      { to: "/my-trips/new", label: "Plan your trip" },
+      { to: "/saved", label: "Saved" },
+      { to: "/account/bookings", label: "Bookings" },
+    ] as const;
     return (
-      <Link
-        to="/account"
-        className={cn(
-          "flex items-center gap-2 rounded-full border border-gold-line bg-gold-soft px-3.5 py-2 text-xs font-semibold text-gold transition-colors hover:bg-gold hover:text-primary-foreground",
-          className,
-        )}
-      >
-        <LayoutDashboard className="size-4" />
-        <span className="hidden sm:inline">{t("My dashboard")}</span>
-      </Link>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          className={cn(
+            "flex items-center gap-2 rounded-full border border-gold-line bg-gold-soft px-3.5 py-2 text-xs font-semibold text-gold transition-colors hover:bg-gold hover:text-primary-foreground",
+            className,
+          )}
+        >
+          <LayoutDashboard className="size-4" />
+          <span className="hidden sm:inline">{t("My dashboard")}</span>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-48">
+          {items.map((i) => (
+            <DropdownMenuItem key={i.to} asChild>
+              <Link to={i.to}>{t(i.label)}</Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
     );
   }
 

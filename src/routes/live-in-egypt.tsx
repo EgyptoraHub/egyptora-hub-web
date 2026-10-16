@@ -54,24 +54,24 @@ export const Route = createFileRoute("/live-in-egypt")({
 const GD = "/government-directory";
 const chips: Chip[] = [
   { label: "All Living Options", Icon: LayoutGrid },
-  { label: "Residency & Visas", Icon: Stamp, to: GD },
+  { label: "Residency & Visas", Icon: Stamp },
   { label: "Housing & Real Estate", Icon: Home, to: "/properties" },
   { label: "Education & Schools", Icon: GraduationCap, to: "/research-programs" },
-  { label: "Healthcare & Medical Services", Icon: HeartPulse, to: "/providers" },
-  { label: "Work & Employment", Icon: Briefcase, to: "/providers" },
+  { label: "Healthcare & Medical Services", Icon: HeartPulse },
+  { label: "Work & Employment", Icon: Briefcase },
   { label: "Cost of Living", Icon: Wallet },
-  { label: "Safety & Security", Icon: ShieldCheck, to: "/legal" },
-  { label: "Community & Lifestyle", Icon: Users, to: "/traveler-stories" },
+  { label: "Safety & Security", Icon: ShieldCheck },
+  { label: "Community & Lifestyle", Icon: Users },
   { label: "Transportation & Mobility", Icon: Bus },
-  { label: "Utilities & Services", Icon: Plug, to: GD },
+  { label: "Utilities & Services", Icon: Plug },
 ];
 
 const life: CardItem[] = [
-  { title: "Residency & Visas", desc: "Residency options, visa information and procedures.", img: residency, to: GD },
+  { title: "Residency & Visas", desc: "Residency options, visa information and procedures.", img: residency },
   { title: "Housing & Real Estate", desc: "Apartments, villas, compounds and rental options.", img: housing, to: "/properties" },
   { title: "Education & Schools", desc: "International and local schools, universities and programs.", img: education, to: "/research-programs" },
-  { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health, to: "/providers" },
-  { title: "Work & Employment", desc: "Job opportunities, work permits and career growth.", img: work, to: "/providers" },
+  { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health },
+  { title: "Work & Employment", desc: "Job opportunities, work permits and career growth.", img: work },
   { title: "Know Your Roots", desc: "Explore the governorate your family comes from.", img: cairo, to: "/know-your-roots" },
 ];
 
@@ -115,12 +115,12 @@ function LiveInEgypt() {
           <SidePanel title="Quick Tools">
             <LinkList
               items={[
-                { label: "Visa Information", to: GD, Icon: Stamp },
-                { label: "Cost of Living Calculator", to: "/properties", Icon: Calculator },
+                { label: "Visa Information", Icon: Stamp },
+                { label: "Cost of Living Calculator", Icon: Calculator },
                 { label: "International Schools Directory", to: "/research-programs", Icon: School },
-                { label: "Hospitals & Clinics Near You", to: "/providers", Icon: Hospital },
-                { label: "Public Transportation Guide", to: GD, Icon: TrainFront },
-                { label: "Emergency Contacts", to: "/contact", Icon: Phone },
+                { label: "Hospitals & Clinics Near You", Icon: Hospital },
+                { label: "Public Transportation Guide", Icon: TrainFront },
+                { label: "Emergency Contacts", to: "/emergency-numbers", Icon: Phone },
               ]}
             />
           </SidePanel>

@@ -24,80 +24,6 @@ import sectorRealEstate from "@/assets/sector-realestate.jpg";
 import sectorRural from "@/assets/sector-rural.jpg";
 import promoHotel from "@/assets/generated/banner-experiences-beaches.webp";
 
-export type SidebarGroup = {
-  title: string;
-  /** `soon` entries are planned sections: shown, badged and not navigable. */
-  items: { label: string; href: string; badge?: "New" | "Hot" | "AI"; soon?: boolean }[];
-};
-
-export const sidebarGroups: SidebarGroup[] = [
-  {
-    title: "Plan your trip",
-    items: [
-      { label: "Smart Trip Planner", href: "/#ai-concierge", badge: "AI" },
-      { label: "Hotels & Stays", href: "/#offers" },
-      { label: "Flights", href: "/#offers", badge: "New" },
-      { label: "Transport", href: "/#offers" },
-      { label: "Attractions & Tours", href: "/#explore" },
-      { label: "Nile & Sea Experiences", href: "/#explore" },
-      { label: "Guides & Assistants", href: "/#ai-concierge" },
-      { label: "Food & Restaurants", href: "/encyclopedia" },
-      { label: "Events & Festivals", href: "/events" },
-      { label: "Offers & Packages", href: "/offers", badge: "New" },
-      { label: "Traveller Stories", href: "/traveler-stories", badge: "New" },
-    ],
-  },
-  {
-    title: "Discover Egypt",
-    items: [
-      { label: "Visual Encyclopedia", href: "/encyclopedia", badge: "New" },
-      { label: "27 Governorates", href: "/#governorates" },
-      { label: "Egypt Through Time", href: "/egypt-through-time" },
-
-      { label: "Rulers of Egypt", href: "/encyclopedia#epics" },
-      { label: "Heritage Sites", href: "/heritage-sites", badge: "New" },
-      { label: "Museums & Exhibitions", href: "/museums" },
-      { label: "Hidden Heritage", href: "/#explore" },
-      { label: "Egyptian Heritage Worldwide", href: "/egyptian-heritage-worldwide", badge: "New" },
-      { label: "Ancient Egypt Academy", href: "/encyclopedia" },
-      { label: "Research Programs", href: "/research-programs", badge: "New" },
-      { label: "Document Center", href: "/legal" },
-    ],
-  },
-  {
-    title: "Invest & Business",
-    items: [
-      { label: "Invest in Egypt", href: "/#invest" },
-      { label: "Entertainment Investment", href: "/#sectors", badge: "Hot" },
-      { label: "Real Estate & Live in Egypt", href: "/properties" },
-      { label: "Business & Marketplace", href: "/providers" },
-      { label: "Corporate & MICE", href: "/#invest" },
-      { label: "Projects & Opportunities", href: "/investment-opportunities" },
-      { label: "Crafts & Products Marketplace", href: "/products", badge: "New" },
-    ],
-  },
-  {
-    title: "Services",
-    items: [
-      { label: "Visa & Entry", href: "/countries" },
-      { label: "Health & Medical Tourism", href: "/#sectors" },
-      { label: "Safety Center", href: "/legal" },
-      { label: "Egyptora Hub Pass", href: "/#programmes" },
-      { label: "Loyalty & Rewards", href: "/account" },
-      { label: "My Trips", href: "/my-trips", badge: "New" },
-      { label: "Saved Items", href: "/saved", badge: "New" },
-      { label: "My Booking Requests", href: "/account/bookings", badge: "New" },
-    ],
-  },
-  {
-    title: "Coming soon",
-    items: [
-      { label: "Experiences", href: "#", soon: true },
-      { label: "Transport", href: "#", soon: true },
-      { label: "Health", href: "#", soon: true },
-    ],
-  },
-];
 
 // Only categories with a real destination stay in the homepage row. The rest
 // (Nile Cruises, Guides, Transport, Food, Health) moved to the sidebar as
@@ -282,69 +208,8 @@ export const topGovernorates = [
   { name: "Others", value: 24 },
 ];
 
-export const primaryNav = [
-  { label: "Explore Egypt", href: "/#explore" },
-  { label: "Governorates", href: "/#governorates" },
-  { label: "Visual Encyclopedia", href: "/encyclopedia" },
-  { label: "Through Time", href: "/egypt-through-time" },
-  { label: "Plan Your Trip", href: "/#ai-concierge" },
-  { label: "Invest", href: "/#invest" },
-  { label: "Film & Culture", href: "/#film" },
-  { label: "Contact", href: "/contact" },
-];
 
 
-export type FooterLink = { label: string; to?: string; href?: string };
-
-export const footerColumns: { title: string; links: FooterLink[] }[] = [
-  {
-    title: "Explore",
-    links: [
-      { label: "Destinations", href: "/#explore" },
-      { label: "27 Governorates", href: "/#governorates" },
-      { label: "Visual Encyclopedia", to: "/encyclopedia" },
-      { label: "Heritage & Museums", href: "/#explore" },
-      { label: "Egypt Through Time", href: "/egypt-through-time" },
-
-    ],
-  },
-  {
-    title: "Plan",
-    links: [
-      { label: "Smart Trip Planner", href: "/#ai-concierge" },
-      { label: "AI Concierge", href: "/#ai-concierge" },
-      { label: "Programmes", href: "/#programmes" },
-      { label: "Search Egyptora Hub", href: "/#explore" },
-    ],
-  },
-  {
-    title: "Invest",
-    links: [
-      { label: "Investment Sectors", href: "/#invest" },
-      { label: "Opportunities", href: "/#invest" },
-      { label: "Partner With Us", to: "/partners" },
-      { label: "Press & Media" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Contact Us", to: "/contact" },
-      { label: "Help Centre", to: "/contact" },
-      { label: "Report an Issue", to: "/legal/incident-reporting" },
-      { label: "Complaints & Disputes", to: "/legal/complaints-disputes" },
-    ],
-  },
-  {
-    title: "Legal & Trust",
-    links: [
-      { label: "Legal Center", to: "/legal" },
-      { label: "Consent Centre", to: "/legal/consent" },
-      { label: "Safety Policy", to: "/legal/safety" },
-      { label: "AI Transparency", to: "/legal/ai-transparency" },
-    ],
-  },
-];
 
 export const pillars = [
   {
@@ -402,14 +267,6 @@ import promoSummer from "@/assets/generated/card-marsa-alam.webp";
 import promoCruise from "@/assets/promo-cruise.jpg";
 import promoAdventure from "@/assets/promo-adventure.jpg";
 
-// Only tabs with a real destination stay in the top bar. The planned sections
-// (Experiences, Stay, Transport, Services, eSIM) moved to the sidebar as
-// clearly marked "Coming soon" entries instead of dead links.
-export const topTabs: { label: string; to?: string; href?: string }[] = [
-  { label: "Home", to: "/" },
-  { label: "Explore", href: "/#explore" },
-  { label: "Events", to: "/events" },
-];
 
 export const searchTabs = [
   "Flights",

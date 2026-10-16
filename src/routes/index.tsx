@@ -2,6 +2,7 @@ import { useState, type ComponentType, type SVGProps } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
 import { altForSrc } from "@/lib/generated-images";
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { toast } from "sonner";
 import {
   ArrowRight,
   BarChart3,
@@ -115,7 +116,20 @@ function Home() {
 
 /* ---------- shared bits ---------- */
 
-function ArrowCta({ to, label }: { to: string; label: string }) {
+function ArrowCta({ to, label }: { to?: string | undefined; label: string }) {
+  const { t } = useI18n();
+  // Coming-soon card (nav item is `soon`): inert, same toast as the menu.
+  if (!to)
+    return (
+      <button
+        type="button"
+        onClick={() => toast(t("Coming soon"))}
+        aria-label={`${label} — ${t("Coming soon")}`}
+        className="grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
+      >
+        <ArrowRight className="size-4 rtl:rotate-180" />
+      </button>
+    );
   return (
     <Link
       to={L(to)}
@@ -160,7 +174,7 @@ function BlockHead({ title, body, to }: { title: string; body: string; to: strin
   );
 }
 
-type CardData = { title: string; sub: string; img: string; to: string; badge?: string };
+type CardData = { title: string; sub: string; img: string; to?: string; badge?: string };
 
 function ImgCard({ c, h = "h-32" }: { c: CardData; h?: string }) {
   const { t, lang } = useI18n();
@@ -173,7 +187,7 @@ function ImgCard({ c, h = "h-32" }: { c: CardData; h?: string }) {
         <SaveButton
           variant="icon"
           itemType="page"
-          itemId={`${c.title}|${c.to}`}
+          itemId={`${c.title}|${c.to ?? ""}`}
           itemName={c.title}
           itemImage={c.img}
           className="absolute end-2 top-2 size-7 border-primary-foreground/60 bg-navy/35 text-primary-foreground"
@@ -271,13 +285,13 @@ function Hero() {
 /* ---------- 2. Quick strip ---------- */
 
 const quick: { Icon: Icon; title: string; sub?: string; to: string }[] = [
-  { Icon: Palmtree, title: "Tourism & Experiences", to: "/offers" },
+  { Icon: Palmtree, title: "Tourism & Experiences", to: "/explore-egypt" },
   { Icon: BarChart3, title: "Investment Opportunities", to: "/investment-opportunities" },
   { Icon: HomeIcon, title: "Real Estate", sub: "Find Your Place", to: "/properties" },
   { Icon: Stamp, title: "Visa & Immigration", sub: "Start Your Journey", to: "/government-directory" },
   { Icon: GraduationCap, title: "Education", sub: "A Brighter Future", to: "/research-programs" },
-  { Icon: Briefcase, title: "Do Business", sub: "Launch & Grow", to: "/providers" },
-  { Icon: Users, title: "Live in Egypt", sub: "Residency & Lifestyle", to: "/properties" },
+  { Icon: Briefcase, title: "Do Business", sub: "Launch & Grow", to: "/do-business" },
+  { Icon: Users, title: "Live in Egypt", sub: "Residency & Lifestyle", to: "/live-in-egypt" },
   { Icon: Landmark, title: "Government Directory", to: "/government-directory" },
 ];
 
@@ -310,14 +324,14 @@ function QuickStrip() {
 /* ---------- 3. Explore + Invest ---------- */
 
 const exploreCards: CardData[] = [
-  { title: "Visit Egypt", sub: "Tourist information and guides", img: visitImg, to: "/offers" },
-  { title: "Diving & Marine Activities", sub: "Explore the Red Sea", img: divingImg, to: "/offers" },
+  { title: "Visit Egypt", sub: "Tourist information and guides", img: visitImg, to: "/visit-egypt" },
+  { title: "Diving & Marine Activities", sub: "Explore the Red Sea", img: divingImg },
   { title: "Nile Cruises", sub: "A unique journey", img: nileImg, to: "/offers" },
   { title: "Cultural & Historical Sites", sub: "Discover Egypt's heritage", img: culturalImg, to: "/heritage-sites" },
 ];
 const investCards: CardData[] = [
   { title: "Investment Opportunities", sub: "Sectors and incentives", img: invOppsImg, to: "/investment-opportunities" },
-  { title: "Start Your Business", sub: "Guides and resources", img: startBizImg, to: "/providers" },
+  { title: "Start Your Business", sub: "Guides and resources", img: startBizImg },
 ];
 
 function ExploreInvest() {
@@ -328,7 +342,7 @@ function ExploreInvest() {
           <BlockHead
             title="Explore Egypt"
             body="From iconic landmarks to hidden gems, Egypt offers unforgettable experiences for every traveler."
-            to="/encyclopedia"
+            to="/explore-egypt"
           />
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {exploreCards.map((c) => (
@@ -340,7 +354,7 @@ function ExploreInvest() {
           <BlockHead
             title="Invest in Egypt"
             body="Explore opportunities in a growing economy with a strategic global location."
-            to="/investment-opportunities"
+            to="/invest-in-egypt"
           />
           <div className="grid grid-cols-2 gap-4">
             {investCards.map((c) => (
@@ -356,13 +370,13 @@ function ExploreInvest() {
 /* ---------- 4. Live + Business + Why ---------- */
 
 const liveCards: CardData[] = [
-  { title: "Residency & Visas", sub: "Live, work and study", img: residencyImg, to: "/properties" },
+  { title: "Residency & Visas", sub: "Live, work and study", img: residencyImg },
   { title: "Education", sub: "Universities and schools", img: educationImg, to: "/research-programs" },
-  { title: "Healthcare", sub: "Quality medical services", img: healthImg, to: "/providers" },
+  { title: "Healthcare", sub: "Quality medical services", img: healthImg },
 ];
 const bizCards: CardData[] = [
   { title: "Business Opportunities", sub: "Across key sectors", img: bizOppsImg, to: "/investment-opportunities" },
-  { title: "Tenders & Projects", sub: "Government and private", img: tendersImg, to: "/investment-opportunities" },
+  { title: "Tenders & Projects", sub: "Government and private", img: tendersImg },
   { title: "Business Support", sub: "Legal, financial and more", img: bizSupportImg, to: "/providers" },
 ];
 const why: { Icon: Icon; title: string; body: string }[] = [
@@ -389,7 +403,7 @@ function LiveBusinessWhy() {
           <BlockHead
             title="Live in Egypt"
             body="Experience a vibrant lifestyle, rich culture and a welcoming community."
-            to="/properties"
+            to="/live-in-egypt"
           />
           <div className="grid grid-cols-3 gap-3">
             {liveCards.map((c) => (
@@ -401,7 +415,7 @@ function LiveBusinessWhy() {
           <BlockHead
             title="Do Business"
             body="Connect with partners, explore markets and grow your business in Egypt."
-            to="/providers"
+            to="/do-business"
           />
           <div className="grid grid-cols-3 gap-3">
             {bizCards.map((c) => (
@@ -540,14 +554,15 @@ function GovBand() {
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
           {govTiles.map(({ Icon, label, hash }) => (
-            <a
+            <Link
               key={label}
-              href={`/government-directory${hash ? `#${hash}` : ""}`}
+              to="/government-directory"
+              {...(hash ? { hash } : {})}
               className="flex flex-col items-center gap-2 rounded-lg border border-foreground/20 bg-foreground/5 px-2 py-4 text-center text-xs text-foreground transition-colors hover:border-shell-gold"
             >
               <Icon className="size-6" strokeWidth={1.4} />
               {t(label)}
-            </a>
+            </Link>
           ))}
         </div>
         </div>

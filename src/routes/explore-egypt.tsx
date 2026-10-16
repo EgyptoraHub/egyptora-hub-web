@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   Landmark, Ship, Waves, Mountain, Umbrella, Building2, Church, Leaf, Users, PartyPopper,
   Map as MapIcon, Lightbulb, Stamp, UserRound, Ticket, ExternalLink, ArrowRight,
+  Hourglass, Shield, Coffee, UtensilsCrossed, Shirt, Gem, TreeDeciduous, Globe2,
 } from "lucide-react";
 import hero from "@/assets/home/hero.jpg";
 import giza from "@/assets/gov/giza.jpg";
@@ -50,9 +51,17 @@ const chips: Chip[] = [
   { label: "Beaches & Water Sports", Icon: Umbrella, to: "/experiences/beaches" },
   { label: "Cities & Destinations", Icon: Building2, to: "/countries" },
   { label: "Religious & Spiritual Tourism", Icon: Church },
-  { label: "Eco & Nature Tourism", Icon: Leaf },
+  { label: "Eco & Nature Tourism", Icon: Leaf, to: "/experiences/eco-nature", gate: "protected_areas" },
   { label: "Family Experiences", Icon: Users },
   { label: "Events & Festivals", Icon: PartyPopper, to: "/events" },
+  { label: "Egypt Through Time", Icon: Hourglass, to: "/egypt-through-time" },
+  { label: "Military History", Icon: Shield, to: "/egypt-through-time/military-history" },
+  { label: "Live Like an Egyptian", Icon: Coffee, to: "/live-like-an-egyptian" },
+  { label: "Egyptian Cuisine", Icon: UtensilsCrossed, to: "/live-like-an-egyptian/cuisine" },
+  { label: "Traditional Fashion", Icon: Shirt, to: "/live-like-an-egyptian/fashion" },
+  { label: "Jewelry & Accessories", Icon: Gem, to: "/live-like-an-egyptian/jewelry-accessories" },
+  { label: "Know Your Roots", Icon: TreeDeciduous, to: "/know-your-roots" },
+  { label: "Egyptian Heritage Worldwide", Icon: Globe2, to: "/egyptian-heritage-worldwide" },
 ];
 
 const featured: CardItem[] = [
@@ -95,7 +104,7 @@ function ExploreEgypt() {
               items={[
                 { label: "Suggested Itineraries", to: "/my-trips/new", Icon: MapIcon },
                 { label: "Travel Tips", to: "/traveler-stories", Icon: Lightbulb },
-                { label: "Visa Information", to: "/government-directory", Icon: Stamp },
+                { label: "Visa Information", to: "/visit-egypt/e-visa", Icon: Stamp },
                 { label: "Local Guides", to: "/providers", Icon: UserRound },
                 { label: "Book Experiences", to: "/offers", Icon: Ticket },
               ]}

@@ -49,15 +49,15 @@ const IO = "/investment-opportunities";
 const chips: Chip[] = [
   { label: "All Sectors", Icon: LayoutGrid },
   { label: "Real Estate & New Cities", Icon: Building2, to: "/properties" },
-  { label: "Industry & Manufacturing", Icon: Factory, to: IO },
-  { label: "Tourism & Hospitality", Icon: Hotel, to: IO },
-  { label: "Energy & Renewable", Icon: Zap, to: IO },
-  { label: "Infrastructure & Transportation", Icon: TrainFront, to: IO },
-  { label: "Agriculture & Food Security", Icon: Wheat, to: IO },
-  { label: "ICT & Innovation", Icon: Cpu, to: IO },
-  { label: "Healthcare & Pharmaceuticals", Icon: HeartPulse, to: IO },
+  { label: "Industry & Manufacturing", Icon: Factory, to: `${IO}?sector=industry` },
+  { label: "Tourism & Hospitality", Icon: Hotel, to: `${IO}?sector=tourism` },
+  { label: "Energy & Renewable", Icon: Zap, to: `${IO}?sector=energy` },
+  { label: "Infrastructure & Transportation", Icon: TrainFront, to: `${IO}?sector=infrastructure` },
+  { label: "Agriculture & Food Security", Icon: Wheat, to: `${IO}?sector=agriculture` },
+  { label: "ICT & Innovation", Icon: Cpu, to: `${IO}?sector=ict` },
+  { label: "Healthcare & Pharmaceuticals", Icon: HeartPulse, to: `${IO}?sector=healthcare` },
   { label: "Education & Research", Icon: GraduationCap, to: "/research-programs" },
-  { label: "Financial Services", Icon: Landmark, to: IO },
+  { label: "Financial Services", Icon: Landmark, to: `${IO}?sector=finance` },
 ];
 
 const featured: CardItem[] = [
