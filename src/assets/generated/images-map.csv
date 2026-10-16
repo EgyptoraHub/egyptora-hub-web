@@ -1,0 +1,103 @@
+﻿source_png,web_file,type,width,height,size_kb,alt_text_en
+banner-egypt-through-time.png,banner-egypt-through-time.webp,banner,2000,889,94,Ancient Egyptian temple colonnade at golden hour
+banner-military-history.png,banner-military-history.webp,banner,2000,889,198,Ancient fortress and relief wall at dusk
+banner-eco-nature.png,banner-eco-nature.webp,banner,2000,889,170,Protected coastline on the Red Sea
+banner-free-zones.png,banner-free-zones.webp,banner,2000,889,159,Container port in an Egyptian free zone
+banner-industrial-zones.png,banner-industrial-zones.webp,banner,2000,889,162,Industrial park in Egypt
+banner-experiences-beaches.png,banner-experiences-beaches.webp,banner,2000,889,180,Red Sea beach
+banner-experiences-desert.png,banner-experiences-desert.webp,banner,2000,889,54,Desert dunes at sunset
+banner-experiences-nile-cruises.png,banner-experiences-nile-cruises.webp,banner,2000,889,156,Nile cruise at Aswan
+card-diving-red-sea.png,card-diving-red-sea.webp,card,1200,800,207,Diver over a Red Sea coral reef
+card-nile-cruise-aswan.png,card-nile-cruise-aswan.webp,card,1200,800,127,Nile cruise ship at Aswan
+card-new-capital.png,card-new-capital.webp,card,1200,800,141,Modern skyline of the New Administrative Capital
+card-marsa-alam.png,card-marsa-alam.webp,card,1200,800,149,Marsa Alam coast
+card-ain-sokhna-port.png,card-ain-sokhna-port.webp,card,1200,800,140,Container terminal at Ain Sokhna
+card-benban-solar.png,card-benban-solar.webp,card,1200,800,197,Solar panels in the desert at Aswan
+card-infrastructure-suez.png,card-infrastructure-suez.webp,card,1200,800,103,Ship passing through the Suez Canal
+card-industry-factory.png,card-industry-factory.webp,card,1200,800,104,Modern factory in an industrial zone
+card-hot-air-balloon-luxor.png,card-hot-air-balloon-luxor.webp,card,1200,800,79,Hot air balloons over Luxor
+card-felucca-nile.png,card-felucca-nile.webp,card,1200,800,104,Felucca sailing on the Nile
+card-live-individuals.png,card-live-individuals.webp,card,1200,800,170,Walking through downtown Cairo
+card-live-professionals.png,card-live-professionals.webp,card,1200,800,134,Modern office in New Cairo
+card-heritage-diaspora.png,card-heritage-diaspora.webp,card,1200,800,111,Family heritage keepsakes on a table
+card-business-meeting.png,card-business-meeting.webp,card,1200,800,81,Investor meeting in a modern office
+ill-financial-services.png,ill-financial-services.webp,illustration,640,640,12,Bank building with coins and an upward arrow
+ill-ict-innovation.png,ill-ict-innovation.webp,illustration,640,640,10,"Chip, cloud and code brackets"
+ill-licenses-permits.png,ill-licenses-permits.webp,illustration,640,640,8,Document with check mark and stamp
+ill-investment-incentives.png,ill-investment-incentives.webp,illustration,640,640,15,Shield with percent sign and coins
+ill-business-support.png,ill-business-support.webp,illustration,640,640,16,Life ring with handshake
+ill-tenders-projects.png,ill-tenders-projects.webp,illustration,640,640,9,Gavel and blueprint roll
+ill-logistics.png,ill-logistics.webp,illustration,640,640,15,"Truck, container and ship"
+ill-residency-visas.png,ill-residency-visas.webp,illustration,640,640,15,Passport with stamp and palm tree
+ill-work-employment.png,ill-work-employment.webp,illustration,640,640,7,Briefcase and laptop
+ill-know-your-roots.png,ill-know-your-roots.webp,illustration,640,640,16,Family tree with a small egypt map
+ill-digital-car-license.png,ill-digital-car-license.webp,illustration,640,640,9,Car with a document and checkmark
+ill-digital-payments.png,ill-digital-payments.webp,illustration,640,640,6,Receipt with a payment card
+ill-digital-id.png,ill-digital-id.webp,illustration,640,640,12,Id card with fingerprint
+ill-egypt-apps.png,ill-egypt-apps.webp,illustration,640,640,7,Smartphone with app tiles
+ill-global-network.png,ill-global-network.webp,illustration,640,640,30,"Globe with connection lines (195 countries), no country names"
+ill-healthcare.png,ill-healthcare.webp,illustration,640,640,12,"Medical cross, stethoscope and building"
+ill-education.png,ill-education.webp,illustration,640,640,9,Graduation cap and open book
+ill-housing-real-estate.png,ill-housing-real-estate.webp,illustration,640,640,8,Apartment building with a key
+ill-utilities-services.png,ill-utilities-services.webp,illustration,640,640,13,"Light bulb, water drop and flame"
+ill-safety-security.png,ill-safety-security.webp,illustration,640,640,9,Shield with a check mark
+eco-ras-mohammed.png,eco-ras-mohammed.webp,eco-card,1200,800,196,Ras Mohammed rocky headland and coral coastline
+eco-white-desert.png,eco-white-desert.webp,eco-card,1200,800,89,White Desert chalk rock formations at sunset
+eco-wadi-el-hitan.png,eco-wadi-el-hitan.webp,eco-card,1200,800,210,Wadi El Hitan fossil whale valley in the desert
+eco-saint-catherine.png,eco-saint-catherine.webp,eco-card,1200,800,119,"Saint Catherine mountains, rugged granite peaks at dawn, no monastery details"
+eco-siwa.png,eco-siwa.webp,eco-card,1200,800,129,Siwa oasis with palm groves and a salt lake
+eco-wadi-el-gemal.png,eco-wadi-el-gemal.webp,eco-card,1200,800,213,Wadi El Gemal coast with mangroves and a turquoise bay
+eco-lake-qarun.png,eco-lake-qarun.webp,eco-card,1200,800,164,Lake Qarun at Fayoum with birds and reeds
+eco-zaranik.png,eco-zaranik.webp,eco-card,1200,800,113,Lake Bardawil wetland with flamingos
+eco-generic-marine.png,eco-generic-marine.webp,eco-card,1200,800,215,generic Red Sea underwater coral and fish scene
+eco-generic-desert.png,eco-generic-desert.webp,eco-card,1200,800,154,generic Egyptian desert landscape with rock formations
+eco-generic-mountain.png,eco-generic-mountain.webp,eco-card,1200,800,155,generic Sinai mountain landscape
+eco-generic-wetland.png,eco-generic-wetland.webp,eco-card,1200,800,157,generic wetland with migratory birds
+eco-generic-island.png,eco-generic-island.webp,eco-card,1200,800,105,generic small desert island with white sand and turquoise water
+eco-generic-nile-island.png,eco-generic-nile-island.webp,eco-card,1200,800,122,generic Nile island with reeds and palms at sunrise
+zone-free-zone-port.png,zone-free-zone-port.webp,zone-card,1200,800,115,"Port with containers and cranes, generic"
+zone-industrial-park.png,zone-industrial-park.webp,zone-card,1200,800,106,"Industrial park with factories, generic"
+zone-logistics-warehouse.png,zone-logistics-warehouse.webp,zone-card,1200,800,72,"Large modern logistics warehouse with trucks, no logos"
+zone-sczone-development.png,zone-sczone-development.webp,zone-card,1200,800,163,"Coastal development area of a special economic zone with roads and sea, generic"
+gov-ministry-building.png,gov-ministry-building.webp,gov-card,1200,800,129,"Generic neoclassical ministry building in cairo, no flags with emblems, no readable signs"
+gov-finance-building.png,gov-finance-building.webp,gov-card,1200,800,98,"Generic modern financial institution tower in cairo, no logos"
+gov-foreign-affairs.png,gov-foreign-affairs.webp,gov-card,1200,800,163,"Generic diplomatic building with a plain flagpole without emblem, cairo nile corniche"
+gov-authority-office.png,gov-authority-office.webp,gov-card,1200,800,133,"Generic modern government authority headquarters, glass and stone, no logos"
+gov-administrative-capital.png,gov-administrative-capital.webp,gov-card,1200,800,162,"Generic modern government complex in the new administrative capital, no emblems"
+culture-cuisine-koshary.png,culture-cuisine-koshary.webp,culture-card,1200,800,114,Koshary
+culture-cuisine-fiteer-meshaltet.png,culture-cuisine-fiteer-meshaltet.webp,culture-card,1200,800,143,Fiteer meshaltet
+culture-cuisine-sayadeya-spiced-fish-and-rice.png,culture-cuisine-sayadeya-spiced-fish-and-rice.webp,culture-card,1200,800,140,Sayadeya (spiced fish and rice)
+culture-cuisine-halawet-el-moulid-moulid-sweets.png,culture-cuisine-halawet-el-moulid-moulid-sweets.webp,culture-card,1200,800,139,Halawet el-Moulid (moulid sweets)
+culture-cuisine-fesikh-salted-fermented-mullet.png,culture-cuisine-fesikh-salted-fermented-mullet.webp,culture-card,1200,800,128,Fesikh (salted fermented mullet)
+culture-cuisine-al-khnaini-roe-filled-fish.png,culture-cuisine-al-khnaini-roe-filled-fish.webp,culture-card,1200,800,185,Al-Khnaini (roe-filled fish)
+culture-cuisine-al-fatura-rosetta-fish-dish.png,culture-cuisine-al-fatura-rosetta-fish-dish.webp,culture-card,1200,800,154,Al-Fatura (Rosetta fish dish)
+culture-cuisine-guava-sweets-and-juice.png,culture-cuisine-guava-sweets-and-juice.webp,culture-card,1200,800,114,Guava sweets and juice
+culture-cuisine-mandi.png,culture-cuisine-mandi.webp,culture-card,1200,800,156,Mandi
+culture-cuisine-bedouin-flatbread-arbood-shraak.png,culture-cuisine-bedouin-flatbread-arbood-shraak.webp,culture-card,1200,800,136,Bedouin flatbread (arbood / shraak)
+culture-cuisine-bedouin-tea-and-coffee.png,culture-cuisine-bedouin-tea-and-coffee.webp,culture-card,1200,800,118,Bedouin tea and coffee
+culture-cuisine-karkade-hibiscus-drink.png,culture-cuisine-karkade-hibiscus-drink.webp,culture-card,1200,800,125,Karkade (hibiscus drink)
+culture-cuisine-tamarind-drink-tamr-hindi.png,culture-cuisine-tamarind-drink-tamr-hindi.webp,culture-card,1200,800,107,Tamarind drink (tamr hindi)
+culture-cuisine-aswan-dates.png,culture-cuisine-aswan-dates.webp,culture-card,1200,800,105,Aswan dates
+culture-cuisine-siwa-dates.png,culture-cuisine-siwa-dates.webp,culture-card,1200,800,96,Siwa dates
+culture-cuisine-siwa-olives-and-olive-oil.png,culture-cuisine-siwa-olives-and-olive-oil.webp,culture-card,1200,800,99,Siwa olives and olive oil
+culture-cuisine-new-valley-dates-and-olives.png,culture-cuisine-new-valley-dates-and-olives.webp,culture-card,1200,800,130,New Valley dates and olives
+culture-fashion-tulle-bi-telli-assiut-embroidery.png,culture-fashion-tulle-bi-telli-assiut-embroidery.webp,culture-card,1200,800,74,Tulle bi telli (Assiut embroidery)
+culture-fashion-bedouin-embroidered-dress-thob-north-sin.png,culture-fashion-bedouin-embroidered-dress-thob-north-sin.webp,culture-card,1200,800,40,"Bedouin embroidered dress (thob), North Sinai"
+culture-fashion-bedouin-embroidered-dress-thob-south-sin.png,culture-fashion-bedouin-embroidered-dress-thob-south-sin.webp,culture-card,1200,800,57,"Bedouin embroidered dress (thob), South Sinai"
+culture-fashion-siwan-costume-and-embroidery.png,culture-fashion-siwan-costume-and-embroidery.webp,culture-card,1200,800,116,Siwan costume and embroidery
+culture-fashion-akhmim-weaving.png,culture-fashion-akhmim-weaving.webp,culture-card,1200,800,45,Akhmim weaving
+culture-fashion-galabeya-jellabiya.png,culture-fashion-galabeya-jellabiya.webp,culture-card,1200,800,19,Galabeya (jellabiya)
+culture-jewelry-siwan-silver-jewelry.png,culture-jewelry-siwan-silver-jewelry.webp,culture-card,1200,800,204,Siwan silver jewelry
+culture-jewelry-bedouin-silver-jewelry-sinai.png,culture-jewelry-bedouin-silver-jewelry-sinai.webp,culture-card,1200,800,133,"Bedouin silver jewelry, Sinai"
+culture-jewelry-nubian-beadwork-and-jewelry.png,culture-jewelry-nubian-beadwork-and-jewelry.webp,culture-card,1200,800,213,Nubian beadwork and jewelry
+culture-jewelry-mother-of-pearl-handicrafts-saqiat-al-mi.png,culture-jewelry-mother-of-pearl-handicrafts-saqiat-al-mi.webp,culture-card,1200,800,137,Mother-of-pearl handicrafts (Saqiat Al-Minqadi)
+culture-jewelry-ababda-and-bisharin-silver-jewelry.png,culture-jewelry-ababda-and-bisharin-silver-jewelry.webp,culture-card,1200,800,137,Ababda and Bisharin silver jewelry
+ph-heritage-sites.png,ph-heritage-sites.webp,placeholder,900,600,7,Placeholder for heritage sites
+ph-offers.png,ph-offers.webp,placeholder,900,600,10,Placeholder for offers
+ph-properties.png,ph-properties.webp,placeholder,900,600,13,Placeholder for properties
+ph-providers.png,ph-providers.webp,placeholder,900,600,11,Placeholder for providers
+ph-research-programs.png,ph-research-programs.webp,placeholder,900,600,13,Placeholder for research programs
+ph-museums.png,ph-museums.webp,placeholder,900,600,11,Placeholder for museums
+ph-events.png,ph-events.webp,placeholder,900,600,14,Placeholder for events
+ph-investment-opportunities.png,ph-investment-opportunities.webp,placeholder,900,600,5,Placeholder for investment opportunities
+cover-business-guide.png,cover-business-guide.webp,cover,1024,1536,89,Cover of the Egypt Business Guide
