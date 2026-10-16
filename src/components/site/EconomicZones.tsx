@@ -4,6 +4,9 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { NavyBadge, innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
+import { GenBanner, GenImage } from "@/components/site/GenImage";
+
+const ZONE_IMG: Record<string, string> = { public_free_zone: "zone-free-zone-port", sczone_industrial_zone: "zone-sczone-development", industrial_zone: "zone-industrial-park" };
 import { ZONE_TYPE_LABEL, zoneTitle, type EconomicZone, type ZoneFact } from "@/lib/economic-zones";
 
 type Gov = { slug: string; name_en: string; name_ar: string };
@@ -53,6 +56,7 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
         </div>
       </section>
 
+      <div className={`${innerWrap} pt-8`}><GenBanner k={page === "free" ? "banner-free-zones" : "banner-industrial-zones"} /></div>
       <main className={`${innerWrap} grid gap-10 py-10`}>
         <div className="flex flex-wrap items-center gap-2">
           <select aria-label={L(lang, t("Governorate"), "المحافظة")} value={gov} onChange={(e) => setGov(e.target.value)} className={selectCls}>
@@ -76,6 +80,7 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
               const summary = ar ? z.summary_ar : z.summary_en;
               return (
                 <article key={z.id} className="grid content-start gap-2 rounded-[10px] border border-border bg-card p-4 shadow-sm">
+                  <GenImage k={ZONE_IMG[z.zone_type]} className="aspect-[16/10] w-full rounded-2xl" />
                   <span><NavyBadge>{typeLabel(z.zone_type)}</NavyBadge></span>
                   <h2 dir="auto" className="font-display text-base font-bold text-navy">{zoneTitle(z, lang)}</h2>
                   <dl className="grid gap-1 text-xs text-text-body">

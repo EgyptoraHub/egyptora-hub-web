@@ -42,6 +42,7 @@ function Landing() {
 
   return (
     <MilShell
+      banner="banner-military-history"
       crumbs={militaryCrumbs(t)}
       title={t("Egypt's Military History")}
       subtitle={`${recordCount(records.length, lang)} ${t("in the EGYPTORA register")}`}
