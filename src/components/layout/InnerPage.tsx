@@ -1,3 +1,4 @@
+import { useNavAvailability, type NavGate } from "@/lib/nav-availability";
 /**
  * Shared inner-page template (Explore / Invest / Live / Do Business and future
  * landing pages). Every visible string goes through `t()` so the language
@@ -365,7 +366,8 @@ function InnerHero({ h }: { h: HeroConfig }) {
 
 /* ---------------- chip strip ---------------- */
 
-export type Chip = { label: string; Icon: Icon; to?: string | undefined };
+/** `gate`: data-driven chip — links to `to` only while the section has a public record (same check as the menu). */
+export type Chip = { label: string; Icon: Icon; to?: string | undefined; gate?: NavGate | undefined };
 
 function MoreDots({ className }: { className?: string }) {
   return (
@@ -379,7 +381,8 @@ function MoreDots({ className }: { className?: string }) {
 }
 
 function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?: string | undefined; showMore?: boolean | undefined }) {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
+  const avail = useNavAvailability();
   const all: (Chip & { more?: boolean })[] = showMore
     ? [...chips, { label: "More", Icon: MoreDots, to: moreTo, more: true }]
     : chips;
@@ -398,7 +401,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
               <span className="text-[12px] font-semibold leading-tight text-navy">{t(c.label)}</span>
             </>
           );
-          if (c.to && !active)
+          if (c.to && !active && (!c.gate || avail[c.gate]))
             return (
               <SmartLink key={c.label} to={c.to} className={cls}>
                 {inner}
