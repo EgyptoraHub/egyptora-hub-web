@@ -26,3 +26,4 @@
 - DEMO traveller stories are hidden by the database visitor rule when site_settings.show_demo_stories is false (missing row = shown), toggled only by admins on the admin dashboard — lists, search, sitemap and concierge all obey without code checks.
 - Menu availability (data-driven "Coming soon" items) is loaded in the root route loader so the first server render already has the right state.
 - Source-link "Egyptian website" rule lives only in sourceUrlWarning (src/lib/protected-areas.ts) with an owner-approved allowlist; app developer websites and store links are never treated as sources.
+- AI-generated images in src/assets/generated/ are read only through src/lib/generated-images.ts (getGeneratedImage/GenImage); `hidden` entries never render and culture-* images carry an "Illustrative AI image" badge — one place for alt text and approval state.
