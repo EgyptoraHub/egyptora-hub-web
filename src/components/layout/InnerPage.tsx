@@ -1,3 +1,4 @@
+import { Badge } from "@/components/site/Badge";
 import { useNavAvailability, type NavGate } from "@/lib/nav-availability";
 /**
  * Shared inner-page template (Explore / Invest / Live / Do Business and future
@@ -82,9 +83,7 @@ export function ArrowCta({ to, label }: { to?: string | undefined; label: string
 
 export function NavyBadge({ children }: { children: ReactNode }) {
   return (
-    <span className="absolute start-2 top-2 rounded-full bg-navy px-2.5 py-0.5 text-2xs font-semibold text-primary-foreground">
-      {children}
-    </span>
+    <Badge className="absolute start-2 top-2">{children}</Badge>
   );
 }
 

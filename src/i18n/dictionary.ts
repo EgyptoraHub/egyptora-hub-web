@@ -1,3 +1,4 @@
+import { phase40 } from "./phase40-translations";
 import type { LangCode } from "./languages";
 import { cultureAr } from "./culture-ar";
 import { phase36, PHASE36_OVERRIDES } from "./phase36-translations";
@@ -366,7 +367,7 @@ const ar: Dict = {
   "Go home": "الذهاب للصفحة الرئيسية",
   "Mediterranean Sea": "البحر الأبيض المتوسط",
   "This Page Not Available": "هذه الصفحة غير متاحة",
-  "We are performing scheduled maintenance. The platform will be back shortly.": "نحن نجري صيانة مجدولة. ستعود المنصة للعمل قريبًا.",
+  "We are performing scheduled maintenance. The platform will be back shortly.": "نحن نجري صيانة مجدولة. ستعود المنصة للعمل قريباً.",
   "Eras and rulers, live from the archive": "العصور والحكام، مباشرة من الأرشيف",
   "Egyptian heritage worldwide": "التراث المصري حول العالم",
   "Egyptian antiquities and heritage objects held in museums and institutions around the world.":
@@ -455,7 +456,7 @@ const ar: Dict = {
   "Pending approval from the competent authority and connection with the relevant entity. Figures shown here are indicative demo content, not a live offer.":
     "بانتظار الموافقة من الجهة المختصة والربط مع الجهة المعنية. الأرقام المعروضة هنا بيانات تجريبية استرشادية، وليست عرضًا فعليًا.",
   "Places for this governorate are being added — check back soon.":
-    "جارٍ إضافة الأماكن الخاصة بهذه المحافظة — تابعنا قريبًا.",
+    "جارٍ إضافة الأماكن الخاصة بهذه المحافظة — تابعنا قريباً.",
   "~17M": "~17 مليون",
   "🇩🇪": "🇩🇪",
   "🇫🇷": "🇫🇷",
@@ -1845,7 +1846,7 @@ const ar: Dict = {
   "Save partner": "حفظ الشريك",
   "Create partner": "إنشاء شريك",
   "Hidden Egypt": "مصر الخفية",
-  "Nile cruise booking is coming soon": "حجز الرحلات النيلية قريبًا",
+  "Nile cruise booking is coming soon": "حجز الرحلات النيلية قريباً",
   "Our booking partner does not offer cruise search yet. Ask our AI assistant for cruise options in the meantime.": "لا يتيح شريك الحجز لدينا البحث عن الرحلات النيلية بعد. يمكنك في الوقت الحالي سؤال مساعدنا المدعوم بالذكاء الاصطناعي عن خيارات الرحلات النيلية.",
   "EGYPTORA-HUB is an independent private-sector platform — it does not issue visas or make visa decisions.": "EGYPTORA-HUB منصة مستقلة تابعة للقطاع الخاص — لا تصدر تأشيرات ولا تتخذ قرارات بشأنها.",
   "Apply on Official Egypt e-Visa Portal": "قدّم طلبك عبر البوابة الرسمية للتأشيرة الإلكترونية المصرية",
@@ -1906,7 +1907,7 @@ const ar: Dict = {
   "Venue": "مكان الفعالية",
   "Organiser": "الجهة المنظّمة",
   "Modern residential towers in Egypt at sunset": "أبراج سكنية حديثة في مصر عند غروب الشمس",
-  "This category is coming soon.": "ستتوفر هذه الفئة قريبًا.",
+  "This category is coming soon.": "ستتوفر هذه الفئة قريباً.",
   "Back to Egyptian heritage worldwide": "العودة إلى التراث المصري حول العالم",
   "Object": "القطعة",
   "Institution": "المؤسسة",
@@ -1915,7 +1916,7 @@ const ar: Dict = {
   "Back to": "العودة إلى",
   "District (qism)": "القسم",
   "Markaz": "المركز",
-  "A detailed profile for this place is being prepared — check back soon.": "يجري إعداد ملف تعريفي مفصّل لهذا المكان — عُد قريبًا للاطلاع عليه.",
+  "A detailed profile for this place is being prepared — check back soon.": "يجري إعداد ملف تعريفي مفصّل لهذا المكان — عُد قريباً للاطلاع عليه.",
   "Photo Credits": "حقوق الصور",
   "View site": "عرض الموقع",
   "Back to museums": "العودة إلى المتاحف",
@@ -23291,7 +23292,7 @@ const hi: Dict = {
   "south-sinai": "दक्षिणी-सिनाई",
 };
 
-const withMt = (lang: keyof typeof phase36, d: Dict): Dict => ({ ...phase36[lang], ...d, ...(PHASE36_OVERRIDES[lang] ?? {}) });
+const withMt = (lang: keyof typeof phase36, d: Dict): Dict => ({ ...phase36[lang], ...(phase40[lang as keyof typeof phase40] ?? {}), ...d, ...(PHASE36_OVERRIDES[lang] ?? {}) });
 export const dictionaries: Record<LangCode, Dict> = {
   en: {}, ar: withMt("ar", ar), fr: withMt("fr", fr), de: withMt("de", de), es: withMt("es", es),
   it: withMt("it", it), ru: withMt("ru", ru), zh: withMt("zh", zh), hi: withMt("hi", hi),
