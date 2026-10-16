@@ -10,7 +10,7 @@ import {
   InnerPage, cardGrid, SectionHead, PhotoCard, SidePanel, EgyptMap, ViewAll, CircleTile, ImportantNoticeBox,
   AppPromoCard, BandPromo, type CardItem, type Chip,
 } from "@/components/layout/InnerPage";
-import mfa from "@/assets/home/world.jpg";
+import mfa from "@/assets/generated/card-infrastructure-suez.webp";
 import tourism from "@/assets/gov/luxor.jpg";
 import gafi from "@/assets/home/inv-opps.jpg";
 import cbe from "@/assets/home/biz-support.jpg";

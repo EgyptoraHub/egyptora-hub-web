@@ -1,15 +1,15 @@
-import cottonHero from "@/assets/mkt-cotton-hero.jpg";
-import cotton1 from "@/assets/mkt-cotton-1.jpg";
-import cotton2 from "@/assets/mkt-cotton-2.jpg";
-import craftsHero from "@/assets/mkt-crafts-hero.jpg";
-import crafts1 from "@/assets/mkt-crafts-1.jpg";
-import crafts2 from "@/assets/mkt-crafts-2.jpg";
-import wearHero from "@/assets/mkt-wear-hero.jpg";
-import wear1 from "@/assets/mkt-wear-1.jpg";
-import wear2 from "@/assets/mkt-wear-2.jpg";
-import producersHero from "@/assets/mkt-producers-hero.jpg";
-import producers1 from "@/assets/mkt-producers-1.jpg";
-import producers2 from "@/assets/mkt-producers-2.jpg";
+import cottonHero from "@/assets/generated/ph-providers.webp";
+import cotton1 from "@/assets/generated/culture-fashion-akhmim-weaving.webp";
+import cotton2 from "@/assets/generated/culture-fashion-galabeya-jellabiya.webp";
+import craftsHero from "@/assets/generated/culture-jewelry-mother-of-pearl-handicrafts-saqiat-al-mi.webp";
+import crafts1 from "@/assets/generated/culture-jewelry-nubian-beadwork-and-jewelry.webp";
+import crafts2 from "@/assets/generated/culture-jewelry-bedouin-silver-jewelry-sinai.webp";
+import wearHero from "@/assets/generated/ph-properties.webp";
+import wear1 from "@/assets/generated/culture-fashion-galabeya-jellabiya.webp";
+import wear2 from "@/assets/generated/culture-fashion-akhmim-weaving.webp";
+import producersHero from "@/assets/generated/culture-cuisine-new-valley-dates-and-olives.webp";
+import producers1 from "@/assets/generated/culture-cuisine-siwa-olives-and-olive-oil.webp";
+import producers2 from "@/assets/generated/culture-cuisine-aswan-dates.webp";
 
 export type MarketplacePage = {
   slug: "egyptian-cotton" | "handmade-crafts" | "wear-egypt" | "local-producers";

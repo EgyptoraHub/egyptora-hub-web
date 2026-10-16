@@ -1,5 +1,5 @@
 import { BarChart3, Globe2, Star, TrendingUp, Users } from "lucide-react";
-import worldDots from "@/assets/world-dots.jpg";
+import worldDots from "@/assets/generated/ill-global-network.webp";
 import { SourceBadge } from "@/components/site/Primitives";
 import { useI18n } from "@/i18n";
 import {

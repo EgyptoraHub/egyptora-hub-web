@@ -24,7 +24,7 @@ import {
   Globe2,
 } from "lucide-react";
 import heroImg from "@/assets/home/hero.jpg";
-import throughTimeImg from "@/assets/card-through-time.jpg";
+import throughTimeImg from "@/assets/generated/banner-military-history.webp";
 import visitImg from "@/assets/home/visit.jpg";
 import divingImg from "@/assets/home/diving.jpg";
 import nileImg from "@/assets/home/nile.jpg";
@@ -41,9 +41,9 @@ import govBuildingImg from "@/assets/home/gov-building.jpg";
 import newsGizaImg from "@/assets/home/news-giza.jpg";
 import newsInvestImg from "@/assets/home/news-invest.jpg";
 import newsRedSeaImg from "@/assets/home/news-redsea.jpg";
-import phonesImg from "@/assets/home/phones.jpg";
-import worldImg from "@/assets/home/world.jpg";
-import globeImg from "@/assets/home/globe.jpg";
+import phonesImg from "@/assets/generated/ill-egypt-apps.webp";
+import worldImg from "@/assets/generated/card-infrastructure-suez.webp";
+import globeImg from "@/assets/generated/ill-global-network.webp";
 import vision2030Logo from "@/assets/vision-2030.png";
 import { BookingSearch } from "@/components/site/BookingSearch";
 import { SaveButton } from "@/components/site/SaveButton";
