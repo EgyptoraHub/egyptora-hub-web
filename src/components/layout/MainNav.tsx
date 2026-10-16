@@ -350,7 +350,7 @@ export function MainNav() {
     <>
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 xl:gap-4 xl:px-5 2xl:max-w-[1480px] 2xl:gap-6 2xl:px-8">
-        <Link to="/" className="hit-44 flex min-w-0 shrink-0 items-center gap-2.5 xl:me-2">
+        <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 xl:me-2">
           <img
             src={logo.url}
             alt={`${SITE.name} logo`}
