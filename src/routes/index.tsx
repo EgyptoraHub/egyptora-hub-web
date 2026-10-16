@@ -354,7 +354,7 @@ function ExploreInvest() {
           <BlockHead
             title="Invest in Egypt"
             body="Explore opportunities in a growing economy with a strategic global location."
-            to="/investment-opportunities"
+            to="/invest-in-egypt"
           />
           <div className="grid grid-cols-2 gap-4">
             {investCards.map((c) => (
@@ -403,7 +403,7 @@ function LiveBusinessWhy() {
           <BlockHead
             title="Live in Egypt"
             body="Experience a vibrant lifestyle, rich culture and a welcoming community."
-            to="/properties"
+            to="/live-in-egypt"
           />
           <div className="grid grid-cols-3 gap-3">
             {liveCards.map((c) => (
@@ -415,7 +415,7 @@ function LiveBusinessWhy() {
           <BlockHead
             title="Do Business"
             body="Connect with partners, explore markets and grow your business in Egypt."
-            to="/providers"
+            to="/do-business"
           />
           <div className="grid grid-cols-3 gap-3">
             {bizCards.map((c) => (
