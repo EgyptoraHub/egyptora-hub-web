@@ -9,7 +9,7 @@ export function EmergencyQuickLinks({ className }: { className?: string }) {
   return (
     <div className={cn("flex flex-wrap items-center gap-2 rounded-[10px] border border-border bg-card p-3 text-sm", className)}>
       <Phone className="size-4 text-navy" aria-hidden="true" />
-      <Link to="/emergency-numbers" className="font-semibold text-navy underline">{t("Emergency & Quick Numbers")}</Link>
+      <Link to="/emergency-numbers" className="hit-44 font-semibold text-navy underline">{t("Emergency & Quick Numbers")}</Link>
       <a href="tel:122" className="inline-flex min-h-11 items-center rounded-full border border-navy px-4 text-xs font-semibold text-navy" dir="ltr">{t("Police")} 122</a>
       <a href="tel:123" className="inline-flex min-h-11 items-center rounded-full border border-navy px-4 text-xs font-semibold text-navy" dir="ltr">{t("Ambulance")} 123</a>
     </div>
