@@ -1,0 +1,8 @@
+import { createFileRoute, redirect } from "@tanstack/react-router";
+
+// Old URL kept alive as a permanent redirect (no page of its own).
+export const Route = createFileRoute("/do-business_/start-a-business")({
+  beforeLoad: () => {
+    throw redirect({ to: "/do-business", statusCode: 301 });
+  },
+});
