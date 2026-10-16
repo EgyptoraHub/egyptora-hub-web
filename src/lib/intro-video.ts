@@ -6,7 +6,7 @@
  * Copy is translated through the i18n dictionaries (phase40-translations.ts).
  */
 export const INTRO_VIDEO = {
-  youtubeId: "aqz-KE-bpKQ",
+  youtubeId: "",
   /** Optional poster; falls back to the YouTube thumbnail. */
   posterSrc: undefined as string | undefined,
   /** Set true if the video itself is AI-generated (shows a disclosure line). */
