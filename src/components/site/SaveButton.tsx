@@ -114,7 +114,7 @@ export function SaveButton({
         title={label}
         aria-pressed={saved}
         className={cn(
-          "grid size-8 place-items-center rounded-full border border-border/70 bg-background/70 text-muted-foreground backdrop-blur transition-colors hover:border-gold-line hover:text-gold-text",
+          "hit-44 grid size-8 place-items-center rounded-full border border-border/70 bg-background/70 text-muted-foreground backdrop-blur transition-colors hover:border-gold-line hover:text-gold-text",
           saved && "border-gold-line text-gold-text",
           className,
         )}

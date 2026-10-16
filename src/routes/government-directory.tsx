@@ -268,7 +268,7 @@ function FindServicesForm({ categories, onSearch }: { categories: string[]; onSe
         <option value="">{t("Service Type")}</option>
         {services.map((s) => <option key={s.label} value={s.label}>{t(s.label)}</option>)}
       </select>
-      <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground">
+      <button type="submit" className="hit-44 inline-flex items-center justify-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground">
         <Search className="size-4" /> {t("Search")}
       </button>
     </form>
@@ -381,7 +381,7 @@ function GovernmentDirectoryPage() {
             <a
               key={s.label}
               href={DS}
-              className="flex items-center gap-2.5 rounded-[10px] border border-border bg-card px-3 py-3 text-xs font-semibold text-navy shadow-sm transition-colors hover:border-shell-gold"
+              className="hit-44 flex items-center gap-2.5 rounded-[10px] border border-border bg-card px-3 py-3 text-xs font-semibold text-navy shadow-sm transition-colors hover:border-shell-gold"
             >
               <s.Icon className="size-4 shrink-0 text-gold-text" />
               <span className="min-w-0">{t(s.label)}</span>

@@ -28,7 +28,7 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
         aria-expanded={open}
         aria-label={t("Language")}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-full border border-border text-muted-foreground transition-colors hover:border-gold-line hover:text-foreground",
+          "hit-44 inline-flex items-center gap-1.5 rounded-full border border-border text-muted-foreground transition-colors hover:border-gold-line hover:text-foreground",
           compact ? "px-2.5 py-1.5 text-2xs" : "px-3 py-2 text-xs",
         )}
       >

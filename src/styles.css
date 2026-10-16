@@ -280,3 +280,17 @@ footer {
   --background: oklch(0.278 0.062 248.5);
   --card: oklch(0.278 0.062 248.5);
 }
+
+/* Unlayered so `outline-none` on form fields can't hide keyboard focus. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+.on-dark input:focus-visible,
+.on-dark textarea:focus-visible,
+.on-dark select:focus-visible,
+footer input:focus-visible {
+  outline-color: var(--gold);
+}
