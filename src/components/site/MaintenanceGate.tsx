@@ -45,6 +45,7 @@ function MaintenancePage() {
  * Owners with the bypass flag keep browsing the real site.
  */
 export function MaintenanceGate({ children }: { children: ReactNode }) {
+  const { t } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isControlPanel = pathname.startsWith("/admin/maintenance");
   const readStatus = useServerFn(getMaintenance);
