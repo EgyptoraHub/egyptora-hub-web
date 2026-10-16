@@ -291,7 +291,7 @@ function QuickStrip() {
         ))}
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-sm">
-        <Link to="/emergency-numbers" className="font-semibold text-navy underline">{t("Emergency & Quick Numbers")}</Link>
+        <Link to="/emergency-numbers" className="hit-44 font-semibold text-navy underline">{t("Emergency & Quick Numbers")}</Link>
         <a href="tel:122" className="hit-44 rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Police")} 122</a>
         <a href="tel:123" className="hit-44 rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Ambulance")} 123</a>
       </div>
