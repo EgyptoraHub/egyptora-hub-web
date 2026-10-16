@@ -36,7 +36,7 @@ export function ProtectedAreasPage({ areas, governorates }: { areas: ProtectedAr
       <Crumbs parent={{ label: "Explore Egypt", to: "/explore-egypt" }} page={L(lang, t("Protected Areas"), "المحميات الطبيعية")} />
       <section className="border-b border-border bg-bg-band">
         <div className={`${innerWrap} py-10`}>
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-shell-gold">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold eyebrow text-gold-text">
             <Leaf className="size-4" /> {L(lang, t("Eco & Nature Tourism"), "السياحة البيئية والطبيعية")}
           </span>
           <h1 className="mt-2 font-display text-3xl font-bold text-navy sm:text-4xl">{L(lang, t("Protected Areas"), "المحميات الطبيعية")}</h1>
@@ -66,7 +66,7 @@ export function ProtectedAreasPage({ areas, governorates }: { areas: ProtectedAr
                 <dl className="grid gap-1 text-xs text-text-body">
                   {a.governorate_slug ? (
                     <div><dt className="inline font-semibold">{L(lang, t("Governorate"), "المحافظة")}: </dt>
-                      <dd className="inline"><Link to="/governorates/$id" params={{ id: a.governorate_slug }} className="text-shell-gold underline">{govName.get(a.governorate_slug) ?? a.governorate_slug}</Link></dd></div>
+                      <dd className="inline"><Link to="/governorates/$id" params={{ id: a.governorate_slug }} className="text-gold-text underline">{govName.get(a.governorate_slug) ?? a.governorate_slug}</Link></dd></div>
                   ) : null}
                   {a.declared_year ? <div><dt className="inline font-semibold">{L(lang, t("Declared"), "سنة الإعلان")}: </dt><dd className="inline">{a.declared_year}</dd></div> : null}
                   {a.area_km2 != null ? <div><dt className="inline font-semibold">{L(lang, t("Area"), "المساحة")}: </dt><dd className="inline">{num(Number(a.area_km2))} {L(lang, "km²", "كم²")}</dd></div> : null}
@@ -75,7 +75,7 @@ export function ProtectedAreasPage({ areas, governorates }: { areas: ProtectedAr
                 {a.source_url ? (
                   <p className="mt-auto pt-2 text-xs text-text-body">
                     {L(lang, t("Source"), "المصدر")}:{" "}
-                    <a href={a.source_url} target="_blank" rel="noopener noreferrer" dir="auto" className="inline-flex items-center gap-1 font-semibold text-shell-gold underline">
+                    <a href={a.source_url} target="_blank" rel="noopener noreferrer" dir="auto" className="inline-flex items-center gap-1 font-semibold text-gold-text underline">
                       {a.source_note || hostOf(a.source_url)} <ExternalLink className="size-3" />
                     </a>
                   </p>

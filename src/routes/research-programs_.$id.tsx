@@ -110,7 +110,7 @@ function ResearchProgramDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <GraduationCap className="size-6 shrink-0 text-gold" />
+            <GraduationCap className="size-6 shrink-0 text-gold-text" />
             {t(program.name)}
           </h1>
           <SourceBadge status="DEMO" />
@@ -121,11 +121,11 @@ function ResearchProgramDetailPage() {
           {program.governorate_slug && (
             <>
               {program.university && " · "}
-              <MapPin className="size-4 text-gold/70" />
+              <MapPin className="size-4 text-gold-text" />
               <Link
                 to="/governorates/$id"
                 params={{ id: program.governorate_slug }}
-                className="hover:text-gold"
+                className="hover:text-gold-text"
               >
                 {t(govName(program.governorate_slug))}
               </Link>

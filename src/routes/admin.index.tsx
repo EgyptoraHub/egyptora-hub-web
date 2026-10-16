@@ -26,7 +26,7 @@ export const Route = createFileRoute("/admin/")({
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="rounded-2xl border border-border bg-card/60 p-4">
-      <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
+      <p className="text-xs eyebrow text-muted-foreground">{label}</p>
       <p className="mt-2 font-display text-2xl text-foreground">{value}</p>
     </div>
   );
@@ -85,11 +85,11 @@ function AdminDashboard() {
   return (
     <div className="min-h-screen bg-background px-5 py-14">
       <div className="mx-auto w-full max-w-5xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">{SITE.name}</p>
+        <p className="text-2xs font-semibold eyebrow text-gold-text">{SITE.name}</p>
         <h1 className="mt-3 font-display text-3xl text-foreground">{t("Admin dashboard")}</h1>
         <DemoStoriesSwitch />
 
-        <h2 className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        <h2 className="mt-8 text-sm font-semibold eyebrow text-muted-foreground">
           {t("Overview")}
         </h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -101,7 +101,7 @@ function AdminDashboard() {
           <Stat label={t("Bookings cancelled")} value={stats.bookings.cancelled} />
         </div>
 
-        <h2 className="mt-10 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        <h2 className="mt-10 text-sm font-semibold eyebrow text-muted-foreground">
           {t("Content records")}
         </h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

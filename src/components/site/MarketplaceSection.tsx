@@ -43,13 +43,13 @@ export function MarketplaceSection({
           />
           <div className="on-dark absolute inset-x-0 bottom-0">
             <div className="mx-auto w-full max-w-[1360px] px-5 pb-8 lg:px-10 lg:pb-14">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+              <p className="mb-2 text-2xs font-semibold eyebrow text-gold-text">
                 {t(page.eyebrow)}
               </p>
               <h1 className="font-display text-3xl leading-tight text-foreground sm:text-4xl lg:text-6xl">
                 {t(page.title)}
               </h1>
-              <p className="mt-2 text-sm text-gold/90 lg:text-base">{t(page.tagline)}</p>
+              <p className="mt-2 text-sm text-gold-text lg:text-base">{t(page.tagline)}</p>
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground/85 lg:text-base">
                 {t(page.intro)}
               </p>
@@ -66,7 +66,7 @@ export function MarketplaceSection({
           <div className="grid gap-3 sm:grid-cols-3">
             {page.stats.map((s) => (
               <div key={s.label} className="rounded-2xl border border-gold-line bg-card p-5">
-                <div className="font-display text-2xl text-gold">{t(s.value)}</div>
+                <div className="font-display text-2xl text-gold-text">{t(s.value)}</div>
                 <div className="mt-1 text-xs text-muted-foreground">{t(s.label)}</div>
               </div>
             ))}
@@ -82,7 +82,7 @@ export function MarketplaceSection({
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {page.highlights.map((h) => (
               <article key={h.title} className="rounded-2xl border border-border bg-card p-5">
-                <Check className="size-5 text-gold" />
+                <Check className="size-5 text-gold-text" />
                 <h3 className="mt-3 text-sm font-semibold text-foreground">{t(h.title)}</h3>
                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{t(h.note)}</p>
               </article>
@@ -128,7 +128,7 @@ export function MarketplaceSection({
                 key={e.title}
                 className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5"
               >
-                <MapPin className="mt-0.5 size-5 shrink-0 text-gold" />
+                <MapPin className="mt-0.5 size-5 shrink-0 text-gold-text" />
                 <div className="min-w-0">
                   <h3 className="text-sm font-semibold text-foreground">{t(e.title)}</h3>
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{t(e.note)}</p>
@@ -138,7 +138,7 @@ export function MarketplaceSection({
           </div>
           <div className="mt-6 grid gap-4 rounded-2xl border border-gold-line bg-gold-soft p-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="min-w-0">
-              <p className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
+              <p className="inline-flex items-center gap-2 text-2xs font-semibold eyebrow text-gold-text">
                 <Sparkles className="size-3.5" /> {t("AI Concierge")}
               </p>
               <h2 className="mt-2 font-display text-xl text-foreground sm:text-2xl">
@@ -168,11 +168,11 @@ export function MarketplaceSection({
                   <GovernanceBanner status={product.governance_status} className="mb-3" />
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="flex items-center gap-2 font-display text-base text-foreground">
-                      <ShoppingBag className="size-4 shrink-0 text-gold" />
+                      <ShoppingBag className="size-4 shrink-0 text-gold-text" />
                       <Link
                         to="/products/$id"
                         params={{ id: product.id }}
-                        className="transition-colors hover:text-gold"
+                        className="transition-colors hover:text-gold-text"
                       >
                         {t(product.name)}
                       </Link>
@@ -181,7 +181,7 @@ export function MarketplaceSection({
                   </div>
                   {product.maker && (
                     <p className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-                      <MapPin className="size-3.5 text-gold/70" />
+                      <MapPin className="size-3.5 text-gold-text" />
                       {t(product.maker)}
                     </p>
                   )}
@@ -191,7 +191,7 @@ export function MarketplaceSection({
                     </p>
                   )}
                   {product.price_egp != null && (
-                    <p className="mt-3 text-sm text-gold">
+                    <p className="mt-3 text-sm text-gold-text">
                       {product.price_egp.toLocaleString(lang)} {t("EGP")}
                     </p>
                   )}
@@ -229,9 +229,9 @@ export function MarketplaceSection({
                     <span className="block truncate font-display text-base text-foreground">
                       {t(o.title)}
                     </span>
-                    <span className="block truncate text-[11px] text-foreground/70">{t(o.tagline)}</span>
+                    <span className="block truncate text-2xs text-foreground/70">{t(o.tagline)}</span>
                   </span>
-                  <ArrowRight className="size-4 shrink-0 text-gold rtl:rotate-180" />
+                  <ArrowRight className="size-4 shrink-0 text-gold-text rtl:rotate-180" />
                 </span>
               </Link>
             ))}

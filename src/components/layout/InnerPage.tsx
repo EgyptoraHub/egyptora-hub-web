@@ -1,3 +1,4 @@
+import { Badge } from "@/components/site/Badge";
 import { useNavAvailability, type NavGate } from "@/lib/nav-availability";
 /**
  * Shared inner-page template (Explore / Invest / Live / Do Business and future
@@ -64,7 +65,7 @@ export function ArrowCta({ to, label }: { to?: string | undefined; label: string
         type="button"
         onClick={() => toast(t("Coming soon"))}
         aria-label={`${label} — ${t("Coming soon")}`}
-        className="grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
+        className="hit-44 grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
       >
         <ArrowRight className="size-4 rtl:rotate-180" />
       </button>
@@ -73,7 +74,7 @@ export function ArrowCta({ to, label }: { to?: string | undefined; label: string
     <SmartLink
       to={to}
       label={label}
-      className="grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-primary-foreground shadow-sm transition-transform hover:scale-105"
+      className="hit-44 grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-gold-foreground shadow-sm transition-transform hover:scale-105"
     >
       <ArrowRight className="size-4 rtl:rotate-180" />
     </SmartLink>
@@ -82,20 +83,18 @@ export function ArrowCta({ to, label }: { to?: string | undefined; label: string
 
 export function NavyBadge({ children }: { children: ReactNode }) {
   return (
-    <span className="absolute start-2 top-2 rounded-full bg-navy px-2.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
-      {children}
-    </span>
+    <Badge className="absolute start-2 top-2">{children}</Badge>
   );
 }
 
-export function ViewAll({ to, label = "View All" }: { to: string; label?: string | undefined }) {
+export function ViewAll({ to, label = "View all" }: { to: string; label?: string | undefined }) {
   const { t, lang } = useI18n();
   return (
     <SmartLink
       to={to}
-      className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-shell-gold"
+      className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-gold-text"
     >
-      {t(label)} <ArrowRight className="size-4 text-shell-gold rtl:rotate-180" />
+      {t(label)} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
     </SmartLink>
   );
 }
@@ -125,7 +124,7 @@ export function SectionHead({
 
 export function GoldButton({ to, children, onClick }: { to?: string; children: ReactNode; onClick?: () => void }) {
   const cls =
-    "inline-flex items-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5";
+    "inline-flex items-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground transition-transform hover:-translate-y-0.5";
   if (!to)
     return (
       <button type="button" onClick={onClick} className={cls}>
@@ -174,9 +173,9 @@ export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
       <div className="flex flex-1 items-end justify-between gap-2 p-3">
         <div className="min-w-0">
           <h3 className="text-[13px] font-bold leading-snug text-navy">{t(c.title)}</h3>
-          {c.desc && <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-text-body">{t(c.desc)}</p>}
+          {c.desc && <p className="mt-0.5 line-clamp-2 text-2xs leading-snug text-text-body">{t(c.desc)}</p>}
           {c.meta && c.meta.length > 0 && (
-            <p className="mt-2 text-[11px] font-medium text-navy/70">
+            <p className="mt-2 text-2xs font-medium text-navy/70">
               {c.meta.map((m) => t(m)).join(" · ")}
             </p>
           )}
@@ -199,7 +198,7 @@ export function IconCard({ c, cta = true }: { c: CardItem; cta?: boolean }) {
       <div className="flex flex-1 items-end justify-between gap-2">
         <div className="min-w-0">
           <h3 className="text-[13px] font-bold leading-snug text-navy">{t(c.title)}</h3>
-          {c.desc && <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-text-body">{t(c.desc)}</p>}
+          {c.desc && <p className="mt-0.5 line-clamp-2 text-2xs leading-snug text-text-body">{t(c.desc)}</p>}
         </div>
         {cta && <ArrowCta to={c.to} label={t(c.title)} />}
       </div>
@@ -234,14 +233,14 @@ export function LinkList({ items }: { items: { label: string; to?: string | unde
             >
               {i.Icon && <i.Icon className="size-4 shrink-0 text-muted-foreground" />}
               <span className="flex-1">{t(i.label)}</span>
-              <span className="rounded-full border border-border px-1.5 py-0.5 text-[9px] font-semibold uppercase">{t("Coming soon")}</span>
+              <span className="rounded-full border border-border px-1.5 py-0.5 text-2xs font-semibold uppercase">{t("Coming soon")}</span>
             </button>
           ) : (
           <SmartLink
             to={i.to}
-            className="flex items-center gap-3 py-2.5 text-sm text-navy transition-colors hover:text-shell-gold"
+            className="flex items-center gap-3 py-2.5 text-sm text-navy transition-colors hover:text-gold-text"
           >
-            {i.Icon && <i.Icon className="size-4 shrink-0 text-shell-gold" />}
+            {i.Icon && <i.Icon className="size-4 shrink-0 text-gold-text" />}
             <span className="flex-1">{t(i.label)}</span>
             <ChevronRight className="size-4 text-text-body rtl:rotate-180" />
           </SmartLink>
@@ -295,7 +294,7 @@ export function EgyptMap({ pins, className }: { pins: string[]; className?: stri
         return (
           <g key={p}>
             <circle cx={x} cy={y} r="5" className="fill-gold-cta stroke-card" strokeWidth="1.5" />
-            <text x={x + 8} y={y + (p === "New Capital" ? 16 : p === "Cairo" ? -6 : 4)} className="fill-navy text-[11px] font-semibold">
+            <text x={x + 8} y={y + (p === "New Capital" ? 16 : p === "Cairo" ? -6 : 4)} className="fill-navy text-2xs font-semibold">
               {t(p)}
             </text>
           </g>
@@ -333,7 +332,7 @@ function InnerHero({ h }: { h: HeroConfig }) {
       <div className={cn(innerWrap, "relative pb-16 pt-8 lg:pb-20 lg:pt-10")}>
         <div className="absolute end-6 top-8 hidden text-end md:block lg:end-10">
           <p className="font-display text-5xl italic text-foreground drop-shadow">{t("Egypt")}</p>
-          <p className="mt-1 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.2em] text-foreground">
+          <p className="mt-1 text-2xs font-semibold leading-relaxed eyebrow text-foreground">
             {h.tagline.map((l) => (
               <span key={l} className="block">
                 {t(l)}
@@ -364,7 +363,7 @@ function InnerHero({ h }: { h: HeroConfig }) {
               aria-label={t(h.placeholder)}
               className="min-w-0 flex-1 bg-transparent py-2 text-sm text-navy outline-none placeholder:text-text-body"
             />
-            <button type="submit" className="shrink-0 rounded-full bg-gold-cta px-5 py-2 text-sm font-semibold text-primary-foreground">
+            <button type="submit" className="shrink-0 rounded-full bg-gold-cta px-5 py-2 text-sm font-semibold text-gold-foreground">
               {t("Search")}
             </button>
           </form>
@@ -425,7 +424,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
           );
           const inner = (
             <>
-              <c.Icon strokeWidth={2.3} className={cn("size-7", active ? "fill-shell-gold/25 text-shell-gold" : "fill-navy/20 text-navy")} />
+              <c.Icon strokeWidth={2.3} className={cn("size-7", active ? "fill-shell-gold/25 text-gold-text" : "fill-navy/20 text-navy")} />
               <span className="text-[12px] font-semibold leading-tight text-navy">{t(c.label)}</span>
             </>
           );
@@ -460,13 +459,13 @@ export function Crumbs({ parent, page }: { parent?: { label: string; to: string 
   return (
     <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
       <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
-        <Link to="/" className="hover:text-shell-gold">
+        <Link to="/" className="hover:text-gold-text">
           {t("Home")}
         </Link>
         <ChevronRight className="size-3 rtl:rotate-180" />
         {parent && (
           <>
-            <SmartLink to={parent.to} className="hover:text-shell-gold">
+            <SmartLink to={parent.to} className="hover:text-gold-text">
               {t(parent.label)}
             </SmartLink>
             <ChevronRight className="size-3 rtl:rotate-180" />
@@ -552,14 +551,14 @@ export function ProcessStepsRow({ steps }: { steps: ProcessStep[] }) {
     <ol className="grid gap-4 md:grid-cols-4">
       {steps.map((s, i) => (
         <li key={s.title} className="relative grid justify-items-center gap-2 rounded-[10px] border border-border bg-card p-5 text-center shadow-sm">
-          <span className="grid size-14 place-items-center rounded-full bg-gold-cta text-primary-foreground">
+          <span className="grid size-14 place-items-center rounded-full bg-gold-cta text-gold-foreground">
             <s.Icon className="size-6" />
           </span>
           <span className="font-display text-2xl font-bold text-navy">{i + 1}</span>
           <h3 className="text-sm font-bold text-navy">{t(s.title)}</h3>
           <p className="text-xs text-text-body">{t(s.desc)}</p>
           {i < steps.length - 1 && (
-            <ChevronRight className="absolute -end-4 top-1/2 z-10 hidden size-6 -translate-y-1/2 text-shell-gold md:block rtl:rotate-180" />
+            <ChevronRight className="absolute -end-4 top-1/2 z-10 hidden size-6 -translate-y-1/2 text-gold-text md:block rtl:rotate-180" />
           )}
         </li>
       ))}
@@ -572,7 +571,7 @@ export function CircleTile({ label, Icon: I, to }: { label: string; Icon: Icon; 
   const { t, lang } = useI18n();
   return (
     <SmartLink to={to} className="group grid justify-items-center gap-2 text-center">
-      <span className="grid size-16 place-items-center rounded-full border border-shell-gold/50 bg-chip-active text-shell-gold transition-colors group-hover:bg-gold-cta group-hover:text-primary-foreground">
+      <span className="grid size-16 place-items-center rounded-full border border-shell-gold/50 bg-chip-active text-gold-text transition-colors group-hover:bg-gold-cta group-hover:text-primary-foreground">
         <I className="size-6" />
       </span>
       <span className="text-xs font-semibold leading-tight text-navy">{t(label)}</span>
@@ -581,11 +580,11 @@ export function CircleTile({ label, Icon: I, to }: { label: string; Icon: Icon; 
 }
 
 /** Dark navy app-download promo used in bottom banner rows. */
-export function AppPromoCard({ eyebrow = "Explore on the Go", title = "Download EGYPTORA App" }: { eyebrow?: string; title?: string }) {
+export function AppPromoCard({ eyebrow = "Explore on the Go", title = "Download the Egyptora Hub app" }: { eyebrow?: string; title?: string }) {
   const { t, lang } = useI18n();
   return (
     <section className="on-dark rounded-[10px] bg-navy p-6">
-      <p className="text-xs uppercase tracking-[0.2em] text-shell-gold">{t(eyebrow)}</p>
+      <p className="text-xs eyebrow text-gold-text">{t(eyebrow)}</p>
       <p className="mt-1 font-display text-xl font-bold text-foreground">{t(title)}</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {["App Store", "Google Play"].map((s) => (
@@ -603,7 +602,7 @@ export function BandPromo({ Icon: I, title, body, cta, to }: { Icon: Icon; title
   const { t, lang } = useI18n();
   return (
     <section className="rounded-[10px] border border-border bg-bg-band p-6">
-      <I className="size-7 text-shell-gold" />
+      <I className="size-7 text-gold-text" />
       <h3 className="mt-3 font-display text-lg font-bold text-navy">{t(title)}</h3>
       <p className="mt-1 text-sm text-text-body">{t(body)}</p>
       <div className="mt-4">

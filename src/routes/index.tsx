@@ -1,3 +1,4 @@
+import { ArrowCta } from "@/components/layout/InnerPage";
 import { useState, type ComponentType, type SVGProps } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
 import { altForSrc } from "@/lib/generated-images";
@@ -116,34 +117,9 @@ function Home() {
 
 /* ---------- shared bits ---------- */
 
-function ArrowCta({ to, label }: { to?: string | undefined; label: string }) {
-  const { t } = useI18n();
-  // Coming-soon card (nav item is `soon`): inert, same toast as the menu.
-  if (!to)
-    return (
-      <button
-        type="button"
-        onClick={() => toast(t("Coming soon"))}
-        aria-label={`${label} — ${t("Coming soon")}`}
-        className="grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
-      >
-        <ArrowRight className="size-4 rtl:rotate-180" />
-      </button>
-    );
-  return (
-    <Link
-      to={L(to)}
-      aria-label={label}
-      className="grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-primary-foreground shadow-sm transition-transform hover:scale-105"
-    >
-      <ArrowRight className="size-4 rtl:rotate-180" />
-    </Link>
-  );
-}
-
 function NavyBadge({ children }: { children: React.ReactNode }) {
   return (
-    <span className="absolute start-2 top-2 rounded-full bg-navy px-2.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+    <span className="absolute start-2 top-2 rounded-full bg-navy px-2.5 py-0.5 text-2xs font-semibold text-primary-foreground">
       {children}
     </span>
   );
@@ -154,9 +130,9 @@ function ViewAll({ to }: { to: string }) {
   return (
     <Link
       to={L(to)}
-      className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-shell-gold"
+      className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-gold-text"
     >
-      {t("View All")} <ArrowRight className="size-4 text-shell-gold rtl:rotate-180" />
+      {t("View all")} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
     </Link>
   );
 }
@@ -226,13 +202,13 @@ function Hero() {
       <div className={cn(wrap, "relative pb-20 pt-8 lg:pb-24 lg:pt-12")}>
         <div className="absolute end-6 top-8 hidden text-end md:block lg:end-16">
           <p className="font-display text-5xl italic text-foreground">{t("Egypt")}</p>
-          <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-foreground">
+          <p className="mt-1 text-2xs eyebrow text-foreground">
             {t("A history that inspires")}
             <br />
             {t("A future that welcomes")}
           </p>
         </div>
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-shell-gold">
+        <p className="text-xs font-semibold eyebrow text-gold-text">
           {t("Discover a Timeless Land")}
         </p>
         <h1 className="mt-3 max-w-2xl font-display text-4xl font-bold text-foreground sm:text-5xl lg:text-[52px]">
@@ -259,7 +235,7 @@ function Hero() {
           <button
             type="submit"
             aria-label={t("Search")}
-            className="grid w-14 place-items-center bg-gold-cta text-primary-foreground"
+            className="grid w-14 place-items-center bg-gold-cta text-gold-foreground"
           >
             <Search className="size-5" />
           </button>
@@ -287,8 +263,8 @@ function Hero() {
 const quick: { Icon: Icon; title: string; sub?: string; to: string }[] = [
   { Icon: Palmtree, title: "Tourism & Experiences", to: "/explore-egypt" },
   { Icon: BarChart3, title: "Investment Opportunities", to: "/investment-opportunities" },
-  { Icon: HomeIcon, title: "Real Estate", sub: "Find Your Place", to: "/properties" },
-  { Icon: Stamp, title: "Visa & Immigration", sub: "Start Your Journey", to: "/government-directory" },
+  { Icon: HomeIcon, title: "Real Estate", sub: "Find Your Place", to: "/real-estate" },
+  { Icon: Stamp, title: "Visa & Immigration", sub: "Start Your Journey", to: "/visit-egypt/e-visa" },
   { Icon: GraduationCap, title: "Education", sub: "A Brighter Future", to: "/research-programs" },
   { Icon: Briefcase, title: "Do Business", sub: "Launch & Grow", to: "/do-business" },
   { Icon: Users, title: "Live in Egypt", sub: "Residency & Lifestyle", to: "/live-in-egypt" },
@@ -306,7 +282,7 @@ function QuickStrip() {
             to={L(to)}
             className="flex flex-col items-center gap-1.5 rounded-[10px] border border-foreground/15 bg-navy/90 px-2 py-4 text-center shadow-[var(--shadow-card)] backdrop-blur transition-colors hover:border-shell-gold"
           >
-            <Icon className="size-8 fill-shell-gold/25 text-shell-gold" strokeWidth={2} />
+            <Icon className="size-8 fill-shell-gold/25 text-gold-text" strokeWidth={2} />
             <span className="text-sm font-bold leading-tight text-foreground">{t(title)}</span>
             {sub && <span className="text-xs text-foreground/75">{t(sub)}</span>}
           </Link>
@@ -326,7 +302,7 @@ function QuickStrip() {
 const exploreCards: CardData[] = [
   { title: "Visit Egypt", sub: "Tourist information and guides", img: visitImg, to: "/visit-egypt" },
   { title: "Diving & Marine Activities", sub: "Explore the Red Sea", img: divingImg },
-  { title: "Nile Cruises", sub: "A unique journey", img: nileImg, to: "/offers" },
+  { title: "Nile Cruises", sub: "A unique journey", img: nileImg, to: "/experiences/nile-cruises" },
   { title: "Cultural & Historical Sites", sub: "Discover Egypt's heritage", img: culturalImg, to: "/heritage-sites" },
 ];
 const investCards: CardData[] = [
@@ -405,7 +381,7 @@ function LiveBusinessWhy() {
             body="Experience a vibrant lifestyle, rich culture and a welcoming community."
             to="/live-in-egypt"
           />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
             {liveCards.map((c) => (
               <ImgCard key={c.title} c={c} h="h-24" />
             ))}
@@ -417,7 +393,7 @@ function LiveBusinessWhy() {
             body="Connect with partners, explore markets and grow your business in Egypt."
             to="/do-business"
           />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
             {bizCards.map((c) => (
               <ImgCard key={c.title} c={c} h="h-24" />
             ))}
@@ -547,9 +523,9 @@ function GovBand() {
           </div>
           <Link
             to="/government-directory"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-shell-gold"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-gold-text"
           >
-            {t("View Directory")} <ArrowRight className="size-4 text-shell-gold rtl:rotate-180" />
+            {t("View Directory")} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
           </Link>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
@@ -608,7 +584,7 @@ function GlobalBand() {
         </div>
         <div className="relative">
           <img src={worldImg} alt="" className="w-full rounded-lg mix-blend-multiply" />
-          <p className="mt-1 text-end text-[11px] font-semibold uppercase tracking-[0.2em] text-navy">
+          <p className="mt-1 text-end text-2xs font-semibold eyebrow text-navy">
             {t("Egypt to the World")}
           </p>
         </div>
@@ -697,7 +673,7 @@ function NewsApp() {
                   <AiBadge src={n.img} />
                 </div>
                 <div className="p-4">
-                  <span className="rounded-full bg-bg-band px-2.5 py-0.5 text-[10px] font-semibold uppercase text-navy">
+                  <span className="rounded-full bg-bg-band px-2.5 py-0.5 text-2xs font-semibold uppercase text-navy">
                     {t(n.tag)}
                   </span>
                   <h3 className="mt-2 text-sm font-bold text-navy">{t(n.title)}</h3>

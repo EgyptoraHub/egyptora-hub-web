@@ -157,7 +157,7 @@ export function CrmBoard({ itemType, heading }: { itemType: CrmItemType; heading
           className={cn(
             "rounded-full border px-3 py-1.5 text-xs transition-colors",
             stageFilter === null
-              ? "border-gold/60 bg-gold/10 text-gold"
+              ? "border-gold/60 bg-gold/10 text-gold-text"
               : "border-border/60 text-muted-foreground hover:text-foreground",
           )}
         >
@@ -171,7 +171,7 @@ export function CrmBoard({ itemType, heading }: { itemType: CrmItemType; heading
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               stageFilter === stage
-                ? "border-gold/60 bg-gold/10 text-gold"
+                ? "border-gold/60 bg-gold/10 text-gold-text"
                 : "border-border/60 text-muted-foreground hover:text-foreground",
             )}
           >
@@ -296,7 +296,7 @@ export function CrmBoard({ itemType, heading }: { itemType: CrmItemType; heading
                   type="button"
                   disabled={busy || !noteDraft.trim()}
                   onClick={() => void submitNote()}
-                  className="mt-2 rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs text-gold disabled:opacity-50"
+                  className="mt-2 rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs text-gold-text disabled:opacity-50"
                 >
                   {t("Add note")}
                 </button>
@@ -305,7 +305,7 @@ export function CrmBoard({ itemType, heading }: { itemType: CrmItemType; heading
                   {notes.map((note) => (
                     <li key={note.id} className="rounded-lg border border-border/60 p-3">
                       <p className="text-sm text-foreground">{note.note}</p>
-                      <p className="mt-1 text-[11px] text-muted-foreground">
+                      <p className="mt-1 text-2xs text-muted-foreground">
                         {new Date(note.createdAt).toLocaleString()}
                         {note.createdByEmail ? ` · ${note.createdByEmail}` : ""}
                       </p>

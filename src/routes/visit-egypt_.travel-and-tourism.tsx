@@ -76,7 +76,7 @@ function TravelBookingWidget() {
         <TravelpayoutsWidget key={tab} src={src} />
       ) : (
         <div className="grid justify-items-center gap-2 rounded-xl border border-foreground/15 px-4 py-10 text-center">
-          <Ship className="size-8 text-shell-gold" />
+          <Ship className="size-8 text-gold-text" />
           <p className="font-display text-lg font-bold text-foreground">{t("Nile cruise booking is coming soon")}</p>
           <p className="max-w-md text-sm text-foreground/75">
             {t("Our booking partner does not offer cruise search yet. Ask our AI assistant for cruise options in the meantime.")}

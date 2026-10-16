@@ -79,7 +79,7 @@ function EVisaPage() {
           <p>{t("Eligible nationalities are listed on the official portal. Egyptian port authorities may refuse entry to an e-Visa holder, as with any visa.")}</p>
         </InfoCard>
       </div>
-      <p className="mt-6 inline-block rounded-full border border-border px-3 py-1 text-[11px] text-muted-foreground">
+      <p className="mt-6 inline-block rounded-full border border-border px-3 py-1 text-2xs text-muted-foreground">
         {t("Official source")}: visa2egypt.gov.eg · {t("Last verified")}: {LAST_VERIFIED}
       </p>
       <EmergencyQuickLinks className="mt-6 max-w-xl" />

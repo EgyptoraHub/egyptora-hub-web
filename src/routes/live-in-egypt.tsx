@@ -55,7 +55,7 @@ const GD = "/government-directory";
 const chips: Chip[] = [
   { label: "All Living Options", Icon: LayoutGrid },
   { label: "Residency & Visas", Icon: Stamp },
-  { label: "Housing & Real Estate", Icon: Home, to: "/properties" },
+  { label: "Housing & Real Estate", Icon: Home, to: "/real-estate" },
   { label: "Education & Schools", Icon: GraduationCap, to: "/research-programs" },
   { label: "Healthcare & Medical Services", Icon: HeartPulse },
   { label: "Work & Employment", Icon: Briefcase },
@@ -68,7 +68,7 @@ const chips: Chip[] = [
 
 const life: CardItem[] = [
   { title: "Residency & Visas", desc: "Residency options, visa information and procedures.", img: residency },
-  { title: "Housing & Real Estate", desc: "Apartments, villas, compounds and rental options.", img: housing, to: "/properties" },
+  { title: "Housing & Real Estate", desc: "Apartments, villas, compounds and rental options.", img: housing, to: "/real-estate" },
   { title: "Education & Schools", desc: "International and local schools, universities and programs.", img: education, to: "/research-programs" },
   { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health },
   { title: "Work & Employment", desc: "Job opportunities, work permits and career growth.", img: work },
@@ -127,15 +127,15 @@ function LiveInEgypt() {
           <NavyPromo>
             <h3 className="font-display text-lg font-bold">{t("Cost of Living in Egypt")}</h3>
             <p className="mt-1 text-xs text-foreground/75">{t("Affordable living, exceptional lifestyle.")}</p>
-            <div className="mt-4 grid grid-cols-3 gap-2">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {[
                 ["Housing", "from $200/month"],
                 ["Utilities", "from $50/month"],
                 ["Dining", "from $5/meal"],
               ].map(([a, b]) => (
                 <div key={a} className="rounded-lg bg-foreground/10 p-2 text-center">
-                  <p className="text-[11px] font-bold text-shell-gold">{t(a!)}</p>
-                  <p className="mt-0.5 text-[10px] text-foreground/85">{t(b!)}</p>
+                  <p className="text-2xs font-bold text-gold-text">{t(a!)}</p>
+                  <p className="mt-0.5 text-2xs text-foreground/85">{t(b!)}</p>
                 </div>
               ))}
             </div>
@@ -164,7 +164,7 @@ function LiveInEgypt() {
             </div>
             <div className="text-end">
               <p className="font-display text-5xl italic text-foreground">{t("Egypt")}</p>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground">{t("A home for every story")}</p>
+              <p className="text-2xs font-semibold eyebrow text-foreground">{t("A home for every story")}</p>
             </div>
           </div>
         </section>

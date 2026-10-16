@@ -90,7 +90,7 @@ function VisitEgypt() {
           </SidePanel>
           <EmergencyQuickLinks />
           <SidePanel title="Plan Your Trip">
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               {[
                 { label: "Visa Information", to: "/visit-egypt/e-visa", Icon: Stamp },
                 { label: "Best Time to Visit", to: "/encyclopedia", Icon: CalendarDays },
@@ -107,7 +107,7 @@ function VisitEgypt() {
                   className="grid justify-items-center gap-1.5 rounded-lg border border-border bg-card px-1 py-3 text-center transition-colors hover:border-shell-gold"
                 >
                   <i.Icon className="size-6 fill-navy/20 text-navy" strokeWidth={2.3} />
-                  <span className="text-[10px] font-semibold leading-tight text-navy [overflow-wrap:anywhere]">{t(i.label)}</span>
+                  <span className="text-2xs font-semibold leading-tight text-navy [overflow-wrap:anywhere]">{t(i.label)}</span>
                 </SmartLink>
               ))}
             </div>

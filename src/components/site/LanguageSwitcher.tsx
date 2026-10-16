@@ -29,7 +29,7 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
         aria-label={t("Language")}
         className={cn(
           "inline-flex items-center gap-1.5 rounded-full border border-border text-muted-foreground transition-colors hover:border-gold-line hover:text-foreground",
-          compact ? "px-2.5 py-1.5 text-[11px]" : "px-3 py-2 text-xs",
+          compact ? "px-2.5 py-1.5 text-2xs" : "px-3 py-2 text-xs",
         )}
       >
         <Globe className="size-4 shrink-0" />
@@ -54,7 +54,7 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
                 }}
                 className={cn(
                   "flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-start text-sm transition-colors hover:bg-accent",
-                  l.code === lang ? "text-gold" : "text-popover-foreground",
+                  l.code === lang ? "text-gold-text" : "text-popover-foreground",
                 )}
               >
                 <span aria-hidden="true">{l.flag}</span>

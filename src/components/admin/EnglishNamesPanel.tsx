@@ -79,7 +79,7 @@ export function EnglishNamesPanel() {
       <div className="mt-3 flex flex-wrap gap-2">
         {(Object.keys(NAME_TABLES) as NameTable[]).map((t) => (
           <button key={t} type="button" disabled={busy} onClick={() => download(t)}
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-gold/60 bg-gold/10 px-3.5 text-sm text-gold hover:bg-gold/20 disabled:opacity-40">
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-gold/60 bg-gold/10 px-3.5 text-sm text-gold-text hover:bg-gold/20 disabled:opacity-40">
             <Download className="size-3.5" /> {LABEL[t]} CSV
           </button>
         ))}
@@ -95,7 +95,7 @@ export function EnglishNamesPanel() {
         </label>
         {rows ? <span className="text-sm text-muted-foreground">{rows.length} rows loaded</span> : null}
         <button type="button" disabled={!rows || busy} onClick={() => run(true)} className="min-h-11 rounded-full border border-border px-3.5 text-sm text-foreground disabled:opacity-40">Preview</button>
-        <button type="button" disabled={!rows || busy || !result?.dryRun || result.updated === 0} onClick={() => run(false)} className="min-h-11 rounded-full bg-gold px-3.5 text-sm text-primary-foreground disabled:opacity-40">Apply</button>
+        <button type="button" disabled={!rows || busy || !result?.dryRun || result.updated === 0} onClick={() => run(false)} className="min-h-11 rounded-full bg-gold px-3.5 text-sm text-gold-foreground disabled:opacity-40">Apply</button>
       </div>
       {error ? <p className="mt-3 text-sm text-destructive">{error}</p> : null}
       {result ? (

@@ -108,8 +108,8 @@ function ProvidersPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               type === null
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("All types")}
@@ -122,8 +122,8 @@ function ProvidersPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 type === ty
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t(ty)}
@@ -144,7 +144,7 @@ function ProvidersPage() {
                     <Link
                       to="/providers/$id"
                       params={{ id: provider.id }}
-                      className="transition-colors hover:text-gold"
+                      className="transition-colors hover:text-gold-text"
                     >
                       {t(provider.name)}
                     </Link>
@@ -153,11 +153,11 @@ function ProvidersPage() {
                 </div>
 
                 <p className="mt-2 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-                  <MapPin className="size-3.5 text-gold/70" />
+                  <MapPin className="size-3.5 text-gold-text" />
                   <Link
                     to="/governorates/$id"
                     params={{ id: provider.governorate_slug }}
-                    className="hover:text-gold"
+                    className="hover:text-gold-text"
                   >
                     {t(govName(provider.governorate_slug))}
                   </Link>
@@ -174,7 +174,7 @@ function ProvidersPage() {
                 <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-foreground/85">
                   {provider.rating !== null && (
                     <span className="flex items-center gap-1">
-                      <Star className="size-3.5 text-gold" />
+                      <Star className="size-3.5 text-gold-text" />
                       {provider.rating.toFixed(1)}
                       {provider.review_count !== null && (
                         <span className="text-muted-foreground">({provider.review_count})</span>
@@ -182,7 +182,7 @@ function ProvidersPage() {
                     </span>
                   )}
                   {provider.price_from !== null && (
-                    <span className="text-gold">
+                    <span className="text-gold-text">
                       {t("From")} {provider.price_from.toLocaleString()} {provider.currency ?? ""}
                     </span>
                   )}
@@ -193,7 +193,7 @@ function ProvidersPage() {
                     {provider.specialties.slice(0, 4).map((sp) => (
                       <span
                         key={sp}
-                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[10px] text-gold"
+                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs text-gold-text"
                       >
                         {t(sp)}
                       </span>

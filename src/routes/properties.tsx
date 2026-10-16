@@ -161,11 +161,11 @@ function PropertyCard({ property }: { property: Property }) {
       <GovernanceBanner status={property.governance_status} className="mb-3" />
       <div className="flex items-start justify-between gap-3">
         <h3 className="flex items-center gap-2 font-display text-base text-foreground">
-          <Building className="size-4 shrink-0 text-gold" />
+          <Building className="size-4 shrink-0 text-gold-text" />
           <Link
             to="/properties/$id"
             params={{ id: property.id }}
-            className="transition-colors hover:text-gold"
+            className="transition-colors hover:text-gold-text"
           >
             {t(property.name)}
           </Link>
@@ -174,11 +174,11 @@ function PropertyCard({ property }: { property: Property }) {
       </div>
 
       <p className="mt-2 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-        <MapPin className="size-3.5 text-gold/70" />
+        <MapPin className="size-3.5 text-gold-text" />
         <Link
           to="/governorates/$id"
           params={{ id: property.governorate_slug }}
-          className="hover:text-gold"
+          className="hover:text-gold-text"
         >
           {t(govName(property.governorate_slug))}
         </Link>
@@ -196,11 +196,11 @@ function PropertyCard({ property }: { property: Property }) {
 
       <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-foreground/85">
         {property.price_usd !== null && (
-          <span className="font-semibold text-gold">{formatPrice(property.price_usd, lang)}</span>
+          <span className="font-semibold text-gold-text">{formatPrice(property.price_usd, lang)}</span>
         )}
         {property.area_m2 !== null && (
           <span className="flex items-center gap-1">
-            <Ruler className="size-3.5 text-gold/70" />
+            <Ruler className="size-3.5 text-gold-text" />
             {property.area_m2.toLocaleString()} m²
           </span>
         )}
@@ -211,7 +211,7 @@ function PropertyCard({ property }: { property: Property }) {
           {property.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[10px] text-gold"
+              className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs text-gold-text"
             >
               {t(tag)}
             </span>
@@ -243,7 +243,7 @@ function PropertiesPage() {
     <PageTemplate
       hero={
         <HeroSearch
-          breadcrumb={[{ label: "Home", to: "/" }, { label: "Real Estate" }]}
+          breadcrumb={[{ label: "Home", to: "/" }, { label: "Real Estate", to: "/real-estate" }, { label: "Properties" }]}
           title="Real Estate & Property"
           subtitle="Find. Invest. Live. Grow in Egypt."
           description="Discover real estate opportunities across Egypt, from vibrant cities to new communities. Your next chapter starts here."

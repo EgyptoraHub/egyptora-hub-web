@@ -48,7 +48,7 @@ export const Route = createFileRoute("/invest-in-egypt")({
 const IO = "/investment-opportunities";
 const chips: Chip[] = [
   { label: "All Sectors", Icon: LayoutGrid },
-  { label: "Real Estate & New Cities", Icon: Building2, to: "/properties" },
+  { label: "Real Estate & New Cities", Icon: Building2, to: "/real-estate" },
   { label: "Industry & Manufacturing", Icon: Factory, to: `${IO}?sector=industry` },
   { label: "Tourism & Hospitality", Icon: Hotel, to: `${IO}?sector=tourism` },
   { label: "Energy & Renewable", Icon: Zap, to: `${IO}?sector=energy` },
@@ -68,7 +68,7 @@ const featured: CardItem[] = [
 ];
 
 const sectors: CardItem[] = [
-  { title: "Real Estate", desc: "Urban development and new cities", img: capital, to: "/properties" },
+  { title: "Real Estate", desc: "Urban development and new cities", img: capital, to: "/real-estate" },
   { title: "Industry", desc: "Manufacturing and industrial zones", img: sIndustry, to: IO },
   { title: "Tourism", desc: "Hotels, resorts and experience projects", img: sTourism, to: IO },
   { title: "Energy", desc: "Renewable and traditional energy", img: energy, to: IO },
@@ -93,10 +93,10 @@ function HeroTiles() {
     <div className="mt-8 grid max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-xl bg-foreground/15 backdrop-blur md:grid-cols-4">
       {benefits.map((b) => (
         <div key={b.t} className="flex items-center gap-3 bg-navy/60 p-3">
-          <b.Icon className="size-6 shrink-0 text-shell-gold" />
+          <b.Icon className="size-6 shrink-0 text-gold-text" />
           <div>
             <p className="text-xs font-bold text-foreground">{t(b.t)}</p>
-            <p className="text-[11px] text-foreground/75">{t(b.s)}</p>
+            <p className="text-2xs text-foreground/75">{t(b.s)}</p>
           </div>
         </div>
       ))}
@@ -146,7 +146,7 @@ function InvestInEgypt() {
             <div className="absolute inset-0 bg-gradient-to-t from-navy/90 to-transparent" />
             <div className="absolute inset-x-5 bottom-5">
               <p className="font-display text-2xl font-bold text-foreground">{t("Invest in People")}</p>
-              <p className="font-display text-2xl font-bold text-shell-gold">{t("Invest in Egypt")}</p>
+              <p className="font-display text-2xl font-bold text-gold-text">{t("Invest in Egypt")}</p>
             </div>
           </div>
         </>
@@ -167,7 +167,7 @@ function InvestInEgypt() {
                 </GoldButton>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {[
                 { Icon: Globe2, l: "195 Countries" },
                 { Icon: TrendingUp, l: "Growing Economy" },

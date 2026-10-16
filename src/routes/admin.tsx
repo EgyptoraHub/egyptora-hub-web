@@ -63,7 +63,7 @@ function AdminLayout() {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">
+          <span className="text-2xs font-semibold eyebrow text-gold-text">
             {SITE.name} · {t("Admin")}
           </span>
           <nav className="flex flex-wrap items-center gap-1">
@@ -72,7 +72,7 @@ function AdminLayout() {
                 key={link.to}
                 to={link.to}
                 activeOptions={{ exact: link.exact }}
-                activeProps={{ className: "border-gold/60 bg-gold/10 text-gold" }}
+                activeProps={{ className: "border-gold/60 bg-gold/10 text-gold-text" }}
                 inactiveProps={{ className: "border-transparent text-muted-foreground hover:text-foreground" }}
                 className="rounded-full border px-3.5 py-1.5 text-sm transition-colors"
               >
@@ -82,7 +82,7 @@ function AdminLayout() {
           </nav>
           <Link
             to="/"
-            className="ms-auto flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-gold"
+            className="ms-auto flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-gold-text"
           >
             <ExternalLink className="size-3.5" />
             {t("View site")}

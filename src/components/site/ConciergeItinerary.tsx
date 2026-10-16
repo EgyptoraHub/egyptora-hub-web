@@ -61,7 +61,7 @@ const TYPE_LABEL: Record<string, string> = {
 };
 
 function ItemLink({ item, label }: { item: ItineraryItem; label: string }) {
-  const cls = "text-[11px] font-semibold text-gold hover:underline";
+  const cls = "text-2xs font-semibold text-gold-text hover:underline";
   // Detail routes resolve rows by primary key, so prefer the id the search returned.
   const id = item.id;
   switch (item.type) {
@@ -143,16 +143,16 @@ export function ItineraryCards({ items }: { items: ItineraryItem[] }) {
             <div className="flex items-start justify-between gap-2">
               <h4 className="font-display text-[12px] leading-snug text-foreground">{item.name}</h4>
               {typeof item.day === "number" && (
-                <span className="shrink-0 rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-gold">
+                <span className="shrink-0 rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs font-semibold eyebrow text-gold-text">
                   {`${t("Day")} ${item.day}`}
                 </span>
               )}
             </div>
-            <p className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+            <p className="mt-0.5 text-2xs eyebrow text-muted-foreground">
               {t(TYPE_LABEL[item.type] ?? item.type)}
             </p>
             {item.summary && (
-              <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
+              <p className="mt-1.5 text-2xs leading-relaxed text-muted-foreground">
                 {item.summary}
               </p>
             )}

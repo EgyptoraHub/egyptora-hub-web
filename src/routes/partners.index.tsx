@@ -53,7 +53,7 @@ function PartnerPortalPage() {
     return (
       <div className="min-h-screen bg-background px-5 py-14">
         <div className="mx-auto w-full max-w-4xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">
+          <p className="text-2xs font-semibold eyebrow text-gold-text">
             {SITE.name} · {t("Partner portal")}
           </p>
           <PartnerApplicationsList />
@@ -64,7 +64,7 @@ function PartnerPortalPage() {
   return (
     <div className="min-h-screen bg-background px-5 py-14">
       <div className="mx-auto w-full max-w-4xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold/80">
+        <p className="text-2xs font-semibold eyebrow text-gold-text">
           {SITE.name} · {t("Partner portal")}
         </p>
         <h1 className="mt-3 font-display text-3xl text-foreground">{partner?.orgName}</h1>
@@ -89,7 +89,7 @@ function PartnerPortalPage() {
                     : ""}
                 </p>
               </div>
-              <span className="rounded-full border border-border/70 px-3 py-1 text-[11px] text-muted-foreground">
+              <span className="rounded-full border border-border/70 px-3 py-1 text-2xs text-muted-foreground">
                 {t(MODERATION_LABEL[item.moderationState] ?? item.moderationState)}
               </span>
             </Link>

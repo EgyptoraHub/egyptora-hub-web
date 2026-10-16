@@ -391,8 +391,8 @@ export function EgyptMap() {
               onPointerDown={(e) => e.stopPropagation()}
               className={`grid size-9 place-items-center rounded-xl border backdrop-blur transition-colors hover:bg-gold-soft ${
                 on
-                  ? "border-gold bg-gold-soft text-gold"
-                  : "border-gold-line/60 bg-background/70 text-gold"
+                  ? "border-gold bg-gold-soft text-gold-text"
+                  : "border-gold-line/60 bg-background/70 text-gold-text"
               }`}
             >
               <Icon className="size-4" />
@@ -414,14 +414,14 @@ export function EgyptMap() {
         </div>
 
         {/* scale bar + legend */}
-        <div className="pointer-events-none absolute bottom-0 left-0 flex flex-wrap items-end gap-6 p-3 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+        <div className="pointer-events-none absolute bottom-0 left-0 flex flex-wrap items-end gap-6 p-3 text-2xs eyebrow text-muted-foreground">
           <div>
-            <div className="flex items-end gap-0 text-[9px]">
+            <div className="flex items-end gap-0 text-2xs">
               <span>0</span>
               <span className="mx-auto" />
             </div>
             <div className="mt-1 h-1.5 w-28 rounded-sm border border-gold-line/70 bg-[linear-gradient(90deg,var(--gold)_50%,transparent_50%)]" />
-            <div className="mt-0.5 flex w-28 justify-between text-[9px]">
+            <div className="mt-0.5 flex w-28 justify-between text-2xs">
               <span>0</span>
               <span>{Math.round(400 / view.z)} km</span>
             </div>
@@ -439,7 +439,7 @@ export function EgyptMap() {
         {/* floating detail card — only after clicking a pin */}
         {cardOpen && (
         <div
-          className="absolute bottom-3 right-3 w-[248px] overflow-hidden rounded-2xl border border-gold-line/60 bg-background/85 shadow-2xl backdrop-blur-md"
+          className="relative mt-3 w-full sm:absolute sm:bottom-3 sm:end-3 sm:mt-0 sm:w-[248px] overflow-hidden rounded-2xl border border-gold-line/60 bg-background/85 shadow-2xl backdrop-blur-md"
           onPointerDown={(e) => e.stopPropagation()}
         >
           <button
@@ -447,7 +447,7 @@ export function EgyptMap() {
             aria-label={t("Close")}
             title={t("Close")}
             onClick={() => setCardOpen(false)}
-            className="absolute right-2 top-2 grid size-7 place-items-center rounded-full border border-gold-line/60 bg-background/80 text-gold backdrop-blur"
+            className="absolute right-2 top-2 grid size-7 place-items-center rounded-full border border-gold-line/60 bg-background/80 text-gold-text backdrop-blur"
           >
             <X className="size-3.5" />
           </button>
@@ -463,12 +463,12 @@ export function EgyptMap() {
           )}
           <div className="space-y-2 p-3">
             <div>
-              <h4 className="font-display text-lg leading-tight text-gold">{t(active.name)}</h4>
-              <p className="text-[11px] text-muted-foreground">
+              <h4 className="font-display text-lg leading-tight text-gold-text">{t(active.name)}</h4>
+              <p className="text-2xs text-muted-foreground">
                 {profile ? profile.tagline[lang === "ar" ? "ar" : "en"] : t(active.region)}
               </p>
             </div>
-            <dl className="grid gap-1 text-[11px]">
+            <dl className="grid gap-1 text-2xs">
               <div className="flex items-center justify-between gap-2">
                 <dt className="text-muted-foreground">{t("Zone")}</dt>
                 <dd className="text-foreground/90">{t(active.region)}</dd>
@@ -485,9 +485,9 @@ export function EgyptMap() {
             <Link
               to="/governorates/$id"
               params={{ id: active.id }}
-              className="flex items-center justify-center gap-1.5 rounded-xl border border-gold-line bg-gold-soft px-3 py-2 text-xs font-semibold text-gold"
+              className="flex items-center justify-center gap-1.5 rounded-xl border border-gold-line bg-gold-soft px-3 py-2 text-xs font-semibold text-gold-text"
             >
-              {t("Explore Governorate")} <ArrowRight className="size-3.5" />
+              {t("Explore Governorate")} <ArrowRight className="size-3.5 rtl:rotate-180" />
             </Link>
           </div>
         </div>
@@ -496,7 +496,7 @@ export function EgyptMap() {
 
         {/* hover chip */}
         {hoverId && hoverId !== activeId && (
-          <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-gold-line/60 bg-background/80 px-3 py-1 text-[11px] text-gold backdrop-blur">
+          <div className="pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 rounded-full border border-gold-line/60 bg-background/80 px-3 py-1 text-2xs text-gold-text backdrop-blur">
             {t(labelGov.name)}
           </div>
         )}
@@ -505,17 +505,17 @@ export function EgyptMap() {
       {/* ---------------- Side panel ---------------- */}
       <div className="grid content-start gap-3 rounded-2xl border border-border/70 bg-card p-5">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+          <p className="text-2xs eyebrow text-muted-foreground">
             {t(active.region)}
           </p>
-          <h3 className="font-display text-xl text-gold">{t(active.name)}</h3>
+          <h3 className="font-display text-xl text-gold-text">{t(active.name)}</h3>
           <p className="mt-0.5 text-xs text-muted-foreground">
             {t("Capital")}: {t(active.capital)}
           </p>
         </div>
 
         <label className="flex items-center gap-2 rounded-xl border border-border/60 bg-surface-2 px-3 py-2">
-          <Search className="size-3.5 text-gold" />
+          <Search className="size-3.5 text-gold-text" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -530,7 +530,7 @@ export function EgyptMap() {
               key={s.name}
               className="flex items-center gap-2 rounded-xl border border-border/60 bg-surface-2 px-3 py-2 text-xs text-foreground/85"
             >
-              <Landmark className="size-3.5 shrink-0 text-gold" />
+              <Landmark className="size-3.5 shrink-0 text-gold-text" />
               {t(s.name)}
             </li>
           ))}
@@ -548,9 +548,9 @@ export function EgyptMap() {
                 }}
                 onMouseEnter={() => setHoverId(g.id)}
                 onMouseLeave={() => setHoverId(null)}
-                className={`rounded-full border px-2.5 py-1 text-[11px] transition-colors ${
+                className={`rounded-full border px-2.5 py-1 text-2xs transition-colors ${
                   g.id === activeId
-                    ? "border-gold-line bg-gold-soft text-gold"
+                    ? "border-gold-line bg-gold-soft text-gold-text"
                     : "border-border/60 text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -563,9 +563,9 @@ export function EgyptMap() {
         <Link
           to="/governorates/$id"
           params={{ id: active.id }}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-gold-line bg-gold-soft px-4 py-2 text-sm font-semibold text-gold"
+          className="inline-flex items-center justify-center gap-2 rounded-xl border border-gold-line bg-gold-soft px-4 py-2 text-sm font-semibold text-gold-text"
         >
-          <MapPin className="size-4" /> {t("Discover")} {t(active.name)} <ArrowRight className="size-4" />
+          <MapPin className="size-4" /> {t("Discover")} {t(active.name)} <ArrowRight className="size-4 rtl:rotate-180" />
         </Link>
       </div>
     </div>

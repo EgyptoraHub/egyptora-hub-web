@@ -63,7 +63,7 @@ function Hub() {
         </section>
 
         <div className="mt-10 grid max-w-xl gap-1 rounded-2xl border border-dashed border-border bg-bg-alt p-5">
-          <span className="w-fit rounded-full border border-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-navy">{t("Planned")}</span>
+          <span className="w-fit rounded-full border border-border px-2 py-0.5 text-2xs font-semibold eyebrow text-navy">{t("Planned")}</span>
           <h2 className="text-base font-semibold text-navy">{t("Learning for schools and students")}</h2>
           <p className="text-sm text-text-body">{t("Future educational programmes, video lessons and downloadable materials. Some may be paid.")}</p>
         </div>

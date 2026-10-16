@@ -31,7 +31,7 @@ export function AuthButtons({
       <DropdownMenu>
         <DropdownMenuTrigger
           className={cn(
-            "flex items-center gap-2 rounded-full border border-gold-line bg-gold-soft px-3.5 py-2 text-xs font-semibold text-gold transition-colors hover:bg-gold hover:text-primary-foreground",
+            "flex items-center gap-2 rounded-full border border-gold-line bg-gold-soft px-3.5 py-2 text-xs font-semibold text-gold-text transition-colors hover:bg-gold hover:text-primary-foreground",
             className,
           )}
         >
@@ -54,7 +54,7 @@ export function AuthButtons({
       <Link
         to="/auth"
         className={cn(
-          "flex items-center gap-2 rounded-lg bg-gold-cta px-4 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90",
+          "flex items-center gap-2 rounded-lg bg-gold-cta px-4 py-2 text-xs font-semibold text-gold-foreground transition-opacity hover:opacity-90",
           className,
         )}
       >
@@ -68,14 +68,14 @@ export function AuthButtons({
     <div className={cn("flex items-center gap-2", className)}>
       <Link
         to="/auth"
-        className="flex items-center gap-2 rounded-full border border-border px-3.5 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-gold-line hover:text-gold"
+        className="flex items-center gap-2 rounded-full border border-border px-3.5 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-gold-line hover:text-gold-text"
       >
         <LogIn className="size-4" />
         <span className="hidden sm:inline">{t("Sign in")}</span>
       </Link>
       <Link
         to="/auth"
-        className="flex items-center gap-2 rounded-full bg-gold px-3.5 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+        className="flex items-center gap-2 rounded-full bg-gold px-3.5 py-2 text-xs font-semibold text-gold-foreground transition-opacity hover:opacity-90"
       >
         <UserPlus className="size-4" />
         <span className="hidden sm:inline">{t("Create account")}</span>

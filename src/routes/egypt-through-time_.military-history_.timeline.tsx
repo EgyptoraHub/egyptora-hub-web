@@ -82,7 +82,7 @@ function Timeline() {
                   {e.number.toLocaleString(lang === "ar" ? "ar-EG" : "en")}
                 </span>
                 <span className={cn("line-clamp-2 text-xs font-semibold", active ? "text-navy" : "text-text-body")} dir="auto">{bi(e, "name")}</span>
-                <span className="text-[11px] text-text-body" dir="auto">{bi(e, "start_label")}</span>
+                <span className="text-2xs text-text-body" dir="auto">{bi(e, "start_label")}</span>
               </button>
             );
           })}

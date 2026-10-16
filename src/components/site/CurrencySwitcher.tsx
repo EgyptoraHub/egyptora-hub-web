@@ -29,7 +29,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
         aria-label={t("Currency")}
         className={cn(
           "inline-flex items-center gap-1.5 rounded-full border border-border text-muted-foreground transition-colors hover:border-gold-line hover:text-foreground",
-          compact ? "px-2.5 py-1.5 text-[11px]" : "px-3 py-2 text-xs",
+          compact ? "px-2.5 py-1.5 text-2xs" : "px-3 py-2 text-xs",
         )}
       >
         <Coins className="size-4 shrink-0" />
@@ -54,7 +54,7 @@ export function CurrencySwitcher({ compact = false }: { compact?: boolean }) {
                 }}
                 className={cn(
                   "flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-start text-sm transition-colors hover:bg-accent",
-                  c.code === currency.code ? "text-gold" : "text-popover-foreground",
+                  c.code === currency.code ? "text-gold-text" : "text-popover-foreground",
                 )}
               >
                 <span aria-hidden="true">{c.flag}</span>

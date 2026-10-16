@@ -149,7 +149,7 @@ function DoBusiness() {
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[13px] font-bold text-navy">{t(w.t)}</span>
-                    <span className="block text-[11px] text-text-body">{t(w.d)}</span>
+                    <span className="block text-2xs text-text-body">{t(w.d)}</span>
                   </span>
                 </li>
               ))}
@@ -168,7 +168,7 @@ function DoBusiness() {
             />
           </SidePanel>
           <section className="rounded-[10px] border border-border bg-bg-band p-5 text-center">
-            <Headphones className="mx-auto size-8 text-shell-gold" />
+            <Headphones className="mx-auto size-8 text-gold-text" />
             <h3 className="mt-2 font-display text-lg font-bold text-navy">{t("Need Assistance?")}</h3>
             <p className="mt-1 text-xs text-text-body">{t("Our team is here to support you.")}</p>
             <div className="mt-3">
@@ -206,7 +206,7 @@ function DoBusiness() {
                 {t("Download Now")} <Download className="size-4" />
               </button>
             </div>
-            <FileText className="size-14 shrink-0 text-shell-gold" strokeWidth={1.5} />
+            <FileText className="size-14 shrink-0 text-gold-text" strokeWidth={1.5} />
           </section>
         </div>
       }

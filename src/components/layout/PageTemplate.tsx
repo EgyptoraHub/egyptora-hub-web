@@ -49,13 +49,7 @@ export function HeroSearch({
         fetchPriority="high"
         className="absolute inset-0 size-full object-cover"
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to right, oklch(0.243 0.058 249.8 / 92%) 0%, oklch(0.243 0.058 249.8 / 68%) 55%, oklch(0.243 0.058 249.8 / 32%) 100%)",
-        }}
-      />
+      <div className="hero-scrim absolute inset-0" />
 
       <div className="on-dark relative mx-auto w-full max-w-[1500px] px-4 pb-12 pt-6 lg:px-8 lg:pb-16">
         {breadcrumb && breadcrumb.length > 0 && (
@@ -67,7 +61,7 @@ export function HeroSearch({
                   <Link
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- static, typed route paths
                     to={crumb.to as any}
-                    className="transition-colors hover:text-gold"
+                    className="transition-colors hover:text-gold-text"
                   >
                     {t(crumb.label)}
                   </Link>
@@ -105,7 +99,7 @@ export function HeroSearch({
               />
               <button
                 type="submit"
-                className="shrink-0 rounded-full bg-gold px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+                className="shrink-0 rounded-full bg-gold px-6 py-3.5 text-sm font-semibold text-gold-foreground transition-transform hover:-translate-y-0.5"
               >
                 {t("Search")}
               </button>
@@ -113,7 +107,7 @@ export function HeroSearch({
           </div>
 
           {sideNote && sideNote.length > 0 && (
-            <ul className="hidden gap-1 text-[11px] uppercase tracking-[0.2em] text-foreground/80 lg:grid">
+            <ul className="hidden gap-1 text-2xs eyebrow text-foreground/80 lg:grid">
               {sideNote.map((line) => (
                 <li key={line}>{t(line)}</li>
               ))}
@@ -166,17 +160,17 @@ export function CategoryTabs({
                   : "border-transparent bg-background hover:border-gold-line",
               )}
             >
-              <tab.icon className={cn("size-5", isActive ? "text-gold" : "text-primary")} />
+              <tab.icon className={cn("size-5", isActive ? "text-gold-text" : "text-primary")} />
               <span
                 className={cn(
-                  "text-[11px] font-semibold leading-tight",
-                  isActive ? "text-gold" : "text-foreground",
+                  "text-2xs font-semibold leading-tight",
+                  isActive ? "text-gold-text" : "text-foreground",
                 )}
               >
                 {t(tab.label)}
               </span>
               {tab.labelAr && (
-                <span className="text-[10px] leading-tight text-muted-foreground" dir="rtl">
+                <span className="text-2xs leading-tight text-muted-foreground" dir="rtl">
                   {tab.labelAr}
                 </span>
               )}
@@ -219,7 +213,7 @@ export function BlockHeader({
           <Link
             // eslint-disable-next-line @typescript-eslint/no-explicit-any -- static, typed route paths
             to={actionTo as any}
-            className="flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-gold"
+            className="flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-gold-text"
           >
             {t(actionLabel)} <ArrowRight className="size-4 rtl:rotate-180" />
           </Link>
@@ -227,7 +221,7 @@ export function BlockHeader({
           <button
             type="button"
             onClick={onAction}
-            className="flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-gold"
+            className="flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-gold-text"
           >
             {t(actionLabel)} <ArrowRight className="size-4 rtl:rotate-180" />
           </button>
@@ -264,7 +258,7 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
       {items.map((item) => {
         const inner = (
           <>
-            <item.icon className="size-5 shrink-0 text-gold" />
+            <item.icon className="size-5 shrink-0 text-gold-text" />
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold text-foreground">
                 {t(item.label)}
@@ -291,7 +285,7 @@ export function ExploreGrid({ items }: { items: ExploreItem[] }) {
               className={cn(base, "cursor-default opacity-70")}
             >
               {inner}
-              <span className="ms-auto shrink-0 rounded-full border border-border bg-muted/40 px-1.5 py-0.5 text-[9px] font-semibold uppercase text-muted-foreground">
+              <span className="ms-auto shrink-0 rounded-full border border-border bg-muted/40 px-1.5 py-0.5 text-2xs font-semibold uppercase text-muted-foreground">
                 {t("Coming soon")}
               </span>
             </button>

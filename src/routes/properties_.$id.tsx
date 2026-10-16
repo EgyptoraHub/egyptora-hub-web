@@ -110,18 +110,18 @@ function PropertyDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <Building className="size-6 shrink-0 text-gold" />
+            <Building className="size-6 shrink-0 text-gold-text" />
             {t(property.name)}
           </h1>
           <SourceBadge status="DEMO" />
         </div>
 
         <p className="mt-3 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="size-4 text-gold/70" />
+          <MapPin className="size-4 text-gold-text" />
           <Link
             to="/governorates/$id"
             params={{ id: property.governorate_slug }}
-            className="hover:text-gold"
+            className="hover:text-gold-text"
           >
             {t(govName(property.governorate_slug))}
           </Link>
@@ -161,7 +161,7 @@ function PropertyDetailPage() {
             value={
               property.area_m2 !== null ? (
                 <span className="flex items-center gap-1.5">
-                  <Ruler className="size-3.5 text-gold/70" />
+                  <Ruler className="size-3.5 text-gold-text" />
                   {property.area_m2.toLocaleString(locale)} m²
                 </span>
               ) : null

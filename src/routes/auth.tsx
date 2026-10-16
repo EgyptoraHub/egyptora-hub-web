@@ -146,11 +146,11 @@ function AuthPage() {
           <Link to="/" className="flex items-center gap-3">
             <img src={logo.url} alt={`${SITE.name} logo`} className="size-12 rounded-full ring-1 ring-gold-line" />
             <span className="font-display text-lg tracking-[0.22em] text-foreground">
-              EGYPTORA <span className="text-gold">HUB</span>
+              EGYPTORA <span className="text-gold-text">HUB</span>
             </span>
           </Link>
           <div className="max-w-md">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gold/80">
+            <p className="text-2xs font-semibold eyebrow text-gold-text">
               {t("One account, all of Egypt")}
             </p>
             <h1 className="mt-4 font-display text-4xl leading-tight text-foreground">
@@ -164,7 +164,7 @@ function AuthPage() {
                 "Rate past journeys and unlock member pricing",
               ].map((line) => (
                 <li key={line} className="flex items-start gap-2.5">
-                  <ShieldCheck className="mt-0.5 size-4 shrink-0 text-gold" />
+                  <ShieldCheck className="mt-0.5 size-4 shrink-0 text-gold-text" />
                   {t(line)}
                 </li>
               ))}
@@ -179,7 +179,7 @@ function AuthPage() {
           <Link to="/" className="mb-8 flex items-center gap-3 lg:hidden">
             <img src={logo.url} alt={`${SITE.name} logo`} className="size-10 rounded-full ring-1 ring-gold-line" />
             <span className="font-display text-base tracking-[0.2em] text-foreground">
-              EGYPTORA <span className="text-gold">HUB</span>
+              EGYPTORA <span className="text-gold-text">HUB</span>
             </span>
           </Link>
 
@@ -190,7 +190,7 @@ function AuthPage() {
                 onClick={() => setMode(m)}
                 className={cn(
                   "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  mode === m ? "bg-gold text-primary-foreground" : "text-muted-foreground hover:text-foreground",
+                  mode === m ? "bg-gold text-gold-foreground" : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {t(m === "signup" ? "Create account" : "Sign in")}
@@ -212,7 +212,7 @@ function AuthPage() {
               onClick={() => void signInWithProvider("google")}
               className="flex h-12 items-center justify-center gap-3 rounded-xl border border-border bg-card/70 text-sm font-medium text-foreground transition-colors hover:border-gold-line disabled:opacity-60"
             >
-              <Chrome className="size-4 text-gold" />
+              <Chrome className="size-4 text-gold-text" />
               {t("Continue with Google")}
             </button>
             <button
@@ -221,12 +221,12 @@ function AuthPage() {
               onClick={() => void signInWithProvider("apple")}
               className="flex h-12 items-center justify-center gap-3 rounded-xl border border-border bg-card/70 text-sm font-medium text-foreground transition-colors hover:border-gold-line disabled:opacity-60"
             >
-              <Apple className="size-4 text-gold" />
+              <Apple className="size-4 text-gold-text" />
               {t("Continue with Apple")}
             </button>
           </div>
 
-          <div className="my-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="my-6 flex items-center gap-3 text-2xs eyebrow text-muted-foreground">
             <span className="h-px flex-1 bg-border" />
             {t("or")}
             <span className="h-px flex-1 bg-border" />
@@ -246,7 +246,7 @@ function AuthPage() {
             )}
             {mode === "signup" && (
               <fieldset className="grid gap-2">
-                <legend className="mb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                <legend className="mb-1 text-2xs font-semibold eyebrow text-muted-foreground">
                   {t("Account type")}
                 </legend>
                 <div className="grid grid-cols-2 gap-2">
@@ -259,7 +259,7 @@ function AuthPage() {
                       className={cn(
                         "rounded-xl border px-3 py-3 text-xs font-medium transition-colors",
                         form.accountType === value
-                          ? "border-gold-line bg-gold-soft text-gold"
+                          ? "border-gold-line bg-gold-soft text-gold-text"
                           : "border-border bg-card/60 text-muted-foreground hover:text-foreground",
                       )}
                     >
@@ -307,7 +307,7 @@ function AuthPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="mt-2 flex h-12 items-center justify-center gap-2 rounded-xl bg-gold text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+              className="mt-2 flex h-12 items-center justify-center gap-2 rounded-xl bg-gold text-sm font-semibold text-gold-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
             >
               {submitting && <Loader2 className="size-4 animate-spin" />}
               {t(mode === "signup" ? "Create account" : "Sign in")}
@@ -322,14 +322,14 @@ function AuthPage() {
           )}
 
           {confirmEmailNotice && (
-            <p className="mt-4 flex items-center gap-2 rounded-xl border border-gold-line/50 bg-gold-soft px-4 py-3 text-xs text-gold">
+            <p className="mt-4 flex items-center gap-2 rounded-xl border border-gold-line/50 bg-gold-soft px-4 py-3 text-xs text-gold-text">
               <Info className="size-4 shrink-0" />
               {t("Check your inbox to confirm your email, then sign in.")}
             </p>
           )}
 
           {socialNotice && (
-            <p className="mt-4 flex items-center gap-2 rounded-xl border border-gold-line/50 bg-gold-soft px-4 py-3 text-xs text-gold">
+            <p className="mt-4 flex items-center gap-2 rounded-xl border border-gold-line/50 bg-gold-soft px-4 py-3 text-xs text-gold-text">
               <Info className="size-4 shrink-0" />
               {t("Social sign-in isn't live yet — please use email and password.")}
             </p>
@@ -339,7 +339,7 @@ function AuthPage() {
             {t("By continuing you agree to the Egyptora Hub terms and privacy policy.")}
           </p>
           <p className="mt-4 text-center text-sm">
-            <Link to="/" className="text-gold underline">
+            <Link to="/" className="text-gold-text underline">
               {t("Back to the national gateway")}
             </Link>
           </p>

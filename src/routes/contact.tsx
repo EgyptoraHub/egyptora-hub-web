@@ -68,16 +68,16 @@ function Contact() {
           />
           <ContactForm />
 
-          <p className="mb-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="mb-4 text-xs eyebrow text-muted-foreground">
             {t("Or email us directly")}
           </p>
 
           <div className="grid gap-5 lg:grid-cols-[1fr_1.2fr]">
             <div className="rounded-2xl border border-gold-line bg-card p-7">
-              <Mail className="size-5 text-gold" />
+              <Mail className="size-5 text-gold-text" />
               <a
                 href={mailto("Egyptora Hub — general enquiry")}
-                className="mt-4 block font-display text-2xl text-foreground hover:text-gold"
+                className="mt-4 block font-display text-2xl text-foreground hover:text-gold-text"
                 dir="ltr"
               >
                 {SITE.email}
@@ -86,14 +86,14 @@ function Contact() {
                 {t("Marketing & press")}:{" "}
                 <a
                   href={mailto("Egyptora Hub — marketing enquiry", SITE.marketingEmail)}
-                  className="text-gold hover:text-foreground"
+                  className="text-gold-text hover:text-foreground"
                   dir="ltr"
                 >
                   {SITE.marketingEmail}
                 </a>
               </p>
               <p className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-                <Globe className="size-4 text-gold" />
+                <Globe className="size-4 text-gold-text" />
                 <span dir="ltr">{SITE.domain}</span>
               </p>
               <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
@@ -164,7 +164,7 @@ function ContactForm() {
   if (sent) {
     return (
       <div className="mb-8 flex items-start gap-3 rounded-2xl border border-gold-line bg-gold-soft p-7">
-        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-gold" />
+        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-gold-text" />
         <div>
           <p className="font-display text-xl text-foreground">{t("Message sent")}</p>
           <p className="mt-1.5 text-sm text-muted-foreground">
@@ -173,7 +173,7 @@ function ContactForm() {
           <button
             type="button"
             onClick={() => setSent(false)}
-            className="mt-4 rounded-full border border-gold-line px-4 py-2 text-xs font-semibold text-gold"
+            className="mt-4 rounded-full border border-gold-line px-4 py-2 text-xs font-semibold text-gold-text"
           >
             {t("Send another message")}
           </button>
@@ -242,7 +242,7 @@ function ContactForm() {
       <button
         type="submit"
         disabled={sending}
-        className="inline-flex w-fit items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+        className="inline-flex w-fit items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-gold-foreground disabled:opacity-60"
       >
         {sending ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
         {t("Send message")}

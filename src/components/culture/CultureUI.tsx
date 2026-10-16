@@ -49,14 +49,14 @@ export function CultureBadge({ status, verifiedAt }: { status: ReviewStatus; ver
   const { t, lang } = useI18n();
   if (status === "verified")
     return (
-      <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-[11px] font-semibold text-navy">
+      <span className="inline-flex items-center rounded-full border border-success/40 bg-success/10 px-2.5 py-0.5 text-2xs font-semibold text-navy">
         {lang === "ar" ? "موثّق" : t("Verified")}
         {verifiedAt && <span dir="ltr" className="ms-1 font-normal">· {verifiedAt}</span>}
       </span>
     );
   if (status === "editorial_reviewed")
     return (
-      <span className="inline-flex items-center rounded-full border border-gold-line bg-gold-soft px-2.5 py-0.5 text-[11px] font-semibold text-navy">
+      <span className="inline-flex items-center rounded-full border border-gold-line bg-gold-soft px-2.5 py-0.5 text-2xs font-semibold text-navy">
         {t("Under review")}
       </span>
     );
@@ -91,7 +91,7 @@ export function CultureCard({ r, govName }: { r: CultureItem; govName?: string |
         <GenImage k={cultureImage(r)} aiBadge className="aspect-[16/10] w-full rounded-2xl" />
         <div className="flex flex-wrap items-center gap-1.5">
           {r.category && (
-            <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[11px] font-semibold text-navy">
+            <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-2xs font-semibold text-navy">
               {t(categoryLabel(r.category))}
             </span>
           )}

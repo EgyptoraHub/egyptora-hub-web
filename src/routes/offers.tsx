@@ -83,8 +83,8 @@ function OffersPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 kind === null
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t("All offers")}
@@ -97,8 +97,8 @@ function OffersPage() {
                 className={cn(
                   "rounded-full border px-3 py-1.5 text-xs transition-colors",
                   kind === k
-                    ? "border-gold-line bg-gold-soft text-gold"
-                    : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                    ? "border-gold-line bg-gold-soft text-gold-text"
+                    : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
                 )}
               >
                 {t(k)}
@@ -117,11 +117,11 @@ function OffersPage() {
                 <GovernanceBanner status={offer.governance_status} className="mb-3" />
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                    <Tag className="size-4 shrink-0 text-gold" />
+                    <Tag className="size-4 shrink-0 text-gold-text" />
                     <Link
                       to="/offers/$id"
                       params={{ id: offer.id }}
-                      className="transition-colors hover:text-gold"
+                      className="transition-colors hover:text-gold-text"
                     >
                       {t(offer.name)}
                     </Link>
@@ -142,7 +142,7 @@ function OffersPage() {
                     {offer.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[10px] text-gold"
+                        className="rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs text-gold-text"
                       >
                         {t(tag)}
                       </span>

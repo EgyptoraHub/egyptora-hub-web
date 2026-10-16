@@ -162,7 +162,7 @@ function TripBuilderPage() {
       <div className="min-h-screen bg-background">
         <SiteHeader />
         <Section className="flex justify-center py-24">
-          <Loader2 className="size-6 animate-spin text-gold" />
+          <Loader2 className="size-6 animate-spin text-gold-text" />
         </Section>
         <SiteFooter />
       </div>
@@ -197,10 +197,10 @@ function TripBuilderPage() {
             )}
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm text-foreground">{t(item.item_name ?? item.item_id)}</p>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-2xs text-muted-foreground">
                 {t(ITEM_TYPE_LABEL[item.item_type] ?? item.item_type)}
               </p>
-              {item.notes && <p className="mt-1 text-[11px] text-muted-foreground">{item.notes}</p>}
+              {item.notes && <p className="mt-1 text-2xs text-muted-foreground">{item.notes}</p>}
             </div>
             <div className="flex items-center gap-1">
               <button
@@ -208,7 +208,7 @@ function TripBuilderPage() {
                 aria-label={t("Move up")}
                 disabled={index === 0}
                 onClick={() => void move(group, index, -1)}
-                className="rounded-full border border-border/60 p-1.5 text-muted-foreground transition-colors hover:text-gold disabled:opacity-30"
+                className="rounded-full border border-border/60 p-1.5 text-muted-foreground transition-colors hover:text-gold-text disabled:opacity-30"
               >
                 <ArrowUp className="size-3.5" />
               </button>
@@ -217,7 +217,7 @@ function TripBuilderPage() {
                 aria-label={t("Move down")}
                 disabled={index === group.length - 1}
                 onClick={() => void move(group, index, 1)}
-                className="rounded-full border border-border/60 p-1.5 text-muted-foreground transition-colors hover:text-gold disabled:opacity-30"
+                className="rounded-full border border-border/60 p-1.5 text-muted-foreground transition-colors hover:text-gold-text disabled:opacity-30"
               >
                 <ArrowDown className="size-3.5" />
               </button>
@@ -246,7 +246,7 @@ function TripBuilderPage() {
             <h1 className="font-display text-3xl text-foreground lg:text-4xl">{trip.title}</h1>
             {(trip.start_date || trip.end_date) && (
               <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                <CalendarDays className="size-3.5 text-gold/70" />
+                <CalendarDays className="size-3.5 text-gold-text" />
                 {[trip.start_date, trip.end_date].filter(Boolean).join(" → ")}
               </p>
             )}
@@ -254,7 +254,7 @@ function TripBuilderPage() {
           <button
             type="button"
             onClick={() => void addDay()}
-            className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+            className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-gold-foreground"
           >
             <Plus className="size-4" />
             {t("Add day")}
@@ -267,7 +267,7 @@ function TripBuilderPage() {
             return (
               <section key={day.id} className="rounded-2xl border border-border/60 bg-card/60 p-5">
                 <div className="flex items-center justify-between gap-3">
-                  <h2 className="font-display text-base text-gold">
+                  <h2 className="font-display text-base text-gold-text">
                     {`${t("Day")} ${day.day_number}`}
                     {day.date ? ` · ${day.date}` : ""}
                   </h2>
@@ -293,7 +293,7 @@ function TripBuilderPage() {
 
           {unscheduled.length > 0 && (
             <section className="rounded-2xl border border-border/60 bg-card/60 p-5">
-              <h2 className="font-display text-base text-gold">{t("Unscheduled")}</h2>
+              <h2 className="font-display text-base text-gold-text">{t("Unscheduled")}</h2>
               {renderItems(unscheduled)}
             </section>
           )}

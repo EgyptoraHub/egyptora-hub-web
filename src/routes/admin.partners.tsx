@@ -118,7 +118,7 @@ function AdminPartnersPage() {
           <h2 className="font-display text-2xl text-foreground">{t("Received applications")}</h2>
           <Link
             to="/admin/partners/new"
-            className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs font-semibold text-gold"
+            className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs font-semibold text-gold-text"
           >
             + {t("Add partner directly")}
           </Link>
@@ -150,9 +150,9 @@ function AdminPartnersPage() {
               <div className="flex flex-wrap gap-2">
                 <span
                   className={cn(
-                    "rounded-full border px-3 py-1 text-[11px]",
+                    "rounded-full border px-3 py-1 text-2xs",
                     partner.active
-                      ? "border-gold/50 text-gold"
+                      ? "border-gold/50 text-gold-text"
                       : "border-border text-muted-foreground",
                   )}
                 >
@@ -217,7 +217,7 @@ function AdminPartnersPage() {
                             });
                           })
                         }
-                        className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs text-gold"
+                        className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs text-gold-text"
                       >
                         {a.name} ×
                       </button>
@@ -259,7 +259,7 @@ function AdminPartnersPage() {
                           className="w-full rounded-lg px-3 py-1.5 text-left text-xs text-muted-foreground hover:bg-card/70 hover:text-foreground disabled:opacity-40"
                         >
                           {option.name}{" "}
-                          <span className="text-[10px] uppercase">
+                          <span className="text-2xs uppercase">
                             {option.itemType === "property" ? t("Property") : t("Investment")}
                           </span>
                         </button>
@@ -325,7 +325,7 @@ function AdminPartnersPage() {
                           },
                         })
                       }
-                      className="rounded-full border border-gold/60 bg-gold/10 px-3 py-1 text-xs text-gold"
+                      className="rounded-full border border-gold/60 bg-gold/10 px-3 py-1 text-xs text-gold-text"
                     >
                       {t("Approve")}
                     </button>
@@ -383,7 +383,7 @@ function AdminPartnersPage() {
                 type="button"
                 disabled={busy}
                 onClick={() => void runConfirmed(confirm.run)}
-                className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs text-gold disabled:opacity-50"
+                className="rounded-full border border-gold/60 bg-gold/10 px-4 py-1.5 text-xs text-gold-text disabled:opacity-50"
               >
                 {t("Confirm")}
               </button>

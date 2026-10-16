@@ -118,11 +118,11 @@ function ProviderDetailPage() {
         </div>
 
         <p className="mt-3 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="size-4 text-gold/70" />
+          <MapPin className="size-4 text-gold-text" />
           <Link
             to="/governorates/$id"
             params={{ id: provider.governorate_slug }}
-            className="hover:text-gold"
+            className="hover:text-gold-text"
           >
             {t(govName(provider.governorate_slug))}
           </Link>
@@ -145,7 +145,7 @@ function ProviderDetailPage() {
             value={
               provider.rating !== null ? (
                 <span className="flex items-center gap-1.5">
-                  <Star className="size-3.5 text-gold" />
+                  <Star className="size-3.5 text-gold-text" />
                   {provider.rating.toFixed(1)}
                   {provider.review_count !== null && (
                     <span className="text-muted-foreground">({provider.review_count})</span>

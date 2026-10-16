@@ -151,7 +151,7 @@ function SearchPage() {
             aria-label={t("Search")}
             className="min-w-0 flex-1 bg-transparent py-2 text-sm text-navy outline-none placeholder:text-text-body"
           />
-          <button type="submit" className="shrink-0 rounded-full bg-gold-cta px-5 py-2 text-sm font-semibold text-primary-foreground">
+          <button type="submit" className="shrink-0 rounded-full bg-gold-cta px-5 py-2 text-sm font-semibold text-gold-foreground">
             {t("Search")}
           </button>
         </form>
@@ -165,7 +165,7 @@ function SearchPage() {
             <button
               type="button"
               onClick={() => askConcierge(q)}
-              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground"
             >
               <Sparkles className="size-4" /> {t("Ask our AI Concierge")} <ArrowRight className="size-4 rtl:rotate-180" />
             </button>
@@ -190,7 +190,7 @@ function SearchPage() {
                         <span className="font-display text-base font-bold text-navy">{t(e.title)}</span>
                         {e.desc ? <span className="line-clamp-2 text-xs text-text-body">{t(e.desc)}</span> : null}
                       </span>
-                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-primary-foreground">
+                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-gold-foreground">
                         <ArrowRight className="size-4 rtl:rotate-180" />
                       </span>
                     </SmartLink>
@@ -200,7 +200,7 @@ function SearchPage() {
             ))}
             <p className="text-sm text-text-body">
               {t("Can't find what you're looking for?")}{" "}
-              <button type="button" onClick={() => askConcierge(q)} className="font-semibold text-shell-gold underline">
+              <button type="button" onClick={() => askConcierge(q)} className="font-semibold text-gold-text underline">
                 {t("Ask our AI Concierge")} →
               </button>
             </p>

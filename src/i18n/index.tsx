@@ -14,14 +14,38 @@ type I18nValue = {
 
 const I18nContext = createContext<I18nValue | null>(null);
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<LangCode>(DEFAULT_LANG);
+const LANG_COOKIE = "egyptora_lang";
 
-  // Read the stored preference after hydration to avoid SSR mismatches.
+export function isLangCode(v: unknown): v is LangCode {
+  return typeof v === "string" && LANGUAGES.some((l) => l.code === v);
+}
+
+export function dirFor(lang: LangCode): "ltr" | "rtl" {
+  return LANGUAGES.find((l) => l.code === lang)?.dir ?? "ltr";
+}
+
+function writeLangCookie(lang: LangCode) {
+  document.cookie = `${LANG_COOKIE}=${lang}; path=/; max-age=31536000; samesite=lax`;
+}
+
+export function I18nProvider({
+  children,
+  initialLang = DEFAULT_LANG,
+}: {
+  children: ReactNode;
+  /** Language resolved on the server from the cookie, so the first paint is already correct. */
+  initialLang?: LangCode;
+}) {
+  const [lang, setLangState] = useState<LangCode>(initialLang);
+
+  // Older visitors only have localStorage: adopt it and mirror it into the cookie.
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY) as LangCode | null;
-    if (stored && LANGUAGES.some((l) => l.code === stored)) setLangState(stored);
-  }, []);
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (isLangCode(stored)) {
+      if (stored !== initialLang) setLangState(stored);
+      writeLangCookie(stored);
+    }
+  }, [initialLang]);
 
   const dir = LANGUAGES.find((l) => l.code === lang)?.dir ?? "ltr";
 
@@ -33,6 +57,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const setLang = useCallback((next: LangCode) => {
     setLangState(next);
     try {
+      writeLangCookie(next);
       window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
       /* storage unavailable — preference is session-only */

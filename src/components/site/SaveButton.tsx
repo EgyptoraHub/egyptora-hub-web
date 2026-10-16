@@ -114,8 +114,8 @@ export function SaveButton({
         title={label}
         aria-pressed={saved}
         className={cn(
-          "grid size-8 place-items-center rounded-full border border-border/70 bg-background/70 text-muted-foreground backdrop-blur transition-colors hover:border-gold-line hover:text-gold",
-          saved && "border-gold-line text-gold",
+          "grid size-8 place-items-center rounded-full border border-border/70 bg-background/70 text-muted-foreground backdrop-blur transition-colors hover:border-gold-line hover:text-gold-text",
+          saved && "border-gold-line text-gold-text",
           className,
         )}
       >
@@ -137,8 +137,8 @@ export function SaveButton({
       className={cn(
         "inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-semibold transition-colors disabled:opacity-60",
         saved
-          ? "border border-gold-line bg-gold-soft text-gold"
-          : "border border-border text-muted-foreground hover:border-gold-line hover:text-gold",
+          ? "border border-gold-line bg-gold-soft text-gold-text"
+          : "border border-border text-muted-foreground hover:border-gold-line hover:text-gold-text",
         className,
       )}
     >

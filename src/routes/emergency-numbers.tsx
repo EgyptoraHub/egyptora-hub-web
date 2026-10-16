@@ -110,9 +110,9 @@ function EmergencyPage() {
       <SiteHeader />
       <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
         <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
-          <Link to="/" className="hover:text-shell-gold">{t("Home")}</Link>
+          <Link to="/" className="hover:text-gold-text">{t("Home")}</Link>
           <ChevronRight className="size-3 rtl:rotate-180" />
-          <Link to="/government-directory" className="hover:text-shell-gold">{t("Government Directory")}</Link>
+          <Link to="/government-directory" className="hover:text-gold-text">{t("Government Directory")}</Link>
           <ChevronRight className="size-3 rtl:rotate-180" />
           <span className="font-medium text-navy">{t("Emergency & Quick Numbers")}</span>
         </div>
@@ -140,7 +140,7 @@ function EmergencyPage() {
 
       {/* Primary emergency strip */}
       <section className={cn(innerWrap, "pt-6")}>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
           {primary.map((n) => (
             <a
               key={n.id}
@@ -382,7 +382,7 @@ function LoadingSkeleton() {
       <SiteHeader />
       <div className={cn(innerWrap, "grid gap-4 py-10")}>
         <div className="h-32 animate-pulse rounded-2xl bg-muted" />
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
           {[0, 1, 2].map((i) => <div key={i} className="h-[72px] animate-pulse rounded-2xl bg-muted" />)}
         </div>
         {[0, 1, 2].map((i) => <div key={i} className="h-40 animate-pulse rounded-2xl bg-muted" />)}

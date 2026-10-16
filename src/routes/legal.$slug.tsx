@@ -43,7 +43,7 @@ function LegalNotFound() {
       <SiteHeader />
       <Section>
         <h1 className="font-display text-3xl text-foreground">{t("Document not found")}</h1>
-        <Link to="/legal" className="mt-4 inline-block text-sm text-gold">
+        <Link to="/legal" className="mt-4 inline-block text-sm text-gold-text">
           {t("Back to the Legal Center")}
         </Link>
       </Section>
@@ -64,9 +64,9 @@ function LegalDocumentPage() {
         <Section>
           <Link
             to="/legal"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold/80 hover:text-gold"
+            className="inline-flex items-center gap-2 text-xs eyebrow text-gold-text hover:text-gold-text"
           >
-            <ArrowLeft className="size-3.5" /> {t("Legal Center")}
+            <ArrowLeft className="size-3.5 rtl:rotate-180" /> {t("Legal Center")}
           </Link>
 
           <h1 className="mt-5 max-w-4xl font-display text-3xl leading-tight tracking-tight text-foreground lg:text-4xl">
@@ -77,7 +77,7 @@ function LegalDocumentPage() {
           </p>
 
           <div className="mt-6 rounded-2xl border border-gold-line bg-gold/5 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+            <p className="text-xs font-semibold eyebrow text-gold-text">
               {t(LEGAL_DRAFT_NOTICE)}
             </p>
           </div>
@@ -94,7 +94,7 @@ function LegalDocumentPage() {
               [t("Counsel review"), d.counselReviewRequired ? t("Required") : t("Not required")],
             ].map(([k, v]) => (
               <div key={k} className="rounded-xl border border-border bg-card p-4">
-                <dt className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground/70">{k}</dt>
+                <dt className="text-2xs eyebrow text-muted-foreground">{k}</dt>
                 <dd className="mt-1 text-sm text-foreground">{v}</dd>
               </div>
             ))}
@@ -104,7 +104,7 @@ function LegalDocumentPage() {
             {d.sections.map((s, i) => (
               <section key={s.heading} className="mt-8 first:mt-0">
                 <h2 className="font-display text-xl text-foreground">
-                  <span className="mr-2 text-gold">{i + 1}.</span>
+                  <span className="me-2 text-gold-text">{i + 1}.</span>
                   {t(s.heading)}
                 </h2>
                 {s.body.map((p) => (
@@ -118,7 +118,7 @@ function LegalDocumentPage() {
 
           {d.externalReview?.length ? (
             <div className="mt-10 max-w-3xl rounded-2xl border border-border bg-card p-5">
-              <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold/80">
+              <h2 className="text-2xs font-semibold eyebrow text-gold-text">
                 {t("Requires separate contractual or regulatory review")}
               </h2>
               <ul className="mt-3 space-y-2">
@@ -132,7 +132,7 @@ function LegalDocumentPage() {
           ) : null}
 
           <div className="mt-10 max-w-3xl">
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold/80">
+            <h2 className="text-2xs font-semibold eyebrow text-gold-text">
               {t("Change history")}
             </h2>
             <ul className="mt-3 space-y-2">
@@ -149,7 +149,7 @@ function LegalDocumentPage() {
 
           {related.length > 0 && (
             <div className="mt-12">
-              <h2 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold/80">
+              <h2 className="text-2xs font-semibold eyebrow text-gold-text">
                 {t("Related documents")}
               </h2>
               <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">

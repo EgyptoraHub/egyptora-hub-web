@@ -203,10 +203,10 @@ export function FloatingConcierge() {
               className="size-10 shrink-0 rounded-full object-cover ring-1 ring-gold-line"
             />
             <span className="min-w-0">
-              <span className="block truncate font-display text-sm text-gold">
-                EGYPTORA AI
+              <span className="block truncate font-display text-sm text-gold-text">
+                Egyptora AI
               </span>
-              <span className="block truncate text-[11px] text-muted-foreground">
+              <span className="block truncate text-2xs text-muted-foreground">
                 {t("Your personal assistant for everything Egypt")}
               </span>
             </span>
@@ -233,7 +233,7 @@ export function FloatingConcierge() {
                       key={q}
                       type="button"
                       onClick={() => void send(t(q))}
-                      className="rounded-lg border border-border/70 bg-card px-3 py-2 text-start text-[11px] text-muted-foreground transition-colors hover:border-gold-line hover:text-foreground"
+                      className="rounded-lg border border-border/70 bg-card px-3 py-2 text-start text-2xs text-muted-foreground transition-colors hover:border-gold-line hover:text-foreground"
                     >
                       {t(q)}
                     </button>
@@ -247,7 +247,7 @@ export function FloatingConcierge() {
                     return (
                       <div
                         key={i}
-                        className="ms-auto max-w-[85%] rounded-xl rounded-ee-sm bg-gold px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                        className="ms-auto max-w-[85%] rounded-xl rounded-ee-sm bg-gold px-3 py-2 text-2xs leading-relaxed text-gold-foreground"
                       >
                         {m.content}
                       </div>
@@ -257,10 +257,10 @@ export function FloatingConcierge() {
                   return (
                     <div key={i} className="grid gap-2">
                       {(text || items.length === 0) && (
-                        <div className="me-auto max-w-[92%] whitespace-pre-wrap rounded-xl rounded-es-sm border border-border/70 bg-card px-3 py-2 text-[11px] leading-relaxed text-foreground">
+                        <div className="me-auto max-w-[92%] whitespace-pre-wrap rounded-xl rounded-es-sm border border-border/70 bg-card px-3 py-2 text-2xs leading-relaxed text-foreground">
                           {(text && <LinkifiedText text={text} />) ||
                             (busy && i === messages.length - 1 ? (
-                              <Loader2 className="size-3.5 animate-spin text-gold" />
+                              <Loader2 className="size-3.5 animate-spin text-gold-text" />
                             ) : null)}
                         </div>
                       )}
@@ -271,7 +271,7 @@ export function FloatingConcierge() {
               </div>
             )}
             {error && (
-              <p className="mt-2 text-[11px] text-destructive" role="alert">
+              <p className="mt-2 text-2xs text-destructive" role="alert">
                 {t(error)}
               </p>
             )}
@@ -296,7 +296,7 @@ export function FloatingConcierge() {
                 type="submit"
                 disabled={busy || !input.trim()}
                 aria-label={t("Send")}
-                className="grid size-10 shrink-0 place-items-center rounded-xl bg-gold text-primary-foreground transition-opacity disabled:opacity-50"
+                className="grid size-10 shrink-0 place-items-center rounded-xl bg-gold text-gold-foreground transition-opacity disabled:opacity-50"
               >
                 {busy ? (
                   <Loader2 className="size-4 animate-spin" />
@@ -305,14 +305,14 @@ export function FloatingConcierge() {
                 )}
               </button>
             </form>
-            <p className="text-[10px] leading-relaxed text-muted-foreground/80">
+            <p className="text-2xs leading-relaxed text-muted-foreground">
               {t(
                 "You are talking to an AI system, not a human agent or a government official. Its answers are not legal, medical or investment advice and never replace official emergency services — for emergencies contact the official authorities.",
               )}{" "}
               <Link
                 to="/legal/$slug"
                 params={{ slug: "ai-transparency" }}
-                className="text-gold hover:underline"
+                className="text-gold-text hover:underline"
               >
                 {t("AI Transparency Policy")}
               </Link>
@@ -339,7 +339,7 @@ export function FloatingConcierge() {
           height={68}
           className="size-full rounded-full object-cover"
         />
-        <span className="absolute -top-1 -end-1 grid size-6 place-items-center rounded-full bg-gold text-primary-foreground">
+        <span className="absolute -top-1 -end-1 grid size-6 place-items-center rounded-full bg-gold text-gold-foreground">
           <Sparkles className="size-3.5" />
         </span>
       </button>
@@ -359,7 +359,7 @@ function LinkifiedText({ text }: { text: string }) {
     const md = /^\[([^\]]+)\]\((.+)\)$/.exec(m[0]);
     const href = md ? md[2] : m[0];
     parts.push(
-      <a key={idx} href={href} target="_blank" rel="noopener noreferrer" className="break-all font-medium text-gold underline underline-offset-2">
+      <a key={idx} href={href} target="_blank" rel="noopener noreferrer" className="break-all font-medium text-gold-text underline underline-offset-2">
         {md ? md[1] : m[0]}
       </a>,
     );

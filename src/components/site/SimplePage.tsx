@@ -32,7 +32,7 @@ export function SimplePage({
         <h1 className="font-display text-3xl font-bold text-navy lg:text-4xl">{t(title)}</h1>
         {intro && <p className="mt-3 max-w-3xl text-text-body">{t(intro)}</p>}
         {placeholder && (
-          <p className="mt-4 inline-block rounded-full border border-border bg-muted/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+          <p className="mt-4 inline-block rounded-full border border-border bg-muted/50 px-3 py-1 text-2xs font-semibold uppercase tracking-wide text-muted-foreground">
             {t("Placeholder copy — under editorial review")}
           </p>
         )}

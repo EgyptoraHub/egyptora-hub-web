@@ -114,7 +114,7 @@ function RealEstate() {
             <ul className="grid gap-4">
               {why.map((w) => (
                 <li key={w.t} className="flex gap-3">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-chip-active text-shell-gold">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-chip-active text-gold-text">
                     <w.Icon className="size-4" />
                   </span>
                   <span className="min-w-0">
@@ -130,7 +130,7 @@ function RealEstate() {
       bottom={
         <div className="grid gap-4 md:grid-cols-2">
           <section className="rounded-[10px] border border-border bg-bg-band p-6">
-            <Headphones className="size-7 text-shell-gold" />
+            <Headphones className="size-7 text-gold-text" />
             <h3 className="mt-3 font-display text-lg font-bold text-navy">{t("Talk to a Real Estate Advisor")}</h3>
             <p className="mt-1 text-sm text-text-body">{t("Get guidance on buying, renting or investing in property in Egypt.")}</p>
             <div className="mt-4">
@@ -139,7 +139,7 @@ function RealEstate() {
               </GoldButton>
             </div>
           </section>
-          <AppPromoCard eyebrow="Browse on the Go" title="Download EGYPTORA App" />
+          <AppPromoCard eyebrow="Browse on the Go" title="Download the Egyptora Hub app" />
         </div>
       }
     >

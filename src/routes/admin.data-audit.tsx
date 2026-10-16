@@ -54,7 +54,7 @@ function Section({
           type="button"
           onClick={() => download(filename, toCsv(rows))}
           disabled={rows.length === 0}
-          className="ms-auto inline-flex items-center gap-1.5 rounded-full border border-gold/60 bg-gold/10 px-3.5 py-1.5 text-sm text-gold transition-colors hover:bg-gold/20 disabled:cursor-not-allowed disabled:opacity-40"
+          className="ms-auto inline-flex items-center gap-1.5 rounded-full border border-gold/60 bg-gold/10 px-3.5 py-1.5 text-sm text-gold-text transition-colors hover:bg-gold/20 disabled:cursor-not-allowed disabled:opacity-40"
         >
           <Download className="size-3.5" />
           Download CSV ({rows.length})
@@ -62,7 +62,7 @@ function Section({
       </div>
       {rows.length === 0 ? (
         <p className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-          <ShieldCheck className="size-4 text-gold" /> Nothing found — this section is clean.
+          <ShieldCheck className="size-4 text-gold-text" /> Nothing found — this section is clean.
         </p>
       ) : (
         <div className="mt-4 overflow-x-auto">

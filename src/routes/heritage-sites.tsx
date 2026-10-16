@@ -105,8 +105,8 @@ function HeritageSitesPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
               hidden
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("Hidden Egypt")} ({sites.filter((s) => s.hidden === true).length})
@@ -119,8 +119,8 @@ function HeritageSitesPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               era === null
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("All eras")}
@@ -133,8 +133,8 @@ function HeritageSitesPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 era === e
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t(e)}
@@ -151,11 +151,11 @@ function HeritageSitesPage() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                    <Landmark className="size-4 shrink-0 text-gold" />
+                    <Landmark className="size-4 shrink-0 text-gold-text" />
                     <Link
                       to="/heritage-sites/$id"
                       params={{ id: site.id }}
-                      className="transition-colors hover:text-gold"
+                      className="transition-colors hover:text-gold-text"
                     >
                       {t(site.name)}
                     </Link>
@@ -164,11 +164,11 @@ function HeritageSitesPage() {
                 </div>
 
                 <p className="mt-2 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-                  <MapPin className="size-3.5 text-gold/70" />
+                  <MapPin className="size-3.5 text-gold-text" />
                   <Link
                     to="/governorates/$id"
                     params={{ id: site.governorate_slug }}
-                    className="hover:text-gold"
+                    className="hover:text-gold-text"
                   >
                     {t(govName(site.governorate_slug))}
                   </Link>
@@ -184,7 +184,7 @@ function HeritageSitesPage() {
                 {site.access && (
                   <span
                     className={cn(
-                      "mt-3 inline-flex rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em]",
+                      "mt-3 inline-flex rounded-full border px-2 py-0.5 text-2xs font-semibold eyebrow",
                       accessStyles[site.access] ?? "border-border text-muted-foreground",
                     )}
                   >

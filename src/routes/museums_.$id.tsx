@@ -112,18 +112,18 @@ function MuseumDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <Building2 className="size-6 shrink-0 text-gold" />
+            <Building2 className="size-6 shrink-0 text-gold-text" />
             {t(museum.name)}
           </h1>
           <SourceBadge status="VERIFIED" />
         </div>
 
         <p className="mt-3 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="size-4 text-gold/70" />
+          <MapPin className="size-4 text-gold-text" />
           <Link
             to="/governorates/$id"
             params={{ id: museum.governorate_slug }}
-            className="hover:text-gold"
+            className="hover:text-gold-text"
           >
             {t(govName(museum.governorate_slug))}
           </Link>

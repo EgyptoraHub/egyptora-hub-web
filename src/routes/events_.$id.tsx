@@ -123,22 +123,22 @@ function EventDetailPage() {
 
         <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
           <h1 className="flex items-center gap-2.5 font-display text-3xl text-foreground lg:text-4xl">
-            <CalendarDays className="size-6 shrink-0 text-gold" />
+            <CalendarDays className="size-6 shrink-0 text-gold-text" />
             {t(event.name)}
           </h1>
           <SourceBadge status="VERIFIED" />
         </div>
 
-        <p className="mt-3 text-sm font-semibold text-gold">
+        <p className="mt-3 text-sm font-semibold text-gold-text">
           {formatDateRange(event.start_date, event.end_date, lang)}
         </p>
 
         <p className="mt-1 flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="size-4 text-gold/70" />
+          <MapPin className="size-4 text-gold-text" />
           <Link
             to="/governorates/$id"
             params={{ id: event.governorate_slug }}
-            className="hover:text-gold"
+            className="hover:text-gold-text"
           >
             {t(govName(event.governorate_slug))}
           </Link>
@@ -151,7 +151,7 @@ function EventDetailPage() {
         </p>
 
         {event.ticketed && (
-          <span className="mt-3 inline-flex items-center gap-1 rounded-full border border-info/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-info">
+          <span className="mt-3 inline-flex items-center gap-1 rounded-full border border-info/40 px-2 py-0.5 text-2xs font-semibold eyebrow text-info">
             <Ticket className="size-3" /> {t("Ticketed")}
           </span>
         )}

@@ -135,9 +135,9 @@ function GovernorateNotFound() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <Section className="py-24 text-center">
-        <h1 className="font-display text-3xl text-gold">{t("Governorate not found")}</h1>
+        <h1 className="font-display text-3xl text-gold-text">{t("Governorate not found")}</h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          <Link to="/" className="text-gold underline">
+          <Link to="/" className="text-gold-text underline">
             {t("Back to the national gateway")}
           </Link>
         </p>
@@ -219,7 +219,7 @@ function GovernoratePage() {
           />
           <div className="absolute inset-x-0 bottom-0">
             <div className="mx-auto w-full max-w-[1360px] px-5 pb-8 lg:px-10 lg:pb-12">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+              <p className="mb-2 text-2xs font-semibold eyebrow text-gold-text">
                 {t(gov.region)} · {t("Capital")}: {t(gov.capital)}
               </p>
               <div className="flex items-center gap-4">
@@ -232,7 +232,7 @@ function GovernoratePage() {
                 )}
                 <h1 className="font-display text-3xl leading-tight text-foreground sm:text-4xl lg:text-6xl">{govName}</h1>
               </div>
-              <p className="mt-2 text-sm text-gold/90 lg:text-base">{pick(profile.tagline)}</p>
+              <p className="mt-2 text-sm text-gold-text lg:text-base">{pick(profile.tagline)}</p>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/85 lg:text-base">{pick(profile.story)}</p>
             </div>
           </div>
@@ -248,7 +248,7 @@ function GovernoratePage() {
                 search={k === "discover" ? {} : { tab: k }}
                 resetScroll={false}
                 className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-                  tab === k ? "bg-gold text-primary-foreground" : "text-muted-foreground hover:text-gold"
+                  tab === k ? "bg-gold text-gold-foreground" : "text-muted-foreground hover:text-gold-text"
                 }`}
               >
                 {k === "made-in" ? `${t("Made in")} ${govName}` : t(TAB_LABEL[k])}
@@ -262,7 +262,7 @@ function GovernoratePage() {
             <Section className="py-10 lg:py-14">
               <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
                 <div className="rounded-2xl border border-border/70 bg-surface-2 p-6">
-                  <h2 className="font-display text-2xl text-gold">{t("History")}</h2>
+                  <h2 className="font-display text-2xl text-gold-text">{t("History")}</h2>
                   {(data.content?.history ?? pick(profile.history)).split(/\n\n+/).map((para, i) => (
                     <p key={i} className="mt-3 text-sm leading-relaxed text-foreground/85">
                       {para}
@@ -270,7 +270,7 @@ function GovernoratePage() {
                   ))}
                 </div>
                 <div className="rounded-2xl border border-gold-line bg-card p-6">
-                  <h2 className="flex items-center gap-2 font-display text-xl text-gold">
+                  <h2 className="flex items-center gap-2 font-display text-xl text-gold-text">
                     <Sparkles className="size-4" /> {t("What makes it distinctive")}
                   </h2>
                   <ul className="mt-3 space-y-2">
@@ -337,7 +337,7 @@ function GovernoratePage() {
         {(tab === "mobility" || tab === "essential-services" || tab === "research-education") && (
           <Section className="py-16">
             <div className="mx-auto max-w-xl rounded-2xl border border-gold-line bg-card p-8 text-center">
-              <Clock className="mx-auto size-8 text-gold" />
+              <Clock className="mx-auto size-8 text-gold-text" />
               <h2 className="mt-3 font-display text-2xl text-foreground">
                 {t(TAB_LABEL[tab])} — {t("Coming soon")}
               </h2>
@@ -350,7 +350,7 @@ function GovernoratePage() {
         {tab === "ai" && (
           <Section className="py-16">
             <div className="mx-auto max-w-xl rounded-2xl border border-gold-line bg-card p-8 text-center">
-              <Bot className="mx-auto size-8 text-gold" />
+              <Bot className="mx-auto size-8 text-gold-text" />
               <h2 className="mt-3 font-display text-2xl text-foreground">
                 {t("Ask about")} {govName}
               </h2>
@@ -360,7 +360,7 @@ function GovernoratePage() {
               <button
                 type="button"
                 onClick={() => window.dispatchEvent(new Event("egyptora:open-concierge"))}
-                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+                className="mt-5 inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-2.5 text-sm font-semibold text-gold-foreground"
               >
                 <Bot className="size-4" /> {t("Open AI Concierge")}
               </button>
@@ -376,7 +376,7 @@ function GovernoratePage() {
                 key={g.id}
                 to="/governorates/$id"
                 params={{ id: g.id }}
-                className="rounded-full border border-border/60 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-gold-line hover:text-gold"
+                className="rounded-full border border-border/60 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-gold-line hover:text-gold-text"
               >
                 {t(g.name)}
               </Link>
@@ -393,9 +393,9 @@ function GovernoratePage() {
             <Link
               to="/"
               hash="explore"
-              className="inline-flex items-center gap-2 rounded-xl border border-gold-line bg-gold-soft px-4 py-2 text-sm font-semibold text-gold"
+              className="inline-flex items-center gap-2 rounded-xl border border-gold-line bg-gold-soft px-4 py-2 text-sm font-semibold text-gold-text"
             >
-              <MapPin className="size-4" /> {t("Back to the 27 governorates map")} <ArrowRight className="size-4" />
+              <MapPin className="size-4" /> {t("Back to the 27 governorates map")} <ArrowRight className="size-4 rtl:rotate-180" />
             </Link>
           </div>
         </Section>
@@ -413,7 +413,7 @@ function ListBox({ icon, title, items: raw }: { icon: ReactNode; title: string; 
   const items = raw?.filter((it) => !RESEARCH_NOTE.test(it));
   return (
     <div className="rounded-2xl border border-border/70 bg-card p-6">
-      <h2 className="flex items-center gap-2 font-display text-xl text-gold">
+      <h2 className="flex items-center gap-2 font-display text-xl text-gold-text">
         {icon} {title}
       </h2>
       {items && items.length > 0 ? (
@@ -478,11 +478,11 @@ function CardGrid({ cards, empty }: { cards: Card[]; empty: string }) {
               </div>
             ) : (
               <div className="flex h-20 items-center justify-center bg-surface-2">
-                <Landmark className="size-6 text-gold/60" />
+                <Landmark className="size-6 text-gold-text" />
               </div>
             )}
             <div className="p-4">
-              {c.meta && <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gold">{c.meta}</div>}
+              {c.meta && <div className="text-2xs font-semibold eyebrow text-gold-text">{c.meta}</div>}
               <div className="mt-1 text-sm font-semibold text-foreground">{c.name}</div>
               {c.summary && <p className="mt-1 line-clamp-3 text-[12px] text-muted-foreground">{c.summary}</p>}
             </div>

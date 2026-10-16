@@ -142,7 +142,7 @@ function NewTripPage() {
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+            className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-gold-foreground disabled:opacity-60"
           >
             {saving && <Loader2 className="size-4 animate-spin" />}
             {t("Create trip")}

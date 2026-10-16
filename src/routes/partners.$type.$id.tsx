@@ -92,9 +92,9 @@ function PartnerItemPage() {
       <div className="mx-auto w-full max-w-3xl">
         <Link
           to="/partners"
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-gold"
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-gold-text"
         >
-          <ArrowLeft className="size-3.5" />
+          <ArrowLeft className="size-3.5 rtl:rotate-180" />
           {t("Back to your entries")}
         </Link>
 
@@ -146,13 +146,13 @@ function PartnerItemPage() {
         </div>
 
         {error && <p className="mt-4 text-sm text-destructive">{t(error)}</p>}
-        {message && <p className="mt-4 text-sm text-gold">{t(message)}</p>}
+        {message && <p className="mt-4 text-sm text-gold-text">{t(message)}</p>}
 
         <button
           type="button"
           disabled={busy}
           onClick={() => void submit()}
-          className="mt-6 rounded-full border border-gold/60 bg-gold/10 px-5 py-2 text-sm text-gold disabled:opacity-50"
+          className="mt-6 rounded-full border border-gold/60 bg-gold/10 px-5 py-2 text-sm text-gold-text disabled:opacity-50"
         >
           {t("Submit for review")}
         </button>

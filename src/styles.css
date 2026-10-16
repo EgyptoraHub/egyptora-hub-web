@@ -65,19 +65,19 @@
   --radius: 0.75rem;
   /* Light editorial palette: navy #06213A, gold #C8933D, white surfaces. */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.243 0.058 249.8);
+  --foreground: oklch(0.278 0.062 248.5);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.243 0.058 249.8);
+  --card-foreground: oklch(0.278 0.062 248.5);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.243 0.058 249.8);
-  --primary: oklch(0.243 0.058 249.8);
+  --popover-foreground: oklch(0.278 0.062 248.5);
+  --primary: oklch(0.278 0.062 248.5);
   --primary-foreground: oklch(0.99 0.004 90);
   --secondary: oklch(0.975 0.005 258.3);
-  --secondary-foreground: oklch(0.243 0.058 249.8);
+  --secondary-foreground: oklch(0.278 0.062 248.5);
   --muted: oklch(0.975 0.005 258.3);
   --muted-foreground: oklch(0.501 0.025 259.2);
   --accent: oklch(0.944 0.009 247.9);
-  --accent-foreground: oklch(0.243 0.058 249.8);
+  --accent-foreground: oklch(0.278 0.062 248.5);
   --destructive: oklch(0.58 0.2 25);
   --destructive-foreground: oklch(0.99 0.004 90);
   --border: oklch(0.898 0.013 255.5);
@@ -88,10 +88,10 @@
   --chart-3: oklch(0.6 0.14 30);
   --chart-4: oklch(0.65 0.1 155);
   --chart-5: oklch(0.55 0.13 300);
-  --sidebar: oklch(0.243 0.058 249.8);
+  --sidebar: oklch(0.278 0.062 248.5);
   --sidebar-foreground: oklch(0.95 0.008 250);
   --sidebar-primary: oklch(0.699 0.12 76.4);
-  --sidebar-primary-foreground: oklch(0.243 0.058 249.8);
+  --sidebar-primary-foreground: oklch(0.278 0.062 248.5);
   --sidebar-accent: oklch(0.298 0.071 249.4);
   --sidebar-accent-foreground: oklch(0.97 0.006 250);
   --sidebar-border: oklch(0.35 0.06 249 / 60%);
@@ -107,11 +107,11 @@
   --gradient-gold: linear-gradient(135deg, oklch(0.8 0.11 80.2), oklch(0.65 0.12 66));
   --gradient-fade: linear-gradient(
     to top,
-    oklch(0.243 0.058 249.8 / 92%) 0%,
-    oklch(0.243 0.058 249.8 / 50%) 45%,
+    oklch(0.278 0.062 248.5 / 92%) 0%,
+    oklch(0.278 0.062 248.5 / 50%) 45%,
     transparent 100%
   );
-  --shadow-card: 0 14px 34px -22px oklch(0.243 0.058 249.8 / 45%);
+  --shadow-card: 0 14px 34px -22px oklch(0.278 0.062 248.5 / 45%);
   --font-display: "Lora", "Noto Naskh Arabic", Georgia, serif;
   --font-body: "Inter", "IBM Plex Sans Arabic", system-ui, sans-serif;
 }
@@ -131,6 +131,13 @@
   --font-display: var(--font-display);
   --font-sans: var(--font-body);
   /* Shell tokens (nav + footer). */
+  --color-gold-text: var(--gold-text);
+  --color-gold-foreground: var(--gold-foreground);
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --radius-card: 1rem;
+  --radius-control: 0.75rem;
+  --radius-pill: 9999px;
   --color-navy: var(--navy);
   --color-navy-deep: var(--navy-deep);
   --color-shell-gold: var(--shell-gold);
@@ -154,6 +161,21 @@
   --text-body: #5b6472;
   --navy-band: #072b45;
   --bg-notice: #ebf3fe;
+  /* Gold for TEXT on light surfaces: lightest value with >= 4.5:1 on white, #E9F0F8 and #FDF3DF. */
+  --gold-text: #8c6522;
+  /* Text/icons on gold fills: always navy. */
+  --gold-foreground: #0b2a45;
+}
+
+/* On dark surfaces gold text keeps the bright brand gold. */
+.on-dark,
+.bg-navy,
+.bg-navy-deep,
+.bg-navy-band,
+.bg-primary,
+.bg-sidebar,
+footer {
+  --gold-text: var(--gold);
 }
 
 
@@ -166,6 +188,84 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+
+  /* Visible keyboard focus everywhere: navy on light, gold on dark. */
+  :focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+  }
+  .on-dark :focus-visible,
+  .bg-navy :focus-visible,
+  .bg-navy-deep :focus-visible,
+  .bg-primary :focus-visible,
+  footer :focus-visible {
+    outline-color: var(--gold);
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+  }
+
+  /* Arabic: no letter-spacing / uppercase, safe line-height for headings. */
+  :lang(ar) [class*="tracking-"],
+  [dir="rtl"] [class*="tracking-"],
+  :lang(ar) .eyebrow,
+  [dir="rtl"] .eyebrow {
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
+  :lang(ar) :is(h1, h2, h3, h4, .leading-tight, .leading-none, [class*="leading-["]) {
+    line-height: 1.4 !important;
+  }
+  :lang(ar) .text-2xs {
+    font-size: 12px;
+  }
+}
+
+/* One shared eyebrow: uppercase + one Latin tracking value. */
+@utility eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+/* Hero scrim that mirrors in RTL. */
+@utility hero-scrim {
+  background: linear-gradient(to right, oklch(0.278 0.062 248.5 / 92%) 0%, oklch(0.278 0.062 248.5 / 68%) 55%, oklch(0.278 0.062 248.5 / 32%) 100%);
+  [dir="rtl"] & {
+    background: linear-gradient(to left, oklch(0.278 0.062 248.5 / 92%) 0%, oklch(0.278 0.062 248.5 / 68%) 55%, oklch(0.278 0.062 248.5 / 32%) 100%);
+  }
+}
+
+/* 44px hit area around a smaller visual control. */
+@utility hit-44 {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@utility h1-page {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 1.4rem + 2vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+@utility h2-section {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  line-height: 1.15;
+}
+@utility h3-card {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.3;
 }
 
 /*
@@ -177,6 +277,6 @@
   --foreground: oklch(0.99 0.004 90);
   --muted-foreground: oklch(0.88 0.008 250);
   --border: oklch(1 0 0 / 28%);
-  --background: oklch(0.243 0.058 249.8);
-  --card: oklch(0.243 0.058 249.8);
+  --background: oklch(0.278 0.062 248.5);
+  --card: oklch(0.278 0.062 248.5);
 }

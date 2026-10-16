@@ -90,8 +90,8 @@ function CountriesPage() {
             className={cn(
               "rounded-full border px-3 py-1.5 text-xs transition-colors",
               region === null
-                ? "border-gold-line bg-gold-soft text-gold"
-                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                ? "border-gold-line bg-gold-soft text-gold-text"
+                : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
             )}
           >
             {t("All regions")}
@@ -104,8 +104,8 @@ function CountriesPage() {
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition-colors",
                 region === r
-                  ? "border-gold-line bg-gold-soft text-gold"
-                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold",
+                  ? "border-gold-line bg-gold-soft text-gold-text"
+                  : "border-border/60 text-muted-foreground hover:border-gold-line hover:text-gold-text",
               )}
             >
               {t(r)}
@@ -123,11 +123,11 @@ function CountriesPage() {
                 <GovernanceBanner status={country.governance_status} className="mb-3" />
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="flex items-center gap-2 font-display text-base text-foreground">
-                    <Globe2 className="size-4 shrink-0 text-gold" />
+                    <Globe2 className="size-4 shrink-0 text-gold-text" />
                     <Link
                       to="/countries/$id"
                       params={{ id: country.id }}
-                      className="transition-colors hover:text-gold"
+                      className="transition-colors hover:text-gold-text"
                     >
                       {t(country.name)}
                     </Link>
@@ -151,20 +151,20 @@ function CountriesPage() {
                 <div className="mt-3 space-y-1.5 text-xs text-foreground/85">
                   {country.visa_route && (
                     <p className="flex items-center gap-1.5">
-                      <ShieldCheck className="size-3.5 shrink-0 text-gold/70" />
+                      <ShieldCheck className="size-3.5 shrink-0 text-gold-text" />
                       {t(country.visa_route)}
                     </p>
                   )}
                   {country.direct_flights && country.direct_flights.length > 0 && (
                     <p className="flex items-center gap-1.5">
-                      <Plane className="size-3.5 shrink-0 text-gold/70" />
+                      <Plane className="size-3.5 shrink-0 text-gold-text" />
                       {country.direct_flights.map((f) => t(f)).join(", ")}
                     </p>
                   )}
                 </div>
 
                 {country.has_egyptian_mission && (
-                  <span className="mt-3 inline-block rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-[10px] text-gold">
+                  <span className="mt-3 inline-block rounded-full border border-gold-line/60 bg-gold-soft px-2 py-0.5 text-2xs text-gold-text">
                     {t("Egyptian mission present")}
                   </span>
                 )}
