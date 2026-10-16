@@ -1,3 +1,4 @@
+import { IntroVideo } from "@/components/site/IntroVideo";
 import { ArrowCta } from "@/components/layout/InnerPage";
 import { useState, type ComponentType, type SVGProps } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
@@ -99,6 +100,7 @@ function Home() {
       <SiteHeader />
       <main>
         <Hero />
+        <IntroVideo />
         <QuickStrip />
         <ExploreInvest />
         <LiveBusinessWhy />
