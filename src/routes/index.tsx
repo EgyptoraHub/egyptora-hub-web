@@ -130,7 +130,7 @@ function ViewAll({ to }: { to: string }) {
   return (
     <Link
       to={L(to)}
-      className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-gold-text"
+      className="hit-44 inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-gold-text"
     >
       {t("View all")} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
     </Link>
@@ -247,7 +247,7 @@ function Hero() {
               key={p}
               type="button"
               onClick={() => siteSearch(p)}
-              className="rounded-full border border-foreground/40 bg-navy/50 px-3 py-1 text-xs text-foreground transition-colors hover:border-shell-gold"
+              className="hit-44 rounded-full border border-foreground/40 bg-navy/50 px-3 py-1 text-xs text-foreground transition-colors hover:border-shell-gold"
             >
               {t(p)}
             </button>
@@ -290,8 +290,8 @@ function QuickStrip() {
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-sm">
         <Link to="/emergency-numbers" className="font-semibold text-navy underline">{t("Emergency & Quick Numbers")}</Link>
-        <a href="tel:122" className="rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Police")} 122</a>
-        <a href="tel:123" className="rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Ambulance")} 123</a>
+        <a href="tel:122" className="hit-44 rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Police")} 122</a>
+        <a href="tel:123" className="hit-44 rounded-full border border-navy px-3 py-1 text-xs font-semibold text-navy" dir="ltr">{t("Ambulance")} 123</a>
       </div>
     </div>
   );
@@ -453,7 +453,7 @@ function Vision2030() {
           </p>
           <Link
             to="/legal"
-            className="mt-5 inline-flex items-center gap-2 rounded-full border border-shell-gold px-5 py-2 text-sm font-semibold text-navy hover:bg-chip-active"
+            className="hit-44 mt-5 inline-flex items-center gap-2 rounded-full border border-shell-gold px-5 py-2 text-sm font-semibold text-navy hover:bg-chip-active"
           >
             {t("Learn More")} <ArrowRight className="size-4 rtl:rotate-180" />
           </Link>
@@ -477,7 +477,7 @@ function Vision2030() {
           </div>
           <Link
             to="/legal"
-            className="inline-flex items-center gap-2 rounded-full border border-shell-gold bg-background px-5 py-2 text-sm font-semibold text-navy hover:bg-chip-active"
+            className="hit-44 inline-flex items-center gap-2 rounded-full border border-shell-gold bg-background px-5 py-2 text-sm font-semibold text-navy hover:bg-chip-active"
           >
             {t("About Our Vision")} <ArrowRight className="size-4 rtl:rotate-180" />
           </Link>
@@ -523,7 +523,7 @@ function GovBand() {
           </div>
           <Link
             to="/government-directory"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-gold-text"
+            className="hit-44 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-gold-text"
           >
             {t("View Directory")} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
           </Link>
@@ -618,7 +618,7 @@ function ThroughTimeBand() {
                 <Link
                   to="/egypt-through-time/military-history/records"
                   search={{ era: e.slug }}
-                  className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-border bg-card px-3.5 text-sm text-navy transition-colors hover:border-gold-line"
+                  className="hit-44 inline-flex min-h-10 items-center gap-1.5 rounded-full border border-border bg-card px-3.5 text-sm text-navy transition-colors hover:border-gold-line"
                 >
                   <span className="text-xs font-semibold opacity-70">{e.number.toLocaleString(lang === "ar" ? "ar-EG" : "en")}</span>
                   <span dir="auto">{lang === "ar" ? e.name_ar : t(e.name_en)}</span>

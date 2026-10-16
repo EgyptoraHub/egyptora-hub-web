@@ -92,7 +92,7 @@ export function ViewAll({ to, label = "View all" }: { to: string; label?: string
   return (
     <SmartLink
       to={to}
-      className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-gold-text"
+      className="hit-44 inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-navy hover:text-gold-text"
     >
       {t(label)} <ArrowRight className="size-4 text-gold-text rtl:rotate-180" />
     </SmartLink>
@@ -124,7 +124,7 @@ export function SectionHead({
 
 export function GoldButton({ to, children, onClick }: { to?: string; children: ReactNode; onClick?: () => void }) {
   const cls =
-    "inline-flex items-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground transition-transform hover:-translate-y-0.5";
+    "hit-44 inline-flex items-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground transition-transform hover:-translate-y-0.5";
   if (!to)
     return (
       <button type="button" onClick={onClick} className={cls}>
@@ -238,7 +238,7 @@ export function LinkList({ items }: { items: { label: string; to?: string | unde
           ) : (
           <SmartLink
             to={i.to}
-            className="flex items-center gap-3 py-2.5 text-sm text-navy transition-colors hover:text-gold-text"
+            className="hit-44 flex items-center gap-3 py-2.5 text-sm text-navy transition-colors hover:text-gold-text"
           >
             {i.Icon && <i.Icon className="size-4 shrink-0 text-gold-text" />}
             <span className="flex-1">{t(i.label)}</span>
@@ -363,7 +363,7 @@ function InnerHero({ h }: { h: HeroConfig }) {
               aria-label={t(h.placeholder)}
               className="min-w-0 flex-1 bg-transparent py-2 text-sm text-navy outline-none placeholder:text-text-body"
             />
-            <button type="submit" className="shrink-0 rounded-full bg-gold-cta px-5 py-2 text-sm font-semibold text-gold-foreground">
+            <button type="submit" className="hit-44 shrink-0 rounded-full bg-gold-cta px-5 py-2 text-sm font-semibold text-gold-foreground">
               {t("Search")}
             </button>
           </form>
@@ -376,7 +376,7 @@ function InnerHero({ h }: { h: HeroConfig }) {
                   key={p}
                   type="button"
                   onClick={() => siteSearch(p)}
-                  className="rounded-full border border-foreground/40 bg-navy/50 px-3 py-1 text-xs text-foreground transition-colors hover:border-shell-gold"
+                  className="hit-44 rounded-full border border-foreground/40 bg-navy/50 px-3 py-1 text-xs text-foreground transition-colors hover:border-shell-gold"
                 >
                   {t(p)}
                 </button>

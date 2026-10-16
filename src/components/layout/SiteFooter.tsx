@@ -164,7 +164,7 @@ function Newsletter() {
         />
         <button
           type="submit"
-          className="shrink-0 rounded-lg bg-gold-cta px-4 py-2.5 text-xs font-semibold text-gold-foreground transition-opacity hover:opacity-90"
+          className="hit-44 shrink-0 rounded-lg bg-gold-cta px-4 py-2.5 text-xs font-semibold text-gold-foreground transition-opacity hover:opacity-90"
         >
           {t("Subscribe")}
         </button>
@@ -232,7 +232,7 @@ export function SiteFooter() {
                       rel="noreferrer noopener"
                       aria-label={label}
                       title={label}
-                      className="grid size-9 place-items-center rounded-full border border-foreground/70 text-foreground transition-colors hover:border-shell-gold hover:text-shell-gold"
+                      className="hit-44 grid size-9 place-items-center rounded-full border border-foreground/70 text-foreground transition-colors hover:border-shell-gold hover:text-shell-gold"
                     >
                       <Icon className="size-4" />
                     </a>
@@ -240,7 +240,7 @@ export function SiteFooter() {
                     <span
                       aria-label={`${label} — ${t("Coming soon")}`}
                       title={`${label} — ${t("Coming soon")}`}
-                      className="grid size-9 place-items-center rounded-full border border-foreground/40 text-foreground/50"
+                      className="hit-44 grid size-9 place-items-center rounded-full border border-foreground/40 text-foreground/50"
                     >
                       <Icon className="size-4" />
                     </span>

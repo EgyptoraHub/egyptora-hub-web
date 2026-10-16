@@ -151,7 +151,7 @@ export function BookingSearch() {
                   onClick={() => setActiveTab(tab)}
                   aria-pressed={activeTab === tab}
                   className={cn(
-                    "shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold transition-colors",
+                    "hit-44 shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold transition-colors",
                     activeTab === tab
                       ? "bg-gold-cta text-navy"
                       : "text-primary-foreground/75 hover:bg-primary-foreground/10 hover:text-primary-foreground",

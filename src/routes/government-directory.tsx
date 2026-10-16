@@ -268,7 +268,7 @@ function FindServicesForm({ categories, onSearch }: { categories: string[]; onSe
         <option value="">{t("Service Type")}</option>
         {services.map((s) => <option key={s.label} value={s.label}>{t(s.label)}</option>)}
       </select>
-      <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground">
+      <button type="submit" className="hit-44 inline-flex items-center justify-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground">
         <Search className="size-4" /> {t("Search")}
       </button>
     </form>
