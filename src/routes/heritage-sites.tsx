@@ -1,3 +1,4 @@
+import { GenImage } from "@/components/site/GenImage";
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Landmark, MapPin } from "lucide-react";
@@ -201,6 +202,7 @@ function HeritageSitesPage() {
           </div>
         ) : (
           <p className="rounded-2xl border border-border/60 bg-card/40 p-8 text-center text-sm text-muted-foreground">
+            <GenImage k="ph-heritage-sites" sizes="240px" className="mx-auto mb-3 block w-full max-w-[240px] rounded-xl" />
             {t("No heritage sites match this filter yet.")}
           </p>
         )}

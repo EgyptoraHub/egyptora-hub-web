@@ -80,7 +80,7 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
               const summary = ar ? z.summary_ar : z.summary_en;
               return (
                 <article key={z.id} className="grid content-start gap-2 rounded-[10px] border border-border bg-card p-4 shadow-sm">
-                  <GenImage k={ZONE_IMG[z.zone_type]} className="aspect-[16/10] w-full rounded-2xl" />
+                  <GenImage k={ZONE_IMG[z.zone_type] ?? "zone-logistics-warehouse"} className="aspect-[16/10] w-full rounded-2xl" />
                   <span><NavyBadge>{typeLabel(z.zone_type)}</NavyBadge></span>
                   <h2 dir="auto" className="font-display text-base font-bold text-navy">{zoneTitle(z, lang)}</h2>
                   <dl className="grid gap-1 text-xs text-text-body">
