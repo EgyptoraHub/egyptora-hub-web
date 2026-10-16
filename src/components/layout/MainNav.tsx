@@ -231,10 +231,10 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       const last = f[f.length - 1];
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
-        last.focus();
+        last?.focus();
       } else if (!e.shiftKey && document.activeElement === last) {
         e.preventDefault();
-        first.focus();
+        first?.focus();
       }
     };
     document.addEventListener("keydown", onKey);
