@@ -130,7 +130,7 @@ export const Route = createFileRoute("/governorates/$id")({
 });
 
 function GovernorateNotFound() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -409,7 +409,7 @@ function GovernoratePage() {
 const RESEARCH_NOTE = /^no (strongly|single|distinctive|specific)|flagged|owner (review|confirmation)|unverified|needs confirmation/i;
 
 function ListBox({ icon, title, items: raw }: { icon: ReactNode; title: string; items: string[] | null | undefined }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const items = raw?.filter((it) => !RESEARCH_NOTE.test(it));
   return (
     <div className="rounded-2xl border border-border/70 bg-card p-6">

@@ -92,7 +92,7 @@ export const Route = createFileRoute("/encyclopedia")({
 const heroChapter = encChapters[0]!;
 
 function EncyclopediaPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { eras: erasSource, rulers: rulersSource } = Route.useLoaderData();
   const eras = useLocalizedRows("eras", erasSource, "key");
   const rulers = useLocalizedRows("rulers", rulersSource);
@@ -205,7 +205,7 @@ function Chapter({
   index: number;
   liveSection?: ReactNode;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   return (
     <Section
@@ -285,7 +285,7 @@ function EraRulerSection({
   eras: Era[];
   rulersByEra: Map<string, Ruler[]>;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   if (eras.length === 0) return null;
 
