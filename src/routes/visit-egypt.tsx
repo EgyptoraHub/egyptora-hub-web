@@ -90,7 +90,7 @@ function VisitEgypt() {
           </SidePanel>
           <EmergencyQuickLinks />
           <SidePanel title="Plan Your Trip">
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               {[
                 { label: "Visa Information", to: "/visit-egypt/e-visa", Icon: Stamp },
                 { label: "Best Time to Visit", to: "/encyclopedia", Icon: CalendarDays },

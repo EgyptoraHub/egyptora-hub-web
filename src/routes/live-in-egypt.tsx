@@ -127,7 +127,7 @@ function LiveInEgypt() {
           <NavyPromo>
             <h3 className="font-display text-lg font-bold">{t("Cost of Living in Egypt")}</h3>
             <p className="mt-1 text-xs text-foreground/75">{t("Affordable living, exceptional lifestyle.")}</p>
-            <div className="mt-4 grid grid-cols-3 gap-2">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {[
                 ["Housing", "from $200/month"],
                 ["Utilities", "from $50/month"],

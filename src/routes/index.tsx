@@ -381,7 +381,7 @@ function LiveBusinessWhy() {
             body="Experience a vibrant lifestyle, rich culture and a welcoming community."
             to="/live-in-egypt"
           />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
             {liveCards.map((c) => (
               <ImgCard key={c.title} c={c} h="h-24" />
             ))}
@@ -393,7 +393,7 @@ function LiveBusinessWhy() {
             body="Connect with partners, explore markets and grow your business in Egypt."
             to="/do-business"
           />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
             {bizCards.map((c) => (
               <ImgCard key={c.title} c={c} h="h-24" />
             ))}

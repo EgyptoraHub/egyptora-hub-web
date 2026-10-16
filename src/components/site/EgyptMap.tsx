@@ -439,7 +439,7 @@ export function EgyptMap() {
         {/* floating detail card — only after clicking a pin */}
         {cardOpen && (
         <div
-          className="absolute bottom-3 right-3 w-[248px] overflow-hidden rounded-2xl border border-gold-line/60 bg-background/85 shadow-2xl backdrop-blur-md"
+          className="relative mt-3 w-full sm:absolute sm:bottom-3 sm:end-3 sm:mt-0 sm:w-[248px] overflow-hidden rounded-2xl border border-gold-line/60 bg-background/85 shadow-2xl backdrop-blur-md"
           onPointerDown={(e) => e.stopPropagation()}
         >
           <button

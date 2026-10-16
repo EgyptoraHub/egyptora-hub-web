@@ -36,7 +36,7 @@ function TrustCenterPage() {
     >
       <nav className="mb-6 flex flex-wrap gap-2">
         {SECTIONS.map((s) => (
-          <a key={s.id} href={`#${s.id}`} className="rounded-full border border-border px-3 py-1 text-xs text-navy hover:border-primary">
+          <a key={s.id} href={`#${s.id}`} className="inline-flex min-h-11 items-center rounded-full border border-border px-4 text-xs text-navy hover:border-primary">
             {t(s.title)}
           </a>
         ))}

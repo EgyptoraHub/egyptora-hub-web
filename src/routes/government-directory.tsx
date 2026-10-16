@@ -335,7 +335,7 @@ function GovernmentDirectoryPage() {
             </div>
           </SidePanel>
           <SidePanel title="Directory at a glance">
-            <dl className="grid grid-cols-3 gap-2 text-center">
+            <dl className="grid grid-cols-1 gap-2 min-[400px]:grid-cols-3 text-center">
               {[
                 ["Entities", entities.length],
                 ["Categories", categories.length],
