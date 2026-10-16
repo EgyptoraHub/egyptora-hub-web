@@ -557,7 +557,7 @@ function GovBand() {
             <Link
               key={label}
               to="/government-directory"
-              hash={hash || undefined}
+              {...(hash ? { hash } : {})}
               className="flex flex-col items-center gap-2 rounded-lg border border-foreground/20 bg-foreground/5 px-2 py-4 text-center text-xs text-foreground transition-colors hover:border-shell-gold"
             >
               <Icon className="size-6" strokeWidth={1.4} />

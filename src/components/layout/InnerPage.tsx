@@ -47,7 +47,7 @@ export function SmartLink({
       </a>
     );
   // "/path?key=value" → typed search params, so filters (e.g. ?sector=) survive the router.
-  const [path, qs] = to.split("?");
+  const [path = to, qs] = to.split("?");
   const search = qs ? Object.fromEntries(new URLSearchParams(qs)) : undefined;
   return (
     <Link to={L(path)} search={search as never} aria-label={label} className={className}>
