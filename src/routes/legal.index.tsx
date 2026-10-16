@@ -143,7 +143,7 @@ function LegalCenter() {
             )}
           </p>
           <div className="mt-5 overflow-hidden rounded-2xl border border-border">
-            <table className="w-full text-left text-sm">
+            <table className="w-full text-start text-sm">
               <thead className="bg-sidebar text-2xs eyebrow text-gold-text">
                 <tr>
                   <th className="px-4 py-3">{t("Entity")}</th>
@@ -181,7 +181,7 @@ function LegalCenter() {
                 key={gate}
                 className="rounded-2xl border border-border bg-card p-4 text-sm text-muted-foreground"
               >
-                <span className="mr-2 text-gold-text">{String(i + 1).padStart(2, "0")}</span>
+                <span className="me-2 text-gold-text">{String(i + 1).padStart(2, "0")}</span>
                 {t(gate)}
               </li>
             ))}

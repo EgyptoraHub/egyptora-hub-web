@@ -228,7 +228,7 @@ function Chapter({
               className="flex items-baseline justify-between gap-4 rounded-2xl border border-gold-line bg-card px-4 py-3"
             >
               <span className="font-display text-xl text-gold-text">{t(s.value)}</span>
-              <span className="text-right text-xs text-muted-foreground">{t(s.label)}</span>
+              <span className="text-end text-xs text-muted-foreground">{t(s.label)}</span>
             </div>
           ))}
         </div>
@@ -273,7 +273,7 @@ function Chapter({
       {liveSection}
 
       <div className="mt-4 flex items-center gap-2 text-2xs eyebrow text-muted-foreground">
-        <ArrowRight className="h-3.5 w-3.5 text-gold-text" aria-hidden />
+        <ArrowRight className="h-3.5 w-3.5 text-gold-text rtl:rotate-180" aria-hidden />
         {chapter.api}
       </div>
     </Section>

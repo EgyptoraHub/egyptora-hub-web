@@ -66,7 +66,7 @@ function LegalDocumentPage() {
             to="/legal"
             className="inline-flex items-center gap-2 text-xs eyebrow text-gold-text hover:text-gold-text"
           >
-            <ArrowLeft className="size-3.5" /> {t("Legal Center")}
+            <ArrowLeft className="size-3.5 rtl:rotate-180" /> {t("Legal Center")}
           </Link>
 
           <h1 className="mt-5 max-w-4xl font-display text-3xl leading-tight tracking-tight text-foreground lg:text-4xl">
@@ -104,7 +104,7 @@ function LegalDocumentPage() {
             {d.sections.map((s, i) => (
               <section key={s.heading} className="mt-8 first:mt-0">
                 <h2 className="font-display text-xl text-foreground">
-                  <span className="mr-2 text-gold-text">{i + 1}.</span>
+                  <span className="me-2 text-gold-text">{i + 1}.</span>
                   {t(s.heading)}
                 </h2>
                 {s.body.map((p) => (

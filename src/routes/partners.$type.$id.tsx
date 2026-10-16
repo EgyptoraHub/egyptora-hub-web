@@ -94,7 +94,7 @@ function PartnerItemPage() {
           to="/partners"
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-gold-text"
         >
-          <ArrowLeft className="size-3.5" />
+          <ArrowLeft className="size-3.5 rtl:rotate-180" />
           {t("Back to your entries")}
         </Link>
 

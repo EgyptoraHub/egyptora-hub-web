@@ -487,7 +487,7 @@ export function EgyptMap() {
               params={{ id: active.id }}
               className="flex items-center justify-center gap-1.5 rounded-xl border border-gold-line bg-gold-soft px-3 py-2 text-xs font-semibold text-gold-text"
             >
-              {t("Explore Governorate")} <ArrowRight className="size-3.5" />
+              {t("Explore Governorate")} <ArrowRight className="size-3.5 rtl:rotate-180" />
             </Link>
           </div>
         </div>
@@ -565,7 +565,7 @@ export function EgyptMap() {
           params={{ id: active.id }}
           className="inline-flex items-center justify-center gap-2 rounded-xl border border-gold-line bg-gold-soft px-4 py-2 text-sm font-semibold text-gold-text"
         >
-          <MapPin className="size-4" /> {t("Discover")} {t(active.name)} <ArrowRight className="size-4" />
+          <MapPin className="size-4" /> {t("Discover")} {t(active.name)} <ArrowRight className="size-4 rtl:rotate-180" />
         </Link>
       </div>
     </div>

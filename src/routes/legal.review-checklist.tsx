@@ -51,7 +51,7 @@ function ReviewChecklist() {
           </div>
 
           <div className="mt-6 overflow-x-auto rounded-2xl border border-border">
-            <table className="w-full min-w-[720px] text-left text-sm">
+            <table className="w-full min-w-[720px] text-start text-sm">
               <thead className="bg-sidebar text-2xs eyebrow text-gold-text">
                 <tr>
                   <th className="px-4 py-3">#</th>

@@ -395,7 +395,7 @@ function GovernoratePage() {
               hash="explore"
               className="inline-flex items-center gap-2 rounded-xl border border-gold-line bg-gold-soft px-4 py-2 text-sm font-semibold text-gold-text"
             >
-              <MapPin className="size-4" /> {t("Back to the 27 governorates map")} <ArrowRight className="size-4" />
+              <MapPin className="size-4" /> {t("Back to the 27 governorates map")} <ArrowRight className="size-4 rtl:rotate-180" />
             </Link>
           </div>
         </Section>
