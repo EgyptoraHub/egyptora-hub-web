@@ -1,8 +1,10 @@
+import { Link } from "@tanstack/react-router";
+import { useNavAvailability } from "@/lib/nav-availability";
 import { useMemo, useState } from "react";
 import { ExternalLink, Factory } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { NavyBadge, innerWrap } from "@/components/layout/InnerPage";
+import { Crumbs, NavyBadge, innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
 import { GenBanner, GenImage } from "@/components/site/GenImage";
 
@@ -32,6 +34,7 @@ const L = (lang: string, en: string, ar: string) => (lang === "ar" ? ar : en);
 export function EconomicZonesPage({ page, zones, facts, governorates }: { page: "industrial" | "free"; zones: EconomicZone[]; facts: ZoneFact[]; governorates: Gov[] }) {
   const { t, lang } = useI18n();
   const ar = lang === "ar";
+  const avail = useNavAvailability();
   const copy = ar ? COPY[page].ar : COPY[page].en;
   const [gov, setGov] = useState("");
   const [type, setType] = useState("");
@@ -45,6 +48,7 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <Crumbs parent={{ label: "Do Business", to: "/do-business" }} page={page === "free" ? "Free Zones" : "Industrial Zones"} />
       <section className="border-b border-border bg-bg-band">
         <div className={`${innerWrap} py-10`}>
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-shell-gold">
@@ -53,6 +57,15 @@ export function EconomicZonesPage({ page, zones, facts, governorates }: { page: 
           <h1 className="mt-2 font-display text-3xl font-bold text-navy sm:text-4xl">{ar ? copy.title : t(copy.title)}</h1>
           <p className="mt-3 max-w-2xl text-sm text-text-body sm:text-base">{ar ? copy.intro : t(copy.intro)}</p>
           <p className="mt-4 max-w-2xl rounded-[10px] border border-border bg-card p-3 text-xs text-text-body">{ar ? NOTE.ar : t(NOTE.en)}</p>
+          {(page === "free" ? avail.industrial_zones : avail.free_zones) && (
+            <p className="mt-3 text-sm">
+              {page === "free" ? (
+                <Link to="/do-business/industrial-zones" className="font-semibold text-navy underline hover:text-shell-gold">{t("Industrial Zones")}</Link>
+              ) : (
+                <Link to="/do-business/free-zones" className="font-semibold text-navy underline hover:text-shell-gold">{t("Free Zones")}</Link>
+              )}
+            </p>
+          )}
         </div>
       </section>
 

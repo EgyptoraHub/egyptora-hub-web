@@ -1,3 +1,4 @@
+import { useNavAvailability } from "@/lib/nav-availability";
 import { GenBanner, GenImage } from "@/components/site/GenImage";
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
@@ -57,12 +58,28 @@ export const Route = createFileRoute("/experiences/$type")({
   component: ExperiencePage,
 });
 
+const SIBLINGS: { label: string; to: string; gate?: "protected_areas" }[] = [
+  { label: "Beaches & Water Sports", to: "/experiences/beaches" },
+  { label: "Desert Safari & Adventure", to: "/experiences/desert" },
+  { label: "Nile Cruises", to: "/experiences/nile-cruises" },
+  { label: "Eco & Nature Tourism", to: "/experiences/eco-nature", gate: "protected_areas" },
+];
+
 function ExperiencePage() {
   const { type, rows } = Route.useLoaderData();
   const cfg = TYPES[type];
   const { t } = useI18n();
+  const avail = useNavAvailability();
   return (
-    <SimplePage title={cfg.title} intro={cfg.intro}>
+    <SimplePage title={cfg.title} intro={cfg.intro} parent={{ label: "Explore Egypt", to: "/explore-egypt" }}>
+      <nav aria-label={t("Related experiences")} className="mb-6 flex flex-wrap items-center gap-2 text-sm">
+        <span className="text-text-body">{t("Related experiences")}:</span>
+        {SIBLINGS.filter((s) => s.to !== `/experiences/${type}` && (!s.gate || avail[s.gate])).map((s) => (
+          <Link key={s.to} to={s.to as never} className="rounded-full border border-border px-3 py-1 font-medium text-navy hover:border-shell-gold">
+            {t(s.label)}
+          </Link>
+        ))}
+      </nav>
       <div className="mb-6"><GenBanner k={BANNER[type]} /></div>
       {cfg.note && (
         <p className="mb-6 rounded-lg border border-border bg-bg-band px-4 py-3 text-sm text-text-body">{t(cfg.note)}</p>

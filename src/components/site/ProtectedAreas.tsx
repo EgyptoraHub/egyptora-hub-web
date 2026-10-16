@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ExternalLink, Leaf } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { innerWrap } from "@/components/layout/InnerPage";
+import { Crumbs, innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
 import { GenBanner, GenImage } from "@/components/site/GenImage";
 
@@ -33,6 +33,7 @@ export function ProtectedAreasPage({ areas, governorates }: { areas: ProtectedAr
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <Crumbs parent={{ label: "Explore Egypt", to: "/explore-egypt" }} page={L(lang, t("Protected Areas"), "المحميات الطبيعية")} />
       <section className="border-b border-border bg-bg-band">
         <div className={`${innerWrap} py-10`}>
           <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-shell-gold">

@@ -1,3 +1,4 @@
+import { Crumbs } from "@/components/layout/InnerPage";
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -9,8 +10,11 @@ export function SimplePage({
   intro,
   banner,
   placeholder,
+  parent,
   children,
 }: {
+  /** Adds a "Home › parent › page" breadcrumb. */
+  parent?: { label: string; to: string };
   title: string;
   intro?: string;
   banner?: ReactNode;
@@ -22,6 +26,7 @@ export function SimplePage({
   return (
     <>
       <SiteHeader />
+      {parent && <Crumbs parent={parent} page={title} />}
       {banner}
       <main className="mx-auto max-w-[1280px] px-4 py-10 lg:px-8">
         <h1 className="font-display text-3xl font-bold text-navy lg:text-4xl">{t(title)}</h1>

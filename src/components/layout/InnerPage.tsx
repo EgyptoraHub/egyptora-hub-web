@@ -452,6 +452,32 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
   );
 }
 
+/* ---------------- breadcrumb ---------------- */
+
+/** Shared "Home › parent › page" trail (parent is a link). */
+export function Crumbs({ parent, page }: { parent?: { label: string; to: string } | undefined; page: string }) {
+  const { t } = useI18n();
+  return (
+    <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
+      <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
+        <Link to="/" className="hover:text-shell-gold">
+          {t("Home")}
+        </Link>
+        <ChevronRight className="size-3 rtl:rotate-180" />
+        {parent && (
+          <>
+            <SmartLink to={parent.to} className="hover:text-shell-gold">
+              {t(parent.label)}
+            </SmartLink>
+            <ChevronRight className="size-3 rtl:rotate-180" />
+          </>
+        )}
+        <span className="font-medium text-navy">{t(page)}</span>
+      </div>
+    </nav>
+  );
+}
+
 /* ---------------- shell ---------------- */
 
 export function InnerPage({
@@ -481,23 +507,7 @@ export function InnerPage({
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
-        <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
-          <Link to="/" className="hover:text-shell-gold">
-            {t("Home")}
-          </Link>
-          <ChevronRight className="size-3 rtl:rotate-180" />
-          {parent && (
-            <>
-              <SmartLink to={parent.to} className="hover:text-shell-gold">
-                {t(parent.label)}
-              </SmartLink>
-              <ChevronRight className="size-3 rtl:rotate-180" />
-            </>
-          )}
-          <span className="font-medium text-navy">{t(pageName)}</span>
-        </div>
-      </nav>
+      <Crumbs parent={parent} page={pageName} />
       <InnerHero h={hero} />
       <ChipStrip chips={chips} moreTo={moreTo} showMore={showMore} />
       {notice && <div className={cn(innerWrap, "pt-8")}>{notice}</div>}
