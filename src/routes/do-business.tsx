@@ -6,7 +6,7 @@ import {
   ArrowRight, Download, Headphones, FileText, Search, FolderOpen,
 } from "lucide-react";
 import { toast } from "sonner";
-import hero from "@/assets/inner/business-hero.jpg";
+import hero from "@/assets/generated/card-business-meeting.webp";
 import solar from "@/assets/home/benban.jpg";
 import land from "@/assets/home/biz-opps.jpg";
 import tourism from "@/assets/gov/red-sea.jpg";

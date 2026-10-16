@@ -11,7 +11,7 @@ import health from "@/assets/home/health.jpg";
 import work from "@/assets/home/start-biz.jpg";
 import individuals from "@/assets/home/visit.jpg";
 import families from "@/assets/sec-family.jpg";
-import students from "@/assets/sec-education.jpg";
+import students from "@/assets/generated/ill-education.webp";
 import professionals from "@/assets/home/biz-support.jpg";
 import retirees from "@/assets/sec-wellness.jpg";
 import cairo from "@/assets/dest-cairo.jpg";

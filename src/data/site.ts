@@ -1,28 +1,28 @@
-import eraPredynastic from "@/assets/era-predynastic.jpg";
-import eraOldKingdom from "@/assets/era-old-kingdom.jpg";
-import eraMiddleKingdom from "@/assets/era-middle-kingdom.jpg";
-import eraNewKingdom from "@/assets/era-new-kingdom.jpg";
-import eraPtolemaic from "@/assets/era-ptolemaic.jpg";
-import eraRoman from "@/assets/era-roman.jpg";
-import eraCoptic from "@/assets/era-coptic.jpg";
-import eraIslamic from "@/assets/era-islamic.jpg";
-import eraFatimid from "@/assets/era-fatimid.jpg";
-import eraAyyubid from "@/assets/era-ayyubid.jpg";
-import eraMamluk from "@/assets/era-mamluk.jpg";
-import eraOttoman from "@/assets/era-ottoman.jpg";
-import eraMuhammadAli from "@/assets/era-muhammad-ali.jpg";
-import eraRepublic from "@/assets/era-republic.jpg";
-import eraModern from "@/assets/era-modern-gem.jpg";
-import cardGovernorates from "@/assets/card-governorates.jpg";
-import cardThroughTime from "@/assets/card-through-time.jpg";
-import cardHeritage from "@/assets/card-heritage.jpg";
-import cardMuseums from "@/assets/card-museums.jpg";
-import cardNileSea from "@/assets/card-nile-sea.jpg";
-import cardHidden from "@/assets/card-hidden.jpg";
-import sectorEntertainment from "@/assets/sector-entertainment.jpg";
+import eraPredynastic from "@/assets/generated/banner-egypt-through-time.webp";
+import eraOldKingdom from "@/assets/generated/banner-egypt-through-time.webp";
+import eraMiddleKingdom from "@/assets/generated/banner-egypt-through-time.webp";
+import eraNewKingdom from "@/assets/generated/banner-egypt-through-time.webp";
+import eraPtolemaic from "@/assets/generated/banner-egypt-through-time.webp";
+import eraRoman from "@/assets/generated/banner-egypt-through-time.webp";
+import eraCoptic from "@/assets/generated/banner-egypt-through-time.webp";
+import eraIslamic from "@/assets/generated/banner-egypt-through-time.webp";
+import eraFatimid from "@/assets/generated/banner-egypt-through-time.webp";
+import eraAyyubid from "@/assets/generated/banner-egypt-through-time.webp";
+import eraMamluk from "@/assets/generated/banner-egypt-through-time.webp";
+import eraOttoman from "@/assets/generated/banner-egypt-through-time.webp";
+import eraMuhammadAli from "@/assets/generated/banner-egypt-through-time.webp";
+import eraRepublic from "@/assets/generated/banner-egypt-through-time.webp";
+import eraModern from "@/assets/generated/banner-egypt-through-time.webp";
+import cardGovernorates from "@/assets/generated/eco-generic-desert.webp";
+import cardThroughTime from "@/assets/generated/banner-military-history.webp";
+import cardHeritage from "@/assets/generated/banner-egypt-through-time.webp";
+import cardMuseums from "@/assets/generated/ph-museums.webp";
+import cardNileSea from "@/assets/generated/card-felucca-nile.webp";
+import cardHidden from "@/assets/generated/eco-white-desert.webp";
+import sectorEntertainment from "@/assets/generated/ph-events.webp";
 import sectorRealEstate from "@/assets/sector-realestate.jpg";
 import sectorRural from "@/assets/sector-rural.jpg";
-import promoHotel from "@/assets/promo-hotel.jpg";
+import promoHotel from "@/assets/generated/banner-experiences-beaches.webp";
 
 export type SidebarGroup = {
   title: string;
@@ -398,7 +398,7 @@ import destAswan from "@/assets/dest-aswan.jpg";
 import destSharm from "@/assets/dest-sharm.jpg";
 import destHurghada from "@/assets/dest-hurghada.jpg";
 import destAlexandria from "@/assets/dest-alexandria.jpg";
-import promoSummer from "@/assets/promo-summer.jpg";
+import promoSummer from "@/assets/generated/card-marsa-alam.webp";
 import promoCruise from "@/assets/promo-cruise.jpg";
 import promoAdventure from "@/assets/promo-adventure.jpg";
 
@@ -478,21 +478,21 @@ export const monthlyVisitors = [
 // Sector strip, offers, research & marketplace (reference-mockup parity)
 // ---------------------------------------------------------------------------
 
-import secEntertainment from "@/assets/sec-entertainment.jpg";
+import secEntertainment from "@/assets/generated/ph-events.webp";
 import secWellness from "@/assets/sec-wellness.jpg";
 import secMarina from "@/assets/sec-marina.jpg";
 import secDesert from "@/assets/sec-desert.jpg";
-import secEducation from "@/assets/sec-education.jpg";
-import secMice from "@/assets/sec-mice.jpg";
-import secSports from "@/assets/sec-sports.jpg";
+import secEducation from "@/assets/generated/ill-education.webp";
+import secMice from "@/assets/generated/card-business-meeting.webp";
+import secSports from "@/assets/generated/card-diving-red-sea.webp";
 import secFamily from "@/assets/sec-family.jpg";
-import offerDeals from "@/assets/offer-deals.jpg";
-import offerStopover from "@/assets/offer-stopover.jpg";
-import offerVisit27 from "@/assets/offer-visit27.jpg";
-import offerClub from "@/assets/offer-club.jpg";
-import researchGenome from "@/assets/research-genome.jpg";
-import filmEgypt from "@/assets/film-egypt.jpg";
-import marketCrafts from "@/assets/market-crafts.jpg";
+import offerDeals from "@/assets/generated/ph-offers.webp";
+import offerStopover from "@/assets/generated/banner-experiences-nile-cruises.webp";
+import offerVisit27 from "@/assets/generated/card-hot-air-balloon-luxor.webp";
+import offerClub from "@/assets/generated/card-felucca-nile.webp";
+import researchGenome from "@/assets/generated/ph-research-programs.webp";
+import filmEgypt from "@/assets/generated/ph-events.webp";
+import marketCrafts from "@/assets/generated/culture-jewelry-mother-of-pearl-handicrafts-saqiat-al-mi.webp";
 
 export const heroImages = { film: filmEgypt, research: researchGenome, market: marketCrafts };
 

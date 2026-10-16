@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import encFood from "@/assets/enc/food-heritage.jpg";
-import encDress from "@/assets/enc/dress-governorates.jpg";
-import encCrafts from "@/assets/enc/crafts-textile.jpg";
+import encFood from "@/assets/generated/culture-cuisine-koshary.webp";
+import encDress from "@/assets/generated/culture-fashion-galabeya-jellabiya.webp";
+import encCrafts from "@/assets/generated/culture-fashion-akhmim-weaving.webp";
 
 /* Public data layer for "Live Like an Egyptian".
  * Every query names its columns; internal_notes and access_level are never requested
