@@ -15,7 +15,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { GA_MEASUREMENT_ID, GA_INLINE_SNIPPET, trackPageView } from "../lib/analytics";
 import { SITE } from "../config/site";
-import { I18nProvider, useI18n } from "../i18n";
+import { I18nProvider, useI18n, isLangCode, dirFor } from "../i18n";
+import { getLangCookie } from "../lib/lang-cookie.functions";
 import { CurrencyProvider } from "../i18n/currency";
 import { fetchNavAvailability } from "../lib/nav-availability";
 import { FloatingConcierge } from "../components/site/FloatingConcierge";
@@ -78,7 +79,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+        <h1 className="font-display text-xl font-semibold tracking-tight text-foreground">
           {t("This page didn't load")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -107,7 +108,15 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  loader: async () => ({ nav: await fetchNavAvailability() }),
+  loader: async () => {
+    const [nav, rawLang] = await Promise.all([
+      fetchNavAvailability(),
+      typeof document !== "undefined"
+        ? Promise.resolve(document.cookie.match(/(?:^|; )egyptora_lang=([^;]+)/)?.[1] ?? null)
+        : getLangCookie(),
+    ]);
+    return { nav, lang: isLangCode(rawLang) ? rawLang : ("en" as const) };
+  },
   staleTime: 5 * 60 * 1000,
   head: () => ({
     meta: [
@@ -186,13 +195,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const lang = Route.useLoaderData({ select: (d) => d?.lang }) ?? "en";
   return (
-    <html lang="en">
+    <html lang={lang} dir={dirFor(lang)}>
       <head>
         <HeadContent />
       </head>
       <body>
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider initialLang={lang}>{children}</I18nProvider>
         <Scripts />
       </body>
     </html>
