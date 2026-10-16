@@ -358,11 +358,11 @@ export function MainNav() {
             height={40}
             className="size-9 shrink-0 rounded-full ring-1 ring-gold-line sm:size-10"
           />
-          <span className="block min-w-0 leading-tight">
+          <span className="block min-w-0 overflow-hidden leading-tight">
             <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy xl:tracking-[0.06em] 2xl:tracking-[0.12em]">
               EGYPTORA <span className="text-gold-text xl:hidden 2xl:inline">HUB</span>
             </span>
-            <span className="block whitespace-nowrap text-2xs tracking-[0.06em] text-muted-foreground xl:hidden">
+            <span className="block truncate text-2xs tracking-[0.06em] text-muted-foreground xl:hidden">
               {t(SITE.tagline)}
             </span>
           </span>
