@@ -9,7 +9,8 @@ import { GENERATED_IMAGES } from "@/lib/generated-images";
 
 const AI_GROUPS: { type: string; en: string; ar: string }[] = [
   { type: "banner", en: "Banners", ar: "اللافتات" },
-  { type: "card", en: "Cards", ar: "البطاقات" },
+  { type: "era-card", en: "Historical eras (illustrative landscapes)", ar: "الحقب التاريخية (مناظر توضيحية)" },
+  { type: "card", en: "Cards (encyclopedia, marketplace, entertainment, offers, museums and more)", ar: "البطاقات (الموسوعة، السوق، الترفيه، العروض، المتاحف وغيرها)" },
   { type: "illustration", en: "Icons & illustrations", ar: "الأيقونات والرسوم" },
   { type: "eco-card", en: "Nature", ar: "الطبيعة" },
   { type: "zone-card", en: "Zones", ar: "المناطق الاقتصادية" },
