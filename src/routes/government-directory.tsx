@@ -5,6 +5,7 @@ import {
   Briefcase, Building2, ChevronDown, ExternalLink, Landmark, MapPin, Plane, ShieldCheck, Sparkles, LayoutGrid,
   Scale, Link2, Map as MapIcon, Users, TrendingUp, Gavel, Globe2, GraduationCap, Hospital, BookOpen, Home, Bus,
   Wallet, BadgeCheck, IdCard, Car, FileText, Receipt, Stamp, Baby, Heart, Package, Factory, Headphones, Search,
+  Siren, Smartphone,
 } from "lucide-react";
 import {
   InnerPage, cardGrid, SectionHead, PhotoCard, SidePanel, EgyptMap, ViewAll, CircleTile, ImportantNoticeBox,
@@ -171,6 +172,8 @@ const chips: Chip[] = [
   { label: "Judicial Bodies", Icon: Gavel },
   { label: "Diplomatic Missions", Icon: Globe2 },
   { label: "Educational Institutions", Icon: GraduationCap, to: "/research-programs" },
+  { label: "Emergency & Quick Numbers", Icon: Siren, to: "/emergency-numbers" },
+  { label: "Egypt Apps", Icon: Smartphone, to: "/egypt-apps" },
 ];
 
 const featuredSpec: { title: string; match: RegExp; desc: string; img: string; badge: string; fallback: string }[] = [
