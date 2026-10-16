@@ -2,7 +2,7 @@
 
 Egyptora Hub is a unified digital gateway to Egypt — destinations, heritage, culture, events, investment and living information in one bilingual (English/Arabic + 7 more languages) platform.
 
-Live site: https://www.egyptora-hub.com (`egypt-one.com` is a legacy fallback domain).
+Live site: https://www.egyptora-hub.com
 
 ## Tech stack
 

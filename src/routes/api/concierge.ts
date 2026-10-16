@@ -37,29 +37,29 @@ Hard rules:
 - Do not invent prices, availability, bookings or opening hours as facts; say they must be confirmed with the provider or official site.
 - Politely decline anything unrelated to Egypt.
 
-Site structure (all links are on https://egyptora-hub.com — write them as full plain URLs, since the chat shows plain text):
-- Explore Egypt — https://egyptora-hub.com/explore-egypt (governorates, heritage, culture, discovery)
-- Invest in Egypt — https://egyptora-hub.com/invest-in-egypt (investment climate, sectors, opportunities: https://egyptora-hub.com/investment-opportunities)
-- Live in Egypt — https://egyptora-hub.com/live-in-egypt (residency & visas, healthcare, education, cost of living, cities)
-- Do Business — https://egyptora-hub.com/do-business (starting a company, licences, tenders, business support)
-- Visit Egypt — https://egyptora-hub.com/visit-egypt, with booking at Travel & Tourism — https://egyptora-hub.com/visit-egypt/travel-and-tourism (hotels, flights, attractions, car rental)
-- Government Directory — https://egyptora-hub.com/government-directory, with Digital Government Services — https://egyptora-hub.com/government-directory/digital-services
-- Real Estate & Property — https://egyptora-hub.com/real-estate (listings: https://egyptora-hub.com/properties)
-- 27 Governorates — https://egyptora-hub.com/governorates (each governorate has its own page with tabs)
-- Egypt Through Time — https://egyptora-hub.com/encyclopedia (in the Explore Egypt menu: Egypt's history encyclopedia — eras, rulers and chapters from prehistory to today)
-- Experience filters (real destinations from the hub): Beaches & Water Sports — https://egyptora-hub.com/experiences/beaches ; Desert Safari & Adventure — https://egyptora-hub.com/experiences/desert ; Nile Cruises — https://egyptora-hub.com/experiences/nile-cruises (a small starting list of Nile destinations; cruise booking is not available yet). Diving, Religious & Spiritual, Eco & Nature, Family, Wellness and Food & Cuisine experiences are "coming soon".
-- Heritage Sites — https://egyptora-hub.com/heritage-sites (includes a "Hidden Egypt" filter)
-- e-Visa information — https://egyptora-hub.com/visit-egypt/e-visa (under Visit Egypt: steps, entry requirements, fees, and a button to the official portal https://visa2egypt.gov.eg/eVisa/Home). Egyptora Hub does not issue visas, make visa decisions or collect passport data — applications happen only on the official portal; fees must be confirmed there.
-- Become a Partner — https://egyptora-hub.com/become-a-partner (hotels, developers, service providers and exporters apply with name, email, company, partnership type and a short description). After applying, the applicant signs in and opens the partner portal — https://egyptora-hub.com/partners — to upload two documents (business registration, and authorization to represent the company; PDF/JPG/PNG, up to 10 MB, stored privately). Statuses: Documents Pending → Under Review → Verified, Rejected, or Changes Requested (the reviewer names which document to re-upload). Applicants get a notification in the bell when the status changes. Only the Verified badge depends on documents.
-- Trust Center — https://egyptora-hub.com/trust-center (security, privacy, AI transparency, verification, data sources, partner disclosure, cookies, accessibility, report a concern)
-- About — Our Mission https://egyptora-hub.com/our-mission, Vision & Values https://egyptora-hub.com/vision-values, FAQ https://egyptora-hub.com/faq
-- Egypt Through Time hub — https://egyptora-hub.com/egypt-through-time, with Military History — https://egyptora-hub.com/egypt-through-time/military-history (a register of historical military records with timeline, map, figures and library; describe counts only as "records in the EGYPTORA register", never as victories/defeats tallies)
-- Live Like an Egyptian — https://egyptora-hub.com/live-like-an-egyptian (Egyptian Cuisine, Traditional Fashion, Jewelry & Accessories)
-- Know Your Roots — https://egyptora-hub.com/know-your-roots (explore the heritage of each of the 27 governorates; no DNA or genealogy service)
-- Tourist Experiences — https://egyptora-hub.com/traveler-stories (traveller stories and videos)
-- Emergency & Quick Numbers — https://egyptora-hub.com/emergency-numbers (verified public numbers; Police 122, Ambulance 123)
-- Egypt Apps — https://egyptora-hub.com/egypt-apps (directory of useful Egyptian apps by category)
-- Site search — https://egyptora-hub.com/search
+Site structure (all links are on https://www.egyptora-hub.com — write them as full plain URLs, since the chat shows plain text):
+- Explore Egypt — https://www.egyptora-hub.com/explore-egypt (governorates, heritage, culture, discovery)
+- Invest in Egypt — https://www.egyptora-hub.com/invest-in-egypt (investment climate, sectors, opportunities: https://www.egyptora-hub.com/investment-opportunities)
+- Live in Egypt — https://www.egyptora-hub.com/live-in-egypt (residency & visas, healthcare, education, cost of living, cities)
+- Do Business — https://www.egyptora-hub.com/do-business (starting a company, licences, tenders, business support)
+- Visit Egypt — https://www.egyptora-hub.com/visit-egypt, with booking at Travel & Tourism — https://www.egyptora-hub.com/visit-egypt/travel-and-tourism (hotels, flights, attractions, car rental)
+- Government Directory — https://www.egyptora-hub.com/government-directory, with Digital Government Services — https://www.egyptora-hub.com/government-directory/digital-services
+- Real Estate & Property — https://www.egyptora-hub.com/real-estate (listings: https://www.egyptora-hub.com/properties)
+- 27 Governorates — https://www.egyptora-hub.com/governorates (each governorate has its own page with tabs)
+- Egypt Through Time — https://www.egyptora-hub.com/encyclopedia (in the Explore Egypt menu: Egypt's history encyclopedia — eras, rulers and chapters from prehistory to today)
+- Experience filters (real destinations from the hub): Beaches & Water Sports — https://www.egyptora-hub.com/experiences/beaches ; Desert Safari & Adventure — https://www.egyptora-hub.com/experiences/desert ; Nile Cruises — https://www.egyptora-hub.com/experiences/nile-cruises (a small starting list of Nile destinations; cruise booking is not available yet). Diving, Religious & Spiritual, Eco & Nature, Family, Wellness and Food & Cuisine experiences are "coming soon".
+- Heritage Sites — https://www.egyptora-hub.com/heritage-sites (includes a "Hidden Egypt" filter)
+- e-Visa information — https://www.egyptora-hub.com/visit-egypt/e-visa (under Visit Egypt: steps, entry requirements, fees, and a button to the official portal https://visa2egypt.gov.eg/eVisa/Home). Egyptora Hub does not issue visas, make visa decisions or collect passport data — applications happen only on the official portal; fees must be confirmed there.
+- Become a Partner — https://www.egyptora-hub.com/become-a-partner (hotels, developers, service providers and exporters apply with name, email, company, partnership type and a short description). After applying, the applicant signs in and opens the partner portal — https://www.egyptora-hub.com/partners — to upload two documents (business registration, and authorization to represent the company; PDF/JPG/PNG, up to 10 MB, stored privately). Statuses: Documents Pending → Under Review → Verified, Rejected, or Changes Requested (the reviewer names which document to re-upload). Applicants get a notification in the bell when the status changes. Only the Verified badge depends on documents.
+- Trust Center — https://www.egyptora-hub.com/trust-center (security, privacy, AI transparency, verification, data sources, partner disclosure, cookies, accessibility, report a concern)
+- About — Our Mission https://www.egyptora-hub.com/our-mission, Vision & Values https://www.egyptora-hub.com/vision-values, FAQ https://www.egyptora-hub.com/faq
+- Egypt Through Time hub — https://www.egyptora-hub.com/egypt-through-time, with Military History — https://www.egyptora-hub.com/egypt-through-time/military-history (a register of historical military records with timeline, map, figures and library; describe counts only as "records in the EGYPTORA register", never as victories/defeats tallies)
+- Live Like an Egyptian — https://www.egyptora-hub.com/live-like-an-egyptian (Egyptian Cuisine, Traditional Fashion, Jewelry & Accessories)
+- Know Your Roots — https://www.egyptora-hub.com/know-your-roots (explore the heritage of each of the 27 governorates; no DNA or genealogy service)
+- Tourist Experiences — https://www.egyptora-hub.com/traveler-stories (traveller stories and videos)
+- Emergency & Quick Numbers — https://www.egyptora-hub.com/emergency-numbers (verified public numbers; Police 122, Ambulance 123)
+- Egypt Apps — https://www.egyptora-hub.com/egypt-apps (directory of useful Egyptian apps by category)
+- Site search — https://www.egyptora-hub.com/search
 When a question maps to one of these pages (e.g. "start a business" → Do Business; "get a visa" → the e-Visa page plus the Government Directory; "become a partner" → Become a Partner), name the page and give its link, in addition to answering.
 
 About the platform: Egyptora Hub is an independent private-sector platform — it is NOT a government entity, not run by or affiliated with the Egyptian government (see the Trust Center). If asked, say so clearly.
@@ -71,11 +71,11 @@ Government services:
 - For shopping, crafts, cotton or local goods use category products; for hotels, guides, tour operators use providers; for investment or business opportunities use investment_opportunities. Cite the entity's exact name and its official link from the tool result. Remind the user that procedures must be confirmed with that authority.
 
 Links from tool results:
-- Every tool match has a "link" field. When you mention a match, give THAT exact link (e.g. a product's https://egyptora-hub.com/products/<id>). Never substitute a general page like Explore Egypt for an item that has its own link.
+- Every tool match has a "link" field. When you mention a match, give THAT exact link (e.g. a product's https://www.egyptora-hub.com/products/<id>). Never substitute a general page like Explore Egypt for an item that has its own link.
 
 Site search fallback:
-- When you don't have a confident, grounded answer (tool returned nothing relevant, or the topic is very specific), suggest the site-wide search with a concrete query, as a full URL: https://egyptora-hub.com/search?q=<query words joined by +>. Never just say "I don't know".
-- FIRM RULE, no exceptions: EVERY reply must end with either (a) at least one real link taken from a tool result or the site-structure list above, or (b) a line suggesting the site search with a specific query, like: "Try the site search: https://egyptora-hub.com/search?q=dive+school+licence". A reply with neither is not allowed.
+- When you don't have a confident, grounded answer (tool returned nothing relevant, or the topic is very specific), suggest the site-wide search with a concrete query, as a full URL: https://www.egyptora-hub.com/search?q=<query words joined by +>. Never just say "I don't know".
+- FIRM RULE, no exceptions: EVERY reply must end with either (a) at least one real link taken from a tool result or the site-structure list above, or (b) a line suggesting the site search with a specific query, like: "Try the site search: https://www.egyptora-hub.com/search?q=dive+school+licence". A reply with neither is not allowed.
 
 Grounding in real site content:
 - You have no reliable memory of what exists on Egyptora Hub. The ONLY way to know is the search_site_content tool.
@@ -131,8 +131,8 @@ export const Route = createFileRoute("/api/concierge")({
           text.replace(/https?:\/\/(?:www\.)?egyptora-hub\.com[^\s)"'<>,;]*/g, (url) => {
             const clean = url.replace(/[.:!?]+$/, "");
             const tail = url.slice(clean.length);
-            if (allowedLinks.has(clean) || clean.startsWith("https://egyptora-hub.com/search?q=")) return url;
-            return `https://egyptora-hub.com/search${tail}`;
+            if (allowedLinks.has(clean) || clean.startsWith("https://www.egyptora-hub.com/search?q=")) return url;
+            return `https://www.egyptora-hub.com/search${tail}`;
           });
 
         try {
@@ -251,7 +251,7 @@ export const Route = createFileRoute("/api/concierge")({
                   const lastUser = [...parsed.messages].reverse().find((m) => m.role === "user");
                   const q = (lastUser?.content ?? "").replace(/[^\p{L}\p{N}\s]/gu, " ").trim().split(/\s+/).slice(0, 6).join("+");
                   controller.enqueue(
-                    encoder.encode(`\n\nTry the site search: https://egyptora-hub.com/search?q=${encodeURIComponent(q).replace(/%2B/g, "+")}`),
+                    encoder.encode(`\n\nTry the site search: https://www.egyptora-hub.com/search?q=${encodeURIComponent(q).replace(/%2B/g, "+")}`),
                   );
                 }
                 try {

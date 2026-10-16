@@ -45,7 +45,7 @@ export type ConciergeMatch = {
 };
 
 const MAX_SUMMARY = 160;
-const SITE = "https://egyptora-hub.com";
+const SITE = "https://www.egyptora-hub.com";
 
 const STOP = new Set(["the","and","for","how","what","where","who","can","egypt","egyptian","with","from","into","about","renew","get","buy","find"]);
 
