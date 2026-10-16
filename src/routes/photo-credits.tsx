@@ -6,9 +6,6 @@ import credits from "@/data/photo-credits.json";
 import { useI18n } from "@/i18n";
 import { GENERATED_IMAGES } from "@/lib/generated-images";
 
-/** Keys only (lazy glob, nothing is loaded): every non-generated image in the repo. */
-const REPO_IMAGES = Object.keys(import.meta.glob(["/src/assets/**/*.{jpg,jpeg,png,webp}", "!/src/assets/generated/**"])).map((k) => k.slice(1));
-const VISION = "src/assets/home/vision2030.jpg";
 
 const AI_GROUPS: { type: string; en: string; ar: string }[] = [
   { type: "banner", en: "Banners", ar: "اللافتات" },
@@ -43,13 +40,7 @@ function PhotoCredits() {
   const ar = lang === "ar";
   const L = (en: string, a: string) => (ar ? a : en);
   const credited = credits as Record<string, Credit>;
-  const rows = Object.values(credited);
-  const pending = REPO_IMAGES.filter((f) => !credited[f] && f !== VISION).sort();
-  const byFolder = pending.reduce<Record<string, string[]>>((acc, f) => {
-    const dir = f.slice(0, f.lastIndexOf("/"));
-    (acc[dir] ||= []).push(f.slice(f.lastIndexOf("/") + 1));
-    return acc;
-  }, {});
+  const rows = Object.entries(credited).filter(([path]) => !path.includes("vision-2030")).map(([, c]) => c);
   const aiAll = Object.values(GENERATED_IMAGES);
   return (
     <div className="min-h-screen bg-background">
@@ -88,17 +79,9 @@ function PhotoCredits() {
             </li>
           ))}
         </ul>
-        <section className="mt-8 rounded-xl border border-dashed border-border bg-bg-alt p-4">
-          <h2 className="font-display text-lg font-bold text-navy">{L("Images pending rights verification", "صور بانتظار التحقق من الحقوق")} ({pending.length + 1})</h2>
-          <p className="mt-1 text-sm text-text-body">{L("We are confirming the source and licence of these images.", "نعمل على تأكيد مصدر وترخيص هذه الصور.")}</p>
-          <p className="mt-3 text-sm text-navy">Vision 2030 logo — <span className="font-semibold">{L("pending permission", "بانتظار الإذن")}</span></p>
-          {Object.entries(byFolder).map(([dir, files]) => (
-            <div key={dir} className="mt-3">
-              <h3 className="text-xs font-semibold text-navy" dir="ltr">{dir}/ ({files.length})</h3>
-              <p className="text-xs text-muted-foreground" dir="ltr">{files.join(", ")}</p>
-            </div>
-          ))}
-        </section>
+        <p className="mt-8 rounded-xl border border-border bg-bg-alt p-4 text-sm text-text-body">
+          {L("All images on Egyptora Hub are either AI-generated illustrations (listed by group) or carry the credit shown below.", "كل الصور على إيجيبتورا هب إما رسوم توضيحية مولّدة بالذكاء الاصطناعي (مذكورة حسب المجموعة) أو تحمل نسبة المصدر الموضحة أدناه.")}
+        </p>
       </Section>
       <SiteFooter />
     </div>
