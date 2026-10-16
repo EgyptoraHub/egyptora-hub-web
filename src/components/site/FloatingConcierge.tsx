@@ -3,7 +3,7 @@ import { governorates } from "@/data/governorates";
 import { Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Loader2, Send, Sparkles, X } from "lucide-react";
-import avatar from "@/assets/generated/ill-global-network.webp";
+import avatar from "@/assets/generated/ill-concierge-avatar.webp";
 import { ItineraryCards, parseItinerary } from "@/components/site/ConciergeItinerary";
 import { useI18n } from "@/i18n";
 

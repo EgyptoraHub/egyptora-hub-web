@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
-import { altForSrc, generatedBySrc } from "@/lib/generated-images";
+import { altForSrc, generatedBySrc, isPlaceholderImage } from "@/lib/generated-images";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Crown } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -256,7 +256,9 @@ function Chapter({
             </div>
             {generatedBySrc(plate.image) && (
               <figcaption className="border-t border-border/60 px-4 pt-2 text-[11px] italic text-muted-foreground">
-                {lang === "ar" ? "صورة بديلة: " : "Placeholder image: "}
+                {isPlaceholderImage(plate.image)
+                  ? (lang === "ar" ? "صورة بديلة: " : "Placeholder image: ")
+                  : (lang === "ar" ? "صورة توضيحية: " : "Illustrative image: ")}
                 {altForSrc(plate.image, lang, "")}
               </figcaption>
             )}

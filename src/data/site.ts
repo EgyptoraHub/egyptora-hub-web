@@ -16,10 +16,10 @@ import eraModern from "@/assets/generated/banner-egypt-through-time.webp";
 import cardGovernorates from "@/assets/generated/eco-generic-desert.webp";
 import cardThroughTime from "@/assets/generated/banner-military-history.webp";
 import cardHeritage from "@/assets/generated/banner-egypt-through-time.webp";
-import cardMuseums from "@/assets/generated/ph-museums.webp";
+import cardMuseums from "@/assets/generated/museum-grand-hall.webp";
 import cardNileSea from "@/assets/generated/card-felucca-nile.webp";
 import cardHidden from "@/assets/generated/eco-white-desert.webp";
-import sectorEntertainment from "@/assets/generated/ph-events.webp";
+import sectorEntertainment from "@/assets/generated/ent-theatre.webp";
 import sectorRealEstate from "@/assets/sector-realestate.jpg";
 import sectorRural from "@/assets/sector-rural.jpg";
 import promoHotel from "@/assets/generated/banner-experiences-beaches.webp";
@@ -478,7 +478,7 @@ export const monthlyVisitors = [
 // Sector strip, offers, research & marketplace (reference-mockup parity)
 // ---------------------------------------------------------------------------
 
-import secEntertainment from "@/assets/generated/ph-events.webp";
+import secEntertainment from "@/assets/generated/ent-concert.webp";
 import secWellness from "@/assets/sec-wellness.jpg";
 import secMarina from "@/assets/sec-marina.jpg";
 import secDesert from "@/assets/sec-desert.jpg";
@@ -486,12 +486,12 @@ import secEducation from "@/assets/generated/ill-education.webp";
 import secMice from "@/assets/generated/card-business-meeting.webp";
 import secSports from "@/assets/generated/card-diving-red-sea.webp";
 import secFamily from "@/assets/sec-family.jpg";
-import offerDeals from "@/assets/generated/ph-offers.webp";
+import offerDeals from "@/assets/generated/offers-travel-deals.webp";
 import offerStopover from "@/assets/generated/banner-experiences-nile-cruises.webp";
 import offerVisit27 from "@/assets/generated/card-hot-air-balloon-luxor.webp";
 import offerClub from "@/assets/generated/card-felucca-nile.webp";
-import researchGenome from "@/assets/generated/ph-research-programs.webp";
-import filmEgypt from "@/assets/generated/ph-events.webp";
+import researchGenome from "@/assets/generated/enc-research-lab.webp";
+import filmEgypt from "@/assets/generated/enc-film-projector.webp";
 import marketCrafts from "@/assets/generated/culture-jewelry-mother-of-pearl-handicrafts-saqiat-al-mi.webp";
 
 export const heroImages = { film: filmEgypt, research: researchGenome, market: marketCrafts };

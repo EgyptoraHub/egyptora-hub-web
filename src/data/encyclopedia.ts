@@ -1,5 +1,5 @@
 import dressGovernorates from "@/assets/generated/culture-fashion-galabeya-jellabiya.webp";
-import dressState from "@/assets/generated/ph-heritage-sites.webp";
+import dressState from "@/assets/generated/enc-formal-state-dress.webp";
 import peopleAncient from "@/assets/generated/banner-egypt-through-time.webp";
 import peopleModern from "@/assets/generated/card-live-individuals.webp";
 import foodHeritage from "@/assets/generated/culture-cuisine-koshary.webp";
@@ -11,19 +11,19 @@ import flagsEvolution from "@/assets/generated/ph-heritage-sites.webp";
 import officialFlags from "@/assets/generated/ph-heritage-sites.webp";
 import coatOfArms from "@/assets/generated/ph-heritage-sites.webp";
 import eagleEmblems from "@/assets/generated/ph-heritage-sites.webp";
-import anthems from "@/assets/generated/ph-events.webp";
+import anthems from "@/assets/generated/enc-anthems.webp";
 import epicsRulers from "@/assets/generated/banner-egypt-through-time.webp";
 import famousBattles from "@/assets/generated/banner-military-history.webp";
-import peaceTreaties from "@/assets/generated/ph-heritage-sites.webp";
+import peaceTreaties from "@/assets/generated/enc-peace-treaties.webp";
 import empireMaps from "@/assets/generated/banner-military-history.webp";
 import empireExtent from "@/assets/generated/banner-military-history.webp";
 import provincesMap from "@/assets/generated/ill-know-your-roots.webp";
 import regionsStrip from "@/assets/generated/eco-generic-desert.webp";
-import genomeTimeline from "@/assets/generated/ph-research-programs.webp";
-import genomeContinuity from "@/assets/generated/ph-research-programs.webp";
-import filmVision from "@/assets/generated/ph-events.webp";
-import filmEras from "@/assets/generated/ph-events.webp";
-import filmJourney from "@/assets/generated/ph-events.webp";
+import genomeTimeline from "@/assets/generated/enc-genome-dna.webp";
+import genomeContinuity from "@/assets/generated/enc-research-lab.webp";
+import filmVision from "@/assets/generated/enc-film-studio.webp";
+import filmEras from "@/assets/generated/enc-film-projector.webp";
+import filmJourney from "@/assets/generated/enc-film-cinema.webp";
 
 export type EncPlate = {
   image: string;

@@ -111,6 +111,38 @@ const META: Record<string, Meta> = {
   "ph-events": { type: "placeholder", width: 900, height: 600, en: "Placeholder for events", ar: "صورة بديلة للفعاليات" },
   "ph-investment-opportunities": { type: "placeholder", width: 900, height: 600, en: "Placeholder for investment opportunities", ar: "صورة بديلة لفرص الاستثمار" },
   "cover-business-guide": { type: "cover", width: 1024, height: 1536, en: "Cover of the Egypt Business Guide", ar: "غلاف دليل الأعمال في مصر" },
+  "era-01-ancient-egypt": { type: "card", width: 1200, height: 800, en: "Illustrative image: Temple colonnade of ancient Egypt", ar: "صورة توضيحية: أعمدة معبد مصري قديم" },
+  "era-02-late-ptolemaic-roman": { type: "card", width: 1200, height: 800, en: "Illustrative image: Greco-Egyptian temple on the Nile", ar: "صورة توضيحية: معبد يوناني مصري على النيل" },
+  "era-03-arab-conquest-early-islamic": { type: "card", width: 1200, height: 800, en: "Illustrative image: Early Islamic mosque courtyard", ar: "صورة توضيحية: صحن مسجد من العصر الإسلامي المبكر" },
+  "era-04-fatimid-ayyubid-crusader": { type: "card", width: 1200, height: 800, en: "Illustrative image: Medieval stone city gate in Cairo", ar: "صورة توضيحية: بوابة مدينة حجرية من العصور الوسطى في القاهرة" },
+  "era-05-ayyubids-crusades-mamluk-rise": { type: "card", width: 1200, height: 800, en: "Illustrative image: Medieval hilltop citadel", ar: "صورة توضيحية: قلعة على تل من العصور الوسطى" },
+  "era-06-mamluk-to-ottoman-conquest": { type: "card", width: 1200, height: 800, en: "Illustrative image: Mamluk minaret and dome in Cairo", ar: "صورة توضيحية: مئذنة وقبة مملوكية في القاهرة" },
+  "era-07-ottoman-french-rise-muhammad-ali": { type: "card", width: 1200, height: 800, en: "Illustrative image: Ottoman-era street with wooden balconies", ar: "صورة توضيحية: شارع من العصر العثماني بمشربيات خشبية" },
+  "era-08-muhammad-ali-expansion": { type: "card", width: 1200, height: 800, en: "Illustrative image: Alabaster mosque with pencil minarets", ar: "صورة توضيحية: مسجد المرمر بمآذن رفيعة" },
+  "era-09-abyssinia-urabi-sudan": { type: "card", width: 1200, height: 800, en: "Illustrative image: Old steamboat on the Nile at dusk", ar: "صورة توضيحية: باخرة قديمة على النيل عند الغسق" },
+  "era-10-world-wars": { type: "card", width: 1200, height: 800, en: "Illustrative image: Vintage lighthouse on the Egyptian coast", ar: "صورة توضيحية: منارة قديمة على الساحل المصري" },
+  "era-11-palestine-war": { type: "card", width: 1200, height: 800, en: "Illustrative image: Sinai desert plain at dawn", ar: "صورة توضيحية: سهل صحراوي في سيناء عند الفجر" },
+  "era-12-suez-crisis": { type: "card", width: 1200, height: 800, en: "Illustrative image: Suez Canal at sunset", ar: "صورة توضيحية: قناة السويس عند الغروب" },
+  "era-13-yemen-june-war": { type: "card", width: 1200, height: 800, en: "Illustrative image: Rugged mountains of Sinai at dusk", ar: "صورة توضيحية: جبال سيناء الوعرة عند الغسق" },
+  "era-14-war-of-attrition": { type: "card", width: 1200, height: 800, en: "Illustrative image: Sandy canal bank at first light", ar: "صورة توضيحية: ضفة قناة رملية مع أول ضوء" },
+  "era-15-october-war-later": { type: "card", width: 1200, height: 800, en: "Illustrative image: Modern bridge over the Suez Canal at sunrise", ar: "صورة توضيحية: جسر حديث فوق قناة السويس عند الشروق" },
+  "ill-concierge-avatar": { type: "illustration", width: 640, height: 640, en: "Friendly Egyptian-inspired concierge avatar", ar: "شخصية مساعد ودودة مستوحاة من مصر" },
+  "enc-anthems": { type: "card", width: 1200, height: 800, en: "Sheet music and brass instruments", ar: "نوتة موسيقية وآلات نحاسية" },
+  "enc-peace-treaties": { type: "card", width: 1200, height: 800, en: "Quill pen and sealed scroll on a desk", ar: "ريشة كتابة ولفافة مختومة على مكتب" },
+  "enc-formal-state-dress": { type: "card", width: 1200, height: 800, en: "Ceremonial clothing on a mannequin", ar: "ملابس رسمية احتفالية على مانيكان" },
+  "enc-film-projector": { type: "card", width: 1200, height: 800, en: "Vintage film projector and reels", ar: "آلة عرض سينمائي قديمة وبكرات أفلام" },
+  "enc-film-cinema": { type: "card", width: 1200, height: 800, en: "Old cinema at night", ar: "سينما قديمة ليلًا" },
+  "enc-film-studio": { type: "card", width: 1200, height: 800, en: "Modern film studio", ar: "استوديو تصوير حديث" },
+  "enc-genome-dna": { type: "illustration", width: 640, height: 640, en: "DNA strand over an ancient Egyptian pattern", ar: "شريط حمض نووي فوق زخرفة مصرية قديمة" },
+  "enc-research-lab": { type: "card", width: 1200, height: 800, en: "Laboratory with microscopes", ar: "مختبر به مجاهر" },
+  "home-phones-apps": { type: "illustration", width: 640, height: 640, en: "Two phones with simple app screens", ar: "هاتفان بشاشات تطبيقات بسيطة" },
+  "home-globe-egypt": { type: "illustration", width: 640, height: 640, en: "Globe with connections highlighting Egypt", ar: "كرة أرضية بخطوط اتصال تبرز مصر" },
+  "mkt-cotton": { type: "card", width: 1200, height: 800, en: "Cotton plants and folded white towels", ar: "نباتات قطن ومناشف بيضاء مطوية" },
+  "mkt-clothing": { type: "card", width: 1200, height: 800, en: "Rack of clothes", ar: "رف ملابس" },
+  "ent-concert": { type: "card", width: 1200, height: 800, en: "Outdoor concert stage at dusk", ar: "مسرح حفل في الهواء الطلق عند الغسق" },
+  "ent-theatre": { type: "card", width: 1200, height: 800, en: "Theatre with audience silhouettes", ar: "مسرح مع ظلال الجمهور" },
+  "offers-travel-deals": { type: "card", width: 1200, height: 800, en: "Suitcase with travel tags and a calendar", ar: "حقيبة سفر ببطاقات وتقويم" },
+  "museum-grand-hall": { type: "card", width: 1200, height: 800, en: "Grand museum hall with statues", ar: "قاعة متحف كبرى بها تماثيل" },
 };
 
 export const GENERATED_IMAGES: Record<string, GeneratedImage> = Object.fromEntries(
@@ -144,6 +176,15 @@ export function generatedBySrc(src: string | null | undefined): GeneratedImage |
 export function altForSrc(src: string | null | undefined, lang: string, fallback: string) {
   const g = generatedBySrc(src);
   return g ? altFor(g, lang) : fallback;
+}
+
+/** Military-history era picture key, e.g. era-04-fatimid-ayyubid-crusader. */
+export const eraImageKey = (e: { number: number; slug: string }) => `era-${String(e.number).padStart(2, "0")}-${e.slug}`;
+
+/** True for stand-in pictures (ph-*, ill-*, reused banners) that are not a picture of the subject. */
+export function isPlaceholderImage(src: string | null | undefined) {
+  const g = generatedBySrc(src);
+  return !!g && /^(ph|ill|banner)-/.test(g.key);
 }
 
 /** AI badge rule: every generated image except ill-* icon illustrations and ph-* empty-state placeholders. */

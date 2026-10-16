@@ -1,4 +1,5 @@
 import { GenImage } from "@/components/site/GenImage";
+import { eraImageKey } from "@/lib/generated-images";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { z } from "zod";
@@ -200,6 +201,7 @@ export function EraStrip({
         );
         const inner = (
           <>
+            <GenImage k={eraImageKey(e)} aiBadge sizes="224px" className="-mx-3 -mt-2 mb-1 aspect-[3/2] w-[calc(100%+1.5rem)] max-w-none rounded-t-xl" />
             <span className="text-[11px] font-semibold opacity-80">{t("Era")} {e.number.toLocaleString(lang === "ar" ? "ar-EG" : "en")}</span>
             <span className="line-clamp-2 text-sm font-semibold" dir="auto">{bi(e, "name")}</span>
             <span className="text-[11px] opacity-85" dir="auto">{bi(e, "start_label")}</span>

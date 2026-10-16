@@ -1,5 +1,5 @@
 /** The four existing marketplace pages; descriptions are those pages' own intro text. */
-import wearImg from "@/assets/generated/ph-properties.webp";
+import wearImg from "@/assets/generated/mkt-clothing.webp";
 import craftsImg from "@/assets/generated/culture-jewelry-nubian-beadwork-and-jewelry.webp";
 import cottonImg from "@/assets/generated/culture-fashion-galabeya-jellabiya.webp";
 import producersImg from "@/assets/generated/culture-jewelry-mother-of-pearl-handicrafts-saqiat-al-mi.webp";
