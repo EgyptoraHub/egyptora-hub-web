@@ -264,7 +264,7 @@ const quick: { Icon: Icon; title: string; sub?: string; to: string }[] = [
   { Icon: Palmtree, title: "Tourism & Experiences", to: "/explore-egypt" },
   { Icon: BarChart3, title: "Investment Opportunities", to: "/investment-opportunities" },
   { Icon: HomeIcon, title: "Real Estate", sub: "Find Your Place", to: "/properties" },
-  { Icon: Stamp, title: "Visa & Immigration", sub: "Start Your Journey", to: "/government-directory" },
+  { Icon: Stamp, title: "Visa & Immigration", sub: "Start Your Journey", to: "/visit-egypt/e-visa" },
   { Icon: GraduationCap, title: "Education", sub: "A Brighter Future", to: "/research-programs" },
   { Icon: Briefcase, title: "Do Business", sub: "Launch & Grow", to: "/do-business" },
   { Icon: Users, title: "Live in Egypt", sub: "Residency & Lifestyle", to: "/live-in-egypt" },
@@ -302,7 +302,7 @@ function QuickStrip() {
 const exploreCards: CardData[] = [
   { title: "Visit Egypt", sub: "Tourist information and guides", img: visitImg, to: "/visit-egypt" },
   { title: "Diving & Marine Activities", sub: "Explore the Red Sea", img: divingImg },
-  { title: "Nile Cruises", sub: "A unique journey", img: nileImg, to: "/offers" },
+  { title: "Nile Cruises", sub: "A unique journey", img: nileImg, to: "/experiences/nile-cruises" },
   { title: "Cultural & Historical Sites", sub: "Discover Egypt's heritage", img: culturalImg, to: "/heritage-sites" },
 ];
 const investCards: CardData[] = [
