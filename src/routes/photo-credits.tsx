@@ -4,6 +4,23 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Section, SectionHeader } from "@/components/site/Primitives";
 import credits from "@/data/photo-credits.json";
 import { useI18n } from "@/i18n";
+import { GENERATED_IMAGES } from "@/lib/generated-images";
+
+/** Keys only (lazy glob, nothing is loaded): every non-generated image in the repo. */
+const REPO_IMAGES = Object.keys(import.meta.glob(["/src/assets/**/*.{jpg,jpeg,png,webp}", "!/src/assets/generated/**"])).map((k) => k.slice(1));
+const VISION = "src/assets/home/vision2030.jpg";
+
+const AI_GROUPS: { type: string; en: string; ar: string }[] = [
+  { type: "banner", en: "Banners", ar: "اللافتات" },
+  { type: "card", en: "Cards", ar: "البطاقات" },
+  { type: "illustration", en: "Icons & illustrations", ar: "الأيقونات والرسوم" },
+  { type: "eco-card", en: "Nature", ar: "الطبيعة" },
+  { type: "zone-card", en: "Zones", ar: "المناطق الاقتصادية" },
+  { type: "gov-card", en: "Government", ar: "الجهات الحكومية" },
+  { type: "culture-card", en: "Culture", ar: "الثقافة" },
+  { type: "placeholder", en: "Placeholders", ar: "الصور البديلة" },
+  { type: "cover", en: "Covers", ar: "الأغلفة" },
+];
 
 type Credit = { title: string; page: string; license: string; author: string };
 
@@ -22,16 +39,42 @@ export const Route = createFileRoute("/photo-credits")({
 });
 
 function PhotoCredits() {
-  const { t } = useI18n();
-  const rows = Object.values(credits as Record<string, Credit>);
+  const { t, lang } = useI18n();
+  const ar = lang === "ar";
+  const L = (en: string, a: string) => (ar ? a : en);
+  const credited = credits as Record<string, Credit>;
+  const rows = Object.values(credited);
+  const pending = REPO_IMAGES.filter((f) => !credited[f] && f !== VISION).sort();
+  const byFolder = pending.reduce<Record<string, string[]>>((acc, f) => {
+    const dir = f.slice(0, f.lastIndexOf("/"));
+    (acc[dir] ||= []).push(f.slice(f.lastIndexOf("/") + 1));
+    return acc;
+  }, {});
+  const aiAll = Object.values(GENERATED_IMAGES);
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <Section>
         <SectionHeader
           title="Photo Credits"
-          description="Photographs are sourced from Wikimedia Commons under the licences shown. Logos remain the property of their owners."
+          description={L(
+            "This site uses two kinds of images: AI-generated illustrative images made for Egyptora Hub, and third-party images credited individually below. Logos remain the property of their owners.",
+            "يستخدم الموقع نوعين من الصور: صور توضيحية مولّدة بالذكاء الاصطناعي لمنصة إيجيبتورا هب، وصور من أطراف أخرى مذكور مصدر كل منها أدناه. الشعارات ملك لأصحابها.",
+          )}
         />
+        <section className="mb-8 rounded-xl border border-border bg-card p-4">
+          <h2 className="font-display text-lg font-bold text-navy">{L("AI-generated illustrative images", "صور توضيحية مولّدة بالذكاء الاصطناعي")}</h2>
+          <p className="mt-1 text-sm text-text-body">{L("Illustrative images generated with AI for Egyptora Hub; they do not depict real events, people or exact locations.", "صور توضيحية مولّدة بالذكاء الاصطناعي لمنصة إيجيبتورا هب؛ لا تصوّر أحداثًا أو أشخاصًا أو مواقع حقيقية بدقة.")}</p>
+          <ul className="mt-3 grid gap-1 text-sm sm:grid-cols-2">
+            {AI_GROUPS.map((g) => (
+              <li key={g.type} className="flex justify-between gap-2 border-b border-border py-1">
+                <span className="text-navy">{ar ? g.ar : g.en} ({aiAll.filter((i) => i.type === g.type).length})</span>
+                <span className="text-xs font-semibold text-shell-gold">{L("AI-generated", "مولّدة بالذكاء الاصطناعي")}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <h2 className="mb-3 font-display text-lg font-bold text-navy">{L("Third-party images", "صور من أطراف أخرى")}</h2>
         <ul className="divide-y divide-border rounded-xl border border-border">
           {rows.map((c) => (
             <li key={c.page} className="flex flex-col gap-1 px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
@@ -45,6 +88,17 @@ function PhotoCredits() {
             </li>
           ))}
         </ul>
+        <section className="mt-8 rounded-xl border border-dashed border-border bg-bg-alt p-4">
+          <h2 className="font-display text-lg font-bold text-navy">{L("Images pending rights verification", "صور بانتظار التحقق من الحقوق")} ({pending.length + 1})</h2>
+          <p className="mt-1 text-sm text-text-body">{L("We are confirming the source and licence of these images.", "نعمل على تأكيد مصدر وترخيص هذه الصور.")}</p>
+          <p className="mt-3 text-sm text-navy">Vision 2030 logo — <span className="font-semibold">{L("pending permission", "بانتظار الإذن")}</span></p>
+          {Object.entries(byFolder).map(([dir, files]) => (
+            <div key={dir} className="mt-3">
+              <h3 className="text-xs font-semibold text-navy" dir="ltr">{dir}/ ({files.length})</h3>
+              <p className="text-xs text-muted-foreground" dir="ltr">{files.join(", ")}</p>
+            </div>
+          ))}
+        </section>
       </Section>
       <SiteFooter />
     </div>
