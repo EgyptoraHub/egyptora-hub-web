@@ -4,6 +4,7 @@ import {
   LayoutDashboard, Rocket, FileCheck2, Scale, BadgePercent, PieChart, LifeBuoy, Factory, Gavel,
   Globe2, TrendingUp, Users, Gift, Building2, Landmark, BookOpen, ClipboardList, BadgeCheck, LineChart,
   ArrowRight, Download, Headphones, FileText, Search, FolderOpen,
+  Warehouse, Ship, Store,
 } from "lucide-react";
 import { toast } from "sonner";
 import hero from "@/assets/generated/card-business-meeting.webp";
@@ -51,13 +52,16 @@ export const Route = createFileRoute("/do-business")({
 const IO = "/investment-opportunities";
 const chips: Chip[] = [
   { label: "Business Overview", Icon: LayoutDashboard },
-  { label: "Start a Business", Icon: Rocket, to: "/government-directory" },
-  { label: "Licenses & Permits", Icon: FileCheck2, to: "/government-directory" },
+  { label: "Start a Business", Icon: Rocket },
+  { label: "Licenses & Permits", Icon: FileCheck2 },
   { label: "Laws & Regulations", Icon: Scale, to: "/legal" },
   { label: "Investment Incentives", Icon: BadgePercent, to: IO },
   { label: "Sectors & Opportunities", Icon: PieChart, to: IO },
   { label: "Business Support", Icon: LifeBuoy, to: "/providers" },
-  { label: "Industrial Zones", Icon: Factory, to: IO },
+  { label: "Industrial Zones", Icon: Factory, to: "/do-business/industrial-zones", gate: "industrial_zones" },
+  { label: "Free Zones", Icon: Warehouse, to: "/do-business/free-zones", gate: "free_zones" },
+  { label: "Trade & Export", Icon: Ship, to: "/products" },
+  { label: "Made in Egypt Marketplace", Icon: Store, to: "/marketplace" },
   { label: "Public Procurement", Icon: Gavel },
 ];
 
@@ -71,10 +75,10 @@ const why = [
 ];
 
 const services: CardItem[] = [
-  { title: "Start a Business", desc: "Step-by-step guidance to establish your company in Egypt.", img: startBiz, to: "/government-directory" },
-  { title: "Licenses & Permits", desc: "Find required licenses and procedures.", img: licenses, to: "/government-directory" },
+  { title: "Start a Business", desc: "Step-by-step guidance to establish your company in Egypt.", img: startBiz },
+  { title: "Licenses & Permits", desc: "Find required licenses and procedures.", img: licenses },
   { title: "Investment Incentives", desc: "Explore incentives and support programs.", img: incentives, to: IO },
-  { title: "Tenders & Projects", desc: "Government and private sector opportunities.", img: tenders, to: IO },
+  { title: "Tenders & Projects", desc: "Government and private sector opportunities.", img: tenders },
   { title: "Trade & Export", desc: "Access export services and international markets.", img: trade, to: IO },
   { title: "Business Support", desc: "Find advisory, legal and financial support.", img: support, to: "/providers" },
 ];

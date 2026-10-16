@@ -53,7 +53,19 @@ export function SmartLink({
   );
 }
 
-export function ArrowCta({ to, label }: { to: string; label: string }) {
+export function ArrowCta({ to, label }: { to?: string | undefined; label: string }) {
+  const { t } = useI18n();
+  if (!to)
+    return (
+      <button
+        type="button"
+        onClick={() => toast(t("Coming soon"))}
+        aria-label={`${label} — ${t("Coming soon")}`}
+        className="grid size-8 shrink-0 cursor-default place-items-center rounded-full bg-muted text-muted-foreground shadow-sm"
+      >
+        <ArrowRight className="size-4 rtl:rotate-180" />
+      </button>
+    );
   return (
     <SmartLink
       to={to}
@@ -132,7 +144,8 @@ export type CardItem = {
   img?: string;
   badge?: string;
   meta?: string[];
-  to: string;
+  /** Omitted for Coming-soon cards: the arrow becomes inert (toast), same as the menu. */
+  to?: string | undefined;
   Icon?: Icon;
 };
 
@@ -148,7 +161,7 @@ export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
           <SaveButton
             variant="icon"
             itemType="page"
-            itemId={`${c.title}|${c.to}`}
+            itemId={`${c.title}|${c.to ?? ""}`}
             itemName={c.title}
             itemImage={c.img}
             className="absolute end-2 top-2 size-7 border-primary-foreground/60 bg-navy/35 text-primary-foreground"

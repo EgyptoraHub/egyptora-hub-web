@@ -92,7 +92,7 @@ function VisitEgypt() {
           <SidePanel title="Plan Your Trip">
             <div className="grid grid-cols-4 gap-2">
               {[
-                { label: "Visa Information", to: "/government-directory", Icon: Stamp },
+                { label: "Visa Information", to: "/visit-egypt/e-visa", Icon: Stamp },
                 { label: "Best Time to Visit", to: "/encyclopedia", Icon: CalendarDays },
                 { label: "Travel Tips", to: "/traveler-stories", Icon: Lightbulb },
                 { label: "Getting Around", to: TT, Icon: Bus },
