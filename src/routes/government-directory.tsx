@@ -1,3 +1,4 @@
+import { GenBanner, GenImage } from "@/components/site/GenImage";
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
@@ -90,6 +91,16 @@ const categoryIcon = (category: string) => {
   if (key.includes("tourism")) return Plane;
   if (key.includes("invest") || key.includes("business")) return Briefcase;
   return Sparkles;
+};
+
+/** AI fallback image per category type; no flags or emblems in these images. */
+const categoryImage = (category: string) => {
+  const k = category.toLowerCase();
+  if (k.includes("foreign") || k.includes("embass")) return "gov-foreign-affairs";
+  if (k.includes("financ") || k.includes("bank") || k.includes("tax")) return "gov-finance-building";
+  if (k.includes("capital") || k.includes("presidency") || k.includes("cabinet")) return "gov-administrative-capital";
+  if (k.includes("ministr")) return "gov-ministry-building";
+  return "gov-authority-office";
 };
 
 function EntityRow({ entity }: { entity: GovEntity }) {
@@ -402,6 +413,7 @@ function GovernmentDirectoryPage() {
               return (
                 <div key={c.en} id={c.slug} className="grid scroll-mt-28 gap-4">
                   <div className="flex items-center gap-3 border-b border-border pb-3">
+                    <GenImage k={categoryImage(c.en)} decorative sizes="64px" className="h-10 w-16 shrink-0 rounded-md" />
                     <Icon className="size-5 text-shell-gold" />
                     <h3 className="font-display text-lg font-bold text-navy sm:text-xl">{t(c.en)}</h3>
                     <span className="ms-auto text-xs text-text-body">{rows.length}</span>

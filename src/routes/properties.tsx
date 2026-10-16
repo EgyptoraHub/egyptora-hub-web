@@ -1,3 +1,4 @@
+import { GenImage } from "@/components/site/GenImage";
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
@@ -230,6 +231,7 @@ function PropertiesPage() {
   const activeTab = tabs.find((tab) => tab.id === active);
   const filtered = useMemo(() => {
     if (active === "ALL") return properties;
+            <GenImage k="ph-properties" sizes="240px" className="mx-auto mb-3 block w-full max-w-[240px] rounded-xl" />
     if (activeTab?.soon) return [];
     return properties.filter((p) => p.property_type === active);
   }, [properties, active, activeTab]);

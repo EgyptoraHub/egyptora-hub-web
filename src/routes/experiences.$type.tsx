@@ -1,3 +1,4 @@
+import { GenBanner, GenImage } from "@/components/site/GenImage";
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -26,6 +27,10 @@ const TYPES = {
     note: "This is a small starting list — more Nile destinations will be added over time. Cruise booking is not available yet.",
   },
 } as const;
+
+/** AI banner per sub-page and card fallback when a destination has no photo (desert has no matching card image). */
+const BANNER: Record<string, string> = { beaches: "banner-experiences-beaches", desert: "banner-experiences-desert", "nile-cruises": "banner-experiences-nile-cruises" };
+const CARD_FALLBACK: Record<string, string | undefined> = { beaches: "card-marsa-alam", "nile-cruises": "card-nile-cruise-aswan" };
 
 type TypeKey = keyof typeof TYPES;
 
@@ -57,6 +62,7 @@ function ExperiencePage() {
   const { t } = useI18n();
   return (
     <SimplePage title={cfg.title} intro={cfg.intro}>
+      <div className="mb-6"><GenBanner k={BANNER[type]} /></div>
       {cfg.note && (
         <p className="mb-6 rounded-lg border border-border bg-bg-band px-4 py-3 text-sm text-text-body">{t(cfg.note)}</p>
       )}
@@ -71,6 +77,8 @@ function ExperiencePage() {
               <article className="flex h-full flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
                 {img ? (
                   <img src={img} alt={d.name} loading="lazy" className="h-40 w-full object-cover" />
+                ) : CARD_FALLBACK[type] ? (
+                  <GenImage k={CARD_FALLBACK[type]} sizes="(min-width:1024px) 25vw, 100vw" className="h-40 w-full" />
                 ) : (
                   <div className="grid h-40 place-items-center bg-muted"><MapPin className="size-8 text-navy/40" /></div>
                 )}

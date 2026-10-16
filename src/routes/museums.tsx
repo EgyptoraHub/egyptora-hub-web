@@ -1,3 +1,4 @@
+import { GenImage } from "@/components/site/GenImage";
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Building2, MapPin } from "lucide-react";
@@ -185,6 +186,7 @@ function MuseumsPage() {
           </div>
         ) : (
           <p className="rounded-2xl border border-border/60 bg-card/40 p-8 text-center text-sm text-muted-foreground">
+            <GenImage k="ph-museums" sizes="240px" className="mx-auto mb-3 block w-full max-w-[240px] rounded-xl" />
             {t("No museums match this filter yet.")}
           </p>
         )}

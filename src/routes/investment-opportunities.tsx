@@ -1,3 +1,4 @@
+import { GenImage } from "@/components/site/GenImage";
 import { useMemo } from "react";
 import { SECTOR_GROUPS, matchesSector } from "@/data/investment-sectors";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -279,6 +280,7 @@ function InvestmentOpportunitiesPage() {
           </FeaturedRow>
         ) : (
           <p className="rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
+            <GenImage k="ph-investment-opportunities" sizes="240px" className="mx-auto mb-3 block w-full max-w-[240px] rounded-xl" />
             {t("No opportunities are published in this sector yet.")}
           </p>
         )}

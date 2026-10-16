@@ -1,3 +1,4 @@
+import { GenBanner, GenImage } from "@/components/site/GenImage";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   LayoutDashboard, Rocket, FileCheck2, Scale, BadgePercent, PieChart, LifeBuoy, Factory, Gavel,
@@ -189,6 +190,7 @@ function DoBusiness() {
             </div>
           </NavyPromo>
           <section className="flex items-center gap-4 rounded-[10px] border border-border bg-bg-band p-5">
+            <GenImage k="cover-business-guide" sizes="96px" className="h-32 w-auto shrink-0 rounded-md shadow-sm" />
             <div className="min-w-0 flex-1">
               <h3 className="font-display text-lg font-bold text-navy">{t("Download the Business Guide")}</h3>
               <p className="mt-1 text-sm text-text-body">{t("Your complete guide to doing business in Egypt.")}</p>
