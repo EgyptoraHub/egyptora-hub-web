@@ -450,6 +450,7 @@ function TabSection({ title, cards, empty }: { title: string; cards: Card[]; emp
 }
 
 function CardGrid({ cards, empty }: { cards: Card[]; empty: string }) {
+  const { lang } = useI18n();
   if (cards.length === 0) {
     return (
       <div className="mt-6 rounded-2xl border border-dashed border-border/70 bg-card/50 p-8 text-center text-sm text-muted-foreground">
