@@ -243,7 +243,7 @@ function PropertiesPage() {
     <PageTemplate
       hero={
         <HeroSearch
-          breadcrumb={[{ label: "Home", to: "/" }, { label: "Real Estate" }]}
+          breadcrumb={[{ label: "Home", to: "/" }, { label: "Real Estate", to: "/real-estate" }, { label: "Properties" }]}
           title="Real Estate & Property"
           subtitle="Find. Invest. Live. Grow in Egypt."
           description="Discover real estate opportunities across Egypt, from vibrant cities to new communities. Your next chapter starts here."

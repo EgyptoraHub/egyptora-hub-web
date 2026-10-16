@@ -55,7 +55,7 @@ const GD = "/government-directory";
 const chips: Chip[] = [
   { label: "All Living Options", Icon: LayoutGrid },
   { label: "Residency & Visas", Icon: Stamp },
-  { label: "Housing & Real Estate", Icon: Home, to: "/properties" },
+  { label: "Housing & Real Estate", Icon: Home, to: "/real-estate" },
   { label: "Education & Schools", Icon: GraduationCap, to: "/research-programs" },
   { label: "Healthcare & Medical Services", Icon: HeartPulse },
   { label: "Work & Employment", Icon: Briefcase },
@@ -68,7 +68,7 @@ const chips: Chip[] = [
 
 const life: CardItem[] = [
   { title: "Residency & Visas", desc: "Residency options, visa information and procedures.", img: residency },
-  { title: "Housing & Real Estate", desc: "Apartments, villas, compounds and rental options.", img: housing, to: "/properties" },
+  { title: "Housing & Real Estate", desc: "Apartments, villas, compounds and rental options.", img: housing, to: "/real-estate" },
   { title: "Education & Schools", desc: "International and local schools, universities and programs.", img: education, to: "/research-programs" },
   { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health },
   { title: "Work & Employment", desc: "Job opportunities, work permits and career growth.", img: work },

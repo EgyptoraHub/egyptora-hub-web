@@ -263,7 +263,7 @@ function Hero() {
 const quick: { Icon: Icon; title: string; sub?: string; to: string }[] = [
   { Icon: Palmtree, title: "Tourism & Experiences", to: "/explore-egypt" },
   { Icon: BarChart3, title: "Investment Opportunities", to: "/investment-opportunities" },
-  { Icon: HomeIcon, title: "Real Estate", sub: "Find Your Place", to: "/properties" },
+  { Icon: HomeIcon, title: "Real Estate", sub: "Find Your Place", to: "/real-estate" },
   { Icon: Stamp, title: "Visa & Immigration", sub: "Start Your Journey", to: "/visit-egypt/e-visa" },
   { Icon: GraduationCap, title: "Education", sub: "A Brighter Future", to: "/research-programs" },
   { Icon: Briefcase, title: "Do Business", sub: "Launch & Grow", to: "/do-business" },

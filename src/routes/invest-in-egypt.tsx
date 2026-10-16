@@ -48,7 +48,7 @@ export const Route = createFileRoute("/invest-in-egypt")({
 const IO = "/investment-opportunities";
 const chips: Chip[] = [
   { label: "All Sectors", Icon: LayoutGrid },
-  { label: "Real Estate & New Cities", Icon: Building2, to: "/properties" },
+  { label: "Real Estate & New Cities", Icon: Building2, to: "/real-estate" },
   { label: "Industry & Manufacturing", Icon: Factory, to: `${IO}?sector=industry` },
   { label: "Tourism & Hospitality", Icon: Hotel, to: `${IO}?sector=tourism` },
   { label: "Energy & Renewable", Icon: Zap, to: `${IO}?sector=energy` },
@@ -68,7 +68,7 @@ const featured: CardItem[] = [
 ];
 
 const sectors: CardItem[] = [
-  { title: "Real Estate", desc: "Urban development and new cities", img: capital, to: "/properties" },
+  { title: "Real Estate", desc: "Urban development and new cities", img: capital, to: "/real-estate" },
   { title: "Industry", desc: "Manufacturing and industrial zones", img: sIndustry, to: IO },
   { title: "Tourism", desc: "Hotels, resorts and experience projects", img: sTourism, to: IO },
   { title: "Energy", desc: "Renewable and traditional energy", img: energy, to: IO },
