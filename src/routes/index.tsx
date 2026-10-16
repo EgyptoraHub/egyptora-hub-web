@@ -100,8 +100,8 @@ function Home() {
       <SiteHeader />
       <main>
         <Hero />
-        <IntroVideo />
         <QuickStrip />
+        <IntroVideo />
         <ExploreInvest />
         <LiveBusinessWhy />
         <Vision2030 />
