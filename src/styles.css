@@ -232,9 +232,9 @@ footer {
 
 /* Hero scrim that mirrors in RTL. */
 @utility hero-scrim {
-  background: linear-gradient(to right, oklch(0.278 0.062 248.5 / 88%) 0%, oklch(0.278 0.062 248.5 / 55%) 45%, transparent 85%);
+  background: linear-gradient(to right, oklch(0.278 0.062 248.5 / 92%) 0%, oklch(0.278 0.062 248.5 / 68%) 55%, oklch(0.278 0.062 248.5 / 32%) 100%);
   [dir="rtl"] & {
-    background: linear-gradient(to left, oklch(0.278 0.062 248.5 / 88%) 0%, oklch(0.278 0.062 248.5 / 55%) 45%, transparent 85%);
+    background: linear-gradient(to left, oklch(0.278 0.062 248.5 / 92%) 0%, oklch(0.278 0.062 248.5 / 68%) 55%, oklch(0.278 0.062 248.5 / 32%) 100%);
   }
 }
 
