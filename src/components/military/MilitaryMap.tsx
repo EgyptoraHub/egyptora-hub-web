@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import type { RecordType } from "@/lib/military";
 import { TYPE_COLOR } from "./mapColors";
 
-export type MapPoint = { id: string; lat: number; lng: number; label: string; type: RecordType; href: string };
+export type MapPoint = { id: string; lat: number; lng: number; label: string; type: RecordType; href?: string };
 
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -25,7 +25,7 @@ export default function MilitaryMap({ points, height = 480 }: { points: MapPoint
       const layer = L.featureGroup();
       for (const p of points) {
         L.circleMarker([p.lat, p.lng], { radius: 8, color: "#ffffff", weight: 2, fillColor: TYPE_COLOR[p.type], fillOpacity: 0.95 })
-          .bindPopup(`<a href="${esc(p.href)}" style="font-weight:600;color:#0B2A45">${esc(p.label)}</a>`)
+          .bindPopup(p.href ? `<a href="${esc(p.href)}" style="font-weight:600;color:#0B2A45">${esc(p.label)}</a>` : `<strong style="color:#0B2A45">${esc(p.label)}</strong>`)
           .addTo(layer);
       }
       layer.addTo(map);

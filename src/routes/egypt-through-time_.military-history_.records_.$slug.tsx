@@ -152,7 +152,7 @@ function Detail() {
                   <Suspense fallback={<div className="h-[280px] rounded-2xl bg-muted" />}>
                     <MilitaryMap
                       height={280}
-                      points={[{ id: r.id, lat: r.lat!, lng: r.lng!, label: bi(r, "title"), type: r.record_type, href: "#" }]}
+                      points={[{ id: r.id, lat: r.lat!, lng: r.lng!, label: bi(r, "title"), type: r.record_type }]}
                     />
                   </Suspense>
                 </ClientOnly>
