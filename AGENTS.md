@@ -27,3 +27,5 @@
 - Menu availability (data-driven "Coming soon" items) is loaded in the root route loader so the first server render already has the right state.
 - Source-link "Egyptian website" rule lives only in sourceUrlWarning (src/lib/protected-areas.ts) with an owner-approved allowlist; app developer websites and store links are never treated as sources.
 - AI-generated images in src/assets/generated/ are read only through src/lib/generated-images.ts (getGeneratedImage/GenImage); `hidden` entries never render and culture-* images carry an "Illustrative AI image" badge — one place for alt text and approval state.
+- Language is mirrored into the `egyptora_lang` cookie and read by the root loader, so the first HTML already has the right lang/dir — no LTR flash for Arabic.
+- Gold text on light surfaces uses `text-gold-text` (darker token; dark surfaces reset it to brand gold via CSS), and text on gold fills uses `text-gold-foreground` — keeps contrast at 4.5:1 without changing the brand gold.
