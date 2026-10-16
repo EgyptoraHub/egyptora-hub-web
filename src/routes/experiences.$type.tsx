@@ -29,10 +29,11 @@ const TYPES = {
 } as const;
 
 /** AI banner per sub-page and card fallback when a destination has no photo (desert has no matching card image). */
-const BANNER: Record<string, string> = { beaches: "banner-experiences-beaches", desert: "banner-experiences-desert", "nile-cruises": "banner-experiences-nile-cruises" };
+const BANNER: Record<TypeKeyStr, string> = { beaches: "banner-experiences-beaches", desert: "banner-experiences-desert", "nile-cruises": "banner-experiences-nile-cruises" };
 const CARD_FALLBACK: Record<string, string | undefined> = { beaches: "card-marsa-alam", "nile-cruises": "card-nile-cruise-aswan" };
 
 type TypeKey = keyof typeof TYPES;
+type TypeKeyStr = "beaches" | "desert" | "nile-cruises";
 
 type Row = { id: string; name: string; category: string; summary: string | null; images: string[] | null; governorate_slug: string | null };
 
