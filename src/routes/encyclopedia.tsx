@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc, generatedBySrc } from "@/lib/generated-images";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Crown } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -90,7 +92,7 @@ export const Route = createFileRoute("/encyclopedia")({
 const heroChapter = encChapters[0]!;
 
 function EncyclopediaPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { eras: erasSource, rulers: rulersSource } = Route.useLoaderData();
   const eras = useLocalizedRows("eras", erasSource, "key");
   const rulers = useLocalizedRows("rulers", rulersSource);
@@ -109,11 +111,12 @@ function EncyclopediaPage() {
         <section className="relative overflow-hidden border-b border-gold-line">
           <img
             src={heroChapter.cover}
-            alt={t("Traditional Egyptian dress of all 27 governorates")}
+            alt={altForSrc(heroChapter.cover, lang, t("Traditional Egyptian dress of all 27 governorates"))}
             width={1600}
             height={900}
             className="h-[42vh] min-h-[300px] w-full object-cover opacity-70"
           />
+          <AiBadge src={heroChapter.cover} className="bottom-auto top-2" />
           <div
             className="absolute inset-0"
             style={{
@@ -202,7 +205,7 @@ function Chapter({
   index: number;
   liveSection?: ReactNode;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   return (
     <Section
@@ -240,18 +243,27 @@ function Chapter({
               plate.wide && "md:col-span-2",
             )}
           >
+            <div className="relative">
             <img
               src={plate.image}
-              alt={t(plate.alt)}
+              alt={altForSrc(plate.image, lang, t(plate.alt))}
               loading="lazy"
               width={1200}
               height={600}
               className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
             />
-            <figcaption className="border-t border-border/60 px-4 py-3">
+            <AiBadge src={plate.image} force={!!generatedBySrc(plate.image)} />
+            </div>
+            {generatedBySrc(plate.image) && (
+              <figcaption className="border-t border-border/60 px-4 pt-2 text-[11px] italic text-muted-foreground">
+                {lang === "ar" ? "صورة بديلة: " : "Placeholder image: "}
+                {altForSrc(plate.image, lang, "")}
+              </figcaption>
+            )}
+            <div className="px-4 py-3">
               <div className="text-sm font-semibold text-foreground">{t(plate.caption)}</div>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{t(plate.note)}</p>
-            </figcaption>
+            </div>
           </figure>
         ))}
       </div>
@@ -273,7 +285,7 @@ function EraRulerSection({
   eras: Era[];
   rulersByEra: Map<string, Ruler[]>;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   if (eras.length === 0) return null;
 

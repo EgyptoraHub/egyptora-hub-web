@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc } from "@/lib/generated-images";
 import { ArrowRight, Check, MapPin, ShoppingBag, Sparkles } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -26,11 +28,12 @@ export function MarketplaceSection({
         <section className="relative">
           <img
             src={page.hero}
-            alt={page.heroAlt}
+            alt={altForSrc(page.hero, lang, page.heroAlt)}
             width={1600}
             height={900}
             className="h-[46vh] min-h-[320px] w-full object-cover lg:h-[58vh]"
           />
+          <AiBadge src={page.hero} className="bottom-auto top-2" />
           <div
             className="absolute inset-0"
             style={{
@@ -96,12 +99,13 @@ export function MarketplaceSection({
               >
                 <img
                   src={g.image}
-                  alt={g.alt}
+                  alt={altForSrc(g.image, lang, g.alt)}
                   loading="lazy"
                   width={1200}
                   height={900}
                   className="h-72 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-96"
                 />
+                <AiBadge src={g.image} className="bottom-auto top-2" />
                 <div className="absolute inset-0" style={{ background: "var(--gradient-fade)" }} />
                 <figcaption className="on-dark absolute inset-x-0 bottom-0 p-5">
                   <p className="font-display text-lg text-foreground">{t(g.caption)}</p>
@@ -212,12 +216,13 @@ export function MarketplaceSection({
               >
                 <img
                   src={o.hero}
-                  alt={o.heroAlt}
+                  alt={altForSrc(o.hero, lang, o.heroAlt)}
                   loading="lazy"
                   width={1600}
                   height={900}
                   className="h-40 w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                <AiBadge src={o.hero} className="bottom-auto top-2" />
                 <div className="absolute inset-0" style={{ background: "var(--gradient-fade)" }} />
                 <span className="on-dark absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 p-4">
                   <span className="min-w-0">

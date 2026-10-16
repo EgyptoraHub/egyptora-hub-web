@@ -1,6 +1,7 @@
 import { useI18n } from "@/i18n";
 import { altFor, getGeneratedImage } from "@/lib/generated-images";
 import { cn } from "@/lib/utils";
+import { AiBadge } from "@/components/site/AiBadge";
 
 /** Renders one AI-generated image from the central map; renders nothing when missing or hidden. */
 export function GenImage({
@@ -27,9 +28,7 @@ export function GenImage({
   return (
     <span className="relative block">
       {el}
-      <span className="absolute bottom-2 start-2 rounded-full bg-navy/85 px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
-        {lang === "ar" ? "صورة توضيحية بالذكاء الاصطناعي" : "Illustrative AI image"}
-      </span>
+      <AiBadge force />
     </span>
   );
 }

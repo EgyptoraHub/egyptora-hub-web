@@ -1,4 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc } from "@/lib/generated-images";
 import type { ReactNode } from "react";
 import { ArrowRight, Bot, Clock, Landmark, MapPin, Sparkles, UtensilsCrossed, Shirt } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -128,7 +130,7 @@ export const Route = createFileRoute("/governorates/$id")({
 });
 
 function GovernorateNotFound() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -202,11 +204,12 @@ function GovernoratePage() {
         <section className="relative">
           <img
             src={profile.image}
-            alt={`${gov.name} — ${profile.tagline.en}`}
+            alt={altForSrc(profile.image, lang, `${gov.name} — ${profile.tagline.en}`)}
             width={1280}
             height={720}
             className="h-[40vh] min-h-[300px] w-full object-cover lg:h-[50vh]"
           />
+          <AiBadge src={profile.image} className="bottom-auto top-2" />
           <div
             className="absolute inset-0"
             style={{
@@ -406,7 +409,7 @@ function GovernoratePage() {
 const RESEARCH_NOTE = /^no (strongly|single|distinctive|specific)|flagged|owner (review|confirmation)|unverified|needs confirmation/i;
 
 function ListBox({ icon, title, items: raw }: { icon: ReactNode; title: string; items: string[] | null | undefined }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const items = raw?.filter((it) => !RESEARCH_NOTE.test(it));
   return (
     <div className="rounded-2xl border border-border/70 bg-card p-6">
@@ -447,6 +450,7 @@ function TabSection({ title, cards, empty }: { title: string; cards: Card[]; emp
 }
 
 function CardGrid({ cards, empty }: { cards: Card[]; empty: string }) {
+  const { lang } = useI18n();
   if (cards.length === 0) {
     return (
       <div className="mt-6 rounded-2xl border border-dashed border-border/70 bg-card/50 p-8 text-center text-sm text-muted-foreground">
@@ -464,12 +468,13 @@ function CardGrid({ cards, empty }: { cards: Card[]; empty: string }) {
               <div className="relative h-40 overflow-hidden">
                 <img
                   src={img}
-                  alt={c.name}
+                  alt={altForSrc(img, lang, c.name)}
                   loading="lazy"
                   width={1280}
                   height={720}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                <AiBadge src={img} />
               </div>
             ) : (
               <div className="flex h-20 items-center justify-center bg-surface-2">

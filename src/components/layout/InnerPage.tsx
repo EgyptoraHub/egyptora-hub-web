@@ -4,6 +4,8 @@
  * switcher translates it site-wide.
  */
 import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc } from "@/lib/generated-images";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Info, Search } from "lucide-react";
 import { toast } from "sonner";
@@ -71,7 +73,7 @@ export function NavyBadge({ children }: { children: ReactNode }) {
 }
 
 export function ViewAll({ to, label = "View All" }: { to: string; label?: string | undefined }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <SmartLink
       to={to}
@@ -93,7 +95,7 @@ export function SectionHead({
   to?: string;
   toLabel?: string;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
       <div className="min-w-0">
@@ -134,12 +136,13 @@ export type CardItem = {
 };
 
 export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <article className="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
       {c.img && (
         <div className={cn("relative overflow-hidden", h)}>
-          <img src={c.img} alt={t(c.title)} loading="lazy" className="size-full object-cover" />
+          <img src={c.img} alt={altForSrc(c.img, lang, t(c.title))} loading="lazy" className="size-full object-cover" />
+          <AiBadge src={c.img} />
           {c.badge && <NavyBadge>{t(c.badge)}</NavyBadge>}
           <SaveButton
             variant="icon"
@@ -168,7 +171,7 @@ export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
 }
 
 export function IconCard({ c, cta = true }: { c: CardItem; cta?: boolean }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <article className="flex h-full flex-col rounded-[10px] border border-border bg-card p-3 shadow-sm">
       {c.Icon && (
@@ -190,7 +193,7 @@ export function IconCard({ c, cta = true }: { c: CardItem; cta?: boolean }) {
 /* ---------------- sidebar modules ---------------- */
 
 export function SidePanel({ title, body, children }: { title: string; body?: string; children: ReactNode }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="rounded-[10px] border border-border bg-card p-5 shadow-sm">
       <h3 className="font-display text-lg font-bold text-navy">{t(title)}</h3>
@@ -201,7 +204,7 @@ export function SidePanel({ title, body, children }: { title: string; body?: str
 }
 
 export function LinkList({ items }: { items: { label: string; to: string; Icon?: Icon }[] }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <ul className="divide-y divide-border">
       {items.map((i) => (
@@ -248,7 +251,7 @@ const nile: [number, number][] = [
 ];
 
 export function EgyptMap({ pins, className }: { pins: string[]; className?: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const pts = (arr: [number, number][]) => arr.map(([lo, la]) => `${px(lo)},${py(la)}`).join(" ");
   return (
     <svg viewBox="0 0 375 310" className={cn("w-full", className)} role="img" aria-label={t("Map of Egypt")}>
@@ -289,7 +292,7 @@ export type HeroConfig = {
 };
 
 function InnerHero({ h }: { h: HeroConfig }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [q, setQ] = useState("");
   const siteSearch = useSiteSearch();
   return (
@@ -376,7 +379,7 @@ function MoreDots({ className }: { className?: string }) {
 }
 
 function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?: string | undefined; showMore?: boolean | undefined }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const all: (Chip & { more?: boolean })[] = showMore
     ? [...chips, { label: "More", Icon: MoreDots, to: moreTo, more: true }]
     : chips;
@@ -443,7 +446,7 @@ export function InnerPage({
   sidebar?: ReactNode;
   bottom?: ReactNode;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -486,7 +489,7 @@ export function ImportantNoticeBox({
 }: {
   text?: string;
 }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <div className="flex items-start gap-4 rounded-[10px] border border-info/25 bg-bg-notice p-5">
       <span className="grid size-10 shrink-0 place-items-center rounded-full bg-navy text-primary-foreground">
@@ -503,7 +506,7 @@ export function ImportantNoticeBox({
 export type ProcessStep = { Icon: Icon; title: string; desc: string };
 
 export function ProcessStepsRow({ steps }: { steps: ProcessStep[] }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <ol className="grid gap-4 md:grid-cols-4">
       {steps.map((s, i) => (
@@ -525,7 +528,7 @@ export function ProcessStepsRow({ steps }: { steps: ProcessStep[] }) {
 
 /** Circular icon tile with a label beneath (ministries, services). */
 export function CircleTile({ label, Icon: I, to }: { label: string; Icon: Icon; to: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <SmartLink to={to} className="group grid justify-items-center gap-2 text-center">
       <span className="grid size-16 place-items-center rounded-full border border-shell-gold/50 bg-chip-active text-shell-gold transition-colors group-hover:bg-gold-cta group-hover:text-primary-foreground">
@@ -538,7 +541,7 @@ export function CircleTile({ label, Icon: I, to }: { label: string; Icon: Icon; 
 
 /** Dark navy app-download promo used in bottom banner rows. */
 export function AppPromoCard({ eyebrow = "Explore on the Go", title = "Download EGYPTORA App" }: { eyebrow?: string; title?: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="on-dark rounded-[10px] bg-navy p-6">
       <p className="text-xs uppercase tracking-[0.2em] text-shell-gold">{t(eyebrow)}</p>
@@ -556,7 +559,7 @@ export function AppPromoCard({ eyebrow = "Explore on the Go", title = "Download 
 
 /** Light band promo with icon, copy and gold button. */
 export function BandPromo({ Icon: I, title, body, cta, to }: { Icon: Icon; title: string; body: string; cta: string; to: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="rounded-[10px] border border-border bg-bg-band p-6">
       <I className="size-7 text-shell-gold" />

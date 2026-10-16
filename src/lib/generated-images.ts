@@ -132,3 +132,22 @@ export const altFor = (img: GeneratedImage, lang: string) => (lang === "ar" ? im
 export function slugPart(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
+
+const BY_SRC: Record<string, GeneratedImage> = Object.fromEntries(Object.values(GENERATED_IMAGES).map((g) => [g.src, g]));
+
+/** Finds the generated image behind an imported src URL (undefined for credited photos). */
+export function generatedBySrc(src: string | null | undefined): GeneratedImage | undefined {
+  return src ? BY_SRC[src] : undefined;
+}
+
+/** Alt text for any src: the generated image's own description when it is AI, else the given fallback. */
+export function altForSrc(src: string | null | undefined, lang: string, fallback: string) {
+  const g = generatedBySrc(src);
+  return g ? altFor(g, lang) : fallback;
+}
+
+/** AI badge rule: every generated image except ill-* icon illustrations and ph-* empty-state placeholders. */
+export function needsAiBadge(src: string | null | undefined) {
+  const g = generatedBySrc(src);
+  return !!g && !/^(ill|ph)-/.test(g.key);
+}

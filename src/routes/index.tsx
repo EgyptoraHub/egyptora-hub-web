@@ -1,4 +1,6 @@
 import { useState, type ComponentType, type SVGProps } from "react";
+import { AiBadge } from "@/components/site/AiBadge";
+import { altForSrc } from "@/lib/generated-images";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -134,7 +136,7 @@ function NavyBadge({ children }: { children: React.ReactNode }) {
 }
 
 function ViewAll({ to }: { to: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <Link
       to={L(to)}
@@ -146,7 +148,7 @@ function ViewAll({ to }: { to: string }) {
 }
 
 function BlockHead({ title, body, to }: { title: string; body: string; to: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <div className="mb-4 flex items-start justify-between gap-4">
       <div>
@@ -161,11 +163,12 @@ function BlockHead({ title, body, to }: { title: string; body: string; to: strin
 type CardData = { title: string; sub: string; img: string; to: string; badge?: string };
 
 function ImgCard({ c, h = "h-32" }: { c: CardData; h?: string }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <article className="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
       <div className={cn("relative overflow-hidden", h)}>
-        <img src={c.img} alt={t(c.title)} loading="lazy" className="size-full object-cover" />
+        <img src={c.img} alt={altForSrc(c.img, lang, t(c.title))} loading="lazy" className="size-full object-cover" />
+        <AiBadge src={c.img} />
         {c.badge && <NavyBadge>{t(c.badge)}</NavyBadge>}
         <SaveButton
           variant="icon"
@@ -199,7 +202,7 @@ const popular = [
 ];
 
 function Hero() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [q, setQ] = useState("");
   const siteSearch = useSiteSearch();
   return (
@@ -279,7 +282,7 @@ const quick: { Icon: Icon; title: string; sub?: string; to: string }[] = [
 ];
 
 function QuickStrip() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <div className={cn(wrap, "relative z-10 -mt-12")}>
       <div className="on-dark grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
@@ -378,7 +381,7 @@ function IconBadge({ Icon }: { Icon: Icon }) {
 }
 
 function LiveBusinessWhy() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="bg-background py-14">
       <div className={cn(wrap, "grid gap-8 md:grid-cols-2 lg:grid-cols-[1fr_1fr_0.8fr]")}>
@@ -443,7 +446,7 @@ const pillars: { Icon: Icon; title: string; body: string }[] = [
 ];
 
 function Vision2030() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="border-y border-border bg-background py-14">
       <div className={cn(wrap, "grid gap-10 lg:grid-cols-[1fr_auto_260px] lg:items-center")}>
@@ -508,7 +511,7 @@ const govTiles: { Icon: Icon; label: string; hash?: string }[] = [
 ];
 
 function GovBand() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="on-dark relative overflow-hidden bg-navy-band">
       <div className="absolute inset-y-0 start-0 hidden w-[34%] md:block">
@@ -556,7 +559,7 @@ function GovBand() {
 /* ---------- 7. 195 countries ---------- */
 
 function GlobalBand() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <>
     <section className="border-y border-border bg-background py-10">
@@ -662,7 +665,7 @@ function GooglePlayIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 function NewsApp() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   return (
     <section className="bg-background py-14">
       <div className={cn(wrap, "grid gap-8 lg:grid-cols-[2fr_1fr]")}>
@@ -674,7 +677,10 @@ function NewsApp() {
           <div className="grid gap-4 sm:grid-cols-3">
             {news.map((n) => (
               <article key={n.title} className="overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
-                <img src={n.img} alt={t(n.title)} loading="lazy" className="h-36 w-full object-cover" />
+                <div className="relative">
+                  <img src={n.img} alt={altForSrc(n.img, lang, t(n.title))} loading="lazy" className="h-36 w-full object-cover" />
+                  <AiBadge src={n.img} />
+                </div>
                 <div className="p-4">
                   <span className="rounded-full bg-bg-band px-2.5 py-0.5 text-[10px] font-semibold uppercase text-navy">
                     {t(n.tag)}
