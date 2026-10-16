@@ -1,3 +1,4 @@
+import { GenImage } from "@/components/site/GenImage";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { z } from "zod";
@@ -29,8 +30,9 @@ export function useBi() {
 }
 
 export function MilShell({
-  crumbs, title, subtitle, search, children,
+  crumbs, title, subtitle, search, children, banner,
 }: {
+  banner?: string;
   crumbs: Crumb[];
   title: ReactNode;
   subtitle?: string;
@@ -57,8 +59,14 @@ export function MilShell({
           ))}
         </div>
       </nav>
-      <section className="bg-navy text-primary-foreground">
-        <div className={cn(innerWrap, "py-10 lg:py-12")}>
+      <section className="relative overflow-hidden bg-navy text-primary-foreground">
+        {banner && (
+          <>
+            <GenImage k={banner} priority sizes="100vw" className="absolute inset-0 size-full" />
+            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/30 rtl:bg-gradient-to-l" />
+          </>
+        )}
+        <div className={cn(innerWrap, "relative py-10 lg:py-12")}>
           <h1 className="font-display text-2xl font-bold lg:text-4xl" dir="auto">{title}</h1>
           {subtitle && <p className="mt-2 max-w-3xl text-sm text-primary-foreground/85" dir="auto">{subtitle}</p>}
           {search && (

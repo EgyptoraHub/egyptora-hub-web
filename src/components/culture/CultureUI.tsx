@@ -10,6 +10,15 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
+import { GenImage } from "@/components/site/GenImage";
+import { GENERATED_IMAGES, slugPart } from "@/lib/generated-images";
+
+/** culture-<section>-<name slug> fallback; file names are truncated, so match by prefix. */
+function cultureImage(r: CultureItem) {
+  if (!r.name_en) return undefined;
+  const n = slugPart(r.name_en);
+  return Object.keys(GENERATED_IMAGES).find((k) => k.startsWith("culture-") && n.startsWith(k.replace(/^culture-[a-z]+-/, "")));
+}
 import { cn } from "@/lib/utils";
 import { categoryLabel, sectionByDb, type CultureItem, type GovSummary, type ReviewStatus, type SectionConfig } from "@/lib/culture";
 
@@ -79,6 +88,7 @@ export function CultureCard({ r, govName }: { r: CultureItem; govName?: string |
         params={{ section: sec.url, slug: r.slug }}
         className="flex w-full flex-col gap-2 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-gold-line"
       >
+        <GenImage k={cultureImage(r)} aiBadge className="aspect-[16/10] w-full rounded-2xl" />
         <div className="flex flex-wrap items-center gap-1.5">
           {r.category && (
             <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2.5 py-0.5 text-[11px] font-semibold text-navy">

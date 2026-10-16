@@ -33,6 +33,7 @@ function Hub() {
   const cards = CARDS.filter((c) => !needle || `${t(c.label)} ${t(c.body)} ${c.label}`.toLowerCase().includes(needle));
   return (
     <MilShell
+      banner="banner-egypt-through-time"
       crumbs={[{ label: t("Egypt Through Time") }]}
       title={t("Egypt Through Time")}
       subtitle={t("Eras, rulers and military history — sections of an independent editorial guide to Egypt's past.")}

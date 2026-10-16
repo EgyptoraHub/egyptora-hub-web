@@ -5,6 +5,17 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { innerWrap } from "@/components/layout/InnerPage";
 import { useI18n } from "@/i18n";
+import { GenBanner, GenImage } from "@/components/site/GenImage";
+
+const ECO_SLUG = ["ras-mohammed", "white-desert", "wadi-el-hitan", "saint-catherine", "siwa", "wadi-el-gemal", "lake-qarun", "zaranik"];
+const ECO_HABITAT: [RegExp, string][] = [[/island|جزيرة|جزر/i, "eco-generic-island"], [/nile|نيل/i, "eco-generic-nile-island"], [/reef|marine|sea|bay|coral|بحر|مرجان|خليج/i, "eco-generic-marine"], [/lake|wetland|بحيرة|بردويل/i, "eco-generic-wetland"], [/mount|جبل|جبال/i, "eco-generic-mountain"], [/desert|wadi|oasis|صحراء|وادي|واحة/i, "eco-generic-desert"]];
+/** Slug match first, then a habitat guess from the name; no match → no image. */
+function ecoImage(a: ProtectedArea) {
+  const s = ECO_SLUG.find((x) => a.slug.includes(x));
+  if (s) return `eco-${s}`;
+  const text = `${a.name_en ?? ""} ${a.name_ar}`;
+  return ECO_HABITAT.find(([re]) => re.test(text))?.[1];
+}
 import { protectedTitle, type ProtectedArea } from "@/lib/protected-areas";
 
 type Gov = { slug: string; name_en: string; name_ar: string };
@@ -34,6 +45,7 @@ export function ProtectedAreasPage({ areas, governorates }: { areas: ProtectedAr
         </div>
       </section>
 
+      <div className={`${innerWrap} pt-8`}><GenBanner k="banner-eco-nature" /></div>
       <main className={`${innerWrap} grid gap-10 py-10`}>
         {govOptions.length > 1 ? (
           <div className="flex flex-wrap items-center gap-2">
@@ -48,6 +60,7 @@ export function ProtectedAreasPage({ areas, governorates }: { areas: ProtectedAr
             const summary = ar ? a.summary_ar : a.summary_en;
             return (
               <article key={a.id} className="grid content-start gap-2 rounded-[10px] border border-border bg-card p-4 shadow-sm">
+                <GenImage k={ecoImage(a)} className="aspect-[16/10] w-full rounded-2xl" />
                 <h2 dir="auto" className="font-display text-base font-bold text-navy">{protectedTitle(a, lang)}</h2>
                 <dl className="grid gap-1 text-xs text-text-body">
                   {a.governorate_slug ? (
