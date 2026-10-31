@@ -33,3 +33,8 @@ Date: 2026-10-31. Maintenance mode stayed ON throughout; nothing published.
 - Browser checks (Playwright): 12 health/legal pages × EN/AR — correct H1 and `dir` in both languages; 390px AR: no horizontal overflow on hub, insurance, disclaimer; `/live-in-egypt/healthcare` redirects to `/health`; no app console errors (only a blocked third-party tracker and stale Vite dev-module hashes mid-session).
 - Forms: unchanged from Prompt 42 (already verified); no medical fields exist.
 - Not verified: live AI responses (no key), real facility/specialty detail content (zero active records).
+
+## Prompt 43b addendum — Arabic term matching
+- `healthResourceMatcher` rewritten: Arabic matches whole tokens after light normalisation (tashkeel/tatweel stripped, أ/إ/آ→ا, ى→ي, ة→ه) with ال/و/ب/ل prefix stripping; English matches on word boundaries with same-stem suffixes. "دم"/"طب" match only as whole tokens.
+- Events filter now uses the same matcher; apps match name/description only (the "Insurance & Tax" category label pulled in tax apps — removed from matching).
+- Verified live: official-websites 1 genuine row, insurance empty state, apps 3 genuine health apps (eInvoicing/Real Estate Taxes gone). 14/14 tests pass, tsgo clean.

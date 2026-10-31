@@ -26,12 +26,55 @@ export const servicePages: Record<string, { title: string; body: string; facilit
  * Rows are shown ONLY when a health term matches name/category/description in EN or AR —
  * there is deliberately no fallback to unrelated directory rows.
  */
-const HEALTH_TERMS = ["health", "medical", "hospital", "clinic", "insurance", "drug", "pharma", "blood", "ambulance", "صحة", "صحي", "طب", "مستشفى", "مستشفي", "تأمين", "تامين", "دواء", "دم", "إسعاف", "اسعاف"];
-const INSURANCE_TERMS = ["insurance", "تأمين", "تامين"];
+const HEALTH_TERMS_EN = ["health", "medical", "hospital", "clinic", "insurance", "drug", "pharma", "blood", "ambulance"];
+const HEALTH_TERMS_AR = ["صحة", "صحي", "صحية", "طب", "طبي", "طبية", "مستشفى", "مستشفيات", "تأمين", "دواء", "أدوية", "دم", "تبرع", "إسعاف", "علاج"];
+const INSURANCE_TERMS_EN = ["insurance"];
+const INSURANCE_TERMS_AR = ["تأمين"];
+
+/** Light Arabic normalisation for comparison only: strip tashkeel/tatweel, unify alef forms, ى→ي, ة→ه. */
+function normalizeArabic(value: string): string {
+  return value
+    .replace(/[ً-ْٰـ]/g, "")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ة/g, "ه");
+}
+
+/** Strip the definite article and the prefixes و/ب/ل (and combinations) from the front of an Arabic token. */
+function stripArabicPrefixes(token: string): string {
+  let t = token;
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const prefix of ["ال", "و", "ب", "ل"]) {
+      if (t.length > prefix.length + 1 && t.startsWith(prefix)) {
+        t = t.slice(prefix.length);
+        changed = true;
+      }
+    }
+  }
+  return t;
+}
+
+/**
+ * Whole-word matcher for the health resource pages. Arabic terms match whole tokens only
+ * (after normalisation and prefix stripping), so "دم" never matches inside "الخدمات" and
+ * "طب" never matches "الطبيعة"/"مطبعة". English terms match on word boundaries with
+ * suffix forms of the same stem ("hospitals", "pharmacy"/"pharmaceutical" via "pharma").
+ */
 export function healthResourceMatcher(kind: "health" | "insurance"): (...fields: Array<string | null | undefined>) => boolean {
-  const terms = kind === "insurance" ? INSURANCE_TERMS : HEALTH_TERMS;
-  const re = new RegExp(terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "i");
-  return (...fields) => re.test(fields.filter((f): f is string => Boolean(f)).join(" "));
+  const enTerms = kind === "insurance" ? INSURANCE_TERMS_EN : HEALTH_TERMS_EN;
+  const arTerms = new Set((kind === "insurance" ? INSURANCE_TERMS_AR : HEALTH_TERMS_AR).map(normalizeArabic));
+  const enRe = new RegExp(`\\b(?:${enTerms.join("|")})[a-z]*\\b`, "i");
+  return (...fields) => {
+    const text = fields.filter((f): f is string => Boolean(f)).join(" ");
+    if (enRe.test(text)) return true;
+    for (const raw of text.split(/[^ء-ي]+/)) {
+      if (!raw) continue;
+      if (arTerms.has(stripArabicPrefixes(normalizeArabic(raw)))) return true;
+    }
+    return false;
+  };
 }
 export function hasHealthEvidence(status: string | null, source: string | null, date: string | null, claim?: "licensed" | "accredited") { const normalized = status?.trim().toLowerCase(); return Boolean(normalized && (!claim || normalized === claim) && safeHealthUrl(source) && date && Number.isFinite(Date.parse(date))); }
 export function safeHealthUrl(value: string | null | undefined): string | null { if (!value) return null; try { const u = new URL(value); return ["https:", "http:"].includes(u.protocol) ? u.href : null; } catch { return null; } }
