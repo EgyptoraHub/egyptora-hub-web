@@ -1,11 +1,12 @@
 # Roadmap
 
 ## Prompt 41 — Healthcare foundation
-- [ ] Restore only the chat avatar.
-- [ ] Add protected healthcare schema, inactive specialty seeds and disabled Phase 2 flags.
-- [ ] Register admin editing/import, activation validation and data audit coverage.
-- [ ] Add public-only concierge search groundwork and Phase 2 scope note.
-- [ ] Verify permissions, validation, admin flow and avatar; report changed files.
+- [x] Restore only the chat avatar import (visual verification blocked by existing maintenance screen).
+- [x] Add protected healthcare schema, inactive specialty seeds and disabled Phase 2 flags.
+- [x] Register admin editing/import, activation validation and data audit coverage.
+- [x] Add public-only concierge search groundwork and Phase 2 scope note.
+- [x] Verify public permissions, submission limits, database activation guard and build; remove temporary submissions.
+- [ ] Verify signed-in admin editing/import and visible avatar — blocked by no requesting-user auth account and existing maintenance screen; user must sign in as their intended admin account.
 
 ## Done
 - [x] Six detail pages (properties, providers, offers, investment opportunities, countries, products): hardened loaders, graceful not-found, SEO meta, fully translated labels, linked from each list page. Verified with real and invalid ids.

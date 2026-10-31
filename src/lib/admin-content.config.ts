@@ -159,7 +159,7 @@ export const CONTENT_TABLES: TableConfig[] = [
   },
   {
     table: "health_reports", label: "Health reports", group: "Healthcare & Medical Services", pk: "id", autoPk: true, noCreate: true, displayColumn: "message", csvImport: true, orderColumn: "created_at", listColumns: ["kind", "status", "created_at"],
-    fields: [{ name: "facility_id", type: "fk", fk: "health_facilities" }, { name: "kind", type: "select", options: ["wrong_info", "closed", "link_broken", "other"], readOnly: true }, { name: "message", type: "textarea", readOnly: true }, { name: "contact_email", type: "text", readOnly: true }, { name: "status", type: "select", options: ["new", "in_review", "resolved", "dismissed"] }],
+    fields: [{ name: "facility_id", type: "fk", fk: "health_facilities", readOnly: true }, { name: "kind", type: "select", options: ["wrong_info", "closed", "link_broken", "other"], readOnly: true }, { name: "message", type: "textarea", readOnly: true }, { name: "contact_email", type: "text", readOnly: true }, { name: "status", type: "select", options: ["new", "in_review", "resolved", "dismissed"] }],
   },
   {
     table: "health_inquiries", label: "Health inquiries", group: "Healthcare & Medical Services", pk: "id", autoPk: true, noCreate: true, displayColumn: "full_name", csvImport: true, orderColumn: "created_at", listColumns: ["type", "status", "created_at"],
