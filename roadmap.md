@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 41b — Maintenance separation
+- [ ] Separate preview/public maintenance visibility and remove static bypass.
+- [ ] Require authenticated server-verified admin toggles without a password; preserve the current flag.
+- [ ] Verify host rules, signed-out rejection, translated badge and Preview visibility.
+
 ## Prompt 41 — Healthcare foundation
 - [x] Restore only the chat avatar import (visual verification blocked by existing maintenance screen).
 - [x] Add protected healthcare schema, inactive specialty seeds and disabled Phase 2 flags.
