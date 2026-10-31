@@ -6,7 +6,7 @@ import { HealthError, HealthUnavailable } from "@/components/health/HealthShared
 import { healthQuery } from "@/lib/health.functions";
 export const Route = createFileRoute("/health_/specialties_/$slug")({
   loader: async ({ context, params }) => { const data = await context.queryClient.ensureQueryData(healthQuery); if (!data.specialties.some((s) => s.slug === params.slug)) throw notFound(); return data.specialties.find((s) => s.slug === params.slug); },
-  head: () => simpleHead("/health/specialties/$slug", "Healthcare specialty — Egyptora Hub", "Specialty overview and active facilities with this specialty.", SITE.url),
+  head: ({ params, loaderData }) => simpleHead(`/health/specialties/${encodeURIComponent(params.slug)}`, `${loaderData?.name_en ?? "Unavailable specialty"} — Egyptora Hub`, loaderData?.summary_en || "Specialty overview and active facilities with this specialty.", SITE.url),
   errorComponent: HealthError,
   notFoundComponent: HealthUnavailable,
   component: Page,

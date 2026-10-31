@@ -7,7 +7,7 @@ import { healthQuery } from "@/lib/health.functions";
 import { servicePages } from "@/lib/health-public";
 export const Route = createFileRoute("/health_/services/$type")({
   loader: async ({ context, params }) => { if (!servicePages[params.type]) throw notFound(); await context.queryClient.ensureQueryData(healthQuery); return servicePages[params.type]; },
-  head: () => simpleHead("/health/services/$type", "Healthcare Services — Egyptora Hub", "Home care, rehabilitation, mental health, maternal and chronic care information.", SITE.url),
+  head: ({ params, loaderData }) => simpleHead(`/health/services/${encodeURIComponent(params.type)}`, `${loaderData?.title ?? "Unavailable service"} — Egyptora Hub`, loaderData?.body || "Public healthcare service information.", SITE.url),
   errorComponent: HealthError,
   notFoundComponent: HealthUnavailable,
   component: Page,
