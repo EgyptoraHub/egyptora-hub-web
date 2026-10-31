@@ -57,6 +57,7 @@ const exploreLinks: FLink[] = [
   { label: "27 Governorates", to: "/governorates" },
   { label: "Visit Egypt", to: "/visit-egypt" },
   { label: "Live in Egypt", to: "/live-in-egypt" },
+  { label: "Healthcare & Medical Services", to: "/health" },
   { label: "Invest in Egypt", to: "/invest-in-egypt" },
   { label: "Do Business", to: "/do-business" },
   { label: "Government Directory", to: "/government-directory" },

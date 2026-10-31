@@ -52,6 +52,6 @@ export const submitHealthInquiry = createServerFn({ method: "POST" }).inputValid
 });
 export const submitHealthReport = createServerFn({ method: "POST" }).inputValidator(publicHealthReportSchema).handler(async ({ data }) => {
   const { consent: _consent, ...report } = data;
-  const { error } = await publicClient().from("health_reports").insert(report);
+  const { error } = await publicClient().from("health_reports").insert({ kind: report.kind, message: report.message, facility_id: report.facility_id ?? null, contact_email: report.contact_email ?? null });
   if (error) return { ok: false as const }; return { ok: true as const };
 });

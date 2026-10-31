@@ -1,3 +1,5 @@
+import { HealthHomeWidget } from "@/components/health/HealthShared";
+import { healthQuery } from "@/lib/health.functions";
 import { IntroVideo } from "@/components/site/IntroVideo";
 import { ArrowCta } from "@/components/layout/InnerPage";
 import { useState, type ComponentType, type SVGProps } from "react";
@@ -64,7 +66,8 @@ const description =
   "Explore. Invest. Live. Do Business. Belong. Egyptora Hub is a private platform connecting the world to Egypt's opportunities, people and possibilities.";
 
 export const Route = createFileRoute("/")({
-  loader: async () => {
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(healthQuery);
     // Era names for the "Egypt Through Time" band; one taxonomy shared with Military History.
     try {
       const { data } = await supabase.from("military_eras").select("slug, number, name_en, name_ar").order("sort_order");
@@ -85,6 +88,8 @@ export const Route = createFileRoute("/")({
     ],
     links: [{ rel: "canonical", href: `${SITE.url}/` }],
   }),
+  errorComponent: () => <div role="alert">Healthcare information is temporarily unavailable.</div>,
+  notFoundComponent: () => <div>Page not found.</div>,
   component: Home,
 });
 
@@ -101,6 +106,7 @@ function Home() {
       <main>
         <Hero />
         <QuickStrip />
+        <HealthHomeWidget />
         <IntroVideo />
         <ExploreInvest />
         <LiveBusinessWhy />
@@ -350,7 +356,7 @@ function ExploreInvest() {
 const liveCards: CardData[] = [
   { title: "Residency & Visas", sub: "Live, work and study", img: residencyImg },
   { title: "Education", sub: "Universities and schools", img: educationImg, to: "/research-programs" },
-  { title: "Healthcare", sub: "Quality medical services", img: healthImg },
+  { title: "Healthcare", sub: "Quality medical services", img: healthImg, to: "/health" },
 ];
 const bizCards: CardData[] = [
   { title: "Business Opportunities", sub: "Across key sectors", img: bizOppsImg, to: "/investment-opportunities" },

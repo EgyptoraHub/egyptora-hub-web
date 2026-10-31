@@ -40,6 +40,9 @@ const STATIC = [
   "/marketplace", "/marketplace/wear-egypt", "/marketplace/egyptian-cotton", "/marketplace/handmade-crafts", "/marketplace/local-producers",
   "/partners", "/become-a-partner", "/our-mission", "/vision-values", "/faq", "/trust-center", "/contact",
   "/photo-credits", "/legal",
+  "/health", "/health/find-care", "/health/specialties",
+  ...["home-care", "rehabilitation", "mental-health", "mother-child", "chronic-care"].map((t) => `/health/services/${t}`),
+  ...["blood-donation", "medical-travel", "insurance", "official-websites", "apps", "projects-research", "support"].map((p) => `/health/${p}`),
 ];
 
 // Legal documents and governorates come from the site's own data files.
@@ -66,7 +69,10 @@ if (zoneTypes.has("industrial_zone")) gated.push("/do-business/industrial-zones"
 if ([...zoneTypes].some((t) => t !== "industrial_zone")) gated.push("/do-business/free-zones");
 if ((await q("protected_areas?select=id&limit=1")).length > 0) gated.push("/experiences/eco-nature");
 
-const all = [...new Set([...STATIC, ...legal, ...governorates, ...apps, ...gated, ...records, ...figures, ...culture, ...stories])];
+const healthFacilities = (await q("health_facilities?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/find-care/${x.slug}`);
+const healthSpecialties = (await q("health_specialties?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/specialties/${x.slug}`);
+
+const all = [...new Set([...STATIC, ...legal, ...governorates, ...apps, ...gated, ...records, ...figures, ...culture, ...stories, ...healthFacilities, ...healthSpecialties])];
 const out = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

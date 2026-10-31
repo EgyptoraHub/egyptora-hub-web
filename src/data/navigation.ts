@@ -1,3 +1,4 @@
+import { healthNavigation } from "@/lib/health-public";
 /**
  * Main site navigation: 8 top-level entries, five of which open a dropdown.
  * Sub-items point at a real route where one exists today; the rest are marked
@@ -67,7 +68,7 @@ export const mainNav: NavEntry[] = [
       { label: "Residency & Visas", soon: true },
       { label: "Housing & Real Estate", to: "/real-estate" },
       { label: "Education & Schools", to: "/research-programs" },
-      { label: "Healthcare & Medical Services", soon: true },
+      { label: "Healthcare & Medical Services", to: "/health" },
       { label: "Work & Employment", soon: true },
       { label: "Cost of Living", soon: true },
       { label: "Safety & Security", soon: true },
@@ -75,6 +76,11 @@ export const mainNav: NavEntry[] = [
       { label: "Transportation & Mobility", soon: true },
       { label: "Utilities & Services", soon: true },
     ],
+  },
+  {
+    label: "Healthcare & Medical Services",
+    to: "/health",
+    items: [{ label: "All Healthcare", to: "/health" }, ...healthNavigation.map(([label, to]) => ({ label, to }))],
   },
   {
     label: "Invest in Egypt",

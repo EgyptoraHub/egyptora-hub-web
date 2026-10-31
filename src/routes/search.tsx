@@ -1,3 +1,4 @@
+import { healthNavigation } from "@/lib/health-public";
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Search, Sparkles } from "lucide-react";
@@ -87,7 +88,9 @@ export const Route = createFileRoute("/search")({
   component: SearchPage,
 });
 
-const ORDER = ["Destinations", "Travel & Tourism", "Investment", "Business", "Living in Egypt", "Government Services", "Digital Services", "Real Estate", "Home"];
+const healthSearchEntries: SearchEntry[] = [["Healthcare & Medical Services", "/health"], ...healthNavigation].map(([title, to]) => ({ title: title ?? "", desc: "Healthcare الصحة رعاية صحية خدمات طبية", tag: "Healthcare & Medical Services", to: to ?? "/health", category: "Healthcare & Medical Services", page: "/health" }));
+
+const ORDER = ["Healthcare & Medical Services", "Destinations", "Travel & Tourism", "Investment", "Business", "Living in Egypt", "Government Services", "Digital Services", "Real Estate", "Home"];
 
 function score(e: SearchEntry, terms: string[]) {
   const t = e.title.toLowerCase();
@@ -113,7 +116,7 @@ function SearchPage() {
     if (!terms.length) return [];
     const map = new Map<string, { e: SearchEntry; s: number }[]>();
     const seen = new Set<string>();
-    for (const e of [...staticSearchIndex, ...gov]) {
+    for (const e of [...staticSearchIndex, ...healthSearchEntries, ...gov]) {
       const s = score(e, terms);
       const key = `${e.title}|${e.to}`;
       if (!s || seen.has(key)) continue;
