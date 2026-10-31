@@ -21,6 +21,18 @@ export const servicePages: Record<string, { title: string; body: string; facilit
   "mother-child": { title: "Mother & Child", body: "Find facilities associated with maternal and child specialties. Confirm available services directly with the provider.", specialtySlugs: ["obstetrics-gynecology", "pediatrics"] },
   "chronic-care": { title: "Chronic Care", body: "Chronic care involves ongoing coordination with qualified healthcare professionals. The directory provides contact information, not a treatment plan.", specialtySlugs: ["internal-medicine", "endocrinology", "cardiology", "nephrology"] },
 };
+/**
+ * Term matching for the health resource pages (insurance, official websites, apps).
+ * Rows are shown ONLY when a health term matches name/category/description in EN or AR —
+ * there is deliberately no fallback to unrelated directory rows.
+ */
+const HEALTH_TERMS = ["health", "medical", "hospital", "clinic", "insurance", "drug", "pharma", "blood", "ambulance", "صحة", "صحي", "طب", "مستشفى", "مستشفي", "تأمين", "تامين", "دواء", "دم", "إسعاف", "اسعاف"];
+const INSURANCE_TERMS = ["insurance", "تأمين", "تامين"];
+export function healthResourceMatcher(kind: "health" | "insurance"): (...fields: Array<string | null | undefined>) => boolean {
+  const terms = kind === "insurance" ? INSURANCE_TERMS : HEALTH_TERMS;
+  const re = new RegExp(terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "i");
+  return (...fields) => re.test(fields.filter((f): f is string => Boolean(f)).join(" "));
+}
 export function hasHealthEvidence(status: string | null, source: string | null, date: string | null, claim?: "licensed" | "accredited") { const normalized = status?.trim().toLowerCase(); return Boolean(normalized && (!claim || normalized === claim) && safeHealthUrl(source) && date && Number.isFinite(Date.parse(date))); }
 export function safeHealthUrl(value: string | null | undefined): string | null { if (!value) return null; try { const u = new URL(value); return ["https:", "http:"].includes(u.protocol) ? u.href : null; } catch { return null; } }
 export type HealthSearch = { q: string; specialty: string; governorate: string; city: string; type: string; ownership: string; page: number };

@@ -1,5 +1,13 @@
 # Roadmap
 
+## Prompt 43 — Healthcare fixes from review
+- [ ] A) Remove fallback-to-all rows on /health/insurance, /health/official-websites, /health/apps; term-matched rows only, empty state with directory links, no search box when empty; tests.
+- [ ] B) Nav: single-line "Healthcare" top label, remove multi-line special case, no overlaps at 1280–1970 in EN/AR (screenshots).
+- [ ] C) /health hero → navy gradient (no image); disclaimer copy fix + "Read the full disclaimer" link; distinct icon per category card.
+- [ ] D) Concierge: health section links + no-medical-advice rules in system prompt, allowed-links fix, 6 regression tests.
+- [ ] E) Legal doc "Health Information Disclaimer" (EN+AR), footer link, sitemap, docs note that it needs owner/legal review.
+- [ ] F) Final QA: all /health routes EN/AR desktop+390px, forms, redirect, docs/prompt-43-verification.md. Maintenance ON, no publish.
+
 ## Prompt 42 — Public healthcare
 - [x] Build public healthcare routes, active-only directory, sourced detail pages and shared disclaimer.
 - [x] Add validated public report/inquiry forms with consent and no medical uploads; real submissions read back and test rows removed.
@@ -59,3 +67,13 @@
 
 ## Prompt 30 — Coming soon Wave 1
 - [x] Reverted in Prompt 30b: guide hubs removed, 8 items back to Coming soon (20)
+
+## Prompt 43 — Healthcare review fixes
+- [x] Resource pages filter by health terms (EN+AR); no fallback to unrelated rows
+- [x] Header: short "Healthcare" desktop label, full label in mobile menu, no overlaps 1280–1970 EN/AR
+- [x] Navy gradient hero, distinct category icons, disclaimer with emergency + full-disclaimer links, honest empty states
+- [x] Concierge health safety rules + link allowlist from prompt; 6 regression tests
+- [x] Legal doc #35 health-disclaimer (DRAFT, counsel review required) + footer link + sitemap
+- [x] QA: tsgo clean, 30 tests pass, 12 pages EN/AR + 390px + redirect verified
+- [ ] Health disclaimer text needs qualified Egyptian legal counsel review before launch
+- [ ] Live AI concierge responses not exercised (no AI key in dev sandbox)

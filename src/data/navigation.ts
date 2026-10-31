@@ -27,6 +27,8 @@ export type NavLeaf = {
 
 export type NavEntry = {
   label: string;
+  /** Shorter single-line label for the desktop top bar; the full label stays in menus and page titles. */
+  shortLabel?: string;
   to?: string;
   items?: NavLeaf[];
 };
@@ -79,6 +81,7 @@ export const mainNav: NavEntry[] = [
   },
   {
     label: "Healthcare & Medical Services",
+    shortLabel: "Healthcare",
     to: "/health",
     items: [{ label: "All Healthcare", to: "/health" }, ...healthNavigation.map(([label, to]) => ({ label, to }))],
   },

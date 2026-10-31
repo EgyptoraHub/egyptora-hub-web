@@ -94,6 +94,7 @@ const legalLinks: FLink[] = [
   { label: "Terms of Use", to: "/legal/terms" },
   { label: "Privacy Policy", to: "/legal/privacy" },
   { label: "Legal Disclaimer", to: "/legal/disclaimer" },
+  { label: "Health Disclaimer", to: "/legal/health-disclaimer" },
   { label: "Cookie Policy", to: "/legal/cookies" },
   { label: "Accessibility", to: "/legal/accessibility" },
   { label: "Consent Centre", to: "/legal/consent" },

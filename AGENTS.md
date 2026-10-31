@@ -34,3 +34,4 @@
 - Healthcare public pages use shared Query-backed publishable server reads with explicit safe columns and active-only records; detail routes reject hidden/missing records, and public submission schemas omit moderation fields to preserve anonymous privacy.
 - Healthcare page copy and service matching live in shared healthcare modules; navigation/search use one link registry, and specialties are matched only through active join rows to avoid duplicated availability rules.
 - Maintenance host classification lives in src/config/maintenance.ts and affects presentation only; toggles use authenticated server role checks and audit the session actor, so preview access never grants write privileges.
+- Health resource pages filter directory rows through healthResourceMatcher with no fallback to unrelated rows; the concierge system prompt lives in src/lib/concierge-prompt.ts and its links are the reply-link allowlist.
