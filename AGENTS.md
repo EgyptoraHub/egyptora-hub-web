@@ -30,3 +30,5 @@
 - Language is mirrored into the `egyptora_lang` cookie read by the root loader — first HTML has the right lang/dir.
 - Gold text on light surfaces uses `text-gold-text` (darker token; dark surfaces reset it to brand gold via CSS), and text on gold fills uses `text-gold-foreground` — keeps contrast at 4.5:1 without changing the brand gold.
 - Home intro video: config only in src/lib/intro-video.ts; click-to-load YouTube facade, renders nothing while youtubeId is empty — no load cost, no empty section.
+- Healthcare uses the central admin allowlist, shared client/server validation and database activation/evidence triggers; CSV uses dry-run validation, inactive new catalogue rows and status-only inquiry/report updates to protect private submissions.
+- Healthcare concierge searches use the public client and explicit safe columns; future health detail paths are search groundwork only until public pages are built.

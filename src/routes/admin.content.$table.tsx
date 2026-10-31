@@ -6,6 +6,8 @@ import { MilitaryCsvImport } from "@/components/admin/MilitaryCsvImport";
 import { CultureCsvImport } from "@/components/admin/CultureCsvImport";
 import { ProtectedCsvImport } from "@/components/admin/ProtectedCsvImport";
 import { ZonesCsvImport } from "@/components/admin/ZonesCsvImport";
+import { HealthCsvImport } from "@/components/admin/HealthCsvImport";
+import { HEALTH_TABLES, validateHealthValues, type HealthTable } from "@/lib/health-validation";
 import {
   bulkUpdateRows,
   deleteContentRow,
@@ -353,6 +355,18 @@ function ContentForm({
 
   const submit = async () => {
     setError(null);
+    if (HEALTH_TABLES.includes(cfg.table as HealthTable)) {
+      const row = { ...values };
+      for (const field of cfg.fields) {
+        if (field.type === "number" || field.type === "integer") row[field.name] = row[field.name] === "" || row[field.name] == null ? null : Number(row[field.name]);
+        if (row[field.name] === "") row[field.name] = null;
+        if (field.type === "json" && typeof row[field.name] === "string") {
+          try { row[field.name] = JSON.parse(row[field.name]); } catch { setError("Invalid JSON."); return; }
+        }
+      }
+      const problem = validateHealthValues(cfg.table as HealthTable, row, true);
+      if (problem) { setError(problem); return; }
+    }
     const jsonField = cfg.fields.find((f) => f.type === "json");
     if (jsonField && values[jsonField.name]) {
       try {
@@ -651,7 +665,7 @@ function AdminContentTable() {
             <button type="button" onClick={() => setShowImport((v) => !v)} className="rounded-full border border-gold/40 px-4 py-1.5 text-sm text-gold-text">
               {showImport ? t("Close CSV import") : t("Import CSV")}
             </button>
-            {showImport ? (cfg.table === "protected_areas" ? <ProtectedCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "economic_zones" || cfg.table === "zone_facts" ? <ZonesCsvImport kind={cfg.table === "economic_zones" ? "zones" : "facts"} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "culture_items" ? <CultureCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} />) : null}
+            {showImport ? (HEALTH_TABLES.includes(cfg.table as HealthTable) ? <HealthCsvImport table={cfg.table as HealthTable} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "protected_areas" ? <ProtectedCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "economic_zones" || cfg.table === "zone_facts" ? <ZonesCsvImport kind={cfg.table === "economic_zones" ? "zones" : "facts"} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "culture_items" ? <CultureCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} />) : null}
           </div>
         ) : null}
 

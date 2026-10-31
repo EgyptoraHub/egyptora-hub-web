@@ -9,6 +9,11 @@ export const Route = createFileRoute("/admin/data-audit")({
   head: () => ({
     meta: [
       { title: "Data audit — Admin | Egyptora Hub" },
+      { name: "description", content: "Internal source and data-quality audit for Egyptora Hub." },
+      { property: "og:title", content: "Data audit — Admin | Egyptora Hub" },
+      { property: "og:description", content: "Internal source and data-quality audit for Egyptora Hub." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -143,6 +148,9 @@ function DataAuditPage() {
         rows={data.a}
         filename="audit-a-source-links.csv"
       />
+      {data.healthCounts?.map((r) => <p key={r.table} className="text-sm text-muted-foreground">
+        {r.table}: {r.total} total{r.active == null ? " · Source/verification checks not applicable to submissions" : ` · ${r.active} active · ${r.inactive} inactive · ${r.missingSource} missing source · ${r.missingVerified} missing verification date`}
+      </p>)}
       <p className="text-sm text-muted-foreground">
         Store links (not violations): {data.storeLinks.play} Google Play, {data.storeLinks.appStore} App Store.
         Media &amp; licence links (informational):{" "}
