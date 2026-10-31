@@ -67,3 +67,13 @@
 
 ## Prompt 30 — Coming soon Wave 1
 - [x] Reverted in Prompt 30b: guide hubs removed, 8 items back to Coming soon (20)
+
+## Prompt 43 — Healthcare review fixes
+- [x] Resource pages filter by health terms (EN+AR); no fallback to unrelated rows
+- [x] Header: short "Healthcare" desktop label, full label in mobile menu, no overlaps 1280–1970 EN/AR
+- [x] Navy gradient hero, distinct category icons, disclaimer with emergency + full-disclaimer links, honest empty states
+- [x] Concierge health safety rules + link allowlist from prompt; 6 regression tests
+- [x] Legal doc #35 health-disclaimer (DRAFT, counsel review required) + footer link + sitemap
+- [x] QA: tsgo clean, 30 tests pass, 12 pages EN/AR + 390px + redirect verified
+- [ ] Health disclaimer text needs qualified Egyptian legal counsel review before launch
+- [ ] Live AI concierge responses not exercised (no AI key in dev sandbox)
