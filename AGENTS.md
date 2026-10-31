@@ -32,3 +32,4 @@
 - Home intro video: config only in src/lib/intro-video.ts; click-to-load YouTube facade, renders nothing while youtubeId is empty — no load cost, no empty section.
 - Healthcare uses the central admin allowlist, shared client/server validation and database activation/evidence triggers; CSV uses dry-run validation, inactive new catalogue rows and status-only inquiry/report updates to protect private submissions.
 - Healthcare concierge searches use the public client and explicit safe columns; future health detail paths are search groundwork only until public pages are built.
+- Maintenance host classification lives in src/config/maintenance.ts and affects presentation only; toggles use authenticated server role checks and audit the session actor, so preview access never grants write privileges.

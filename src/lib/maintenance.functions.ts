@@ -1,6 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
-import { createHash, timingSafeEqual } from "node:crypto";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { checkRole } from "@/lib/roles.functions";
+import { requireMaintenanceAdmin } from "@/config/maintenance";
+import { z } from "zod";
 
 const KEY = "maintenance";
 
@@ -18,30 +21,25 @@ export const getMaintenance = createServerFn({ method: "GET" }).handler(async ()
       },
     },
   });
-  const { data } = await client.from("site_settings").select("value").eq("key", KEY).maybeSingle();
+  const { data, error } = await client.from("site_settings").select("value").eq("key", KEY).maybeSingle();
+  if (error) throw new Error("Maintenance status unavailable");
   const value = (data?.value ?? {}) as { enabled?: boolean };
   return { enabled: value.enabled === true };
 });
 
-function matches(input: string, expected: string) {
-  const a = createHash("sha256").update(input, "utf8").digest();
-  const b = createHash("sha256").update(expected, "utf8").digest();
-  return timingSafeEqual(a, b);
-}
-
-/** Owner-only toggle, protected by the MAINTENANCE_ADMIN_PASSWORD secret. */
+/** Session-authenticated toggle; role validation precedes privileged access. */
 export const setMaintenance = createServerFn({ method: "POST" })
-  .inputValidator((data: { password: string; enabled: boolean }) => data)
-  .handler(async ({ data }) => {
-    const expected = process.env["MAINTENANCE_ADMIN_PASSWORD"];
-    if (!expected) throw new Error("MAINTENANCE_ADMIN_PASSWORD is not set");
-    if (!matches(data.password, expected)) return { ok: false as const };
+  .middleware([requireSupabaseAuth])
+  .inputValidator(z.object({ enabled: z.boolean() }).strict())
+  .handler(async ({ data, context }) => {
+    requireMaintenanceAdmin(Boolean(context.userId), await checkRole(context, "admin"));
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    await supabaseAdmin
+    const { error } = await supabaseAdmin
       .from("site_settings")
       .upsert({ key: KEY, value: { enabled: data.enabled }, updated_at: new Date().toISOString() });
+    if (error) throw new Error("Maintenance change could not be saved");
     const { writeAudit } = await import("@/lib/audit.server");
-    await writeAudit({ actorUserId: null, action: "maintenance.toggle", entityType: "site_settings", entityId: KEY, metadata: { enabled: data.enabled, via: "owner_password" } });
+    await writeAudit({ actorUserId: context.userId, action: "maintenance.toggle", entityType: "site_settings", entityId: KEY, metadata: { enabled: data.enabled, via: "admin_session" } });
     return { ok: true as const, enabled: data.enabled };
   });
