@@ -1095,6 +1095,66 @@ export const legalDocuments: LegalDocument[] = [
     ],
     { footerGroup: "Legal" },
   ),
+
+  doc(
+    35,
+    "health-disclaimer",
+    "Health Information Disclaimer",
+    "Disclaimers",
+    "Why the healthcare information on Egyptora Hub is general information only and never medical advice.",
+    [
+      {
+        heading: "Informational only — not medical advice",
+        body: [
+          "All healthcare content on Egyptora Hub is general information for awareness and navigation. It is not medical advice, a diagnosis, a treatment recommendation or a substitute for consultation with a qualified healthcare professional.",
+        ],
+      },
+      {
+        heading: "No doctor–patient relationship",
+        body: [
+          "Using this platform, reading its content or contacting a listed facility through it does not create a doctor–patient relationship or any professional healthcare relationship with Egyptora Hub.",
+        ],
+      },
+      {
+        heading: "Independent private platform",
+        body: [
+          "Egyptora Hub is an independent private platform. It is not a government body, not a healthcare provider and not affiliated with the Ministry of Health or any other authority.",
+        ],
+      },
+      {
+        heading: "Listings and sources",
+        body: [
+          "Facility and specialty listings come from public sources and carry a review date. Information may be incomplete or out of date; always confirm services, hours and availability directly with the facility before acting.",
+          "Licensing or accreditation status is shown only where a supporting source is published alongside it.",
+        ],
+      },
+      {
+        heading: "Third-party links",
+        body: [
+          "Links to official websites, apps and other third parties are provided for convenience. Egyptora Hub does not operate those services and is not responsible for their content or availability.",
+        ],
+      },
+      {
+        heading: "Forms are administrative only",
+        body: [
+          "Inquiry and report forms on the healthcare pages are administrative channels. Do not include medical information, diagnoses, reports or personal health details in any form or in the AI chat.",
+        ],
+      },
+      {
+        heading: "Emergencies",
+        body: [
+          "In an emergency, use the official Egyptian emergency numbers immediately. Egyptora Hub is not an emergency service and cannot respond to urgent medical situations.",
+        ],
+      },
+      {
+        heading: "Medical travel",
+        body: [
+          "Medical-travel information describes a possible coordination process only. Egyptora Hub does not guarantee a cure, a visa, a price or acceptance by any provider.",
+        ],
+      },
+    ],
+    { footerGroup: "Legal" },
+  ),
 ];
 
 export const legalCategories: LegalCategory[] = [
