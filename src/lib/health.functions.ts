@@ -34,7 +34,7 @@ export const getHealthResources = createServerFn({ method: "GET" }).handler(asyn
     db.from("government_entities").select("id,entity_name_en,entity_name_ar,description_en,category_en,category_ar,official_url").eq("is_active", true).order("sort_order"),
     db.from("app_categories").select("id,slug,name_en,name_ar").eq("is_active", true),
     db.from("egypt_apps").select("id,category_id,name_en,name_ar,description_en,description_ar,google_play_url,app_store_url,website_url").eq("is_active", true).order("sort_order"),
-    db.from("events").select("id,name,category,tags,starts_at").gte("starts_at", new Date().toISOString()).order("starts_at"),
+    db.from("events").select("id,name,category,tags,start_date").gte("start_date", new Date().toISOString()).order("start_date"),
   ]);
   if ([government, categories, apps, events].some((r) => r.error)) throw new Error("Healthcare resources are temporarily unavailable.");
   const healthCategory = /health|medical|صحة|صح[ية]|طب/i;
