@@ -1,10 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { HeartPulse, ArrowRight, Stethoscope, Hospital, Home, Activity, Brain, Baby, Droplet, Plane, ShieldCheck, Globe, Smartphone, FlaskConical, LifeBuoy, type LucideIcon } from "lucide-react";
+import { HeartPulse, ArrowRight, Stethoscope, Hospital, Home, Activity, Brain, Baby, Droplet, Plane, ShieldCheck, Globe, Smartphone, FlaskConical, LifeBuoy, ShieldAlert, type LucideIcon } from "lucide-react";
 import { useI18n } from "@/i18n";
 import { healthQuery, healthResourcesQuery } from "@/lib/health.functions";
 import { healthNavigation, servicePages, facilityTypeLabels, ownershipLabels, hasHealthEvidence, type HealthSearch } from "@/lib/health-public";
-import { GenImage } from "@/components/site/GenImage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SmartLink, innerWrap, Crumbs } from "@/components/layout/InnerPage";
