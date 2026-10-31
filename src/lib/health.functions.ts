@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { queryOptions } from "@tanstack/react-query";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
-import { publicHealthInquirySchema, publicHealthReportSchema } from "./health-public";
+import { publicHealthInquirySchema, publicHealthReportSchema, healthResourceMatcher } from "./health-public";
 
 const FACILITY_COLUMNS = "id,slug,name_en,name_ar,facility_type,ownership,governorate_id,city_en,city_ar,address_en,address_ar,lat,lng,phone,hours_en,hours_ar,official_website,services,description_en,description_ar,license_status,license_source_url,accreditation_status,accreditation_source_url,source_url,last_verified_at,is_active,image_key" as const;
 const SPECIALTY_COLUMNS = "id,slug,name_en,name_ar,summary_en,summary_ar,when_to_visit_en,when_to_visit_ar,sort_order,source_url,last_verified_at" as const;
@@ -37,12 +37,15 @@ export const getHealthResources = createServerFn({ method: "GET" }).handler(asyn
     db.from("events").select("id,name,category,tags,start_date").gte("start_date", new Date().toISOString()).order("start_date"),
   ]);
   if ([government, categories, apps, events].some((r) => r.error)) throw new Error("Healthcare resources are temporarily unavailable.");
-  const healthCategory = /health|medical|صحة|صح[ية]|طب/i;
-  const govRows = government.data ?? []; const catRows = categories.data ?? [];
-  const govHasCategory = govRows.some((r) => healthCategory.test(`${r.category_en} ${r.category_ar}`));
-  const healthCats = new Set(catRows.filter((r) => healthCategory.test(`${r.slug} ${r.name_en} ${r.name_ar}`)).map((r) => r.id));
-  return { government: govHasCategory ? govRows.filter((r) => healthCategory.test(`${r.category_en} ${r.category_ar}`)) : govRows, governmentFallback: !govHasCategory,
-    apps: healthCats.size ? (apps.data ?? []).filter((r) => healthCats.has(r.category_id)) : apps.data ?? [], appsFallback: healthCats.size === 0,
+  // Only rows whose name/category/description match health terms are shown — never a fallback to all rows.
+  const matchHealth = healthResourceMatcher("health");
+  const matchInsurance = healthResourceMatcher("insurance");
+  const govRows = government.data ?? [];
+  const catName = new Map((categories.data ?? []).map((c) => [c.id, `${c.slug} ${c.name_en} ${c.name_ar}`]));
+  return {
+    officialWebsites: govRows.filter((r) => matchHealth(r.entity_name_en, r.entity_name_ar, r.category_en, r.category_ar, r.description_en)),
+    insurance: govRows.filter((r) => matchInsurance(r.entity_name_en, r.entity_name_ar, r.category_en, r.category_ar, r.description_en)),
+    apps: (apps.data ?? []).filter((r) => matchHealth(r.name_en, r.name_ar, r.description_en, r.description_ar, catName.get(r.category_id))),
     events: (events.data ?? []).filter((r) => /health|blood|donation|صحة|دم|تبرع/i.test(`${r.category ?? ""} ${(r.tags ?? []).join(" ")}`)) };
 });
 export const healthResourcesQuery = queryOptions({ queryKey: ["health-resources"], queryFn: () => getHealthResources(), staleTime: 60_000 });
