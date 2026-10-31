@@ -1477,6 +1477,292 @@ export type Database = {
         }
         Relationships: []
       }
+      health_facilities: {
+        Row: {
+          accreditation_source_url: string | null
+          accreditation_status: string | null
+          address_ar: string | null
+          address_en: string | null
+          city_ar: string | null
+          city_en: string | null
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          external_ids: Json
+          facility_type: string
+          governorate_id: string | null
+          hours_ar: string | null
+          hours_en: string | null
+          id: string
+          image_key: string | null
+          is_active: boolean
+          last_verified_at: string | null
+          lat: number | null
+          license_source_url: string | null
+          license_status: string | null
+          lng: number | null
+          name_ar: string
+          name_en: string
+          official_website: string | null
+          ownership: string
+          phone: string | null
+          services: string[]
+          slug: string
+          source_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          accreditation_source_url?: string | null
+          accreditation_status?: string | null
+          address_ar?: string | null
+          address_en?: string | null
+          city_ar?: string | null
+          city_en?: string | null
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          external_ids?: Json
+          facility_type: string
+          governorate_id?: string | null
+          hours_ar?: string | null
+          hours_en?: string | null
+          id?: string
+          image_key?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          lat?: number | null
+          license_source_url?: string | null
+          license_status?: string | null
+          lng?: number | null
+          name_ar: string
+          name_en: string
+          official_website?: string | null
+          ownership: string
+          phone?: string | null
+          services?: string[]
+          slug: string
+          source_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accreditation_source_url?: string | null
+          accreditation_status?: string | null
+          address_ar?: string | null
+          address_en?: string | null
+          city_ar?: string | null
+          city_en?: string | null
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          external_ids?: Json
+          facility_type?: string
+          governorate_id?: string | null
+          hours_ar?: string | null
+          hours_en?: string | null
+          id?: string
+          image_key?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          lat?: number | null
+          license_source_url?: string | null
+          license_status?: string | null
+          lng?: number | null
+          name_ar?: string
+          name_en?: string
+          official_website?: string | null
+          ownership?: string
+          phone?: string | null
+          services?: string[]
+          slug?: string
+          source_url?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "health_facilities_governorate_id_fkey"
+            columns: ["governorate_id"]
+            isOneToOne: false
+            referencedRelation: "governorates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      health_facility_specialties: {
+        Row: {
+          created_at: string
+          facility_id: string
+          id: string
+          specialty_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          facility_id: string
+          id?: string
+          specialty_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          facility_id?: string
+          id?: string
+          specialty_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "health_facility_specialties_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "health_facilities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "health_facility_specialties_specialty_id_fkey"
+            columns: ["specialty_id"]
+            isOneToOne: false
+            referencedRelation: "health_specialties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      health_inquiries: {
+        Row: {
+          consent: boolean
+          country: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string
+          preferred_language: string
+          status: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          consent: boolean
+          country: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          message: string
+          preferred_language: string
+          status?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          consent?: boolean
+          country?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string
+          preferred_language?: string
+          status?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      health_reports: {
+        Row: {
+          contact_email: string | null
+          created_at: string
+          facility_id: string | null
+          id: string
+          kind: string
+          message: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string
+          facility_id?: string | null
+          id?: string
+          kind: string
+          message: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string
+          facility_id?: string | null
+          id?: string
+          kind?: string
+          message?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "health_reports_facility_id_fkey"
+            columns: ["facility_id"]
+            isOneToOne: false
+            referencedRelation: "health_facilities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      health_specialties: {
+        Row: {
+          created_at: string
+          icon: string | null
+          id: string
+          is_active: boolean
+          last_verified_at: string | null
+          name_ar: string
+          name_en: string
+          slug: string
+          sort_order: number
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          updated_at: string
+          when_to_visit_ar: string | null
+          when_to_visit_en: string | null
+        }
+        Insert: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          last_verified_at?: string | null
+          name_ar: string
+          name_en: string
+          slug: string
+          sort_order?: number
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          when_to_visit_ar?: string | null
+          when_to_visit_en?: string | null
+        }
+        Update: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          last_verified_at?: string | null
+          name_ar?: string
+          name_en?: string
+          slug?: string
+          sort_order?: number
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          when_to_visit_ar?: string | null
+          when_to_visit_en?: string | null
+        }
+        Relationships: []
+      }
       heritage_sites: {
         Row: {
           academic_references: string[] | null
