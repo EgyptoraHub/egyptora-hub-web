@@ -32,4 +32,33 @@ describe("public healthcare rules", () => {
     const rows = [{ n: "Cabinet" }, { n: "State Information Service" }];
     assert.deepEqual(rows.filter((r) => match(r.n)), []);
   });
+  it("Arabic whole-token matching accepts genuine health rows with prefixes and articles", () => {
+    const match = healthResourceMatcher("health");
+    assert.equal(match("وزارة الصحة والسكان"), true);
+    assert.equal(match("هيئة التأمين الصحي الشامل"), true);
+    assert.equal(match("بنك الدم"), true);
+    assert.equal(match("التبرع بالدم"), true);
+    assert.equal(match("مستشفيات الجامعة"), true);
+    assert.equal(match("بالدم", "للتأمين", "بالمستشفى"), true);
+  });
+  it("English word-boundary matching accepts genuine health rows and stem suffixes", () => {
+    const match = healthResourceMatcher("health");
+    assert.equal(match("Ministry of Health"), true);
+    assert.equal(match("Health Insurance Authority"), true);
+    assert.equal(match("Hospitals directory"), true);
+    assert.equal(match("Clinics and pharmaceutical services"), true);
+  });
+  it("short Arabic terms never match inside ordinary words", () => {
+    const match = healthResourceMatcher("health");
+    assert.equal(match("الخدمات الحكومية الرقمية"), false);
+    assert.equal(match("مقدمة الخدمة"), false);
+    assert.equal(match("الطبيعة والمحميات"), false);
+    assert.equal(match("مطبعة"), false);
+    assert.equal(match("وزارة الاتصالات وتكنولوجيا المعلومات"), false);
+  });
+  it("English health terms never match inside unrelated words or rows", () => {
+    const match = healthResourceMatcher("health");
+    assert.equal(match("Digital government services"), false);
+    assert.equal(match("State Information Service"), false);
+  });
 });
