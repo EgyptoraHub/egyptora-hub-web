@@ -57,7 +57,7 @@ const chips: Chip[] = [
   { label: "Residency & Visas", Icon: Stamp },
   { label: "Housing & Real Estate", Icon: Home, to: "/real-estate" },
   { label: "Education & Schools", Icon: GraduationCap, to: "/research-programs" },
-  { label: "Healthcare & Medical Services", Icon: HeartPulse },
+  { label: "Healthcare & Medical Services", Icon: HeartPulse, to: "/health" },
   { label: "Work & Employment", Icon: Briefcase },
   { label: "Cost of Living", Icon: Wallet },
   { label: "Safety & Security", Icon: ShieldCheck },
@@ -70,7 +70,7 @@ const life: CardItem[] = [
   { title: "Residency & Visas", desc: "Residency options, visa information and procedures.", img: residency },
   { title: "Housing & Real Estate", desc: "Apartments, villas, compounds and rental options.", img: housing, to: "/real-estate" },
   { title: "Education & Schools", desc: "International and local schools, universities and programs.", img: education, to: "/research-programs" },
-  { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health },
+  { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health, to: "/health" },
   { title: "Work & Employment", desc: "Job opportunities, work permits and career growth.", img: work },
   { title: "Know Your Roots", desc: "Explore the governorate your family comes from.", img: cairo, to: "/know-your-roots" },
 ];
@@ -118,7 +118,7 @@ function LiveInEgypt() {
                 { label: "Visa Information", Icon: Stamp },
                 { label: "Cost of Living Calculator", Icon: Calculator },
                 { label: "International Schools Directory", to: "/research-programs", Icon: School },
-                { label: "Hospitals & Clinics Near You", Icon: Hospital },
+                { label: "Hospitals & Clinics Near You", Icon: Hospital, to: "/health/find-care" },
                 { label: "Public Transportation Guide", Icon: TrainFront },
                 { label: "Emergency Contacts", to: "/emergency-numbers", Icon: Phone },
               ]}

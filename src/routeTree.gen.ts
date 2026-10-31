@@ -28,6 +28,7 @@ import { Route as ExploreEgyptRouteImport } from './routes/explore-egypt'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GovernmentRouteImport } from './routes/government'
 import { Route as GovernmentDirectoryRouteImport } from './routes/government-directory'
+import { Route as HealthRouteImport } from './routes/health'
 import { Route as HeritageSitesRouteImport } from './routes/heritage-sites'
 import { Route as InvestInEgyptRouteImport } from './routes/invest-in-egypt'
 import { Route as InvestmentOpportunitiesRouteImport } from './routes/investment-opportunities'
@@ -72,6 +73,15 @@ import { Route as ExperiencesEcoNatureRouteImport } from './routes/experiences.e
 import { Route as GovernmentDirectoryDigitalServicesRouteImport } from './routes/government-directory_.digital-services'
 import { Route as GovernoratesIndexRouteImport } from './routes/governorates.index'
 import { Route as GovernoratesIdRouteImport } from './routes/governorates.$id'
+import { Route as HealthAppsRouteImport } from './routes/health_.apps'
+import { Route as HealthBloodDonationRouteImport } from './routes/health_.blood-donation'
+import { Route as HealthFindCareRouteImport } from './routes/health_.find-care'
+import { Route as HealthInsuranceRouteImport } from './routes/health_.insurance'
+import { Route as HealthMedicalTravelRouteImport } from './routes/health_.medical-travel'
+import { Route as HealthOfficialWebsitesRouteImport } from './routes/health_.official-websites'
+import { Route as HealthProjectsResearchRouteImport } from './routes/health_.projects-research'
+import { Route as HealthSpecialtiesRouteImport } from './routes/health_.specialties'
+import { Route as HealthSupportRouteImport } from './routes/health_.support'
 import { Route as HeritageSitesIdRouteImport } from './routes/heritage-sites_.$id'
 import { Route as InvestmentOpportunitiesIdRouteImport } from './routes/investment-opportunities_.$id'
 import { Route as LegalIndexRouteImport } from './routes/legal.index'
@@ -114,6 +124,9 @@ import { Route as EgyptThroughTimeMilitaryHistoryLibraryRouteImport } from './ro
 import { Route as EgyptThroughTimeMilitaryHistoryMapRouteImport } from './routes/egypt-through-time_.military-history_.map'
 import { Route as EgyptThroughTimeMilitaryHistoryRecordsRouteImport } from './routes/egypt-through-time_.military-history_.records'
 import { Route as EgyptThroughTimeMilitaryHistoryTimelineRouteImport } from './routes/egypt-through-time_.military-history_.timeline'
+import { Route as HealthFindCareSlugRouteImport } from './routes/health_.find-care_.$slug'
+import { Route as HealthServicesTypeRouteImport } from './routes/health_.services.$type'
+import { Route as HealthSpecialtiesSlugRouteImport } from './routes/health_.specialties_.$slug'
 import { Route as LiveLikeAnEgyptianSectionSlugRouteImport } from './routes/live-like-an-egyptian_.$section_.$slug'
 import { Route as PartnersTypeIdRouteImport } from './routes/partners.$type.$id'
 import { Route as ApiPublicHooksProviderRouteImport } from './routes/api/public/hooks/$provider'
@@ -214,6 +227,11 @@ const GovernmentRoute = GovernmentRouteImport.update({
 const GovernmentDirectoryRoute = GovernmentDirectoryRouteImport.update({
   id: '/government-directory',
   path: '/government-directory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HeritageSitesRoute = HeritageSitesRouteImport.update({
@@ -442,6 +460,51 @@ const GovernoratesIdRoute = GovernoratesIdRouteImport.update({
   path: '/governorates/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthAppsRoute = HealthAppsRouteImport.update({
+  id: '/health_/apps',
+  path: '/health/apps',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthBloodDonationRoute = HealthBloodDonationRouteImport.update({
+  id: '/health_/blood-donation',
+  path: '/health/blood-donation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthFindCareRoute = HealthFindCareRouteImport.update({
+  id: '/health_/find-care',
+  path: '/health/find-care',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthInsuranceRoute = HealthInsuranceRouteImport.update({
+  id: '/health_/insurance',
+  path: '/health/insurance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthMedicalTravelRoute = HealthMedicalTravelRouteImport.update({
+  id: '/health_/medical-travel',
+  path: '/health/medical-travel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthOfficialWebsitesRoute = HealthOfficialWebsitesRouteImport.update({
+  id: '/health_/official-websites',
+  path: '/health/official-websites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthProjectsResearchRoute = HealthProjectsResearchRouteImport.update({
+  id: '/health_/projects-research',
+  path: '/health/projects-research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthSpecialtiesRoute = HealthSpecialtiesRouteImport.update({
+  id: '/health_/specialties',
+  path: '/health/specialties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthSupportRoute = HealthSupportRouteImport.update({
+  id: '/health_/support',
+  path: '/health/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HeritageSitesIdRoute = HeritageSitesIdRouteImport.update({
   id: '/heritage-sites_/$id',
   path: '/heritage-sites/$id',
@@ -668,6 +731,21 @@ const EgyptThroughTimeMilitaryHistoryTimelineRoute =
     path: '/egypt-through-time/military-history/timeline',
     getParentRoute: () => rootRouteImport,
   } as any)
+const HealthFindCareSlugRoute = HealthFindCareSlugRouteImport.update({
+  id: '/health_/find-care_/$slug',
+  path: '/health/find-care/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthServicesTypeRoute = HealthServicesTypeRouteImport.update({
+  id: '/health_/services/$type',
+  path: '/health/services/$type',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthSpecialtiesSlugRoute = HealthSpecialtiesSlugRouteImport.update({
+  id: '/health_/specialties_/$slug',
+  path: '/health/specialties/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LiveLikeAnEgyptianSectionSlugRoute =
   LiveLikeAnEgyptianSectionSlugRouteImport.update({
     id: '/live-like-an-egyptian_/$section_/$slug',
@@ -717,6 +795,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/government': typeof GovernmentRoute
   '/government-directory': typeof GovernmentDirectoryRoute
+  '/health': typeof HealthRoute
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
@@ -759,6 +838,15 @@ export interface FileRoutesByFullPath {
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
+  '/health/apps': typeof HealthAppsRoute
+  '/health/blood-donation': typeof HealthBloodDonationRoute
+  '/health/find-care': typeof HealthFindCareRoute
+  '/health/insurance': typeof HealthInsuranceRoute
+  '/health/medical-travel': typeof HealthMedicalTravelRoute
+  '/health/official-websites': typeof HealthOfficialWebsitesRoute
+  '/health/projects-research': typeof HealthProjectsResearchRoute
+  '/health/specialties': typeof HealthSpecialtiesRoute
+  '/health/support': typeof HealthSupportRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
   '/investment-opportunities/$id': typeof InvestmentOpportunitiesIdRoute
   '/legal/$slug': typeof LegalSlugRoute
@@ -802,6 +890,9 @@ export interface FileRoutesByFullPath {
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/health/find-care/$slug': typeof HealthFindCareSlugRoute
+  '/health/services/$type': typeof HealthServicesTypeRoute
+  '/health/specialties/$slug': typeof HealthSpecialtiesSlugRoute
   '/live-like-an-egyptian/$section/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
@@ -828,6 +919,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/government': typeof GovernmentRoute
   '/government-directory': typeof GovernmentDirectoryRoute
+  '/health': typeof HealthRoute
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
@@ -870,6 +962,15 @@ export interface FileRoutesByTo {
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
+  '/health/apps': typeof HealthAppsRoute
+  '/health/blood-donation': typeof HealthBloodDonationRoute
+  '/health/find-care': typeof HealthFindCareRoute
+  '/health/insurance': typeof HealthInsuranceRoute
+  '/health/medical-travel': typeof HealthMedicalTravelRoute
+  '/health/official-websites': typeof HealthOfficialWebsitesRoute
+  '/health/projects-research': typeof HealthProjectsResearchRoute
+  '/health/specialties': typeof HealthSpecialtiesRoute
+  '/health/support': typeof HealthSupportRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
   '/investment-opportunities/$id': typeof InvestmentOpportunitiesIdRoute
   '/legal/$slug': typeof LegalSlugRoute
@@ -913,6 +1014,9 @@ export interface FileRoutesByTo {
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/health/find-care/$slug': typeof HealthFindCareSlugRoute
+  '/health/services/$type': typeof HealthServicesTypeRoute
+  '/health/specialties/$slug': typeof HealthSpecialtiesSlugRoute
   '/live-like-an-egyptian/$section/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content': typeof AdminContentIndexRoute
@@ -941,6 +1045,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/government': typeof GovernmentRoute
   '/government-directory': typeof GovernmentDirectoryRoute
+  '/health': typeof HealthRoute
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
@@ -983,6 +1088,15 @@ export interface FileRoutesById {
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
   '/government-directory_/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
+  '/health_/apps': typeof HealthAppsRoute
+  '/health_/blood-donation': typeof HealthBloodDonationRoute
+  '/health_/find-care': typeof HealthFindCareRoute
+  '/health_/insurance': typeof HealthInsuranceRoute
+  '/health_/medical-travel': typeof HealthMedicalTravelRoute
+  '/health_/official-websites': typeof HealthOfficialWebsitesRoute
+  '/health_/projects-research': typeof HealthProjectsResearchRoute
+  '/health_/specialties': typeof HealthSpecialtiesRoute
+  '/health_/support': typeof HealthSupportRoute
   '/heritage-sites_/$id': typeof HeritageSitesIdRoute
   '/investment-opportunities_/$id': typeof InvestmentOpportunitiesIdRoute
   '/legal/$slug': typeof LegalSlugRoute
@@ -1026,6 +1140,9 @@ export interface FileRoutesById {
   '/egypt-through-time_/military-history_/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time_/military-history_/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time_/military-history_/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/health_/find-care_/$slug': typeof HealthFindCareSlugRoute
+  '/health_/services/$type': typeof HealthServicesTypeRoute
+  '/health_/specialties_/$slug': typeof HealthSpecialtiesSlugRoute
   '/live-like-an-egyptian_/$section_/$slug': typeof LiveLikeAnEgyptianSectionSlugRoute
   '/partners/$type/$id': typeof PartnersTypeIdRoute
   '/admin/content/': typeof AdminContentIndexRoute
@@ -1055,6 +1172,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/government'
     | '/government-directory'
+    | '/health'
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
@@ -1097,6 +1215,15 @@ export interface FileRouteTypes {
     | '/experiences/eco-nature'
     | '/government-directory/digital-services'
     | '/governorates/$id'
+    | '/health/apps'
+    | '/health/blood-donation'
+    | '/health/find-care'
+    | '/health/insurance'
+    | '/health/medical-travel'
+    | '/health/official-websites'
+    | '/health/projects-research'
+    | '/health/specialties'
+    | '/health/support'
     | '/heritage-sites/$id'
     | '/investment-opportunities/$id'
     | '/legal/$slug'
@@ -1140,6 +1267,9 @@ export interface FileRouteTypes {
     | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
     | '/egypt-through-time/military-history/timeline'
+    | '/health/find-care/$slug'
+    | '/health/services/$type'
+    | '/health/specialties/$slug'
     | '/live-like-an-egyptian/$section/$slug'
     | '/partners/$type/$id'
     | '/admin/content/'
@@ -1166,6 +1296,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/government'
     | '/government-directory'
+    | '/health'
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
@@ -1208,6 +1339,15 @@ export interface FileRouteTypes {
     | '/experiences/eco-nature'
     | '/government-directory/digital-services'
     | '/governorates/$id'
+    | '/health/apps'
+    | '/health/blood-donation'
+    | '/health/find-care'
+    | '/health/insurance'
+    | '/health/medical-travel'
+    | '/health/official-websites'
+    | '/health/projects-research'
+    | '/health/specialties'
+    | '/health/support'
     | '/heritage-sites/$id'
     | '/investment-opportunities/$id'
     | '/legal/$slug'
@@ -1251,6 +1391,9 @@ export interface FileRouteTypes {
     | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
     | '/egypt-through-time/military-history/timeline'
+    | '/health/find-care/$slug'
+    | '/health/services/$type'
+    | '/health/specialties/$slug'
     | '/live-like-an-egyptian/$section/$slug'
     | '/partners/$type/$id'
     | '/admin/content'
@@ -1278,6 +1421,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/government'
     | '/government-directory'
+    | '/health'
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
@@ -1320,6 +1464,15 @@ export interface FileRouteTypes {
     | '/experiences/eco-nature'
     | '/government-directory_/digital-services'
     | '/governorates/$id'
+    | '/health_/apps'
+    | '/health_/blood-donation'
+    | '/health_/find-care'
+    | '/health_/insurance'
+    | '/health_/medical-travel'
+    | '/health_/official-websites'
+    | '/health_/projects-research'
+    | '/health_/specialties'
+    | '/health_/support'
     | '/heritage-sites_/$id'
     | '/investment-opportunities_/$id'
     | '/legal/$slug'
@@ -1363,6 +1516,9 @@ export interface FileRouteTypes {
     | '/egypt-through-time_/military-history_/map'
     | '/egypt-through-time_/military-history_/records'
     | '/egypt-through-time_/military-history_/timeline'
+    | '/health_/find-care_/$slug'
+    | '/health_/services/$type'
+    | '/health_/specialties_/$slug'
     | '/live-like-an-egyptian_/$section_/$slug'
     | '/partners/$type/$id'
     | '/admin/content/'
@@ -1391,6 +1547,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   GovernmentRoute: typeof GovernmentRoute
   GovernmentDirectoryRoute: typeof GovernmentDirectoryRoute
+  HealthRoute: typeof HealthRoute
   HeritageSitesRoute: typeof HeritageSitesRoute
   InvestInEgyptRoute: typeof InvestInEgyptRoute
   InvestmentOpportunitiesRoute: typeof InvestmentOpportunitiesRoute
@@ -1427,6 +1584,15 @@ export interface RootRouteChildren {
   ExperiencesEcoNatureRoute: typeof ExperiencesEcoNatureRoute
   GovernmentDirectoryDigitalServicesRoute: typeof GovernmentDirectoryDigitalServicesRoute
   GovernoratesIdRoute: typeof GovernoratesIdRoute
+  HealthAppsRoute: typeof HealthAppsRoute
+  HealthBloodDonationRoute: typeof HealthBloodDonationRoute
+  HealthFindCareRoute: typeof HealthFindCareRoute
+  HealthInsuranceRoute: typeof HealthInsuranceRoute
+  HealthMedicalTravelRoute: typeof HealthMedicalTravelRoute
+  HealthOfficialWebsitesRoute: typeof HealthOfficialWebsitesRoute
+  HealthProjectsResearchRoute: typeof HealthProjectsResearchRoute
+  HealthSpecialtiesRoute: typeof HealthSpecialtiesRoute
+  HealthSupportRoute: typeof HealthSupportRoute
   HeritageSitesIdRoute: typeof HeritageSitesIdRoute
   InvestmentOpportunitiesIdRoute: typeof InvestmentOpportunitiesIdRoute
   LegalSlugRoute: typeof LegalSlugRoute
@@ -1465,6 +1631,9 @@ export interface RootRouteChildren {
   EgyptThroughTimeMilitaryHistoryMapRoute: typeof EgyptThroughTimeMilitaryHistoryMapRoute
   EgyptThroughTimeMilitaryHistoryRecordsRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   EgyptThroughTimeMilitaryHistoryTimelineRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  HealthFindCareSlugRoute: typeof HealthFindCareSlugRoute
+  HealthServicesTypeRoute: typeof HealthServicesTypeRoute
+  HealthSpecialtiesSlugRoute: typeof HealthSpecialtiesSlugRoute
   LiveLikeAnEgyptianSectionSlugRoute: typeof LiveLikeAnEgyptianSectionSlugRoute
   PartnersTypeIdRoute: typeof PartnersTypeIdRoute
   ApiPublicHooksProviderRoute: typeof ApiPublicHooksProviderRoute
@@ -1605,6 +1774,13 @@ declare module '@tanstack/react-router' {
       path: '/government-directory'
       fullPath: '/government-directory'
       preLoaderRoute: typeof GovernmentDirectoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/heritage-sites': {
@@ -1915,6 +2091,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovernoratesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health_/apps': {
+      id: '/health_/apps'
+      path: '/health/apps'
+      fullPath: '/health/apps'
+      preLoaderRoute: typeof HealthAppsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/blood-donation': {
+      id: '/health_/blood-donation'
+      path: '/health/blood-donation'
+      fullPath: '/health/blood-donation'
+      preLoaderRoute: typeof HealthBloodDonationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/find-care': {
+      id: '/health_/find-care'
+      path: '/health/find-care'
+      fullPath: '/health/find-care'
+      preLoaderRoute: typeof HealthFindCareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/insurance': {
+      id: '/health_/insurance'
+      path: '/health/insurance'
+      fullPath: '/health/insurance'
+      preLoaderRoute: typeof HealthInsuranceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/medical-travel': {
+      id: '/health_/medical-travel'
+      path: '/health/medical-travel'
+      fullPath: '/health/medical-travel'
+      preLoaderRoute: typeof HealthMedicalTravelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/official-websites': {
+      id: '/health_/official-websites'
+      path: '/health/official-websites'
+      fullPath: '/health/official-websites'
+      preLoaderRoute: typeof HealthOfficialWebsitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/projects-research': {
+      id: '/health_/projects-research'
+      path: '/health/projects-research'
+      fullPath: '/health/projects-research'
+      preLoaderRoute: typeof HealthProjectsResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/specialties': {
+      id: '/health_/specialties'
+      path: '/health/specialties'
+      fullPath: '/health/specialties'
+      preLoaderRoute: typeof HealthSpecialtiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/support': {
+      id: '/health_/support'
+      path: '/health/support'
+      fullPath: '/health/support'
+      preLoaderRoute: typeof HealthSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/heritage-sites_/$id': {
       id: '/heritage-sites_/$id'
       path: '/heritage-sites/$id'
@@ -2209,6 +2448,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health_/find-care_/$slug': {
+      id: '/health_/find-care_/$slug'
+      path: '/health/find-care/$slug'
+      fullPath: '/health/find-care/$slug'
+      preLoaderRoute: typeof HealthFindCareSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/services/$type': {
+      id: '/health_/services/$type'
+      path: '/health/services/$type'
+      fullPath: '/health/services/$type'
+      preLoaderRoute: typeof HealthServicesTypeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health_/specialties_/$slug': {
+      id: '/health_/specialties_/$slug'
+      path: '/health/specialties/$slug'
+      fullPath: '/health/specialties/$slug'
+      preLoaderRoute: typeof HealthSpecialtiesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/live-like-an-egyptian_/$section_/$slug': {
       id: '/live-like-an-egyptian_/$section_/$slug'
       path: '/live-like-an-egyptian/$section/$slug'
@@ -2299,6 +2559,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   GovernmentRoute: GovernmentRoute,
   GovernmentDirectoryRoute: GovernmentDirectoryRoute,
+  HealthRoute: HealthRoute,
   HeritageSitesRoute: HeritageSitesRoute,
   InvestInEgyptRoute: InvestInEgyptRoute,
   InvestmentOpportunitiesRoute: InvestmentOpportunitiesRoute,
@@ -2336,6 +2597,15 @@ const rootRouteChildren: RootRouteChildren = {
   GovernmentDirectoryDigitalServicesRoute:
     GovernmentDirectoryDigitalServicesRoute,
   GovernoratesIdRoute: GovernoratesIdRoute,
+  HealthAppsRoute: HealthAppsRoute,
+  HealthBloodDonationRoute: HealthBloodDonationRoute,
+  HealthFindCareRoute: HealthFindCareRoute,
+  HealthInsuranceRoute: HealthInsuranceRoute,
+  HealthMedicalTravelRoute: HealthMedicalTravelRoute,
+  HealthOfficialWebsitesRoute: HealthOfficialWebsitesRoute,
+  HealthProjectsResearchRoute: HealthProjectsResearchRoute,
+  HealthSpecialtiesRoute: HealthSpecialtiesRoute,
+  HealthSupportRoute: HealthSupportRoute,
   HeritageSitesIdRoute: HeritageSitesIdRoute,
   InvestmentOpportunitiesIdRoute: InvestmentOpportunitiesIdRoute,
   LegalSlugRoute: LegalSlugRoute,
@@ -2379,6 +2649,9 @@ const rootRouteChildren: RootRouteChildren = {
     EgyptThroughTimeMilitaryHistoryRecordsRoute,
   EgyptThroughTimeMilitaryHistoryTimelineRoute:
     EgyptThroughTimeMilitaryHistoryTimelineRoute,
+  HealthFindCareSlugRoute: HealthFindCareSlugRoute,
+  HealthServicesTypeRoute: HealthServicesTypeRoute,
+  HealthSpecialtiesSlugRoute: HealthSpecialtiesSlugRoute,
   LiveLikeAnEgyptianSectionSlugRoute: LiveLikeAnEgyptianSectionSlugRoute,
   PartnersTypeIdRoute: PartnersTypeIdRoute,
   ApiPublicHooksProviderRoute: ApiPublicHooksProviderRoute,
