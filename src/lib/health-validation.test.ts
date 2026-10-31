@@ -1,4 +1,6 @@
-import { describe, expect, test } from "bun:test";
+import { describe, it as test } from "node:test";
+import assert from "node:assert/strict";
+const expect = (value: unknown) => ({ toBe: (expected: unknown) => assert.equal(value, expected), toBeNull: () => assert.equal(value, null), not: { toBeNull: () => assert.notEqual(value, null) } });
 import { healthActivationError, healthReportSchema, healthInquirySchema, validateHealthValues } from "./health-validation";
 
 describe("healthcare foundation rules", () => {

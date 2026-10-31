@@ -25,9 +25,9 @@ export const healthReportSchema = z.object({ facility_id: z.string().uuid().null
 export const healthInquirySchema = z.object({ type: z.enum(["medical_travel", "partner", "research"]), full_name: text(100).min(1), email: z.string().trim().email().max(255), country: text(100).min(1), preferred_language: z.enum(["en", "ar", "fr", "de", "es", "it", "ru", "zh", "hi"]), message: text(1500).min(1), consent: z.literal(true), status: z.enum(HEALTH_STATUS).optional() });
 
 export function healthActivationError(row: Record<string, unknown>): string | null {
-  if (row.is_active && (!row.source_url || !row.last_verified_at)) return "Activation requires a source URL and verification date.";
-  if (row.license_status && (!row.license_source_url || !row.last_verified_at)) return "License status requires its own source URL and verification date.";
-  if (row.accreditation_status && (!row.accreditation_source_url || !row.last_verified_at)) return "Accreditation status requires its own source URL and verification date.";
+  if (row["is_active"] && (!row["source_url"] || !row["last_verified_at"])) return "Activation requires a source URL and verification date.";
+  if (row["license_status"] && (!row["license_source_url"] || !row["last_verified_at"])) return "License status requires its own source URL and verification date.";
+  if (row["accreditation_status"] && (!row["accreditation_source_url"] || !row["last_verified_at"])) return "Accreditation status requires its own source URL and verification date.";
   return null;
 }
 

@@ -372,7 +372,7 @@ export const saveContentRow = createServerFn({ method: "POST" })
         if (data.mode === "update") {
           const { data: existing, error } = await supabaseAdmin.from(cfg.table as any).select("*").eq(cfg.pk, data.pk).maybeSingle();
           if (error || !existing) return { authorized: true, ok: false, error: "Entry not found." };
-          row = { ...(existing as Record<string, unknown>), ...payload };
+          row = { ...(existing as unknown as Record<string, unknown>), ...payload };
         }
         const error = validateHealthValues(cfg.table as HealthTable, row);
         if (error) return { authorized: true, ok: false, error };

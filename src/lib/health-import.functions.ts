@@ -51,11 +51,11 @@ export const importHealthCsv = createServerFn({ method: "POST" }).middleware([re
             if (field.type === "tags") value = String(value).split("|").filter(Boolean);
             payload[field.name] = coerceFieldValue(field, value);
           }
-          const { data: existing, error } = await supabaseAdmin.from(data.table).select("*").eq(key, keyValue).maybeSingle();
+          const { data: existing, error } = await (supabaseAdmin.from(data.table) as any).select("*").eq(key, keyValue).maybeSingle();
           if (error) throw new Error("Could not read entry.");
           if (!existing && cfg.noCreate) throw new Error("Reports/inquiries can only update existing IDs.");
-          if (!existing && cfg.slugColumn && payload.is_active === true) throw new Error("New catalogue entries must be imported inactive.");
-          if (!existing && cfg.slugColumn) payload.is_active = false;
+          if (!existing && cfg.slugColumn && payload["is_active"] === true) throw new Error("New catalogue entries must be imported inactive.");
+          if (!existing && cfg.slugColumn) payload["is_active"] = false;
           const problem = validateHealthValues(data.table, { ...(existing as Record<string, unknown> | null), ...payload });
           if (problem) throw new Error(problem);
           plans.push({ keyValue, payload, existing: !!existing });
@@ -65,7 +65,7 @@ export const importHealthCsv = createServerFn({ method: "POST" }).middleware([re
       if (rows.some((r) => r.action === "rejected")) return { authorized: true, ok: false, rows };
       if (!data.dryRun) {
         for (const plan of plans) {
-          const q = plan.existing ? supabaseAdmin.from(data.table).update(plan.payload).eq(key, plan.keyValue) : supabaseAdmin.from(data.table).insert({ ...plan.payload, [key]: plan.keyValue } as never);
+          const q = plan.existing ? (supabaseAdmin.from(data.table) as any).update(plan.payload).eq(key, plan.keyValue) : (supabaseAdmin.from(data.table) as any).insert({ ...plan.payload, [key]: plan.keyValue } as never);
           const { error } = await q;
           if (error) throw new Error("Import stopped: an entry could not be saved. Re-run preview before retrying.");
         }
