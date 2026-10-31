@@ -175,7 +175,7 @@ function DesktopEntry({ entry, active }: { entry: NavEntry; active: boolean }) {
           onClick={() => setOpen(false)}
           className={triggerCls}
         >
-          {t(entry.label)}
+          {t(entryLabel)}
           {chevron}
         </Link>
       ) : (
@@ -189,7 +189,7 @@ function DesktopEntry({ entry, active }: { entry: NavEntry; active: boolean }) {
           onClick={() => setOpen((v) => !v)}
           className={triggerCls}
         >
-          {t(entry.label)}
+          {t(entryLabel)}
           {chevron}
         </button>
       )}
