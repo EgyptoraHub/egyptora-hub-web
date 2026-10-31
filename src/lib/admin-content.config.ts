@@ -25,10 +25,11 @@ export type UuidFkTable =
   | "military_records"
   | "military_figures"
   | "military_sources"
+  | "health_facilities"
   | "culture_items";
 export type FkTable = "governorates" | "eras" | UuidFkTable;
 export const UUID_FK_TABLES: UuidFkTable[] = [
-  "emergency_categories", "app_categories", "military_eras", "military_records", "military_figures", "military_sources", "culture_items",
+  "emergency_categories", "app_categories", "military_eras", "military_records", "military_figures", "military_sources", "culture_items", "health_facilities",
 ];
 
 export type FieldConfig = {
@@ -141,6 +142,29 @@ const gov: FieldConfig = { name: "governorate_slug", type: "fk", fk: "governorat
 const eraFk: FieldConfig = { name: "era", type: "fk", fk: "eras" };
 
 export const CONTENT_TABLES: TableConfig[] = [
+  {
+    table: "health_facilities", label: "Health facilities", group: "Healthcare & Medical Services", pk: "id", autoPk: true, slugColumn: "slug", displayColumn: "name_en", csvImport: true,
+    listColumns: ["name_ar", "facility_type", "ownership", "is_active"], countBy: "is_active",
+    filters: [{ name: "is_active", label: "Active", options: ["true", "false"] }],
+    bulk: [{ name: "is_active", options: ["true", "false"] }],
+    fields: [t("name_en"), t("name_ar"), { name: "facility_type", type: "select", options: ["hospital", "clinic", "health_unit", "lab", "imaging", "pharmacy", "blood_center", "rehab", "mental_health", "home_care"] }, { name: "ownership", type: "select", options: ["government", "private", "university"] },
+      { name: "governorate_id", type: "select", options: GOV_IDS }, t("city_en"), t("city_ar"), ta("address_en"), ta("address_ar"),
+      { name: "lat", type: "number", min: -90, max: 90 }, { name: "lng", type: "number", min: -180, max: 180 }, t("phone"), t("hours_en"), t("hours_ar"), t("official_website"), tags("services"), ta("description_en"), ta("description_ar"),
+      t("license_status"), t("license_source_url"), t("accreditation_status"), t("accreditation_source_url"), t("source_url"), date("last_verified_at"), bool("is_active"), { name: "external_ids", type: "json" }, t("image_key")],
+  },
+  {
+    table: "health_specialties", label: "Health specialties", group: "Healthcare & Medical Services", pk: "id", autoPk: true, slugColumn: "slug", displayColumn: "name_en", orderColumn: "sort_order", csvImport: true, countBy: "is_active",
+    listColumns: ["name_ar", "sort_order", "is_active"], filters: [{ name: "is_active", label: "Active", options: ["true", "false"] }], bulk: [{ name: "is_active", options: ["true", "false"] }],
+    fields: [t("name_en"), t("name_ar"), ta("summary_en"), ta("summary_ar"), ta("when_to_visit_en"), ta("when_to_visit_ar"), t("icon"), int("sort_order"), bool("is_active"), t("source_url"), date("last_verified_at")],
+  },
+  {
+    table: "health_reports", label: "Health reports", group: "Healthcare & Medical Services", pk: "id", autoPk: true, noCreate: true, displayColumn: "message", csvImport: true, orderColumn: "created_at", listColumns: ["kind", "status", "created_at"],
+    fields: [{ name: "facility_id", type: "fk", fk: "health_facilities", readOnly: true }, { name: "kind", type: "select", options: ["wrong_info", "closed", "link_broken", "other"], readOnly: true }, { name: "message", type: "textarea", readOnly: true }, { name: "contact_email", type: "text", readOnly: true }, { name: "status", type: "select", options: ["new", "in_review", "resolved", "dismissed"] }],
+  },
+  {
+    table: "health_inquiries", label: "Health inquiries", group: "Healthcare & Medical Services", pk: "id", autoPk: true, noCreate: true, displayColumn: "full_name", csvImport: true, orderColumn: "created_at", listColumns: ["type", "status", "created_at"],
+    fields: [{ name: "type", type: "text", readOnly: true }, { name: "full_name", type: "text", readOnly: true }, { name: "email", type: "text", readOnly: true }, { name: "country", type: "text", readOnly: true }, { name: "preferred_language", type: "text", readOnly: true }, { name: "message", type: "textarea", readOnly: true }, { name: "consent", type: "boolean", readOnly: true }, { name: "status", type: "select", options: ["new", "in_review", "resolved", "dismissed"] }],
+  },
   {
     table: "military_eras",
     label: "Military eras",

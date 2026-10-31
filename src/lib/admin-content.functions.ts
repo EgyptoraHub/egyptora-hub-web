@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { CONTENT_TABLES, UUID_FK_TABLES, getTableConfig, type FieldConfig, type UuidFkTable } from "@/lib/admin-content.config";
+import { HEALTH_TABLES, healthSlug, validateHealthValues, type HealthTable } from "@/lib/health-validation";
 
 export type ContentTableSummary = { table: string; label: string; group: string; count: number };
 
@@ -309,6 +310,7 @@ export const getContentRow = createServerFn({ method: "POST" })
         military_figures: { cols: "id, name_en", order: "name_en", label: (r) => r.name_en },
         military_sources: { cols: "id, title", order: "title", label: (r) => r.title },
         culture_items: { cols: "id, section, name_ar, name_en", order: "sort_order", label: (r) => `[${r.section}] ${r.name_en || r.name_ar || "(untitled)"}` },
+        health_facilities: { cols: "id, name_en, name_ar", order: "name_en", label: (r) => r.name_en || r.name_ar },
       };
       for (const fkTable of new Set(cfg.fields.map((f) => f.fk).filter((x): x is UuidFkTable => UUID_FK_TABLES.includes(x as UuidFkTable)))) {
         const l = LABEL[fkTable];
@@ -364,6 +366,18 @@ export const saveContentRow = createServerFn({ method: "POST" })
       }
 
       if (!cfg.noUpdatedAt) payload["updated_at"] = new Date().toISOString();
+
+      if (HEALTH_TABLES.includes(cfg.table as HealthTable)) {
+        let row = payload;
+        if (data.mode === "update") {
+          const { data: existing, error } = await supabaseAdmin.from(cfg.table as any).select("*").eq(cfg.pk, data.pk).maybeSingle();
+          if (error || !existing) return { authorized: true, ok: false, error: "Entry not found." };
+          row = { ...(existing as unknown as Record<string, unknown>), ...payload };
+        }
+        const error = validateHealthValues(cfg.table as HealthTable, row);
+        if (error) return { authorized: true, ok: false, error };
+        if (cfg.slugColumn && data.mode === "create" && !healthSlug.safeParse(data.slug).success) return { authorized: true, ok: false, error: "Use a lowercase hyphenated slug." };
+      }
 
       if (cfg.table === "economic_zones") {
         const err = await checkZoneValues(supabaseAdmin, payload);
@@ -458,6 +472,14 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
     const value = data.value === "__clear__" ? null : data.value === "true" ? true : data.value === "false" ? false : data.value;
     // Changing a parent re-proposes the merge; clearing it (unmerge) lets the trigger clear status/confidence.
     const patch: Record<string, unknown> = { [data.column]: value };
+    if (cfg.table === "health_facilities" && data.column === "is_active" && value === true) {
+      const { data: rows, error } = await supabaseAdmin.from("health_facilities").select("*").in("id", data.pks);
+      if (error || rows?.length !== data.pks.length) return { authorized: true, ok: false, updated: 0, error: "Selected entries could not be checked." };
+      for (const row of rows) {
+        const problem = validateHealthValues("health_facilities", { ...row, is_active: true });
+        if (problem) return { authorized: true, ok: false, updated: 0, error: problem };
+      }
+    }
     if (data.column === "merged_into_record_id" && value) patch["merge_status"] = "proposed";
     const { error, count } = await supabaseAdmin
       .from(cfg.table as any)

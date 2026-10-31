@@ -29,6 +29,8 @@ export const CONCIERGE_TABLES = [
   "culture_items",
   "economic_zones",
   "protected_areas",
+  "health_facilities",
+  "health_specialties",
 ] as const;
 
 export type ConciergeTable = (typeof CONCIERGE_TABLES)[number];
@@ -121,8 +123,16 @@ const CULTURE_URL: Record<string, string> = { cuisine: "cuisine", fashion: "fash
 const VISIBLE = ["editorial_reviewed", "verified"];
 
 async function searchPublicSection(table: ConciergeTable, term: string, limit: number): Promise<ConciergeMatch[] | null> {
-  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones", "protected_areas"].includes(table)) return null;
+  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones", "protected_areas", "health_facilities", "health_specialties"].includes(table)) return null;
   const db = (await publicClient()) as any;
+  if (table === "health_facilities" || table === "health_specialties") {
+    const summaryColumn = table === "health_facilities" ? "description_en" : "summary_en";
+    const { data, error } = await db.from(table).select(`id,slug,name_en,name_ar,${summaryColumn}`)
+      .eq("is_active", true).or(orFilter(term, ["name_en", "name_ar", summaryColumn])).limit(limit);
+    if (error) throw error;
+    return (data ?? []).map((r: any) => ({ id: String(r.id), name: r.name_en || r.name_ar, slug: String(r.slug), type: table,
+      summary: oneLine(r[summaryColumn]), link: `${SITE}/health/${table === "health_facilities" ? "find-care" : "specialties"}/${r.slug}` }));
+  }
   if (table === "protected_areas") {
     // Public rows only (RLS + column grants); the page exists only when it has rows.
     const { data, error } = await db
