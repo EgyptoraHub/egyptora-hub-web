@@ -146,6 +146,7 @@ function DesktopEntry({ entry, active }: { entry: NavEntry; active: boolean }) {
 
   const triggerCls = cn(
     "relative flex min-h-11 items-center gap-1 whitespace-nowrap rounded-lg px-0.5 text-2xs font-medium transition-colors",
+    entry.label === "Healthcare & Medical Services" && "max-w-28 whitespace-normal leading-snug text-center 2xl:max-w-36",
     open ? "text-gold-text" : "text-navy/85 hover:text-gold-text",
     active && activeCls,
   );
@@ -368,7 +369,7 @@ export function MainNav() {
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-3 xl:flex min-[1440px]:gap-4 2xl:gap-6">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 xl:flex min-[1440px]:gap-3 2xl:gap-4">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
