@@ -1,5 +1,13 @@
 # Roadmap
 
+## Prompt 43 — Healthcare fixes from review
+- [ ] A) Remove fallback-to-all rows on /health/insurance, /health/official-websites, /health/apps; term-matched rows only, empty state with directory links, no search box when empty; tests.
+- [ ] B) Nav: single-line "Healthcare" top label, remove multi-line special case, no overlaps at 1280–1970 in EN/AR (screenshots).
+- [ ] C) /health hero → navy gradient (no image); disclaimer copy fix + "Read the full disclaimer" link; distinct icon per category card.
+- [ ] D) Concierge: health section links + no-medical-advice rules in system prompt, allowed-links fix, 6 regression tests.
+- [ ] E) Legal doc "Health Information Disclaimer" (EN+AR), footer link, sitemap, docs note that it needs owner/legal review.
+- [ ] F) Final QA: all /health routes EN/AR desktop+390px, forms, redirect, docs/prompt-43-verification.md. Maintenance ON, no publish.
+
 ## Prompt 42 — Public healthcare
 - [x] Build public healthcare routes, active-only directory, sourced detail pages and shared disclaimer.
 - [x] Add validated public report/inquiry forms with consent and no medical uploads; real submissions read back and test rows removed.
