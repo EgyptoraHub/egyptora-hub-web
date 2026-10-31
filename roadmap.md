@@ -1,10 +1,11 @@
 # Roadmap
 
 ## Prompt 42 — Public healthcare
-- [ ] Build public healthcare routes, active-only directory, sourced detail pages and shared disclaimer.
-- [ ] Add validated public report/inquiry forms with consent and no medical uploads.
-- [ ] Wire navigation, homepage search, footer, legacy redirect, translations, search and sitemap.
-- [ ] Verify EN/AR desktop/mobile routes, forms and rule tests; keep maintenance ON and do not publish.
+- [x] Build public healthcare routes, active-only directory, sourced detail pages and shared disclaimer.
+- [x] Add validated public report/inquiry forms with consent and no medical uploads; real submissions read back and test rows removed.
+- [x] Wire navigation, homepage search, footer, legacy redirect, translations, search and sitemap.
+- [x] Verify 68 EN/AR desktop/mobile route checks, public forms and 21 rule tests; maintenance remains ON, not published. Full file list/decisions: docs/prompt-42-verification.md.
+- [ ] Verify real facility/specialty detail content and facility-specific report — blocked by zero active catalogue rows; no records invented or activated.
 
 ## Prompt 41b — Maintenance separation
 - [x] Separate preview/public maintenance visibility and remove static bypass.
