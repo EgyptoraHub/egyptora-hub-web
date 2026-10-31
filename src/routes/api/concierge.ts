@@ -7,6 +7,7 @@ import {
   getLovableAiGatewayRunId,
 } from "@/lib/ai-gateway.server";
 import { CONCIERGE_TABLES, ITINERARY_TABLES, searchSiteContent } from "@/lib/concierge-search.server";
+import { SYSTEM_PROMPT, extractPromptLinks } from "@/lib/concierge-prompt";
 
 const MODEL = "google/gemini-2.5-flash";
 
