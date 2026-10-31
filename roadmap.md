@@ -1,9 +1,10 @@
 # Roadmap
 
 ## Prompt 41b — Maintenance separation
-- [ ] Separate preview/public maintenance visibility and remove static bypass.
-- [ ] Require authenticated server-verified admin toggles without a password; preserve the current flag.
-- [ ] Verify host rules, signed-out rejection, translated badge and Preview visibility.
+- [x] Separate preview/public maintenance visibility and remove static bypass.
+- [x] Require authenticated server-verified admin toggles without a password; preserve the current flag (ON).
+- [x] Verify host rules, signed-out RPC rejection, translated EN/AR badge and Preview visibility; seven rule tests pass.
+- [ ] Verify signed-in admin bypass, confirmation and audit actor end-to-end — requesting user has no matching auth account; needs intended admin sign-in. No toggle applied during verification.
 
 ## Prompt 41 — Healthcare foundation
 - [x] Restore only the chat avatar import (visual verification blocked by existing maintenance screen).

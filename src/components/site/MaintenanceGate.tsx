@@ -95,7 +95,7 @@ export function MaintenanceGate({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
-      {visibility.badge && <div role="status" className="fixed bottom-4 start-4 z-[60] max-w-[calc(100%-2rem)] rounded-full border border-gold-line bg-gold-soft px-4 py-2 text-xs font-semibold text-gold-text shadow-lg">
+      {visibility.badge && <div role="status" className="fixed bottom-20 start-4 z-[60] max-w-[calc(100%-2rem)] rounded-full border border-gold-line bg-gold-soft px-4 py-2 text-xs font-semibold text-gold-text shadow-lg">
         {t("Preview — the public site is closed")}
       </div>}
     </>
