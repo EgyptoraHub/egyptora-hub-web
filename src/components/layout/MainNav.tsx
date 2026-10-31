@@ -369,7 +369,7 @@ export function MainNav() {
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 xl:flex min-[1440px]:gap-3 2xl:gap-4">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 xl:flex min-[1536px]:gap-3 2xl:gap-4">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
