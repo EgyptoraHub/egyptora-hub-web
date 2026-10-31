@@ -30,22 +30,21 @@ export type HealthSpecialty = HealthData["specialties"][number];
 
 export const getHealthResources = createServerFn({ method: "GET" }).handler(async () => {
   const db = publicClient();
-  const [government, categories, apps, events] = await Promise.all([
+  const [government, apps, events] = await Promise.all([
     db.from("government_entities").select("id,entity_name_en,entity_name_ar,description_en,category_en,category_ar,official_url").eq("is_active", true).order("sort_order"),
-    db.from("app_categories").select("id,slug,name_en,name_ar").eq("is_active", true),
     db.from("egypt_apps").select("id,category_id,name_en,name_ar,description_en,description_ar,google_play_url,app_store_url,website_url").eq("is_active", true).order("sort_order"),
     db.from("events").select("id,name,category,tags,start_date").gte("start_date", new Date().toISOString()).order("start_date"),
   ]);
-  if ([government, categories, apps, events].some((r) => r.error)) throw new Error("Healthcare resources are temporarily unavailable.");
+  if ([government, apps, events].some((r) => r.error)) throw new Error("Healthcare resources are temporarily unavailable.");
   // Only rows whose name/category/description match health terms are shown — never a fallback to all rows.
+  // Apps match on name/description only: category labels such as "Insurance & Tax" are not health-specific.
   const matchHealth = healthResourceMatcher("health");
   const matchInsurance = healthResourceMatcher("insurance");
   const govRows = government.data ?? [];
-  const catName = new Map((categories.data ?? []).map((c) => [c.id, `${c.slug} ${c.name_en} ${c.name_ar}`]));
   return {
     officialWebsites: govRows.filter((r) => matchHealth(r.entity_name_en, r.entity_name_ar, r.category_en, r.category_ar, r.description_en)),
     insurance: govRows.filter((r) => matchInsurance(r.entity_name_en, r.entity_name_ar, r.category_en, r.category_ar, r.description_en)),
-    apps: (apps.data ?? []).filter((r) => matchHealth(r.name_en, r.name_ar, r.description_en, r.description_ar, catName.get(r.category_id))),
+    apps: (apps.data ?? []).filter((r) => matchHealth(r.name_en, r.name_ar, r.description_en, r.description_ar)),
     events: (events.data ?? []).filter((r) => matchHealth(r.category, ...(r.tags ?? []))) };
 });
 export const healthResourcesQuery = queryOptions({ queryKey: ["health-resources"], queryFn: () => getHealthResources(), staleTime: 60_000 });
