@@ -6,6 +6,8 @@ import { getMyRoles } from "@/lib/roles.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminChecking, AdminDenied } from "@/components/admin/AdminStates";
 import { SITE } from "@/config/site";
+import { Button } from "@/components/ui/button";
+import { useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/admin/maintenance")({
   ssr: false,
@@ -24,16 +26,16 @@ export const Route = createFileRoute("/admin/maintenance")({
 });
 
 function MaintenanceAdmin() {
+  const { t } = useI18n();
   const read = useServerFn(getMaintenance);
   const write = useServerFn(setMaintenance);
   const roles = useServerFn(getMyRoles);
   const [access, setAccess] = useState<"loading" | "denied" | "ready">("loading");
-  const [password, setPassword] = useState("");
   const [enabled, setEnabled] = useState<boolean | null>(null);
   const [status, setStatus] = useState<"idle" | "saving" | "error" | "saved">("idle");
 
   // Page-level guard: a valid session AND the admin role (has_role) are required
-  // before anything is rendered. The password below stays as a second layer.
+  // before anything is rendered. The write also verifies the role on the server.
   useEffect(() => {
     let active = true;
     supabase.auth
@@ -66,9 +68,10 @@ function MaintenanceAdmin() {
 
 
   const apply = async (next: boolean) => {
+    if (!window.confirm(t(next ? "Close the site to the public?" : "Open the site to the public?"))) return;
     setStatus("saving");
     try {
-      const res = await write({ data: { password, enabled: next } });
+      const res = await write({ data: { enabled: next } });
       if (!res.ok) return setStatus("error");
       setEnabled(next);
       setStatus("saved");
@@ -94,38 +97,29 @@ function MaintenanceAdmin() {
           </p>
         </div>
 
-        <label className="mt-6 block text-sm text-muted-foreground">
-          Owner password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-            className="mt-2 h-11 w-full rounded-full border border-border bg-card/70 px-4 text-sm text-foreground outline-none focus:border-gold-line"
-          />
-        </label>
-
         <div className="mt-5 flex flex-wrap gap-3">
-          <button
+          <Button
+            variant="gold"
             type="button"
-            disabled={!password || status === "saving"}
+            disabled={enabled === null || status === "saving"}
             onClick={() => apply(true)}
             className="rounded-full bg-gold px-5 py-3 text-sm font-semibold text-gold-foreground disabled:opacity-40"
           >
             Close site (Maintenance ON)
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="outline"
             type="button"
-            disabled={!password || status === "saving"}
+            disabled={enabled === null || status === "saving"}
             onClick={() => apply(false)}
             className="rounded-full border border-gold-line px-5 py-3 text-sm font-semibold text-gold-text disabled:opacity-40"
           >
             Open site (Maintenance OFF)
-          </button>
+          </Button>
         </div>
 
         {status === "error" && (
-          <p className="mt-4 text-sm text-destructive">Wrong password or the change could not be saved.</p>
+          <p className="mt-4 text-sm text-destructive">{t("The change could not be saved.")}</p>
         )}
         {status === "saved" && <p className="mt-4 text-sm text-gold-text">Saved — live for all visitors.</p>}
       </div>
