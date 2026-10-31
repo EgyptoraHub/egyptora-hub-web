@@ -46,7 +46,7 @@ export const getHealthResources = createServerFn({ method: "GET" }).handler(asyn
     officialWebsites: govRows.filter((r) => matchHealth(r.entity_name_en, r.entity_name_ar, r.category_en, r.category_ar, r.description_en)),
     insurance: govRows.filter((r) => matchInsurance(r.entity_name_en, r.entity_name_ar, r.category_en, r.category_ar, r.description_en)),
     apps: (apps.data ?? []).filter((r) => matchHealth(r.name_en, r.name_ar, r.description_en, r.description_ar, catName.get(r.category_id))),
-    events: (events.data ?? []).filter((r) => /health|blood|donation|صحة|دم|تبرع/i.test(`${r.category ?? ""} ${(r.tags ?? []).join(" ")}`)) };
+    events: (events.data ?? []).filter((r) => matchHealth(r.category, ...(r.tags ?? []))) };
 });
 export const healthResourcesQuery = queryOptions({ queryKey: ["health-resources"], queryFn: () => getHealthResources(), staleTime: 60_000 });
 export const submitHealthInquiry = createServerFn({ method: "POST" }).inputValidator(publicHealthInquirySchema).handler(async ({ data }) => {
