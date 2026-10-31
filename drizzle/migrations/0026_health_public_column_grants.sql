@@ -1,0 +1,5 @@
+REVOKE ALL ON public.health_facilities, public.health_specialties, public.health_facility_specialties, public.health_reports, public.health_inquiries FROM anon;
+GRANT SELECT ON public.health_specialties, public.health_facility_specialties TO anon;
+GRANT SELECT (id,slug,name_en,name_ar,facility_type,ownership,governorate_id,city_en,city_ar,address_en,address_ar,lat,lng,phone,hours_en,hours_ar,official_website,services,description_en,description_ar,license_status,license_source_url,accreditation_status,accreditation_source_url,source_url,last_verified_at,is_active,image_key,created_at,updated_at) ON public.health_facilities TO anon;
+GRANT INSERT (facility_id,kind,message,contact_email) ON public.health_reports TO anon;
+GRANT INSERT (type,full_name,email,country,preferred_language,message,consent) ON public.health_inquiries TO anon;
