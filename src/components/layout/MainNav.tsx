@@ -350,8 +350,8 @@ export function MainNav() {
   return (
     <>
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1800px] 2xl:gap-4 2xl:px-6">
-        <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 2xl:me-2">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1800px] 2xl:gap-6 2xl:px-4">
+        <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 2xl:shrink-0">
           <img
             src={logo.url}
             alt={`${SITE.name} logo`}
@@ -369,14 +369,14 @@ export function MainNav() {
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 2xl:flex min-[1700px]:gap-3">
+        <nav className="hidden min-w-0 flex-1 items-center justify-between gap-0.5 2xl:flex min-[1700px]:gap-3">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
         </nav>
 
 
-        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2 2xl:ms-0">
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2 2xl:ms-0 2xl:gap-2.5">
           <button
             type="button"
             onClick={() => setSearchOpen((v) => !v)}

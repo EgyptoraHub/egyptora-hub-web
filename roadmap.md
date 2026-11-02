@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 44c — Desktop header spacing
+- [x] Start desktop navigation 24px after the logo; distribute space between entries and use 10px right-hand control gaps without changing breakpoints.
+- [x] Check EN/AR/FR/DE signed out at 1536, 1600, 1700, 1899, 1920 and 2200px; 24 combinations passed with 24px section gaps and working currency selection.
+- [x] Run the test suite: 39 passed, 0 failed; save docs/prompt-44c-verification.md.
+- [ ] Verify real signed-in dashboard/bell spacing — blocked because no app account matches the requesting user; requires intended user's preview sign-in.
+
 ## Prompt 43 — Healthcare fixes from review
 - [ ] A) Remove fallback-to-all rows on /health/insurance, /health/official-websites, /health/apps; term-matched rows only, empty state with directory links, no search box when empty; tests.
 - [ ] B) Nav: single-line "Healthcare" top label, remove multi-line special case, no overlaps at 1280–1970 in EN/AR (screenshots).
