@@ -248,7 +248,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   const flat = (entry: NavEntry) => !entry.items || entry.label === "Government Directory";
 
   return (
-    <div className="fixed inset-0 z-50 xl:hidden" role="dialog" aria-modal="true" aria-label={t("Open menu")}>
+    <div className="fixed inset-0 z-50 2xl:hidden" role="dialog" aria-modal="true" aria-label={t("Open menu")}>
       <button
         type="button"
         aria-label={t("Close menu")}
@@ -387,10 +387,10 @@ export function MainNav() {
             <Search className="size-4" />
           </button>
           <LanguageSwitcher compact />
-          <span className="hidden sm:block">
+          <span className="hidden min-[1700px]:block">
             <CurrencySwitcher compact />
           </span>
-          <NotificationsBell className="hidden sm:block" />
+          <NotificationsBell className="hidden min-[1700px]:block" />
           <AuthButtons variant="nav" className="hidden sm:flex" />
           <button
             type="button"
@@ -398,7 +398,7 @@ export function MainNav() {
             onClick={() => setMobileOpen(true)}
             aria-label={t("Open menu")}
             aria-expanded={mobileOpen}
-            className="hit-44 grid size-9 place-items-center rounded-full border border-border text-muted-foreground xl:hidden"
+            className="hit-44 grid size-9 place-items-center rounded-full border border-border text-muted-foreground 2xl:hidden"
           >
             <Menu className="size-4" />
           </button>
