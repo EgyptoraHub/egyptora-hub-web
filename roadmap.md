@@ -83,3 +83,4 @@
 - [x] healthResourceMatcher: whole-token Arabic matching (tashkeel/tatweel strip, alef/ى/ة normalisation, ال/و/ب/ل prefixes) + English word-boundary stem matching
 - [x] Events filter uses the same matcher; apps match name/description only (category labels like "Insurance & Tax" are not health-specific)
 - [x] 14 tests pass (incl. all required must-match / must-not-match cases); tsgo clean; pages verified EN/AR
+- [x] Prompt 44 — nav overlap fix (breakpoint 2xl, wider container) + health location dedup + empty Specialties hidden; docs/prompt-44-verification.md

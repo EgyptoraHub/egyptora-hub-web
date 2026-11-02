@@ -248,7 +248,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   const flat = (entry: NavEntry) => !entry.items || entry.label === "Government Directory";
 
   return (
-    <div className="fixed inset-0 z-50 xl:hidden" role="dialog" aria-modal="true" aria-label={t("Open menu")}>
+    <div className="fixed inset-0 z-50 2xl:hidden" role="dialog" aria-modal="true" aria-label={t("Open menu")}>
       <button
         type="button"
         aria-label={t("Close menu")}
@@ -350,8 +350,8 @@ export function MainNav() {
   return (
     <>
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 xl:gap-4 xl:px-5 2xl:max-w-[1480px] 2xl:gap-6 2xl:px-8">
-        <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 xl:me-2">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1800px] 2xl:gap-4 2xl:px-6">
+        <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 2xl:me-2">
           <img
             src={logo.url}
             alt={`${SITE.name} logo`}
@@ -360,23 +360,23 @@ export function MainNav() {
             className="size-9 shrink-0 rounded-full ring-1 ring-gold-line sm:size-10"
           />
           <span className="block min-w-0 overflow-hidden leading-tight">
-            <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy xl:tracking-[0.06em] 2xl:tracking-[0.12em]">
-              EGYPTORA <span className="text-gold-text xl:hidden 2xl:inline">HUB</span>
+            <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy">
+              EGYPTORA <span className="text-gold-text">HUB</span>
             </span>
-            <span className="block truncate text-2xs tracking-[0.06em] text-muted-foreground xl:hidden">
+            <span className="block truncate text-2xs tracking-[0.06em] text-muted-foreground 2xl:hidden">
               {t(SITE.tagline)}
             </span>
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 xl:flex min-[1536px]:gap-3 2xl:gap-4">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 2xl:flex min-[1700px]:gap-3">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
         </nav>
 
 
-        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2 xl:ms-0">
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2 2xl:ms-0">
           <button
             type="button"
             onClick={() => setSearchOpen((v) => !v)}
@@ -387,10 +387,10 @@ export function MainNav() {
             <Search className="size-4" />
           </button>
           <LanguageSwitcher compact />
-          <span className="hidden sm:block">
+          <span className="hidden min-[1900px]:block">
             <CurrencySwitcher compact />
           </span>
-          <NotificationsBell className="hidden sm:block" />
+          <NotificationsBell className="hidden min-[1900px]:block" />
           <AuthButtons variant="nav" className="hidden sm:flex" />
           <button
             type="button"
@@ -398,7 +398,7 @@ export function MainNav() {
             onClick={() => setMobileOpen(true)}
             aria-label={t("Open menu")}
             aria-expanded={mobileOpen}
-            className="hit-44 grid size-9 place-items-center rounded-full border border-border text-muted-foreground xl:hidden"
+            className="hit-44 grid size-9 place-items-center rounded-full border border-border text-muted-foreground 2xl:hidden"
           >
             <Menu className="size-4" />
           </button>

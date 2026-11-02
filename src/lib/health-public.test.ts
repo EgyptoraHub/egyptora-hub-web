@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { hasHealthEvidence, healthResourceMatcher, publicHealthInquirySchema, publicHealthReportSchema, safeHealthUrl } from "./health-public";
+import { formatHealthLocation, hasHealthEvidence, healthResourceMatcher, publicHealthInquirySchema, publicHealthReportSchema, safeHealthUrl } from "./health-public";
 describe("public healthcare rules", () => {
   it("license and accreditation labels require all three evidence fields", () => {
     assert.equal(hasHealthEvidence("licensed", null, "2026-10-01"), false);
@@ -60,5 +60,28 @@ describe("public healthcare rules", () => {
     const match = healthResourceMatcher("health");
     assert.equal(match("Digital government services"), false);
     assert.equal(match("State Information Service"), false);
+  });
+});
+
+describe("formatHealthLocation", () => {
+  it("shows the governorate once when city matches exactly", () => {
+    assert.equal(formatHealthLocation("Cairo", "Cairo"), "Cairo");
+    assert.equal(formatHealthLocation("Alexandria", "Alexandria"), "Alexandria");
+  });
+  it("treats known spelling variants as the same place", () => {
+    assert.equal(formatHealthLocation("Asyut", "Assiut"), "Asyut");
+    assert.equal(formatHealthLocation("Assiut", "Asyut"), "Assiut");
+  });
+  it("shows both when the city is different", () => {
+    assert.equal(formatHealthLocation("Gharbia", "Tanta"), "Gharbia, Tanta");
+  });
+  it("matches Arabic names after normalisation (tashkeel, ة/ه, أإآ)", () => {
+    assert.equal(formatHealthLocation("القاهرة", "القاهره"), "القاهرة");
+    assert.equal(formatHealthLocation("أسيوط", "أسيوط"), "أسيوط");
+    assert.equal(formatHealthLocation("الغربية", "طنطا"), "الغربية, طنطا");
+  });
+  it("handles a missing city or governorate", () => {
+    assert.equal(formatHealthLocation("Cairo", null), "Cairo");
+    assert.equal(formatHealthLocation("", "Tanta"), "Tanta");
   });
 });
