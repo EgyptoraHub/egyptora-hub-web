@@ -376,7 +376,7 @@ export function MainNav() {
         </nav>
 
 
-        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2 2xl:gap-2.5 min-[1700px]:gap-4">
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:max-[1536px]:gap-2 2xl:max-[1700px]:gap-2.5 min-[1700px]:gap-4">
           <button
             type="button"
             onClick={() => setSearchOpen((v) => !v)}
