@@ -350,8 +350,8 @@ export function MainNav() {
   return (
     <>
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 xl:gap-4 xl:px-5 2xl:max-w-[1480px] 2xl:gap-6 2xl:px-8">
-        <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 xl:me-2">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1640px] 2xl:gap-4 2xl:px-8">
+        <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 2xl:me-2">
           <img
             src={logo.url}
             alt={`${SITE.name} logo`}
@@ -360,16 +360,16 @@ export function MainNav() {
             className="size-9 shrink-0 rounded-full ring-1 ring-gold-line sm:size-10"
           />
           <span className="block min-w-0 overflow-hidden leading-tight">
-            <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy xl:tracking-[0.06em] 2xl:tracking-[0.12em]">
-              EGYPTORA <span className="text-gold-text xl:hidden 2xl:inline">HUB</span>
+            <span className="block whitespace-nowrap font-display text-[13px] font-semibold tracking-[0.12em] text-navy">
+              EGYPTORA <span className="text-gold-text">HUB</span>
             </span>
-            <span className="block truncate text-2xs tracking-[0.06em] text-muted-foreground xl:hidden">
+            <span className="block truncate text-2xs tracking-[0.06em] text-muted-foreground 2xl:hidden">
               {t(SITE.tagline)}
             </span>
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 xl:flex min-[1536px]:gap-3 2xl:gap-4">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1.5 2xl:flex min-[1700px]:gap-3">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
