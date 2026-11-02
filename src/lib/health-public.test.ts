@@ -65,23 +65,23 @@ describe("public healthcare rules", () => {
 
 describe("formatHealthLocation", () => {
   it("shows the governorate once when city matches exactly", () => {
-    expect(formatHealthLocation("Cairo", "Cairo")).toBe("Cairo");
-    expect(formatHealthLocation("Alexandria", "Alexandria")).toBe("Alexandria");
+    assert.equal(formatHealthLocation("Cairo", "Cairo"), "Cairo");
+    assert.equal(formatHealthLocation("Alexandria", "Alexandria"), "Alexandria");
   });
   it("treats known spelling variants as the same place", () => {
-    expect(formatHealthLocation("Asyut", "Assiut")).toBe("Asyut");
-    expect(formatHealthLocation("Assiut", "Asyut")).toBe("Assiut");
+    assert.equal(formatHealthLocation("Asyut", "Assiut"), "Asyut");
+    assert.equal(formatHealthLocation("Assiut", "Asyut"), "Assiut");
   });
   it("shows both when the city is different", () => {
-    expect(formatHealthLocation("Gharbia", "Tanta")).toBe("Gharbia, Tanta");
+    assert.equal(formatHealthLocation("Gharbia", "Tanta"), "Gharbia, Tanta");
   });
   it("matches Arabic names after normalisation (tashkeel, ة/ه, أإآ)", () => {
-    expect(formatHealthLocation("القاهرة", "القاهره")).toBe("القاهرة");
-    expect(formatHealthLocation("أسيوط", "أسيوط")).toBe("أسيوط");
-    expect(formatHealthLocation("الغربية", "طنطا")).toBe("الغربية, طنطا");
+    assert.equal(formatHealthLocation("القاهرة", "القاهره"), "القاهرة");
+    assert.equal(formatHealthLocation("أسيوط", "أسيوط"), "أسيوط");
+    assert.equal(formatHealthLocation("الغربية", "طنطا"), "الغربية, طنطا");
   });
   it("handles a missing city or governorate", () => {
-    expect(formatHealthLocation("Cairo", null)).toBe("Cairo");
-    expect(formatHealthLocation("", "Tanta")).toBe("Tanta");
+    assert.equal(formatHealthLocation("Cairo", null), "Cairo");
+    assert.equal(formatHealthLocation("", "Tanta"), "Tanta");
   });
 });
