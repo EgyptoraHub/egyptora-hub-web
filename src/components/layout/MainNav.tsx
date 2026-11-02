@@ -350,7 +350,7 @@ export function MainNav() {
   return (
     <>
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1640px] 2xl:gap-4 2xl:px-8">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1640px] 2xl:gap-4 2xl:px-8 min-[1900px]:max-w-[1800px]">
         <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 2xl:me-2">
           <img
             src={logo.url}
@@ -387,10 +387,10 @@ export function MainNav() {
             <Search className="size-4" />
           </button>
           <LanguageSwitcher compact />
-          <span className="hidden min-[1700px]:block">
+          <span className="hidden min-[1900px]:block">
             <CurrencySwitcher compact />
           </span>
-          <NotificationsBell className="hidden min-[1700px]:block" />
+          <NotificationsBell className="hidden min-[1900px]:block" />
           <AuthButtons variant="nav" className="hidden sm:flex" />
           <button
             type="button"
