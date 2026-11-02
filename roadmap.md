@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 44c — Desktop header spacing
+- [ ] Left-align desktop navigation after the logo; give navigation and right-hand controls consistent spacing without changing breakpoints.
+- [ ] Check EN/AR/FR/DE at 1536, 1600, 1700, 1899, 1920 and 2200px; record measured gaps and signed-in testing availability.
+- [ ] Run the test suite and save docs/prompt-44c-verification.md.
+
 ## Prompt 43 — Healthcare fixes from review
 - [ ] A) Remove fallback-to-all rows on /health/insurance, /health/official-websites, /health/apps; term-matched rows only, empty state with directory links, no search box when empty; tests.
 - [ ] B) Nav: single-line "Healthcare" top label, remove multi-line special case, no overlaps at 1280–1970 in EN/AR (screenshots).
