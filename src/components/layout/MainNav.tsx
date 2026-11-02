@@ -455,7 +455,7 @@ function HeaderMore() {
     };
   }, [open]);
   return (
-    <div ref={ref} className="relative hidden 2xl:max-[1899px]:block" data-header-more>
+    <div ref={ref} className="relative hidden 2xl:max-[1900px]:block" data-header-more>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
