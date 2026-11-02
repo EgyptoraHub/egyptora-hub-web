@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 44d — Fluid header spacing
+- [x] Preserve labels/font sizes; use equal fluid nav gaps and a single flexible gap before controls, with 16px controls and 24px before auth from 1700px.
+- [x] Test EN/AR/FR/DE at six requested widths; also test every integer width 1536–1699px in FR/DE. All fit; no language-specific fallback needed.
+- [x] Save measured gaps and limitations in docs/prompt-44d-verification.md; full suite: 39 passed, 0 failed.
+- [ ] Verify signed-in My dashboard/bell spacing — blocked by no requesting-user app account/session; needs intended user preview sign-in.
+
 ## Prompt 44c — Desktop header spacing
 - [x] Start desktop navigation 24px after the logo; distribute space between entries and use 10px right-hand control gaps without changing breakpoints.
 - [x] Check EN/AR/FR/DE signed out at 1536, 1600, 1700, 1899, 1920 and 2200px; 24 combinations passed with 24px section gaps and working currency selection.
