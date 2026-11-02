@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useSiteSearch } from "@/lib/site-search";
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { ChevronDown, Menu, MoreHorizontal, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import logo from "@/assets/egyptora-hub-logo.png.asset.json";
 import { SITE } from "@/config/site";
@@ -391,6 +391,7 @@ export function MainNav() {
             <CurrencySwitcher compact />
           </span>
           <NotificationsBell className="hidden min-[1900px]:block" />
+          <HeaderMore />
           <AuthButtons variant="nav" className="hidden sm:flex" />
           <button
             type="button"
@@ -432,5 +433,45 @@ export function MainNav() {
     </header>
     {mobileOpen && <MobileMenu onClose={closeMobile} />}
     </>
+  );
+}
+
+/** 1536–1899px: currency + notifications live in a compact popover so they stay reachable without crowding the nav. */
+function HeaderMore() {
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+  return (
+    <div ref={ref} className="relative hidden 2xl:block min-[1900px]:hidden" data-header-more>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label={t("More options")}
+        aria-expanded={open}
+        aria-haspopup="true"
+        className="hit-44 grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-gold-line hover:text-gold-text"
+      >
+        <MoreHorizontal className="size-4" />
+      </button>
+      {open && (
+        <div className="absolute end-0 top-full z-50 mt-2 flex items-center gap-2 rounded-xl border border-border bg-card p-2 shadow-lg">
+          <CurrencySwitcher compact />
+          <NotificationsBell />
+        </div>
+      )}
+    </div>
   );
 }
