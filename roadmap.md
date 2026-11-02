@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 44d — Fluid header spacing
+- [ ] Preserve labels/font sizes; use equal fluid nav gaps and a single flexible gap before controls, with wider controls from 1700px.
+- [ ] Test EN/AR/FR/DE at six requested widths; apply French/German-only hamburger until 1700px if tightest spacing cannot fit.
+- [ ] Save measured gaps and limitations in docs/prompt-44d-verification.md; run the full test suite.
+
 ## Prompt 44c — Desktop header spacing
 - [x] Start desktop navigation 24px after the logo; distribute space between entries and use 10px right-hand control gaps without changing breakpoints.
 - [x] Check EN/AR/FR/DE signed out at 1536, 1600, 1700, 1899, 1920 and 2200px; 24 combinations passed with 24px section gaps and working currency selection.

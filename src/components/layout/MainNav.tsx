@@ -369,14 +369,14 @@ export function MainNav() {
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-start gap-0.5 2xl:flex min-[1700px]:gap-3">
+        <nav className="hidden shrink-0 items-center justify-start gap-[clamp(2px,calc(5.73vw-86px),24px)] 2xl:flex">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
         </nav>
 
 
-        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2 2xl:ms-0 2xl:gap-2.5">
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2 2xl:gap-2.5 min-[1700px]:gap-4">
           <button
             type="button"
             onClick={() => setSearchOpen((v) => !v)}
@@ -392,7 +392,7 @@ export function MainNav() {
           </span>
           <NotificationsBell className="hidden min-[1900px]:block" />
           <HeaderMore />
-          <AuthButtons variant="nav" className="hidden sm:flex" />
+          <AuthButtons variant="nav" className="hidden sm:flex min-[1700px]:ms-2" />
           <button
             type="button"
             ref={menuBtnRef}
