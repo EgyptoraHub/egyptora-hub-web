@@ -40,6 +40,29 @@ function normalizeArabic(value: string): string {
     .replace(/ة/g, "ه");
 }
 
+/** Known English spelling variants of governorate names (both directions). */
+const CITY_NAME_VARIANTS: Record<string, string[]> = {
+  asyut: ["assiut"],
+  assiut: ["asyut"],
+};
+
+/**
+ * Display "Governorate, City" for a health facility, but show the governorate only once
+ * when the city is the same place: identical after normalisation (case/trim, Arabic
+ * tashkeel/tatweel removed, أإآ→ا, ى→ي, ة→ه) or a known spelling variant (Asyut/Assiut).
+ */
+export function formatHealthLocation(governorate: string, city: string | null | undefined): string {
+  const gov = governorate.trim();
+  const c = (city ?? "").trim();
+  if (!gov) return c;
+  if (!c) return gov;
+  const norm = (s: string) => normalizeArabic(s).trim().toLowerCase().replace(/\s+/g, " ");
+  const ng = norm(gov);
+  const nc = norm(c);
+  if (ng === nc || (CITY_NAME_VARIANTS[ng] ?? []).includes(nc)) return gov;
+  return `${gov}, ${c}`;
+}
+
 /** Strip the definite article and the prefixes و/ب/ل (and combinations) from the front of an Arabic token. */
 function stripArabicPrefixes(token: string): string {
   let t = token;
