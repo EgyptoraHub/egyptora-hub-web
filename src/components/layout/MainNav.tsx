@@ -456,6 +456,7 @@ function HeaderMore() {
       document.removeEventListener("keydown", onKey);
     };
   }, [open]);
+  if (!user) return null;
   return (
     <div ref={ref} className="relative hidden 2xl:max-[1900px]:block" data-header-more>
       <button
@@ -470,7 +471,6 @@ function HeaderMore() {
       </button>
       {open && (
         <div className="absolute end-0 top-full z-50 mt-2 flex items-center gap-2 rounded-xl border border-border bg-card p-2 shadow-lg">
-          <CurrencySwitcher compact />
           <NotificationsBell />
         </div>
       )}
