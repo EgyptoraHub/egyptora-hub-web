@@ -370,14 +370,14 @@ export function MainNav() {
           </span>
         </Link>
 
-        <nav className="hidden shrink-0 items-center justify-start gap-[clamp(2px,calc(5.73vw-86px),24px)] 2xl:flex">
+        <nav className="hidden shrink-0 items-center justify-start gap-[clamp(0px,calc(5.73vw-88px),24px)] 2xl:flex">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
         </nav>
 
 
-        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:max-[1536px]:gap-2 2xl:max-[1700px]:gap-2.5 min-[1700px]:gap-4">
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:max-[1536px]:gap-2 2xl:max-[1700px]:gap-1.5 min-[1700px]:gap-4">
           <button
             type="button"
             onClick={() => setSearchOpen((v) => !v)}
