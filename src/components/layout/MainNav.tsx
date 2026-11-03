@@ -11,6 +11,7 @@ import { CurrencySwitcher } from "@/components/site/CurrencySwitcher";
 import { LanguageSwitcher } from "@/components/site/LanguageSwitcher";
 import { NotificationsBell } from "@/components/site/NotificationsBell";
 import { useI18n } from "@/i18n";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { useNavAvailability } from "@/lib/nav-availability";
 
@@ -387,7 +388,7 @@ export function MainNav() {
             <Search className="size-4" />
           </button>
           <LanguageSwitcher compact />
-          <span className="hidden min-[1900px]:block">
+          <span className="hidden 2xl:block">
             <CurrencySwitcher compact />
           </span>
           <NotificationsBell className="hidden min-[1900px]:block" />
@@ -436,9 +437,10 @@ export function MainNav() {
   );
 }
 
-/** 1536–1899px: currency + notifications live in a compact popover so they stay reachable without crowding the nav. */
+/** 1536–1899px, signed-in only: the notifications bell lives in a compact popover so it stays reachable without crowding the nav. Hidden entirely when signed out. */
 function HeaderMore() {
   const { t } = useI18n();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
