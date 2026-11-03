@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 44e — Currency switcher next to language switcher
+- [x] Currency switcher in header from 1536px up; bell stays in "…" popover 1536–1899px; "…" hidden when signed out.
+- [x] FR/DE 1536px overflow fixed by tightening fluid nav gap to ~0px and right-cluster/container gaps below 1700px; no language-specific hamburger fallback needed.
+- [x] 24 automated checks (6 widths × EN/AR/FR/DE) pass; 39 tests, 0 failures; docs/prompt-44e-verification.md saved.
+- [ ] Verify signed-in bell/"…" spacing — blocked by no requesting-user app account/session; needs intended user preview sign-in.
+
 ## Prompt 44d — Fluid header spacing
 - [x] Preserve labels/font sizes; use equal fluid nav gaps and a single flexible gap before controls, with 16px controls and 24px before auth from 1700px.
 - [x] Test EN/AR/FR/DE at six requested widths; also test every integer width 1536–1699px in FR/DE. All fit; no language-specific fallback needed.

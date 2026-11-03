@@ -11,6 +11,7 @@ import { CurrencySwitcher } from "@/components/site/CurrencySwitcher";
 import { LanguageSwitcher } from "@/components/site/LanguageSwitcher";
 import { NotificationsBell } from "@/components/site/NotificationsBell";
 import { useI18n } from "@/i18n";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { useNavAvailability } from "@/lib/nav-availability";
 
@@ -350,7 +351,7 @@ export function MainNav() {
   return (
     <>
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1800px] 2xl:gap-6 2xl:px-4">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-2 lg:px-8 2xl:max-w-[1800px] 2xl:gap-6 2xl:max-[1700px]:gap-3 2xl:px-4">
         <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 2xl:shrink-0">
           <img
             src={logo.url}
@@ -369,14 +370,14 @@ export function MainNav() {
           </span>
         </Link>
 
-        <nav className="hidden shrink-0 items-center justify-start gap-[clamp(2px,calc(5.73vw-86px),24px)] 2xl:flex">
+        <nav className="hidden shrink-0 items-center justify-start gap-[clamp(0px,calc(5.73vw-88px),24px)] 2xl:flex">
           {mainNav.map((entry) => (
             <DesktopEntry key={entry.label} entry={entry} active={entry.label === activeLabel} />
           ))}
         </nav>
 
 
-        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:max-[1536px]:gap-2 2xl:max-[1700px]:gap-2.5 min-[1700px]:gap-4">
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:max-[1536px]:gap-2 2xl:max-[1700px]:gap-1.5 min-[1700px]:gap-4">
           <button
             type="button"
             onClick={() => setSearchOpen((v) => !v)}
@@ -387,7 +388,7 @@ export function MainNav() {
             <Search className="size-4" />
           </button>
           <LanguageSwitcher compact />
-          <span className="hidden min-[1900px]:block">
+          <span className="hidden 2xl:block">
             <CurrencySwitcher compact />
           </span>
           <NotificationsBell className="hidden min-[1900px]:block" />
@@ -436,9 +437,10 @@ export function MainNav() {
   );
 }
 
-/** 1536–1899px: currency + notifications live in a compact popover so they stay reachable without crowding the nav. */
+/** 1536–1899px, signed-in only: the notifications bell lives in a compact popover so it stays reachable without crowding the nav. Hidden entirely when signed out. */
 function HeaderMore() {
   const { t } = useI18n();
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -454,6 +456,7 @@ function HeaderMore() {
       document.removeEventListener("keydown", onKey);
     };
   }, [open]);
+  if (!user) return null;
   return (
     <div ref={ref} className="relative hidden 2xl:max-[1900px]:block" data-header-more>
       <button
@@ -468,7 +471,6 @@ function HeaderMore() {
       </button>
       {open && (
         <div className="absolute end-0 top-full z-50 mt-2 flex items-center gap-2 rounded-xl border border-border bg-card p-2 shadow-lg">
-          <CurrencySwitcher compact />
           <NotificationsBell />
         </div>
       )}
