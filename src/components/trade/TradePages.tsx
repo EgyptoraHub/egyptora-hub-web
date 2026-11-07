@@ -152,7 +152,7 @@ export function TradeSectorDetail({ slug }: { slug: string }) {
   if (!s) return null;
   const text = (en: string | null, ar: string | null) => (lang === "ar" ? ar : en) ?? en ?? ar ?? "";
   return (
-    <TradeShell title={text(s.name_en, s.name_ar)} trail={[...TRAIL, { label: "Industry & Agriculture", to: "/do-business/industry-agriculture" }]}>
+    <TradeShell title={text(s.name_en, s.name_ar)} trail={[{ label: "Industry & Agriculture", to: "/do-business/industry-agriculture" }]}>
       <p className="text-text-body">{t(SECTOR_GROUP_LABELS[s.sector_group as keyof typeof SECTOR_GROUP_LABELS] ?? s.sector_group)}</p>
       {text(s.scope_en, s.scope_ar) && <section><h2 className="font-display text-xl font-semibold text-navy">{t("Scope")}</h2><p className="mt-3 leading-relaxed text-text-body" dir="auto">{text(s.scope_en, s.scope_ar)}</p></section>}
       {text(s.matching_info_en, s.matching_info_ar) && <section><h2 className="font-display text-xl font-semibold text-navy">{t("What to specify when sourcing")}</h2><p className="mt-3 leading-relaxed text-text-body" dir="auto">{text(s.matching_info_en, s.matching_info_ar)}</p></section>}
@@ -244,7 +244,7 @@ export function TradeCountryDetail({ slug }: { slug: string }) {
   const raw = data.commodities.filter((x) => isRawMaterialKind(x.record_kind));
   const made = data.commodities.filter((x) => !isRawMaterialKind(x.record_kind));
   return (
-    <TradeShell title={lang === "ar" ? c.name_ar : c.name_en} trail={[...TRAIL, { label: "World Gateway", to: "/do-business/world-gateway" }]}>
+    <TradeShell title={lang === "ar" ? c.name_ar : c.name_en} trail={[{ label: "World Gateway", to: "/do-business/world-gateway" }]}>
       <p className="border-s-4 border-gold-line bg-bg-notice p-4 text-sm font-semibold text-navy">{t("A country profile is information only. It does not imply an agreement, an available supplier or an export permission.")}</p>
       {c.region && <p className="text-text-body">{c.region}</p>}
       {(lang === "ar" ? c.summary_ar : c.summary_en) && <p className="leading-relaxed text-text-body" dir="auto">{lang === "ar" ? c.summary_ar : c.summary_en}</p>}
@@ -306,7 +306,7 @@ export function TradeGuideDetail({ slug }: { slug: string }) {
   const text = (en: string | null, ar: string | null) => (lang === "ar" ? ar : en) ?? en ?? ar ?? "";
   const official = safeHealthUrl(g.official_service_url);
   return (
-    <TradeShell title={text(g.title_en, g.title_ar)} trail={[...TRAIL, { label: "Procedure Guides", to: "/do-business/procedure-guides" }]}>
+    <TradeShell title={text(g.title_en, g.title_ar)} trail={[{ label: "Procedure Guides", to: "/do-business/procedure-guides" }]}>
       <p className="border-s-4 border-gold-line bg-bg-notice p-4 text-sm font-semibold text-navy">{t("EGYPTORA is a private platform. Approvals and decisions remain with the competent authority.")}</p>
       {text(g.authority_name_en, g.authority_name_ar) && <p className="text-text-body" dir="auto">{text(g.authority_name_en, g.authority_name_ar)}</p>}
       {text(g.summary_en, g.summary_ar) && <p className="leading-relaxed text-text-body" dir="auto">{text(g.summary_en, g.summary_ar)}</p>}
