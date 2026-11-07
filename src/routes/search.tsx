@@ -71,6 +71,22 @@ export const Route = createFileRoute("/search")({
     } catch (err) {
       console.error("[search] protected areas failed:", err);
     }
+    try {
+      // Public trade rows only (database visibility rules); detail pages exist only for active reviewed rows.
+      const { data } = await supabase.from("trade_sectors").select("name_en, name_ar, slug, sector_group");
+      for (const s of data ?? []) {
+        gov.push({
+          title: s.name_en || s.name_ar,
+          desc: [s.name_ar, s.sector_group].filter(Boolean).join(" — "),
+          tag: "Industry & Agriculture",
+          to: `/do-business/industry-agriculture/${s.slug}`,
+          category: "Business",
+          page: "/do-business",
+        });
+      }
+    } catch (err) {
+      console.error("[search] trade sectors failed:", err);
+    }
     return { gov };
   },
   head: () => ({

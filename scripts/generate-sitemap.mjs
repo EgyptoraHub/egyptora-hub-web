@@ -69,10 +69,20 @@ if (zoneTypes.has("industrial_zone")) gated.push("/do-business/industrial-zones"
 if ([...zoneTypes].some((t) => t !== "industrial_zone")) gated.push("/do-business/free-zones");
 if ((await q("protected_areas?select=id&limit=1")).length > 0) gated.push("/experiences/eco-nature");
 
+// Trade, Industry & Agriculture: list pages only while they have public rows; detail pages per active reviewed row.
+// The anon key already enforces the visibility rules, so these queries only ever return public records.
+const tradeSectors = (await q("trade_sectors?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/do-business/industry-agriculture/${x.slug}`);
+const tradeCountries = (await q("trade_country_profiles?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/do-business/world-gateway/${x.slug}`);
+const tradeGuides = (await q("procedure_guides?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/do-business/procedure-guides/${x.slug}`);
+if (tradeSectors.length > 0) gated.push("/do-business/industry-agriculture");
+if (tradeCountries.length > 0) gated.push("/do-business/world-gateway");
+if (tradeGuides.length > 0) gated.push("/do-business/procedure-guides");
+if (tradeSectors.length + tradeCountries.length + tradeGuides.length > 0) gated.push("/do-business/trade-inquiry");
+
 const healthFacilities = (await q("health_facilities?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/find-care/${x.slug}`);
 const healthSpecialties = (await q("health_specialties?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/specialties/${x.slug}`);
 
-const all = [...new Set([...STATIC, ...legal, ...governorates, ...apps, ...gated, ...records, ...figures, ...culture, ...stories, ...healthFacilities, ...healthSpecialties])];
+const all = [...new Set([...STATIC, ...legal, ...governorates, ...apps, ...gated, ...records, ...figures, ...culture, ...stories, ...healthFacilities, ...healthSpecialties, ...tradeSectors, ...tradeCountries, ...tradeGuides])];
 const out = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
