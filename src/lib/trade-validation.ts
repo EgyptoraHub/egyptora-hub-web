@@ -17,7 +17,7 @@ const schemas = {
  trade_sectors: z.object({ ...common, ...names, sector_group: z.enum(["industry", "agriculture", "trade_services"]), scope_en: optional(), scope_ar: optional(), matching_info_en: optional(), matching_info_ar: optional(), sort_order: z.number().int().nullish() }),
  trade_country_profiles: z.object({ ...common, ...names, iso2: z.string().regex(/^[A-Z]{2}$/).nullish(), iso3: z.string().regex(/^[A-Z]{3}$/).nullish(), region: optional(200), entity_type: z.enum(["un_member", "observer_state", "egypt", "other"]), summary_en: optional(), summary_ar: optional(), official_trade_site_url: url }),
  trade_country_commodities: z.object({ ...common, country_slug: tradeSlug, commodity_en: text(300).min(1), commodity_ar: text(300).min(1), record_kind: z.enum(["raw_material", "manufactured", "agricultural", "service", "technology"]), hs_code: optional(30), hs_revision: optional(100), reference_year: z.number().int(), unit: optional(100), quantity: z.number().finite().nullish(), flow: z.enum(["export_from_country", "import_to_country"]), notes_en: optional(), notes_ar: optional(), source_name: text(300).min(1), source_url: source.refine(v => !!v, "Source URL required.") }),
- procedure_guides: z.object({ ...common, ...titles, activity: optional(200), authority_name_en: optional(300), authority_name_ar: optional(300), official_service_url: url, summary_en: optional(), summary_ar: optional(), published_fee_text: optional(1000), published_processing_time_text: optional(1000), fee_source_url: source, time_source_url: source }),
+ procedure_guides: z.object({ ...common, ...titles, activity: optional(200), authority_name_en: optional(300), authority_name_ar: optional(300), official_service_url: url, summary_en: optional(), summary_ar: optional(), published_fee_text: optional(1000), published_fee_text_ar: optional(1000), published_processing_time_text: optional(1000), published_processing_time_text_ar: optional(1000), fee_source_url: source, time_source_url: source }),
  procedure_steps: z.object({ ...common, ...titles, guide_slug: tradeSlug, step_no: z.number().int().min(1), description_en: optional(), description_ar: optional(), official_url: url }),
  procedure_documents: z.object({ ...common, guide_slug: tradeSlug, document_name_en: text(300).min(1), document_name_ar: text(300).min(1), issuing_source_en: optional(300), issuing_source_ar: optional(300), official_url: url, last_reviewed_at: date }),
 };
@@ -29,8 +29,8 @@ export function validateTradeValues(table: TradeTable, row: Record<string, unkno
  const parsed = (partial ? schemas[table].partial() : schemas[table]).safeParse(row);
  if (!parsed.success) return parsed.error.issues.map(i => `${i.path.join(".")}: ${i.message}`).join("; ");
  const activation = tradeActivationError(row); if (activation) return activation;
- if (table === "procedure_guides" && row["published_fee_text"] && !row["fee_source_url"]) return "Published fee requires its own source.";
- if (table === "procedure_guides" && row["published_processing_time_text"] && !row["time_source_url"]) return "Published processing time requires its own source.";
+ if (table === "procedure_guides" && (row["published_fee_text"] || row["published_fee_text_ar"]) && !row["fee_source_url"]) return "Published fee requires its own source.";
+ if (table === "procedure_guides" && (row["published_processing_time_text"] || row["published_processing_time_text_ar"]) && !row["time_source_url"]) return "Published processing time requires its own source.";
  return null;
 }
 export const TRADE_MATCH_KEYS: Record<TradeContentTable, string[]> = { trade_sectors: ["slug"], trade_country_profiles: ["slug"], trade_country_commodities: ["country_slug", "commodity_en", "reference_year", "flow"], procedure_guides: ["slug"], procedure_steps: ["guide_slug", "step_no"], procedure_documents: ["guide_slug", "document_name_en"] };

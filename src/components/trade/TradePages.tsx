@@ -1,9 +1,8 @@
 import { useId, useState, type ReactNode } from "react";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Factory, Globe2, ClipboardList, ArrowRight, ShieldAlert, ExternalLink, Send, type LucideIcon } from "lucide-react";
+import { Factory, Globe2, ClipboardList, ArrowRight, ChevronRight, ShieldAlert, ExternalLink, Send } from "lucide-react";
 import { SimplePage } from "@/components/site/SimplePage";
-import { ProcessStepsRow } from "@/components/layout/InnerPage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,7 +16,7 @@ import {
 } from "@/lib/trade.functions";
 import {
   SECTOR_GROUPS, SECTOR_GROUP_LABELS, RECORD_KIND_LABELS, FLOW_LABELS, INQUIRY_TOPICS, INQUIRY_TOPIC_LABELS,
-  sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind,
+  sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind, tradeTextFor, cardSourceItems, documentTableColumns,
   type SectorSearch, type CountrySearch, type GuideSearch,
 } from "@/lib/trade-public";
 import { tradeInquirySchema } from "@/lib/trade-validation";
@@ -37,17 +36,35 @@ function TradeExternal({ url, children, source = false }: { url: string | null |
   );
 }
 
-/** One shared source row: "Source: <name> · <link> · Last verified: <date>" — same baseline, wraps on small screens, LTR and RTL. */
-function SourceLine({ name, nameAr, url, date }: { name: string | null; nameAr?: string | null; url: string | null; date: string | null }) {
+/** One shared source row. Detail pages: single wrapping row "Source: <name> · <link> · Last verified: <date>". Cards: name on its own line, link + date on a second line — the "·" is drawn only BETWEEN items, never at the start or end of a line. Same behaviour in LTR and RTL. */
+function SourceLine({ name, nameAr, url, date, card = false }: { name: string | null; nameAr?: string | null; url: string | null; date: string | null; card?: boolean }) {
   const { t, lang } = useI18n();
   const verified = sourceDateText(date);
   const sourceName = sourceNameFor(lang, name, nameAr);
+  const verifiedText = verified ? `${t("Last verified:")} ${new Date(verified).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { timeZone: "UTC" })}` : null;
+  if (card) {
+    const link = safeHealthUrl(url) ? t("Source") : null;
+    const line2 = cardSourceItems([link, verifiedText]);
+    return (
+      <div className="mt-3 text-xs text-text-body">
+        {sourceName && <p dir="auto">{t("Source:")} {sourceName}</p>}
+        <p className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          {line2.map((item, i) => (
+            <span key={item} className="inline-flex items-baseline gap-2 whitespace-nowrap">
+              {i > 0 && <span aria-hidden="true">·</span>}
+              {item === link ? <TradeExternal url={url} source>{item}</TradeExternal> : item}
+            </span>
+          ))}
+        </p>
+      </div>
+    );
+  }
   return (
     <p className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs text-text-body">
       <span>{t("Source:")}</span>
       {sourceName && <span dir="auto">{sourceName}</span>}
       <span className="inline-flex items-baseline gap-2 whitespace-nowrap">{sourceName && <span aria-hidden="true">·</span>}<TradeExternal url={url} source>{t("Source")}</TradeExternal></span>
-      {verified && <span className="whitespace-nowrap"><span aria-hidden="true">· </span>{t("Last verified:")} {new Date(verified).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { timeZone: "UTC" })}</span>}
+      {verifiedText && <span className="whitespace-nowrap"><span aria-hidden="true">· </span>{verifiedText}</span>}
     </p>
   );
 }
@@ -136,7 +153,7 @@ export function TradeSectorsPage({ search }: { search: SectorSearch }) {
             <p className="mt-1 text-sm text-text-body">{t(SECTOR_GROUP_LABELS[s.sector_group as keyof typeof SECTOR_GROUP_LABELS] ?? s.sector_group)}</p>
             {(lang === "ar" ? s.scope_ar : s.scope_en) && <p className="mt-2 line-clamp-3 text-sm text-text-body" dir="auto">{lang === "ar" ? s.scope_ar : s.scope_en}</p>}
             <div className="mt-auto">
-              <SourceLine name={s.source_name} nameAr={s.source_name_ar} url={s.source_url} date={s.last_verified_at} />
+              <SourceLine card name={s.source_name} nameAr={s.source_name_ar} url={s.source_url} date={s.last_verified_at} />
             </div>
             <Link to="/do-business/industry-agriculture/$slug" params={{ slug: s.slug }} className="hit-44 mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
               {t("View sector")} <ArrowRight className="size-4 rtl:rotate-180" />
@@ -199,7 +216,7 @@ export function TradeCountriesPage({ search }: { search: CountrySearch }) {
             {c.region && <p className="mt-1 text-sm text-text-body">{c.region}</p>}
             {(lang === "ar" ? c.summary_ar : c.summary_en) && <p className="mt-2 line-clamp-3 text-sm text-text-body" dir="auto">{lang === "ar" ? c.summary_ar : c.summary_en}</p>}
             <div className="mt-auto">
-              <SourceLine name={c.source_name} nameAr={c.source_name_ar} url={c.source_url} date={c.last_verified_at} />
+              <SourceLine card name={c.source_name} nameAr={c.source_name_ar} url={c.source_url} date={c.last_verified_at} />
             </div>
             <Link to="/do-business/world-gateway/$slug" params={{ slug: c.slug }} className="hit-44 mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
               {t("View profile")} <ArrowRight className="size-4 rtl:rotate-180" />
@@ -292,7 +309,7 @@ export function TradeGuidesPage({ search }: { search: GuideSearch }) {
             {(lang === "ar" ? g.summary_ar : g.summary_en) && <p className="mt-2 line-clamp-3 text-sm text-text-body" dir="auto">{lang === "ar" ? g.summary_ar : g.summary_en}</p>}
             <div className="mt-3 text-sm"><TradeExternal url={g.official_service_url}>{t("Official link")}</TradeExternal></div>
             <div className="mt-auto">
-              <SourceLine name={g.source_name} nameAr={g.source_name_ar} url={g.source_url} date={g.last_verified_at} />
+              <SourceLine card name={g.source_name} nameAr={g.source_name_ar} url={g.source_url} date={g.last_verified_at} />
             </div>
             <Link to="/do-business/procedure-guides/$slug" params={{ slug: g.slug }} className="hit-44 mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
               {t("View guide")} <ArrowRight className="size-4 rtl:rotate-180" />
@@ -304,7 +321,24 @@ export function TradeGuidesPage({ search }: { search: GuideSearch }) {
   );
 }
 
-const STEP_ICONS: LucideIcon[] = [ClipboardList, Factory, Globe2, ArrowRight];
+/** Procedure steps: only the step number in the gold circle, same size on every step, no decorative icons. RTL keeps step 1 on the right. */
+function TradeStepsRow({ steps }: { steps: { title: string; desc: string }[] }) {
+  const { t } = useI18n();
+  return (
+    <ol className="grid gap-4 md:grid-cols-4">
+      {steps.map((s, i) => (
+        <li key={s.title} className="relative grid justify-items-center gap-2 rounded-[10px] border border-border bg-card p-5 text-center shadow-sm">
+          <span className="grid size-14 place-items-center rounded-full bg-gold-cta font-display text-2xl font-bold text-gold-foreground">{i + 1}</span>
+          <h3 className="text-sm font-bold text-navy">{t(s.title)}</h3>
+          <p className="text-xs text-text-body">{t(s.desc)}</p>
+          {i < steps.length - 1 && (
+            <ChevronRight className="absolute -end-4 top-1/2 z-10 hidden size-6 -translate-y-1/2 text-gold-text md:block rtl:rotate-180" />
+          )}
+        </li>
+      ))}
+    </ol>
+  );
+}
 
 export function TradeGuideDetail({ slug }: { slug: string }) {
   const { data } = useSuspenseQuery(procedureGuideQuery(slug));
@@ -312,6 +346,9 @@ export function TradeGuideDetail({ slug }: { slug: string }) {
   const g = data.guide;
   if (!g) return null;
   const text = (en: string | null, ar: string | null) => (lang === "ar" ? ar : en) ?? en ?? ar ?? "";
+  const feeText = tradeTextFor(lang, g.published_fee_text, g.published_fee_text_ar);
+  const timeText = tradeTextFor(lang, g.published_processing_time_text, g.published_processing_time_text_ar);
+  const { showIssuingSource, showOfficialLink } = documentTableColumns(data.documents);
   const official = safeHealthUrl(g.official_service_url);
   return (
     <TradeShell title={text(g.title_en, g.title_ar)} trail={[{ label: "Procedure Guides", to: "/do-business/procedure-guides" }]}>
@@ -325,24 +362,24 @@ export function TradeGuideDetail({ slug }: { slug: string }) {
           </a>
         </div>
       )}
-      {showPublishedBlock(g.published_fee_text, g.fee_source_url) && (
+      {showPublishedBlock(feeText, g.fee_source_url) && (
         <section className="rounded-lg border border-border bg-card p-5">
           <h2 className="font-display text-xl font-semibold text-navy">{t("Published fee")}</h2>
-          <p className="mt-2 text-text-body" dir="auto">{g.published_fee_text}</p>
+          <p className="mt-2 text-text-body" dir="auto">{feeText}</p>
           <TradeExternal url={g.fee_source_url} source>{t("Fee source")}</TradeExternal>
         </section>
       )}
-      {showPublishedBlock(g.published_processing_time_text, g.time_source_url) && (
+      {showPublishedBlock(timeText, g.time_source_url) && (
         <section className="rounded-lg border border-border bg-card p-5">
           <h2 className="font-display text-xl font-semibold text-navy">{t("Published processing time")}</h2>
-          <p className="mt-2 text-text-body" dir="auto">{g.published_processing_time_text}</p>
+          <p className="mt-2 text-text-body" dir="auto">{timeText}</p>
           <TradeExternal url={g.time_source_url} source>{t("Processing time source")}</TradeExternal>
         </section>
       )}
       {data.steps.length > 0 && (
         <section>
           <h2 className="mb-4 font-display text-2xl font-semibold text-navy">{t("Steps")}</h2>
-          <ProcessStepsRow steps={data.steps.map((s, i) => ({ Icon: STEP_ICONS[i % STEP_ICONS.length] ?? ClipboardList, title: text(s.title_en, s.title_ar), desc: text(s.description_en, s.description_ar) }))} />
+          <TradeStepsRow steps={data.steps.map((s) => ({ title: text(s.title_en, s.title_ar), desc: text(s.description_en, s.description_ar) }))} />
         </section>
       )}
       {data.documents.length > 0 && (
@@ -351,15 +388,20 @@ export function TradeGuideDetail({ slug }: { slug: string }) {
           <div className="overflow-x-auto rounded-lg border border-border">
             <table className="w-full min-w-[560px] text-sm">
               <thead className="bg-bg-alt text-navy">
-                <tr>{["Document", "Issuing source", "Last reviewed", "Official link"].map((h) => <th key={h} className="px-3 py-2 text-start font-semibold">{t(h)}</th>)}</tr>
+                <tr>
+                  <th className="px-3 py-2 text-start font-semibold">{t("Document")}</th>
+                  {showIssuingSource && <th className="px-3 py-2 text-start font-semibold">{t("Issuing source")}</th>}
+                  <th className="px-3 py-2 text-start font-semibold">{t("Last reviewed")}</th>
+                  {showOfficialLink && <th className="px-3 py-2 text-start font-semibold">{t("Official link")}</th>}
+                </tr>
               </thead>
               <tbody>
                 {data.documents.map((d) => (
                   <tr key={d.id} className="border-t border-border">
                     <td className="px-3 py-2 text-navy" dir="auto">{lang === "ar" ? d.document_name_ar : d.document_name_en}</td>
-                    <td className="px-3 py-2 text-text-body" dir="auto">{(lang === "ar" ? d.issuing_source_ar : d.issuing_source_en) ?? "—"}</td>
+                    {showIssuingSource && <td className="px-3 py-2 text-text-body" dir="auto">{(lang === "ar" ? d.issuing_source_ar : d.issuing_source_en) ?? "—"}</td>}
                     <td className="px-3 py-2 text-text-body">{sourceDateText(d.last_reviewed_at) ? new Date(d.last_reviewed_at!).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { timeZone: "UTC" }) : "—"}</td>
-                    <td className="px-3 py-2"><TradeExternal url={d.official_url}>{t("Official link")}</TradeExternal></td>
+                    {showOfficialLink && <td className="px-3 py-2"><TradeExternal url={d.official_url}>{t("Official link")}</TradeExternal></td>}
                   </tr>
                 ))}
               </tbody>

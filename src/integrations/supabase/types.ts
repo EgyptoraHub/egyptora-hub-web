@@ -2989,7 +2989,9 @@ export type Database = {
           last_verified_at: string | null
           official_service_url: string | null
           published_fee_text: string | null
+          published_fee_text_ar: string | null
           published_processing_time_text: string | null
+          published_processing_time_text_ar: string | null
           review_status: string
           slug: string
           source_name: string | null
@@ -3014,7 +3016,9 @@ export type Database = {
           last_verified_at?: string | null
           official_service_url?: string | null
           published_fee_text?: string | null
+          published_fee_text_ar?: string | null
           published_processing_time_text?: string | null
+          published_processing_time_text_ar?: string | null
           review_status?: string
           slug: string
           source_name?: string | null
@@ -3039,7 +3043,9 @@ export type Database = {
           last_verified_at?: string | null
           official_service_url?: string | null
           published_fee_text?: string | null
+          published_fee_text_ar?: string | null
           published_processing_time_text?: string | null
+          published_processing_time_text_ar?: string | null
           review_status?: string
           slug?: string
           source_name?: string | null

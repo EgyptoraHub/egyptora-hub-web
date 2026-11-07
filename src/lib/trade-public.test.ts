@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { tradeGateOpen, sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind, validateSectorSearch, validateCountrySearch, validateGuideSearch } from "./trade-public";
+import { tradeGateOpen, sourceDateText, sourceNameFor, tradeTextFor, showPublishedBlock, isRawMaterialKind, cardSourceItems, documentTableColumns, validateSectorSearch, validateCountrySearch, validateGuideSearch } from "./trade-public";
 
 describe("trade public page rules", () => {
   it("zero public rows keep the section gated (inert nav / notFound)", () => {
@@ -28,6 +28,30 @@ describe("trade public page rules", () => {
     assert.equal(sourceNameFor("fr", "Ministry of Trade", "وزارة التجارة"), "Ministry of Trade");
     assert.equal(sourceNameFor("en", null, "وزارة التجارة"), null);
     assert.equal(sourceNameFor("en", "", ""), null);
+  });
+  it("Arabic pages prefer the Arabic fee/time text and fall back to the default", () => {
+    assert.equal(tradeTextFor("ar", "15 working days", "15 يوم عمل"), "15 يوم عمل");
+    assert.equal(tradeTextFor("ar", "15 working days", null), "15 working days");
+    assert.equal(tradeTextFor("ar", "15 working days", "  "), "15 working days");
+    assert.equal(tradeTextFor("ar", null, null), null);
+  });
+  it("English and other languages never show the Arabic fee/time text", () => {
+    assert.equal(tradeTextFor("en", "15 working days", "15 يوم عمل"), "15 working days");
+    assert.equal(tradeTextFor("fr", "15 working days", "15 يوم عمل"), "15 working days");
+    assert.equal(tradeTextFor("en", null, "15 يوم عمل"), null);
+    assert.equal(tradeTextFor("en", "", ""), null);
+  });
+  it("card source rows keep separators only between present items", () => {
+    assert.deepEqual(cardSourceItems(["Source", "Last verified: 01/10/2026"]), ["Source", "Last verified: 01/10/2026"]);
+    assert.deepEqual(cardSourceItems(["Source", null]), ["Source"]);
+    assert.deepEqual(cardSourceItems([null, "Last verified: 01/10/2026"]), ["Last verified: 01/10/2026"]);
+    assert.deepEqual(cardSourceItems(["  ", undefined]), []);
+  });
+  it("document table hides columns that are empty for every document of the guide", () => {
+    assert.deepEqual(documentTableColumns([{ issuing_source_en: null, issuing_source_ar: null, official_url: null }]), { showIssuingSource: false, showOfficialLink: false });
+    assert.deepEqual(documentTableColumns([{ issuing_source_en: "  ", issuing_source_ar: null, official_url: "https://example.gov.eg" }]), { showIssuingSource: false, showOfficialLink: true });
+    assert.deepEqual(documentTableColumns([{ issuing_source_en: null, issuing_source_ar: "جهة الإصدار", official_url: null }]), { showIssuingSource: true, showOfficialLink: false });
+    assert.deepEqual(documentTableColumns([{ issuing_source_en: "Authority", official_url: "https://example.gov.eg" }]), { showIssuingSource: true, showOfficialLink: true });
   });
   it("published fee/time blocks render only with both text and their own source link", () => {
     assert.equal(showPublishedBlock(null, null), false);
