@@ -1,4 +1,5 @@
 import { healthNavigation } from "@/lib/health-public";
+import type { NavGate } from "@/lib/nav-availability";
 /**
  * Main site navigation: 8 top-level entries, five of which open a dropdown.
  * Sub-items point at a real route where one exists today; the rest are marked
@@ -20,7 +21,7 @@ export type NavLeaf = {
    * Data-driven item: shown as a link to `to` only when this section has at least one
    * public record (checked at runtime); otherwise it stays "Coming soon".
    */
-  gate?: "protected_areas" | "industrial_zones" | "free_zones";
+  gate?: NavGate;
   /** Rendered as a child of the entry above it. */
   indent?: boolean;
 };
@@ -113,6 +114,9 @@ export const mainNav: NavEntry[] = [
       { label: "Tenders & Projects", soon: true },
       { label: "Trade & Export", to: "/products" },
       { label: "Made in Egypt Marketplace", to: "/marketplace", indent: true },
+      { label: "Industry & Agriculture", soon: true, to: "/do-business/industry-agriculture", gate: "trade_sectors" },
+      { label: "World Gateway", soon: true, to: "/do-business/world-gateway", gate: "trade_country_profiles" },
+      { label: "Procedure Guides", soon: true, to: "/do-business/procedure-guides", gate: "procedure_guides" },
       { label: "Regulations & Laws", to: "/legal" },
       { label: "Business Support", to: "/providers" },
       { label: "SMEs & Entrepreneurship", soon: true },

@@ -62,8 +62,12 @@ import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
 import { Route as DoBusinessFreeZonesRouteImport } from './routes/do-business_.free-zones'
 import { Route as DoBusinessIndustrialZonesRouteImport } from './routes/do-business_.industrial-zones'
+import { Route as DoBusinessIndustryAgricultureRouteImport } from './routes/do-business_.industry-agriculture'
 import { Route as DoBusinessLicensesPermitsRouteImport } from './routes/do-business_.licenses-permits'
+import { Route as DoBusinessProcedureGuidesRouteImport } from './routes/do-business_.procedure-guides'
 import { Route as DoBusinessStartABusinessRouteImport } from './routes/do-business_.start-a-business'
+import { Route as DoBusinessTradeInquiryRouteImport } from './routes/do-business_.trade-inquiry'
+import { Route as DoBusinessWorldGatewayRouteImport } from './routes/do-business_.world-gateway'
 import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
 import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/egypt-through-time_.military-history'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
@@ -119,6 +123,9 @@ import { Route as AdminContentTableRouteImport } from './routes/admin.content.$t
 import { Route as AdminCrmInvestmentRouteImport } from './routes/admin.crm.investment'
 import { Route as AdminCrmPropertiesRouteImport } from './routes/admin.crm.properties'
 import { Route as AdminPartnersNewRouteImport } from './routes/admin.partners_.new'
+import { Route as DoBusinessIndustryAgricultureSlugRouteImport } from './routes/do-business_.industry-agriculture_.$slug'
+import { Route as DoBusinessProcedureGuidesSlugRouteImport } from './routes/do-business_.procedure-guides_.$slug'
+import { Route as DoBusinessWorldGatewaySlugRouteImport } from './routes/do-business_.world-gateway_.$slug'
 import { Route as EgyptThroughTimeMilitaryHistoryFiguresRouteImport } from './routes/egypt-through-time_.military-history_.figures'
 import { Route as EgyptThroughTimeMilitaryHistoryLibraryRouteImport } from './routes/egypt-through-time_.military-history_.library'
 import { Route as EgyptThroughTimeMilitaryHistoryMapRouteImport } from './routes/egypt-through-time_.military-history_.map'
@@ -400,10 +407,22 @@ const DoBusinessIndustrialZonesRoute =
     path: '/do-business/industrial-zones',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DoBusinessIndustryAgricultureRoute =
+  DoBusinessIndustryAgricultureRouteImport.update({
+    id: '/do-business_/industry-agriculture',
+    path: '/do-business/industry-agriculture',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DoBusinessLicensesPermitsRoute =
   DoBusinessLicensesPermitsRouteImport.update({
     id: '/do-business_/licenses-permits',
     path: '/do-business/licenses-permits',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DoBusinessProcedureGuidesRoute =
+  DoBusinessProcedureGuidesRouteImport.update({
+    id: '/do-business_/procedure-guides',
+    path: '/do-business/procedure-guides',
     getParentRoute: () => rootRouteImport,
   } as any)
 const DoBusinessStartABusinessRoute =
@@ -412,6 +431,16 @@ const DoBusinessStartABusinessRoute =
     path: '/do-business/start-a-business',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DoBusinessTradeInquiryRoute = DoBusinessTradeInquiryRouteImport.update({
+  id: '/do-business_/trade-inquiry',
+  path: '/do-business/trade-inquiry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoBusinessWorldGatewayRoute = DoBusinessWorldGatewayRouteImport.update({
+  id: '/do-business_/world-gateway',
+  path: '/do-business/world-gateway',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EgyptAppsCategoryRoute = EgyptAppsCategoryRouteImport.update({
   id: '/egypt-apps_/$category',
   path: '/egypt-apps/$category',
@@ -701,6 +730,24 @@ const AdminPartnersNewRoute = AdminPartnersNewRouteImport.update({
   path: '/partners/new',
   getParentRoute: () => AdminRoute,
 } as any)
+const DoBusinessIndustryAgricultureSlugRoute =
+  DoBusinessIndustryAgricultureSlugRouteImport.update({
+    id: '/do-business_/industry-agriculture_/$slug',
+    path: '/do-business/industry-agriculture/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DoBusinessProcedureGuidesSlugRoute =
+  DoBusinessProcedureGuidesSlugRouteImport.update({
+    id: '/do-business_/procedure-guides_/$slug',
+    path: '/do-business/procedure-guides/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DoBusinessWorldGatewaySlugRoute =
+  DoBusinessWorldGatewaySlugRouteImport.update({
+    id: '/do-business_/world-gateway_/$slug',
+    path: '/do-business/world-gateway/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EgyptThroughTimeMilitaryHistoryFiguresRoute =
   EgyptThroughTimeMilitaryHistoryFiguresRouteImport.update({
     id: '/egypt-through-time_/military-history_/figures',
@@ -828,8 +875,12 @@ export interface FileRoutesByFullPath {
   '/countries/$id': typeof CountriesIdRoute
   '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
+  '/do-business/industry-agriculture': typeof DoBusinessIndustryAgricultureRoute
   '/do-business/licenses-permits': typeof DoBusinessLicensesPermitsRoute
+  '/do-business/procedure-guides': typeof DoBusinessProcedureGuidesRoute
   '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
+  '/do-business/trade-inquiry': typeof DoBusinessTradeInquiryRoute
+  '/do-business/world-gateway': typeof DoBusinessWorldGatewayRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -885,6 +936,9 @@ export interface FileRoutesByFullPath {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners/new': typeof AdminPartnersNewRoute
+  '/do-business/industry-agriculture/$slug': typeof DoBusinessIndustryAgricultureSlugRoute
+  '/do-business/procedure-guides/$slug': typeof DoBusinessProcedureGuidesSlugRoute
+  '/do-business/world-gateway/$slug': typeof DoBusinessWorldGatewaySlugRoute
   '/egypt-through-time/military-history/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   '/egypt-through-time/military-history/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
@@ -952,8 +1006,12 @@ export interface FileRoutesByTo {
   '/countries/$id': typeof CountriesIdRoute
   '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
+  '/do-business/industry-agriculture': typeof DoBusinessIndustryAgricultureRoute
   '/do-business/licenses-permits': typeof DoBusinessLicensesPermitsRoute
+  '/do-business/procedure-guides': typeof DoBusinessProcedureGuidesRoute
   '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
+  '/do-business/trade-inquiry': typeof DoBusinessTradeInquiryRoute
+  '/do-business/world-gateway': typeof DoBusinessWorldGatewayRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -1009,6 +1067,9 @@ export interface FileRoutesByTo {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners/new': typeof AdminPartnersNewRoute
+  '/do-business/industry-agriculture/$slug': typeof DoBusinessIndustryAgricultureSlugRoute
+  '/do-business/procedure-guides/$slug': typeof DoBusinessProcedureGuidesSlugRoute
+  '/do-business/world-gateway/$slug': typeof DoBusinessWorldGatewaySlugRoute
   '/egypt-through-time/military-history/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   '/egypt-through-time/military-history/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
@@ -1078,8 +1139,12 @@ export interface FileRoutesById {
   '/countries_/$id': typeof CountriesIdRoute
   '/do-business_/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business_/industrial-zones': typeof DoBusinessIndustrialZonesRoute
+  '/do-business_/industry-agriculture': typeof DoBusinessIndustryAgricultureRoute
   '/do-business_/licenses-permits': typeof DoBusinessLicensesPermitsRoute
+  '/do-business_/procedure-guides': typeof DoBusinessProcedureGuidesRoute
   '/do-business_/start-a-business': typeof DoBusinessStartABusinessRoute
+  '/do-business_/trade-inquiry': typeof DoBusinessTradeInquiryRoute
+  '/do-business_/world-gateway': typeof DoBusinessWorldGatewayRoute
   '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time_/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -1135,6 +1200,9 @@ export interface FileRoutesById {
   '/admin/crm/investment': typeof AdminCrmInvestmentRoute
   '/admin/crm/properties': typeof AdminCrmPropertiesRoute
   '/admin/partners_/new': typeof AdminPartnersNewRoute
+  '/do-business_/industry-agriculture_/$slug': typeof DoBusinessIndustryAgricultureSlugRoute
+  '/do-business_/procedure-guides_/$slug': typeof DoBusinessProcedureGuidesSlugRoute
+  '/do-business_/world-gateway_/$slug': typeof DoBusinessWorldGatewaySlugRoute
   '/egypt-through-time_/military-history_/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   '/egypt-through-time_/military-history_/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
   '/egypt-through-time_/military-history_/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
@@ -1205,8 +1273,12 @@ export interface FileRouteTypes {
     | '/countries/$id'
     | '/do-business/free-zones'
     | '/do-business/industrial-zones'
+    | '/do-business/industry-agriculture'
     | '/do-business/licenses-permits'
+    | '/do-business/procedure-guides'
     | '/do-business/start-a-business'
+    | '/do-business/trade-inquiry'
+    | '/do-business/world-gateway'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1262,6 +1334,9 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners/new'
+    | '/do-business/industry-agriculture/$slug'
+    | '/do-business/procedure-guides/$slug'
+    | '/do-business/world-gateway/$slug'
     | '/egypt-through-time/military-history/figures'
     | '/egypt-through-time/military-history/library'
     | '/egypt-through-time/military-history/map'
@@ -1329,8 +1404,12 @@ export interface FileRouteTypes {
     | '/countries/$id'
     | '/do-business/free-zones'
     | '/do-business/industrial-zones'
+    | '/do-business/industry-agriculture'
     | '/do-business/licenses-permits'
+    | '/do-business/procedure-guides'
     | '/do-business/start-a-business'
+    | '/do-business/trade-inquiry'
+    | '/do-business/world-gateway'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1386,6 +1465,9 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners/new'
+    | '/do-business/industry-agriculture/$slug'
+    | '/do-business/procedure-guides/$slug'
+    | '/do-business/world-gateway/$slug'
     | '/egypt-through-time/military-history/figures'
     | '/egypt-through-time/military-history/library'
     | '/egypt-through-time/military-history/map'
@@ -1454,8 +1536,12 @@ export interface FileRouteTypes {
     | '/countries_/$id'
     | '/do-business_/free-zones'
     | '/do-business_/industrial-zones'
+    | '/do-business_/industry-agriculture'
     | '/do-business_/licenses-permits'
+    | '/do-business_/procedure-guides'
     | '/do-business_/start-a-business'
+    | '/do-business_/trade-inquiry'
+    | '/do-business_/world-gateway'
     | '/egypt-apps_/$category'
     | '/egypt-through-time_/military-history'
     | '/egyptian-heritage-worldwide_/$id'
@@ -1511,6 +1597,9 @@ export interface FileRouteTypes {
     | '/admin/crm/investment'
     | '/admin/crm/properties'
     | '/admin/partners_/new'
+    | '/do-business_/industry-agriculture_/$slug'
+    | '/do-business_/procedure-guides_/$slug'
+    | '/do-business_/world-gateway_/$slug'
     | '/egypt-through-time_/military-history_/figures'
     | '/egypt-through-time_/military-history_/library'
     | '/egypt-through-time_/military-history_/map'
@@ -1574,8 +1663,12 @@ export interface RootRouteChildren {
   CountriesIdRoute: typeof CountriesIdRoute
   DoBusinessFreeZonesRoute: typeof DoBusinessFreeZonesRoute
   DoBusinessIndustrialZonesRoute: typeof DoBusinessIndustrialZonesRoute
+  DoBusinessIndustryAgricultureRoute: typeof DoBusinessIndustryAgricultureRoute
   DoBusinessLicensesPermitsRoute: typeof DoBusinessLicensesPermitsRoute
+  DoBusinessProcedureGuidesRoute: typeof DoBusinessProcedureGuidesRoute
   DoBusinessStartABusinessRoute: typeof DoBusinessStartABusinessRoute
+  DoBusinessTradeInquiryRoute: typeof DoBusinessTradeInquiryRoute
+  DoBusinessWorldGatewayRoute: typeof DoBusinessWorldGatewayRoute
   EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
   EgyptThroughTimeMilitaryHistoryRoute: typeof EgyptThroughTimeMilitaryHistoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
@@ -1626,6 +1719,9 @@ export interface RootRouteChildren {
   MarketplaceIndexRoute: typeof MarketplaceIndexRoute
   MyTripsIndexRoute: typeof MyTripsIndexRoute
   PartnersIndexRoute: typeof PartnersIndexRoute
+  DoBusinessIndustryAgricultureSlugRoute: typeof DoBusinessIndustryAgricultureSlugRoute
+  DoBusinessProcedureGuidesSlugRoute: typeof DoBusinessProcedureGuidesSlugRoute
+  DoBusinessWorldGatewaySlugRoute: typeof DoBusinessWorldGatewaySlugRoute
   EgyptThroughTimeMilitaryHistoryFiguresRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   EgyptThroughTimeMilitaryHistoryLibraryRoute: typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
   EgyptThroughTimeMilitaryHistoryMapRoute: typeof EgyptThroughTimeMilitaryHistoryMapRoute
@@ -2014,6 +2110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DoBusinessIndustrialZonesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/do-business_/industry-agriculture': {
+      id: '/do-business_/industry-agriculture'
+      path: '/do-business/industry-agriculture'
+      fullPath: '/do-business/industry-agriculture'
+      preLoaderRoute: typeof DoBusinessIndustryAgricultureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/do-business_/licenses-permits': {
       id: '/do-business_/licenses-permits'
       path: '/do-business/licenses-permits'
@@ -2021,11 +2124,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DoBusinessLicensesPermitsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/do-business_/procedure-guides': {
+      id: '/do-business_/procedure-guides'
+      path: '/do-business/procedure-guides'
+      fullPath: '/do-business/procedure-guides'
+      preLoaderRoute: typeof DoBusinessProcedureGuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/do-business_/start-a-business': {
       id: '/do-business_/start-a-business'
       path: '/do-business/start-a-business'
       fullPath: '/do-business/start-a-business'
       preLoaderRoute: typeof DoBusinessStartABusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/trade-inquiry': {
+      id: '/do-business_/trade-inquiry'
+      path: '/do-business/trade-inquiry'
+      fullPath: '/do-business/trade-inquiry'
+      preLoaderRoute: typeof DoBusinessTradeInquiryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/world-gateway': {
+      id: '/do-business_/world-gateway'
+      path: '/do-business/world-gateway'
+      fullPath: '/do-business/world-gateway'
+      preLoaderRoute: typeof DoBusinessWorldGatewayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egypt-apps_/$category': {
@@ -2413,6 +2537,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPartnersNewRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/do-business_/industry-agriculture_/$slug': {
+      id: '/do-business_/industry-agriculture_/$slug'
+      path: '/do-business/industry-agriculture/$slug'
+      fullPath: '/do-business/industry-agriculture/$slug'
+      preLoaderRoute: typeof DoBusinessIndustryAgricultureSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/procedure-guides_/$slug': {
+      id: '/do-business_/procedure-guides_/$slug'
+      path: '/do-business/procedure-guides/$slug'
+      fullPath: '/do-business/procedure-guides/$slug'
+      preLoaderRoute: typeof DoBusinessProcedureGuidesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/world-gateway_/$slug': {
+      id: '/do-business_/world-gateway_/$slug'
+      path: '/do-business/world-gateway/$slug'
+      fullPath: '/do-business/world-gateway/$slug'
+      preLoaderRoute: typeof DoBusinessWorldGatewaySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/egypt-through-time_/military-history_/figures': {
       id: '/egypt-through-time_/military-history_/figures'
       path: '/egypt-through-time/military-history/figures'
@@ -2586,8 +2731,12 @@ const rootRouteChildren: RootRouteChildren = {
   CountriesIdRoute: CountriesIdRoute,
   DoBusinessFreeZonesRoute: DoBusinessFreeZonesRoute,
   DoBusinessIndustrialZonesRoute: DoBusinessIndustrialZonesRoute,
+  DoBusinessIndustryAgricultureRoute: DoBusinessIndustryAgricultureRoute,
   DoBusinessLicensesPermitsRoute: DoBusinessLicensesPermitsRoute,
+  DoBusinessProcedureGuidesRoute: DoBusinessProcedureGuidesRoute,
   DoBusinessStartABusinessRoute: DoBusinessStartABusinessRoute,
+  DoBusinessTradeInquiryRoute: DoBusinessTradeInquiryRoute,
+  DoBusinessWorldGatewayRoute: DoBusinessWorldGatewayRoute,
   EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
   EgyptThroughTimeMilitaryHistoryRoute: EgyptThroughTimeMilitaryHistoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
@@ -2639,6 +2788,10 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceIndexRoute: MarketplaceIndexRoute,
   MyTripsIndexRoute: MyTripsIndexRoute,
   PartnersIndexRoute: PartnersIndexRoute,
+  DoBusinessIndustryAgricultureSlugRoute:
+    DoBusinessIndustryAgricultureSlugRoute,
+  DoBusinessProcedureGuidesSlugRoute: DoBusinessProcedureGuidesSlugRoute,
+  DoBusinessWorldGatewaySlugRoute: DoBusinessWorldGatewaySlugRoute,
   EgyptThroughTimeMilitaryHistoryFiguresRoute:
     EgyptThroughTimeMilitaryHistoryFiguresRoute,
   EgyptThroughTimeMilitaryHistoryLibraryRoute:
