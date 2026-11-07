@@ -28,13 +28,10 @@
 - Source-link "Egyptian website" rule lives only in sourceUrlWarning (src/lib/protected-areas.ts) with an owner-approved allowlist; app developer websites and store links are never treated as sources.
 - AI-generated images in src/assets/generated/ are read only through src/lib/generated-images.ts ; `hidden` entries never render, culture-* get the AI badge — one place for alt text/approval.
 - Language is mirrored into the `egyptora_lang` cookie read by the root loader — first HTML has the right lang/dir.
-- Gold text on light surfaces uses `text-gold-text` (darker token; dark surfaces reset it to brand gold via CSS), and text on gold fills uses `text-gold-foreground` — keeps contrast at 4.5:1 without changing the brand gold.
-- Home intro video: config only in src/lib/intro-video.ts; click-to-load YouTube facade, renders nothing while youtubeId is empty — no load cost, no empty section.
-- Healthcare uses the central admin allowlist, shared client/server validation and database activation/evidence triggers; CSV uses dry-run validation, inactive new catalogue rows and status-only inquiry/report updates to protect private submissions.
-- Healthcare public pages use shared Query-backed publishable server reads with explicit safe columns and active-only records; detail routes reject hidden/missing records, and public submission schemas omit moderation fields to preserve anonymous privacy.
-- Healthcare page copy and service matching live in shared healthcare modules; navigation/search use one link registry, and specialties are matched only through active join rows to avoid duplicated availability rules.
-- Maintenance host classification lives in src/config/maintenance.ts and affects presentation only; toggles use authenticated server role checks and audit the session actor, so preview access never grants write privileges.
-- Health resource pages filter directory rows through healthResourceMatcher with no fallback to unrelated rows; the concierge system prompt lives in src/lib/concierge-prompt.ts and its links are the reply-link allowlist.
+- Gold text on light surfaces uses `text-gold-text`; text on gold fills uses `text-gold-foreground` — keeps 4.5:1 contrast without changing brand gold.
+- Home intro video: config only in src/lib/intro-video.ts; click-to-load YouTube facade, hidden while youtubeId is empty.
+- Healthcare uses the central admin allowlist, shared validation and DB activation/evidence triggers; CSV is dry-run with inactive needs_check rows; public pages use publishable reads with safe columns and active-only records; copy, service matching and the link registry live in shared healthcare modules; health resource pages filter via healthResourceMatcher with no fallback; the concierge prompt lives in src/lib/concierge-prompt.ts.
+- Maintenance host classification (src/config/maintenance.ts) is presentation-only; toggles use authenticated server role checks and audit the actor.
 - All replies in this project are in English only (summaries, reports, verification notes, commit titles); website UI content stays EN/AR as designed.
 
 - Trade uses the central content allowlist with shared validation, slug-based FK preview checks, inactive needs_check CSV creation and per-write server audit; visitor column grants and reviewed-active RLS protect the informational catalogue, while inquiries expose only consent-based INSERT columns.
