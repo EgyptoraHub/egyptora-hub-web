@@ -42,15 +42,12 @@ function SourceLine({ name, nameAr, url, date }: { name: string | null; nameAr?:
   const { t, lang } = useI18n();
   const verified = sourceDateText(date);
   const sourceName = sourceNameFor(lang, name, nameAr);
-  const sep = <span aria-hidden="true">·</span>;
   return (
     <p className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs text-text-body">
       <span>{t("Source:")}</span>
       {sourceName && <span dir="auto">{sourceName}</span>}
-      {sourceName && sep}
-      <TradeExternal url={url} source>{t("Source")}</TradeExternal>
-      {verified && sep}
-      {verified && <span>{t("Last verified:")} {new Date(verified).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { timeZone: "UTC" })}</span>}
+      <span className="inline-flex items-baseline gap-2 whitespace-nowrap">{sourceName && <span aria-hidden="true">·</span>}<TradeExternal url={url} source>{t("Source")}</TradeExternal></span>
+      {verified && <span className="whitespace-nowrap"><span aria-hidden="true">· </span>{t("Last verified:")} {new Date(verified).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { timeZone: "UTC" })}</span>}
     </p>
   );
 }
