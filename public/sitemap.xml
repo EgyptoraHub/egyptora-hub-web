@@ -147,6 +147,8 @@
   <url><loc>https://www.egyptora-hub.com/egypt-apps/transport</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-apps/utilities</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/experiences/eco-nature</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/trade-inquiry</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-through-time/military-history/records/001-unification-warfare-under-narmer</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-through-time/military-history/records/028-seqenenre-tao-war-against-the-hyksos</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-through-time/military-history/records/032-ahmose-i-campaigns-against-the-hyksos</loc><changefreq>monthly</changefreq></url>
@@ -169,4 +171,47 @@
   <url><loc>https://www.egyptora-hub.com/traveler-stories/story-2</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/traveler-stories/story-5</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/traveler-stories/story-9</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/ain-shams-cardiovascular-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/ain-shams-children-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/ain-shams-internal-medicine-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/ain-shams-specialized-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/ain-shams-womens-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/alexandria-main-university-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/assiut-university-hospitals</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/demerdash-surgical-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/mowasat-university-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/shatby-maternity-university-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/smouha-children-university-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/smouha-emergency-university-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/tanta-childrens-cancer-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/find-care/tanta-new-surgery-hospital</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/cardiology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/dermatology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/endocrinology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/ent</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/family-medicine</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/general-surgery</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/neurology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/obstetrics-gynecology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/oncology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/ophthalmology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/orthopedics</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/pediatrics</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/pulmonology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/health/specialties/urology</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/agriculture-agro-processing</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/automotive-transport-components</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/chemicals-petrochemicals-polymers</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/construction-wood-furniture</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/electrical-electronics</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/food-packaging-cold-chain</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/livestock-poultry-fisheries</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/machinery-mechanical-equipment</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/metals-casting-fabrication</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/mining-raw-materials</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/motors-electromagnetics</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/pharma-medical-manufacturing</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/renewable-energy-storage</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/software-engineering-industrial-services</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/textiles-leather</loc><changefreq>monthly</changefreq></url>
 </urlset>

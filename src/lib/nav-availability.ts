@@ -6,7 +6,7 @@
 import { useLoaderData } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 
-export type NavGate = "protected_areas" | "industrial_zones" | "free_zones";
+export type NavGate = "protected_areas" | "industrial_zones" | "free_zones" | "trade_sectors" | "trade_country_profiles" | "procedure_guides";
 type Avail = Partial<Record<NavGate, boolean>>;
 
 const TTL = 5 * 60 * 1000;
@@ -24,8 +24,11 @@ export function fetchNavAvailability(): Promise<Avail> {
     has(supabase.from("protected_areas").select("id", head)),
     has(supabase.from("economic_zones").select("id", head).eq("zone_type", "industrial_zone")),
     has(supabase.from("economic_zones").select("id", head).neq("zone_type", "industrial_zone")),
+    has(supabase.from("trade_sectors").select("id", head)),
+    has(supabase.from("trade_country_profiles").select("id", head)),
+    has(supabase.from("procedure_guides").select("id", head)),
   ])
-    .then(([protected_areas, industrial_zones, free_zones]) => ({ protected_areas, industrial_zones, free_zones }))
+    .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides]) => ({ protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides }))
     .catch(() => ({}));
   cache = { at: Date.now(), p };
   return p;

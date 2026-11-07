@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Rocket, FileCheck2, Scale, BadgePercent, PieChart, LifeBuoy, Factory, Gavel,
   Globe2, TrendingUp, Users, Gift, Building2, Landmark, BookOpen, ClipboardList, BadgeCheck, LineChart,
   ArrowRight, Download, Headphones, FileText, Search, FolderOpen,
-  Warehouse, Ship, Store,
+  Warehouse, Ship, Store, Sprout,
 } from "lucide-react";
 import { toast } from "sonner";
 import hero from "@/assets/generated/card-business-meeting.webp";
@@ -62,6 +62,9 @@ const chips: Chip[] = [
   { label: "Free Zones", Icon: Warehouse, to: "/do-business/free-zones", gate: "free_zones" },
   { label: "Trade & Export", Icon: Ship, to: "/products" },
   { label: "Made in Egypt Marketplace", Icon: Store, to: "/marketplace" },
+  { label: "Industry & Agriculture", Icon: Sprout, to: "/do-business/industry-agriculture", gate: "trade_sectors" },
+  { label: "World Gateway", Icon: Globe2, to: "/do-business/world-gateway", gate: "trade_country_profiles" },
+  { label: "Procedure Guides", Icon: ClipboardList, to: "/do-business/procedure-guides", gate: "procedure_guides" },
   { label: "Public Procurement", Icon: Gavel },
 ];
 

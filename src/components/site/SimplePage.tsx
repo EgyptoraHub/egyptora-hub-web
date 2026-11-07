@@ -11,10 +11,13 @@ export function SimplePage({
   banner,
   placeholder,
   parent,
+  trail,
   children,
 }: {
   /** Adds a "Home › parent › page" breadcrumb. */
   parent?: { label: string; to: string };
+  /** Multi-level breadcrumb ("Home › a › b › page"); takes precedence over `parent`. */
+  trail?: { label: string; to: string }[];
   title: string;
   intro?: string;
   banner?: ReactNode;
@@ -26,7 +29,7 @@ export function SimplePage({
   return (
     <>
       <SiteHeader />
-      {parent && <Crumbs parent={parent} page={title} />}
+      {(trail ?? parent) && <Crumbs {...(trail ? { trail } : { parent: parent! })} page={title} />}
       {banner}
       <main className="mx-auto max-w-[1280px] px-4 py-10 lg:px-8">
         <h1 className="font-display text-3xl font-bold text-navy lg:text-4xl">{t(title)}</h1>
