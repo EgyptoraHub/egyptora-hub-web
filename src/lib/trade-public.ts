@@ -66,6 +66,19 @@ export function showPublishedBlock(text: string | null | undefined, sourceUrl: s
   return Boolean(text?.trim() && sourceUrl?.trim());
 }
 
+/** Card source-row items: present, non-empty values only — the "·" separators are drawn BETWEEN these items, never leading or trailing. */
+export function cardSourceItems(parts: (string | null | undefined)[]): string[] {
+  return parts.map((p) => (p ?? "").trim()).filter(Boolean);
+}
+
+/** Required-documents table: a column renders only when at least one document of the guide has a value for it. */
+export function documentTableColumns(documents: { issuing_source_en?: string | null; issuing_source_ar?: string | null; official_url?: string | null }[]): { showIssuingSource: boolean; showOfficialLink: boolean } {
+  return {
+    showIssuingSource: documents.some((d) => Boolean((d.issuing_source_en ?? "").trim() || (d.issuing_source_ar ?? "").trim())),
+    showOfficialLink: documents.some((d) => Boolean((d.official_url ?? "").trim())),
+  };
+}
+
 /** Commodities split into raw materials vs manufactured goods / services for the country profile table. */
 export function isRawMaterialKind(recordKind: string): boolean {
   return recordKind === "raw_material" || recordKind === "agricultural";

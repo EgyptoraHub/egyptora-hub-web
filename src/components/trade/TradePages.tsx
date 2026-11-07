@@ -16,7 +16,7 @@ import {
 } from "@/lib/trade.functions";
 import {
   SECTOR_GROUPS, SECTOR_GROUP_LABELS, RECORD_KIND_LABELS, FLOW_LABELS, INQUIRY_TOPICS, INQUIRY_TOPIC_LABELS,
-  sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind, tradeTextFor,
+  sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind, tradeTextFor, cardSourceItems, documentTableColumns,
   type SectorSearch, type CountrySearch, type GuideSearch,
 } from "@/lib/trade-public";
 import { tradeInquirySchema } from "@/lib/trade-validation";
@@ -43,12 +43,18 @@ function SourceLine({ name, nameAr, url, date, card = false }: { name: string | 
   const sourceName = sourceNameFor(lang, name, nameAr);
   const verifiedText = verified ? `${t("Last verified:")} ${new Date(verified).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { timeZone: "UTC" })}` : null;
   if (card) {
+    const link = safeHealthUrl(url) ? t("Source") : null;
+    const line2 = cardSourceItems([link, verifiedText]);
     return (
       <div className="mt-3 text-xs text-text-body">
         {sourceName && <p dir="auto">{t("Source:")} {sourceName}</p>}
         <p className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <TradeExternal url={url} source>{t("Source")}</TradeExternal>
-          {verifiedText && <span className="inline-flex items-baseline gap-2 whitespace-nowrap"><span aria-hidden="true">·</span><span>{verifiedText}</span></span>}
+          {line2.map((item, i) => (
+            <span key={item} className="inline-flex items-baseline gap-2 whitespace-nowrap">
+              {i > 0 && <span aria-hidden="true">·</span>}
+              {item === link ? <TradeExternal url={url} source>{item}</TradeExternal> : item}
+            </span>
+          ))}
         </p>
       </div>
     );
@@ -342,8 +348,7 @@ export function TradeGuideDetail({ slug }: { slug: string }) {
   const text = (en: string | null, ar: string | null) => (lang === "ar" ? ar : en) ?? en ?? ar ?? "";
   const feeText = tradeTextFor(lang, g.published_fee_text, g.published_fee_text_ar);
   const timeText = tradeTextFor(lang, g.published_processing_time_text, g.published_processing_time_text_ar);
-  const showIssuingSource = data.documents.some((d) => Boolean((d.issuing_source_en ?? "").trim() || (d.issuing_source_ar ?? "").trim()));
-  const showOfficialLink = data.documents.some((d) => Boolean((d.official_url ?? "").trim()));
+  const { showIssuingSource, showOfficialLink } = documentTableColumns(data.documents);
   const official = safeHealthUrl(g.official_service_url);
   return (
     <TradeShell title={text(g.title_en, g.title_ar)} trail={[{ label: "Procedure Guides", to: "/do-business/procedure-guides" }]}>
