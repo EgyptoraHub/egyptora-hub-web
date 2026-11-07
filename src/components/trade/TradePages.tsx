@@ -1,9 +1,8 @@
 import { useId, useState, type ReactNode } from "react";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Factory, Globe2, ClipboardList, ArrowRight, ShieldAlert, ExternalLink, Send, type LucideIcon } from "lucide-react";
+import { Factory, Globe2, ClipboardList, ArrowRight, ChevronRight, ShieldAlert, ExternalLink, Send } from "lucide-react";
 import { SimplePage } from "@/components/site/SimplePage";
-import { ProcessStepsRow } from "@/components/layout/InnerPage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,7 +16,7 @@ import {
 } from "@/lib/trade.functions";
 import {
   SECTOR_GROUPS, SECTOR_GROUP_LABELS, RECORD_KIND_LABELS, FLOW_LABELS, INQUIRY_TOPICS, INQUIRY_TOPIC_LABELS,
-  sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind,
+  sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind, tradeTextFor,
   type SectorSearch, type CountrySearch, type GuideSearch,
 } from "@/lib/trade-public";
 import { tradeInquirySchema } from "@/lib/trade-validation";
@@ -148,7 +147,7 @@ export function TradeSectorsPage({ search }: { search: SectorSearch }) {
             <p className="mt-1 text-sm text-text-body">{t(SECTOR_GROUP_LABELS[s.sector_group as keyof typeof SECTOR_GROUP_LABELS] ?? s.sector_group)}</p>
             {(lang === "ar" ? s.scope_ar : s.scope_en) && <p className="mt-2 line-clamp-3 text-sm text-text-body" dir="auto">{lang === "ar" ? s.scope_ar : s.scope_en}</p>}
             <div className="mt-auto">
-              <SourceLine name={s.source_name} nameAr={s.source_name_ar} url={s.source_url} date={s.last_verified_at} />
+              <SourceLine card name={s.source_name} nameAr={s.source_name_ar} url={s.source_url} date={s.last_verified_at} />
             </div>
             <Link to="/do-business/industry-agriculture/$slug" params={{ slug: s.slug }} className="hit-44 mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
               {t("View sector")} <ArrowRight className="size-4 rtl:rotate-180" />
@@ -211,7 +210,7 @@ export function TradeCountriesPage({ search }: { search: CountrySearch }) {
             {c.region && <p className="mt-1 text-sm text-text-body">{c.region}</p>}
             {(lang === "ar" ? c.summary_ar : c.summary_en) && <p className="mt-2 line-clamp-3 text-sm text-text-body" dir="auto">{lang === "ar" ? c.summary_ar : c.summary_en}</p>}
             <div className="mt-auto">
-              <SourceLine name={c.source_name} nameAr={c.source_name_ar} url={c.source_url} date={c.last_verified_at} />
+              <SourceLine card name={c.source_name} nameAr={c.source_name_ar} url={c.source_url} date={c.last_verified_at} />
             </div>
             <Link to="/do-business/world-gateway/$slug" params={{ slug: c.slug }} className="hit-44 mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
               {t("View profile")} <ArrowRight className="size-4 rtl:rotate-180" />
@@ -304,7 +303,7 @@ export function TradeGuidesPage({ search }: { search: GuideSearch }) {
             {(lang === "ar" ? g.summary_ar : g.summary_en) && <p className="mt-2 line-clamp-3 text-sm text-text-body" dir="auto">{lang === "ar" ? g.summary_ar : g.summary_en}</p>}
             <div className="mt-3 text-sm"><TradeExternal url={g.official_service_url}>{t("Official link")}</TradeExternal></div>
             <div className="mt-auto">
-              <SourceLine name={g.source_name} nameAr={g.source_name_ar} url={g.source_url} date={g.last_verified_at} />
+              <SourceLine card name={g.source_name} nameAr={g.source_name_ar} url={g.source_url} date={g.last_verified_at} />
             </div>
             <Link to="/do-business/procedure-guides/$slug" params={{ slug: g.slug }} className="hit-44 mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
               {t("View guide")} <ArrowRight className="size-4 rtl:rotate-180" />
