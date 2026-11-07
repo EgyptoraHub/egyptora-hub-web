@@ -14,7 +14,7 @@ function* walk(dir: string): Generator<string> {
     if (["node_modules", ".git", "dist", "routeTree.gen.ts"].includes(entry)) continue;
     const path = join(dir, entry);
     if (statSync(path).isDirectory()) yield* walk(path);
-    else if (/\.(ts|tsx|sql|mjs)$/.test(entry)) yield path;
+    else if (/\.(ts|tsx|sql|mjs)$/.test(entry) && entry !== "complaints-guard.test.ts") yield path;
   }
 }
 
