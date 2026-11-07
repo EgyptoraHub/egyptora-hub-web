@@ -504,7 +504,7 @@ export const CONTENT_TABLES: TableConfig[] = [
     countBy: "review_status",
     fields: [
       { name: "topic", type: "select", options: FACT_TOPIC_OPTS }, ta("text_ar"), ta("text_en"),
-      t("source_name"), t("source_name_ar"), t("source_url"), date("source_date"),
+      t("source_name"), t("source_url"), date("source_date"),
       { name: "review_status", type: "select", options: REVIEW }, bool("is_active"), ta("internal_notes"),
     ],
   },
