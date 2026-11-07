@@ -2905,6 +2905,217 @@ export type Database = {
         }
         Relationships: []
       }
+      procedure_documents: {
+        Row: {
+          created_at: string
+          document_name_ar: string
+          document_name_en: string
+          guide_slug: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          issuing_source_ar: string | null
+          issuing_source_en: string | null
+          last_reviewed_at: string | null
+          last_verified_at: string | null
+          official_url: string | null
+          review_status: string
+          slug: string
+          source_name: string | null
+          source_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          document_name_ar: string
+          document_name_en: string
+          guide_slug: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          issuing_source_ar?: string | null
+          issuing_source_en?: string | null
+          last_reviewed_at?: string | null
+          last_verified_at?: string | null
+          official_url?: string | null
+          review_status?: string
+          slug: string
+          source_name?: string | null
+          source_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          document_name_ar?: string
+          document_name_en?: string
+          guide_slug?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          issuing_source_ar?: string | null
+          issuing_source_en?: string | null
+          last_reviewed_at?: string | null
+          last_verified_at?: string | null
+          official_url?: string | null
+          review_status?: string
+          slug?: string
+          source_name?: string | null
+          source_url?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "procedure_documents_guide_slug_fkey"
+            columns: ["guide_slug"]
+            isOneToOne: false
+            referencedRelation: "procedure_guides"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      procedure_guides: {
+        Row: {
+          activity: string | null
+          authority_name_ar: string | null
+          authority_name_en: string | null
+          created_at: string
+          fee_source_url: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          last_verified_at: string | null
+          official_service_url: string | null
+          published_fee_text: string | null
+          published_processing_time_text: string | null
+          review_status: string
+          slug: string
+          source_name: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          time_source_url: string | null
+          title_ar: string
+          title_en: string
+          updated_at: string
+        }
+        Insert: {
+          activity?: string | null
+          authority_name_ar?: string | null
+          authority_name_en?: string | null
+          created_at?: string
+          fee_source_url?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          official_service_url?: string | null
+          published_fee_text?: string | null
+          published_processing_time_text?: string | null
+          review_status?: string
+          slug: string
+          source_name?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          time_source_url?: string | null
+          title_ar: string
+          title_en: string
+          updated_at?: string
+        }
+        Update: {
+          activity?: string | null
+          authority_name_ar?: string | null
+          authority_name_en?: string | null
+          created_at?: string
+          fee_source_url?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          official_service_url?: string | null
+          published_fee_text?: string | null
+          published_processing_time_text?: string | null
+          review_status?: string
+          slug?: string
+          source_name?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          time_source_url?: string | null
+          title_ar?: string
+          title_en?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      procedure_steps: {
+        Row: {
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          guide_slug: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          last_verified_at: string | null
+          official_url: string | null
+          review_status: string
+          slug: string
+          source_name: string | null
+          source_url: string | null
+          step_no: number
+          title_ar: string
+          title_en: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          guide_slug: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          official_url?: string | null
+          review_status?: string
+          slug: string
+          source_name?: string | null
+          source_url?: string | null
+          step_no: number
+          title_ar: string
+          title_en: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          guide_slug?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          official_url?: string | null
+          review_status?: string
+          slug?: string
+          source_name?: string | null
+          source_url?: string | null
+          step_no?: number
+          title_ar?: string
+          title_en?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "procedure_steps_guide_slug_fkey"
+            columns: ["guide_slug"]
+            isOneToOne: false
+            referencedRelation: "procedure_guides"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
       products: {
         Row: {
           category: string | null
@@ -3443,6 +3654,266 @@ export type Database = {
           key?: string
           updated_at?: string
           value?: Json
+        }
+        Relationships: []
+      }
+      trade_country_commodities: {
+        Row: {
+          commodity_ar: string
+          commodity_en: string
+          country_slug: string
+          created_at: string
+          flow: string
+          hs_code: string | null
+          hs_revision: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          last_verified_at: string | null
+          notes_ar: string | null
+          notes_en: string | null
+          quantity: number | null
+          record_kind: string
+          reference_year: number
+          review_status: string
+          slug: string
+          source_name: string
+          source_url: string
+          unit: string | null
+          updated_at: string
+        }
+        Insert: {
+          commodity_ar: string
+          commodity_en: string
+          country_slug: string
+          created_at?: string
+          flow: string
+          hs_code?: string | null
+          hs_revision?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          notes_ar?: string | null
+          notes_en?: string | null
+          quantity?: number | null
+          record_kind: string
+          reference_year: number
+          review_status?: string
+          slug: string
+          source_name: string
+          source_url: string
+          unit?: string | null
+          updated_at?: string
+        }
+        Update: {
+          commodity_ar?: string
+          commodity_en?: string
+          country_slug?: string
+          created_at?: string
+          flow?: string
+          hs_code?: string | null
+          hs_revision?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          notes_ar?: string | null
+          notes_en?: string | null
+          quantity?: number | null
+          record_kind?: string
+          reference_year?: number
+          review_status?: string
+          slug?: string
+          source_name?: string
+          source_url?: string
+          unit?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trade_country_commodities_country_slug_fkey"
+            columns: ["country_slug"]
+            isOneToOne: false
+            referencedRelation: "trade_country_profiles"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      trade_country_profiles: {
+        Row: {
+          created_at: string
+          entity_type: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          iso2: string | null
+          iso3: string | null
+          last_verified_at: string | null
+          name_ar: string
+          name_en: string
+          official_trade_site_url: string | null
+          region: string | null
+          review_status: string
+          slug: string
+          source_name: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entity_type: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          iso2?: string | null
+          iso3?: string | null
+          last_verified_at?: string | null
+          name_ar: string
+          name_en: string
+          official_trade_site_url?: string | null
+          region?: string | null
+          review_status?: string
+          slug: string
+          source_name?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entity_type?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          iso2?: string | null
+          iso3?: string | null
+          last_verified_at?: string | null
+          name_ar?: string
+          name_en?: string
+          official_trade_site_url?: string | null
+          region?: string | null
+          review_status?: string
+          slug?: string
+          source_name?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      trade_inquiries: {
+        Row: {
+          consent: boolean
+          consent_at: string
+          country: string
+          created_at: string
+          email: string
+          id: string
+          inquiry_topic: string
+          internal_notes: string | null
+          message: string
+          name: string
+          organization: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          consent: boolean
+          consent_at: string
+          country: string
+          created_at?: string
+          email: string
+          id?: string
+          inquiry_topic: string
+          internal_notes?: string | null
+          message: string
+          name: string
+          organization?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          consent?: boolean
+          consent_at?: string
+          country?: string
+          created_at?: string
+          email?: string
+          id?: string
+          inquiry_topic?: string
+          internal_notes?: string | null
+          message?: string
+          name?: string
+          organization?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      trade_sectors: {
+        Row: {
+          created_at: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          last_verified_at: string | null
+          matching_info_ar: string | null
+          matching_info_en: string | null
+          name_ar: string
+          name_en: string
+          review_status: string
+          scope_ar: string | null
+          scope_en: string | null
+          sector_group: string
+          slug: string
+          sort_order: number | null
+          source_name: string | null
+          source_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          matching_info_ar?: string | null
+          matching_info_en?: string | null
+          name_ar: string
+          name_en: string
+          review_status?: string
+          scope_ar?: string | null
+          scope_en?: string | null
+          sector_group: string
+          slug: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          last_verified_at?: string | null
+          matching_info_ar?: string | null
+          matching_info_en?: string | null
+          name_ar?: string
+          name_en?: string
+          review_status?: string
+          scope_ar?: string | null
+          scope_en?: string | null
+          sector_group?: string
+          slug?: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_url?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

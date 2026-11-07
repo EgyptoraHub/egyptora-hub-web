@@ -1,8 +1,9 @@
+import { TRADE_PHASE2_FLAGS } from "@/lib/trade-validation";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { checkRole } from "@/lib/roles.functions";
 
-const FLAGS = ["payments.enabled", "kyc.enabled", "partner_dashboard.enabled", "ai_tools.enabled"] as const;
+const FLAGS = ["payments.enabled", "kyc.enabled", "partner_dashboard.enabled", "ai_tools.enabled", ...TRADE_PHASE2_FLAGS] as const;
 type Flag = (typeof FLAGS)[number];
 
 /** Admin-only: read all feature flags (all OFF by default). */
@@ -20,6 +21,7 @@ export const getFeatureFlags = createServerFn({ method: "POST" })
 export const setFeatureFlag = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { flag: Flag; enabled: boolean }) => {
+    if ((TRADE_PHASE2_FLAGS as readonly string[]).includes(input?.flag)) throw new Error("Phase 2 trade flags are disabled.");
     if (!(FLAGS as readonly string[]).includes(input?.flag)) throw new Error("Unknown flag");
     return { flag: input.flag, enabled: input.enabled === true };
   })

@@ -1,3 +1,4 @@
+import { TRADE_CONTENT_TABLES } from "@/lib/trade-validation";
 /**
  * Stage 2 (Prompt 36) — read-only data audit for admins.
  * Returns three sections (A: source links, B: public-data hygiene, C: duplicates)
@@ -37,7 +38,11 @@ async function isAdmin(context: { supabase: any; userId: string }) {
 }
 
 /** Tables/fields holding public source-style links, with the name column for display. */
+const TRADE_NAMES = { trade_sectors: "name", trade_country_profiles: "name", trade_country_commodities: "commodity", procedure_guides: "title", procedure_steps: "title", procedure_documents: "document_name" } as const;
 const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: string }[] = [
+  ...TRADE_CONTENT_TABLES.map(table => ({table,field:"source_url",nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`})),
+  {table:"procedure_guides",field:"fee_source_url",nameCol:"title_en",nameCol2:"title_ar"},
+  {table:"procedure_guides",field:"time_source_url",nameCol:"title_en",nameCol2:"title_ar"},
   { table: "health_facilities", field: "source_url", nameCol: "name_en", nameCol2: "name_ar" },
   { table: "health_facilities", field: "license_source_url", nameCol: "name_en", nameCol2: "name_ar" },
   { table: "health_facilities", field: "accreditation_source_url", nameCol: "name_en", nameCol2: "name_ar" },
@@ -77,6 +82,7 @@ type PublicDef = {
 };
 
 const PUBLIC_TABLES: PublicDef[] = [
+  ...TRADE_CONTENT_TABLES.map(table => ({table,nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`,cols:["source_url","last_verified_at"],sourceFields:["source_url"],hasVerified:true,hasReview:true})),
   { table: "health_facilities", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: false, requiredPairs: [["name_ar", "name_en"]] },
   { table: "health_specialties", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: false, requiredPairs: [["name_ar", "name_en"]] },
   { table: "culture_items", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: true, requiredPairs: [["name_ar", "name_en"]] },
@@ -195,5 +201,14 @@ export const getDataAudit = createServerFn({ method: "POST" })
       return { table, total: all.length, active: catalogue ? all.filter((r) => r.is_active).length : null, inactive: catalogue ? all.filter((r) => !r.is_active).length : null,
         missingSource: catalogue ? all.filter((r) => !r.source_url?.trim()).length : null, missingVerified: catalogue ? all.filter((r) => !r.last_verified_at).length : null };
     }));
+    for (const table of TRADE_CONTENT_TABLES) {
+      const {data: rows,error} = await supabaseAdmin.from(table).select(`id,${TRADE_NAMES[table]}_en,source_url,last_verified_at`);
+      if(error)throw error;
+      for(const row of (rows??[]) as unknown as Record<string,unknown>[]) {
+        const push=(field:string,problem:string)=>b.push({table,id:String(row["id"]),name:String(row[`${TRADE_NAMES[table]}_en`]??""),field,value:"",problem});
+        if(!String(row["source_url"]??"").trim())push("source_url","missing source link");
+        if(!row["last_verified_at"])push("last_verified_at","missing verification date");
+      }
+    }
     return { authorized: true, a, b, c, storeLinks, mediaLinks, healthCounts };
   });
