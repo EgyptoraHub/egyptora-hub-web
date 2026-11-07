@@ -17,7 +17,7 @@ import {
 } from "@/lib/trade.functions";
 import {
   SECTOR_GROUPS, SECTOR_GROUP_LABELS, RECORD_KIND_LABELS, FLOW_LABELS, INQUIRY_TOPICS, INQUIRY_TOPIC_LABELS,
-  sourceDateText, showPublishedBlock, isRawMaterialKind,
+  sourceDateText, sourceNameFor, showPublishedBlock, isRawMaterialKind,
   type SectorSearch, type CountrySearch, type GuideSearch,
 } from "@/lib/trade-public";
 import { tradeInquirySchema } from "@/lib/trade-validation";
@@ -37,14 +37,19 @@ function TradeExternal({ url, children, source = false }: { url: string | null |
   );
 }
 
-/** Source name + link + "Last verified" — the date label is hidden when the date is empty. */
-function SourceLine({ name, url, date }: { name: string | null; url: string | null; date: string | null }) {
+/** One shared source row: "Source: <name> · <link> · Last verified: <date>" — same baseline, wraps on small screens, LTR and RTL. */
+function SourceLine({ name, nameAr, url, date }: { name: string | null; nameAr?: string | null; url: string | null; date: string | null }) {
   const { t, lang } = useI18n();
   const verified = sourceDateText(date);
+  const sourceName = sourceNameFor(lang, name, nameAr);
+  const sep = <span aria-hidden="true">·</span>;
   return (
-    <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-body">
-      {name && <span dir="auto">{name}</span>}
+    <p className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs text-text-body">
+      <span>{t("Source:")}</span>
+      {sourceName && <span dir="auto">{sourceName}</span>}
+      {sourceName && sep}
       <TradeExternal url={url} source>{t("Source")}</TradeExternal>
+      {verified && sep}
       {verified && <span>{t("Last verified:")} {new Date(verified).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { timeZone: "UTC" })}</span>}
     </p>
   );
