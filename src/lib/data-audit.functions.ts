@@ -78,11 +78,13 @@ type PublicDef = {
   sourceFields: string[];
   hasVerified: boolean;
   hasReview: boolean;
+  /** warn when a source link exists but both source names are empty */
+  sourceNameCheck?: boolean;
   requiredPairs?: [string, string][]; // [ar, en] required name fields
 };
 
 const PUBLIC_TABLES: PublicDef[] = [
-  ...TRADE_CONTENT_TABLES.map(table => ({table,nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`,cols:["source_url","last_verified_at"],sourceFields:["source_url"],hasVerified:true,hasReview:true})),
+  ...TRADE_CONTENT_TABLES.map(table => ({table,nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`,cols:["source_url","last_verified_at","source_name","source_name_ar"],sourceFields:["source_url"],hasVerified:true,hasReview:true,sourceNameCheck:true})),
   { table: "health_facilities", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: false, requiredPairs: [["name_ar", "name_en"]] },
   { table: "health_specialties", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: false, requiredPairs: [["name_ar", "name_en"]] },
   { table: "culture_items", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: true, requiredPairs: [["name_ar", "name_en"]] },
@@ -136,6 +138,8 @@ export const getDataAudit = createServerFn({ method: "POST" })
           b.push({ table: def.table, id: String(row.id), name, field, value, problem });
         const hasSource = def.sourceFields.some((f) => String(row[f] ?? "").trim() !== "");
         if (!hasSource) push(def.sourceFields.join("/"), "", "public row has no source link");
+        if (def.sourceNameCheck && hasSource && !String(row.source_name ?? "").trim() && !String(row.source_name_ar ?? "").trim())
+          push("source_name", "", "source link exists but both source names are empty");
         if (def.hasVerified && !row.last_verified_at) push("last_verified_at", "", "public row was never marked verified");
         if (def.hasReview && row.review_status === "needs_check") push("review_status", "needs_check", "public row still needs_check");
         for (const [ar, en] of def.requiredPairs ?? []) {

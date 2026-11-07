@@ -38,6 +38,14 @@ export function tradeGateOpen(publicCount: number | null | undefined): boolean {
   return (publicCount ?? 0) > 0;
 }
 
+/** Bilingual source name: Arabic pages prefer source_name_ar and fall back to source_name; other languages always use source_name. */
+export function sourceNameFor(lang: string, nameEn: string | null | undefined, nameAr: string | null | undefined): string | null {
+  const en = (nameEn ?? "").trim();
+  const ar = (nameAr ?? "").trim();
+  if (lang === "ar") return ar || en || null;
+  return en || null;
+}
+
 /** "Last verified" text — null when the date is missing or invalid, so the label is hidden instead of guessed. */
 export function sourceDateText(date: string | null | undefined): string | null {
   const value = (date ?? "").trim();
