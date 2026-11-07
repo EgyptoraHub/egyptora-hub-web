@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 46 — Trade public pages
+- [ ] Seven gated routes under Do Business (sectors, world gateway, procedure guides, trade inquiry) with notFound-while-empty behaviour.
+- [ ] Nav items + hub chips behind data gates; sitemap and search entries for public rows only.
+- [ ] Trade inquiry form with consent, validation and sensitive-data warning; CTA on detail pages.
+- [ ] Verification: anon HTTP counts, EN/AR desktop/mobile screenshots, tests, docs/prompt-46-verification.md.
+
 ## Prompt 45 — Trade foundation
 - [x] Add seven protected tables and disabled Phase 2 flags, without public content or routes.
 - [x] Extend central admin, validated CSV preview/import, inquiries, audit and bilingual text.
