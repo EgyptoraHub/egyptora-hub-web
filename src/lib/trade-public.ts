@@ -46,6 +46,14 @@ export function sourceNameFor(lang: string, nameEn: string | null | undefined, n
   return en || null;
 }
 
+/** Bilingual published text (fee / processing time): Arabic pages prefer the _ar value and fall back to the default; other languages always use the default. */
+export function tradeTextFor(lang: string, textEn: string | null | undefined, textAr: string | null | undefined): string | null {
+  const en = (textEn ?? "").trim();
+  const ar = (textAr ?? "").trim();
+  if (lang === "ar") return ar || en || null;
+  return en || null;
+}
+
 /** "Last verified" text — null when the date is missing or invalid, so the label is hidden instead of guessed. */
 export function sourceDateText(date: string | null | undefined): string | null {
   const value = (date ?? "").trim();
