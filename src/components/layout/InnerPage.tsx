@@ -454,8 +454,9 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
 /* ---------------- breadcrumb ---------------- */
 
 /** Shared "Home › parent › page" trail (parent is a link). */
-export function Crumbs({ parent, page }: { parent?: { label: string; to: string } | undefined; page: string }) {
+export function Crumbs({ parent, trail, page }: { parent?: { label: string; to: string } | undefined; trail?: { label: string; to: string }[] | undefined; page: string }) {
   const { t } = useI18n();
+  const parents = trail ?? (parent ? [parent] : []);
   return (
     <nav aria-label={t("Breadcrumb")} className="border-b border-border bg-bg-alt">
       <div className={cn(innerWrap, "flex items-center gap-1.5 py-2 text-xs text-text-body")}>
@@ -463,14 +464,14 @@ export function Crumbs({ parent, page }: { parent?: { label: string; to: string 
           {t("Home")}
         </Link>
         <ChevronRight className="size-3 rtl:rotate-180" />
-        {parent && (
-          <>
-            <SmartLink to={parent.to} className="hover:text-gold-text">
-              {t(parent.label)}
+        {parents.map((p) => (
+          <span key={`${p.to}|${p.label}`} className="flex items-center gap-1.5">
+            <SmartLink to={p.to} className="hover:text-gold-text">
+              {t(p.label)}
             </SmartLink>
             <ChevronRight className="size-3 rtl:rotate-180" />
-          </>
-        )}
+          </span>
+        ))}
         <span className="font-medium text-navy">{t(page)}</span>
       </div>
     </nav>
