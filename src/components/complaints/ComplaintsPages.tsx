@@ -292,7 +292,7 @@ export function UnknownAuthorityPage() {
               <h2 className="font-display text-lg font-semibold text-navy">{t(step.title)}</h2>
               <p className="mt-1 text-sm leading-relaxed text-text-body">{t(step.body)}</p>
               {i === 1 && (
-                <Link to="/government-directory/complaints" className="hit-44 mt-1 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
+                <Link to="/government-directory/complaints" search={{ q: "", family: "" }} className="hit-44 mt-1 inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-navy underline">
                   {t("Browse all sectors")} <ArrowRight className="size-4 rtl:rotate-180" />
                 </Link>
               )}

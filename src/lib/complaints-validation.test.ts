@@ -65,12 +65,12 @@ describe("complaints CSV import", () => {
     const csv = "slug,name_en,name_ar,family,scope_en,scope_ar,notice_type,sort_order\nindustry,Industry,الصناعة,trade_finance,Factories,المصانع,none,3";
     const preview = previewComplaintsCsv("complaint_sectors", csv, [], new Set());
     assert.equal(preview.rows.length, 1);
-    assert.equal(preview.rows[0].action, "new");
-    assert.equal(preview.plans[0].payload["is_active"], false);
-    assert.equal(preview.plans[0].payload["review_status"], "needs_check");
+    assert.equal(preview.rows[0]?.action, "new");
+    assert.equal(preview.plans[0]?.payload["is_active"], false);
+    assert.equal(preview.plans[0]?.payload["review_status"], "needs_check");
     assert.throws(() => previewComplaintsCsv("complaint_sectors", "slug,name_en,hacker\na,A,x", [], new Set()), /unsupported columns/);
     const bad = previewComplaintsCsv("complaint_sectors", "slug,name_en,name_ar,family\na,A,ب,wrong_family", [], new Set());
-    assert.equal(bad.rows[0].action, "rejected");
+    assert.equal(bad.rows[0]?.action, "rejected");
   });
 });
 
