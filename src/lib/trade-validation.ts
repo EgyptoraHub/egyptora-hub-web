@@ -10,7 +10,7 @@ const optional = (max = 5000) => text(max).nullish();
 const url = z.string().max(2048).url().refine(v => /^https?:\/\//i.test(v), "Use an HTTP website.").nullish();
 const source = url.refine(v => !v || !/\.pdf(?:[?#]|$)/i.test(v), "PDF sources are not allowed.");
 const date = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(v => Number.isFinite(Date.parse(v)) && new Date(v).toISOString().slice(0,10) === v, "Invalid date.").refine(v => v <= new Date().toISOString().slice(0,10), "Date cannot be in the future.").nullish();
-const common = { source_name: optional(300), source_url: source, last_verified_at: date, review_status: z.enum(["needs_check", "editorial_reviewed", "verified"]).optional(), is_active: z.boolean().optional(), internal_notes: optional() };
+const common = { source_name: optional(300), source_name_ar: optional(300), source_url: source, last_verified_at: date, review_status: z.enum(["needs_check", "editorial_reviewed", "verified"]).optional(), is_active: z.boolean().optional(), internal_notes: optional() };
 const names = { name_en: text(200).min(1), name_ar: text(200).min(1) };
 const titles = { title_en: text(300).min(1), title_ar: text(300).min(1) };
 const schemas = {
