@@ -75,6 +75,9 @@
 ## Pending
 - [ ] Machine-translate database content (all content tables) into the 9 supported languages, stored so the switcher swaps content text too. Report summary before publishing.
 
+## Publish checklist
+- [ ] Final 9-language translation pass in Lovable before launch, then native-speaker review
+
 ## Redesign (8-page template system)
 - [x] Step 1: 8-item top nav with 5 dropdown menus (desktop + mobile accordion, RTL-safe).
 - [x] Step 2: shared interior template (PageTemplate/HeroSearch/CategoryTabs/FeaturedRow/ExploreGrid/SidebarWidgets) proven on /properties.
