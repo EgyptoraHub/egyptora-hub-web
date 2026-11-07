@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 45 — Trade foundation
+- [ ] Add seven protected tables and disabled Phase 2 flags, without public content or routes.
+- [ ] Extend central admin, validated CSV preview/import, inquiries, audit and bilingual text.
+- [ ] Verify database access/activation/consent, full tests, type check and document results.
+
 ## Prompt 44e — Currency switcher next to language switcher
 - [x] Currency switcher in header from 1536px up; bell stays in "…" popover 1536–1899px; "…" hidden when signed out.
 - [x] FR/DE 1536px overflow fixed by tightening fluid nav gap to ~0px and right-cluster/container gaps below 1700px; no language-specific hamburger fallback needed.
