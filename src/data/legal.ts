@@ -1155,6 +1155,41 @@ export const legalDocuments: LegalDocument[] = [
     ],
     { footerGroup: "Legal" },
   ),
+
+  doc(
+    36,
+    "complaints-guide-disclaimer",
+    "Complaints & Government Services Guide Disclaimer",
+    "Disclaimers",
+    "Why the Complaints & Government Services Guide is informational only and why Egyptora Hub never receives, forwards or resolves complaints.",
+    [
+      {
+        heading: "Independent information service",
+        body: [
+          "Egyptora Hub is an independent information service. It is not a government body and does not receive, forward, investigate or resolve complaints or reports.",
+        ],
+      },
+      {
+        heading: "Purpose of the guide",
+        body: [
+          "This guide points to official complaint channels published by the competent authorities. Channel details can change; always confirm on the official website or hotline.",
+        ],
+      },
+      {
+        heading: "No legal advice, no endorsement",
+        body: [
+          "Nothing here is legal advice, and listing a channel does not mean the authority endorses Egyptora.",
+        ],
+      },
+      {
+        heading: "Protect your personal data",
+        body: [
+          "Do not share national ID numbers, bank-card numbers or passwords with anyone claiming to handle complaints on your behalf.",
+        ],
+      },
+    ],
+    { footerGroup: "Legal" },
+  ),
 ];
 
 export const legalCategories: LegalCategory[] = [

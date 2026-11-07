@@ -31,6 +31,8 @@ export const CONCIERGE_TABLES = [
   "protected_areas",
   "health_facilities",
   "health_specialties",
+  "complaint_sectors",
+  "complaint_channels",
 ] as const;
 
 export type ConciergeTable = (typeof CONCIERGE_TABLES)[number];
@@ -123,8 +125,51 @@ const CULTURE_URL: Record<string, string> = { cuisine: "cuisine", fashion: "fash
 const VISIBLE = ["editorial_reviewed", "verified"];
 
 async function searchPublicSection(table: ConciergeTable, term: string, limit: number): Promise<ConciergeMatch[] | null> {
-  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones", "protected_areas", "health_facilities", "health_specialties"].includes(table)) return null;
+  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones", "protected_areas", "health_facilities", "health_specialties", "complaint_sectors", "complaint_channels"].includes(table)) return null;
   const db = (await publicClient()) as any;
+  if (table === "complaint_sectors") {
+    // Public rows only (RLS + column grants); informational guide sectors, never a complaint intake.
+    const { data, error } = await db
+      .from("complaint_sectors")
+      .select("id, slug, name_en, name_ar, scope_en, family")
+      .or(orFilter(term, ["name_en", "name_ar", "scope_en"]))
+      .eq("is_active", true)
+      .in("review_status", VISIBLE)
+      .limit(limit);
+    if (error) throw error;
+    return (data ?? []).map((r: any) => ({
+      id: String(r.id), name: r.name_en || r.name_ar, slug: String(r.slug), type: table,
+      summary: oneLine(r.scope_en), category: r.family,
+      link: `${SITE}/government-directory/complaints/${r.slug}`,
+    }));
+  }
+  if (table === "complaint_channels") {
+    // A channel is suggested only when its sector is also public.
+    const { data: sectors, error: sectorError } = await db
+      .from("complaint_sectors")
+      .select("slug")
+      .eq("is_active", true)
+      .in("review_status", VISIBLE);
+    if (sectorError) throw sectorError;
+    const publicSectors = new Set((sectors ?? []).map((s: any) => s.slug));
+    if (publicSectors.size === 0) return [];
+    const { data, error } = await db
+      .from("complaint_channels")
+      .select("id, slug, sector_slug, authority_name_en, authority_name_ar, channel_type, channel_value, handles_en")
+      .or(orFilter(term, ["authority_name_en", "authority_name_ar", "handles_en", "label_en"]))
+      .eq("is_active", true)
+      .in("review_status", VISIBLE)
+      .limit(limit * 3);
+    if (error) throw error;
+    return (data ?? [])
+      .filter((r: any) => publicSectors.has(r.sector_slug))
+      .slice(0, limit)
+      .map((r: any) => ({
+        id: String(r.id), name: `${r.authority_name_en || r.authority_name_ar} — ${r.channel_type}`, slug: String(r.slug), type: table,
+        summary: oneLine([r.channel_type === "hotline" ? r.channel_value : null, r.handles_en].filter(Boolean).join(" · ")),
+        link: `${SITE}/government-directory/complaints/${r.sector_slug}`,
+      }));
+  }
   if (table === "health_facilities" || table === "health_specialties") {
     const summaryColumn = table === "health_facilities" ? "description_en" : "summary_en";
     const { data, error } = await db.from(table).select(`id,slug,name_en,name_ar,${summaryColumn}`)

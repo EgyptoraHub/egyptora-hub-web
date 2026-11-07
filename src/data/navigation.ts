@@ -151,6 +151,7 @@ export const mainNav: NavEntry[] = [
     items: [
       { label: "Official Directory", to: "/government-directory" },
       { label: "Digital Government Services", to: "/government-directory/digital-services" },
+      { label: "Complaints & Services Guide", soon: true, to: "/government-directory/complaints", gate: "complaint_sectors" },
       { label: "Emergency & Quick Numbers", to: "/emergency-numbers" },
       { label: "Egypt Apps", to: "/egypt-apps" },
     ],

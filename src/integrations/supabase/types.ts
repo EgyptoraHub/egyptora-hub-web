@@ -220,6 +220,143 @@ export type Database = {
           },
         ]
       }
+      complaint_channels: {
+        Row: {
+          authority_name_ar: string | null
+          authority_name_en: string
+          channel_type: string
+          channel_value: string
+          created_at: string
+          handles_ar: string | null
+          handles_en: string | null
+          hours_ar: string | null
+          hours_en: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          label_ar: string | null
+          label_en: string | null
+          last_verified_at: string | null
+          review_status: string
+          sector_slug: string
+          slug: string
+          sort_order: number | null
+          source_name: string | null
+          source_name_ar: string | null
+          source_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          authority_name_ar?: string | null
+          authority_name_en: string
+          channel_type: string
+          channel_value: string
+          created_at?: string
+          handles_ar?: string | null
+          handles_en?: string | null
+          hours_ar?: string | null
+          hours_en?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          label_ar?: string | null
+          label_en?: string | null
+          last_verified_at?: string | null
+          review_status?: string
+          sector_slug: string
+          slug: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          authority_name_ar?: string | null
+          authority_name_en?: string
+          channel_type?: string
+          channel_value?: string
+          created_at?: string
+          handles_ar?: string | null
+          handles_en?: string | null
+          hours_ar?: string | null
+          hours_en?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          label_ar?: string | null
+          label_en?: string | null
+          last_verified_at?: string | null
+          review_status?: string
+          sector_slug?: string
+          slug?: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "complaint_channels_sector_slug_fkey"
+            columns: ["sector_slug"]
+            isOneToOne: false
+            referencedRelation: "complaint_sectors"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      complaint_sectors: {
+        Row: {
+          created_at: string
+          family: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          name_ar: string
+          name_en: string
+          notice_type: string
+          review_status: string
+          scope_ar: string | null
+          scope_en: string | null
+          slug: string
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          family: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          name_ar: string
+          name_en: string
+          notice_type?: string
+          review_status?: string
+          scope_ar?: string | null
+          scope_en?: string | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          family?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          name_ar?: string
+          name_en?: string
+          notice_type?: string
+          review_status?: string
+          scope_ar?: string | null
+          scope_en?: string | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string

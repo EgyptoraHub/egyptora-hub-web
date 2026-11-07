@@ -1,4 +1,5 @@
 import { TRADE_TABLES, validateTradeValues, tradeSlug, type TradeTable } from "@/lib/trade-validation";
+import { COMPLAINTS_TABLES, validateComplaintValues, complaintSlug, type ComplaintsTable } from "@/lib/complaints-validation";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { CONTENT_TABLES, UUID_FK_TABLES, getTableConfig, type FieldConfig, type UuidFkTable } from "@/lib/admin-content.config";
@@ -257,7 +258,7 @@ export const getContentRow = createServerFn({ method: "POST" })
         governorates: string[];
         eras: string[];
         categories: { value: string; label: string }[];
-        fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides", { value: string; label: string }[]>>;
+        fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides" | "complaint_sectors", { value: string; label: string }[]>>;
         children?: { pk: string; label: string; status: string | null }[] | undefined;
       }>
     > => {
@@ -298,7 +299,7 @@ export const getContentRow = createServerFn({ method: "POST" })
             []) as { id: string; name_en: string }[]).map((c) => ({ value: c.id, label: c.name_en }))
         : [];
 
-      const fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides", { value: string; label: string }[]>> = {};
+      const fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides" | "complaint_sectors", { value: string; label: string }[]>> = {};
       const LABEL: Record<UuidFkTable, { cols: string; order: string; label: (r: any) => string }> = {
         emergency_categories: { cols: "id, name_en", order: "sort_order", label: (r) => r.name_en },
         app_categories: { cols: "id, name_en", order: "sort_order", label: (r) => r.name_en },
@@ -319,7 +320,7 @@ export const getContentRow = createServerFn({ method: "POST" })
         fkOptions[fkTable] = ((opts ?? []) as any[]).map((o) => ({ value: o.id, label: l.label(o) }));
       }
 
-      for (const fkTable of ["trade_country_profiles", "procedure_guides"] as const) {
+      for (const fkTable of ["trade_country_profiles", "procedure_guides", "complaint_sectors"] as const) {
         if (!cfg.fields.some(f => f.fk === fkTable)) continue;
         const labelColumn = fkTable === "procedure_guides" ? "title_en" : "name_en";
         const { data: opts, error } = await supabaseAdmin.from(fkTable).select(`slug,${labelColumn}`).order(labelColumn);
@@ -393,6 +394,14 @@ export const saveContentRow = createServerFn({ method: "POST" })
         const problem = validateTradeValues(cfg.table as TradeTable,row) || await checkTradeForeignKeys(supabaseAdmin,cfg.table,row);
         if(problem) return {authorized:true,ok:false,error:problem};
         if(cfg.slugColumn && data.mode === "create" && !tradeSlug.safeParse(data.slug).success) return {authorized:true,ok:false,error:"Use a lowercase hyphenated slug."};
+      }
+
+      if (COMPLAINTS_TABLES.includes(cfg.table as ComplaintsTable)) {
+        let row: Record<string, unknown> = payload;
+        if (data.mode === "update") { const {data: existing,error} = await supabaseAdmin.from(cfg.table as any).select("*").eq(cfg.pk,data.pk).maybeSingle(); if(error || !existing) return {authorized:true,ok:false,error:"Entry not found."}; row={...(existing as unknown as Record<string,unknown>),...payload}; }
+        const problem = validateComplaintValues(cfg.table as ComplaintsTable,row) || await checkComplaintsForeignKeys(supabaseAdmin,cfg.table,row);
+        if(problem) return {authorized:true,ok:false,error:problem};
+        if(cfg.slugColumn && data.mode === "create" && !complaintSlug.safeParse(data.slug).success) return {authorized:true,ok:false,error:"Use a lowercase hyphenated slug."};
       }
       if (cfg.table === "economic_zones") {
         const err = await checkZoneValues(supabaseAdmin, payload);
@@ -500,6 +509,11 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
       if(error || rows?.length !== data.pks.length) return {authorized:true,ok:false,updated:0,error:"Selected entries could not be checked."};
       for(const row of rows) {const problem=validateTradeValues(cfg.table as TradeTable,{...(row as unknown as Record<string,unknown>),...patch});if(problem)return {authorized:true,ok:false,updated:0,error:problem};}
     }
+    if (COMPLAINTS_TABLES.includes(cfg.table as ComplaintsTable)) {
+      const {data: rows,error} = await supabaseAdmin.from(cfg.table as any).select("*").in(cfg.pk,data.pks);
+      if(error || rows?.length !== data.pks.length) return {authorized:true,ok:false,updated:0,error:"Selected entries could not be checked."};
+      for(const row of rows) {const problem=validateComplaintValues(cfg.table as ComplaintsTable,{...(row as unknown as Record<string,unknown>),...patch});if(problem)return {authorized:true,ok:false,updated:0,error:problem};}
+    }
     if (data.column === "merged_into_record_id" && value) patch["merge_status"] = "proposed";
     const { error, count } = await supabaseAdmin
       .from(cfg.table as any)
@@ -548,7 +562,7 @@ async function undoAutoReview34(admin: any, userId: string, pks: string[]): Prom
 
 const ZONE_TABLES = new Set(["economic_zones", "zone_facts"]);
 async function auditZones(userId: string, table: string, action: string, entityId: string | null, metadata: Record<string, unknown> = {}) {
-  if (!ZONE_TABLES.has(table) && !TRADE_TABLES.includes(table as TradeTable)) return;
+  if (!ZONE_TABLES.has(table) && !TRADE_TABLES.includes(table as TradeTable) && !COMPLAINTS_TABLES.includes(table as ComplaintsTable)) return;
   const { writeAudit } = await import("@/lib/audit.server");
   await writeAudit({ actorUserId: userId, action: `content.${action}`, entityType: table, ...(entityId ? { entityId } : {}), metadata } as any);
 }
@@ -1054,4 +1068,9 @@ async function checkTradeForeignKeys(db: any,table: string,row: Record<string,un
  const field = table === "trade_country_commodities" ? "country_slug" : ["procedure_steps","procedure_documents"].includes(table) ? "guide_slug" : null;
  if(!field)return null;const parent=field==="country_slug"?"trade_country_profiles":"procedure_guides";
  const {data,error}=await db.from(parent).select("slug").eq("slug",row[field]).maybeSingle();return error||!data?`Unknown ${field}.`:null;
+}
+
+async function checkComplaintsForeignKeys(db: any,table: string,row: Record<string,unknown>): Promise<string|null> {
+ if(table !== "complaint_channels") return null;
+ const {data,error}=await db.from("complaint_sectors").select("slug").eq("slug",row["sector_slug"]).maybeSingle();return error||!data?"Unknown sector_slug.":null;
 }

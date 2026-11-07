@@ -79,10 +79,17 @@ if (tradeCountries.length > 0) gated.push("/do-business/world-gateway");
 if (tradeGuides.length > 0) gated.push("/do-business/procedure-guides");
 if (tradeSectors.length + tradeCountries.length + tradeGuides.length > 0) gated.push("/do-business/trade-inquiry");
 
+// Complaints & Government Services Guide: hub + static guide only while public sectors exist;
+// sector pages only when the sector has at least one public channel. The anon key enforces the visibility rules.
+const complaintSectors = (await q("complaint_sectors?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug);
+const complaintChannelSectors = new Set((await q("complaint_channels?select=sector_slug&is_active=eq.true")).map((c) => c.sector_slug));
+const complaintPages = complaintSectors.filter((s) => complaintChannelSectors.has(s.slug)).map((s) => `/government-directory/complaints/${s.slug}`);
+if (complaintSectors.length > 0) gated.push("/government-directory/complaints", "/government-directory/complaints/unknown-authority");
+
 const healthFacilities = (await q("health_facilities?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/find-care/${x.slug}`);
 const healthSpecialties = (await q("health_specialties?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/specialties/${x.slug}`);
 
-const all = [...new Set([...STATIC, ...legal, ...governorates, ...apps, ...gated, ...records, ...figures, ...culture, ...stories, ...healthFacilities, ...healthSpecialties, ...tradeSectors, ...tradeCountries, ...tradeGuides])];
+const all = [...new Set([...STATIC, ...legal, ...governorates, ...apps, ...gated, ...records, ...figures, ...culture, ...stories, ...healthFacilities, ...healthSpecialties, ...tradeSectors, ...tradeCountries, ...tradeGuides, ...complaintPages])];
 const out = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

@@ -10,6 +10,8 @@ import { ProtectedCsvImport } from "@/components/admin/ProtectedCsvImport";
 import { ZonesCsvImport } from "@/components/admin/ZonesCsvImport";
 import { HealthCsvImport } from "@/components/admin/HealthCsvImport";
 import { HEALTH_TABLES, validateHealthValues, type HealthTable } from "@/lib/health-validation";
+import { ComplaintsCsvImport } from "@/components/admin/ComplaintsCsvImport";
+import { COMPLAINTS_TABLES, type ComplaintsTable } from "@/lib/complaints-validation";
 import {
   bulkUpdateRows,
   deleteContentRow,
@@ -675,7 +677,7 @@ function AdminContentTable() {
             <button type="button" onClick={() => setShowImport((v) => !v)} className="rounded-full border border-gold/40 px-4 py-1.5 text-sm text-gold-text">
               {showImport ? t("Close CSV import") : t("Import CSV")}
             </button>
-            {showImport ? (TRADE_CONTENT_TABLES.includes(cfg.table as TradeContentTable) ? <TradeCsvImport table={cfg.table as TradeContentTable} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : HEALTH_TABLES.includes(cfg.table as HealthTable) ? <HealthCsvImport table={cfg.table as HealthTable} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "protected_areas" ? <ProtectedCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "economic_zones" || cfg.table === "zone_facts" ? <ZonesCsvImport kind={cfg.table === "economic_zones" ? "zones" : "facts"} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "culture_items" ? <CultureCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} />) : null}
+            {showImport ? (TRADE_CONTENT_TABLES.includes(cfg.table as TradeContentTable) ? <TradeCsvImport table={cfg.table as TradeContentTable} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : COMPLAINTS_TABLES.includes(cfg.table as ComplaintsTable) ? <ComplaintsCsvImport table={cfg.table as ComplaintsTable} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : HEALTH_TABLES.includes(cfg.table as HealthTable) ? <HealthCsvImport table={cfg.table as HealthTable} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "protected_areas" ? <ProtectedCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "economic_zones" || cfg.table === "zone_facts" ? <ZonesCsvImport kind={cfg.table === "economic_zones" ? "zones" : "facts"} onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : cfg.table === "culture_items" ? <CultureCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} /> : <MilitaryCsvImport onDone={() => void fetchPage()} onDenied={() => setState("denied")} />) : null}
           </div>
         ) : null}
 
