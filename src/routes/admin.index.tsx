@@ -1,4 +1,5 @@
 import { TradePhase2Flags } from "@/components/admin/TradePhase2Flags";
+import { ComplaintsPhase2Flags } from "@/components/admin/ComplaintsPhase2Flags";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
@@ -90,6 +91,7 @@ function AdminDashboard() {
         <h1 className="mt-3 font-display text-3xl text-foreground">{t("Admin dashboard")}</h1>
         <DemoStoriesSwitch />
         <TradePhase2Flags />
+        <ComplaintsPhase2Flags />
 
         <h2 className="mt-8 text-sm font-semibold eyebrow text-muted-foreground">
           {t("Overview")}

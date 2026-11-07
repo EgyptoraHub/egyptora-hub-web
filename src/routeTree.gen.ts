@@ -74,6 +74,7 @@ import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egypti
 import { Route as EventsIdRouteImport } from './routes/events_.$id'
 import { Route as ExperiencesTypeRouteImport } from './routes/experiences.$type'
 import { Route as ExperiencesEcoNatureRouteImport } from './routes/experiences.eco-nature'
+import { Route as GovernmentDirectoryComplaintsRouteImport } from './routes/government-directory_.complaints'
 import { Route as GovernmentDirectoryDigitalServicesRouteImport } from './routes/government-directory_.digital-services'
 import { Route as GovernoratesIndexRouteImport } from './routes/governorates.index'
 import { Route as GovernoratesIdRouteImport } from './routes/governorates.$id'
@@ -131,6 +132,8 @@ import { Route as EgyptThroughTimeMilitaryHistoryLibraryRouteImport } from './ro
 import { Route as EgyptThroughTimeMilitaryHistoryMapRouteImport } from './routes/egypt-through-time_.military-history_.map'
 import { Route as EgyptThroughTimeMilitaryHistoryRecordsRouteImport } from './routes/egypt-through-time_.military-history_.records'
 import { Route as EgyptThroughTimeMilitaryHistoryTimelineRouteImport } from './routes/egypt-through-time_.military-history_.timeline'
+import { Route as GovernmentDirectoryComplaintsSlugRouteImport } from './routes/government-directory_.complaints_.$slug'
+import { Route as GovernmentDirectoryComplaintsUnknownAuthorityRouteImport } from './routes/government-directory_.complaints_.unknown-authority'
 import { Route as HealthFindCareSlugRouteImport } from './routes/health_.find-care_.$slug'
 import { Route as HealthServicesTypeRouteImport } from './routes/health_.services.$type'
 import { Route as HealthSpecialtiesSlugRouteImport } from './routes/health_.specialties_.$slug'
@@ -473,6 +476,12 @@ const ExperiencesEcoNatureRoute = ExperiencesEcoNatureRouteImport.update({
   path: '/experiences/eco-nature',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GovernmentDirectoryComplaintsRoute =
+  GovernmentDirectoryComplaintsRouteImport.update({
+    id: '/government-directory_/complaints',
+    path: '/government-directory/complaints',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GovernmentDirectoryDigitalServicesRoute =
   GovernmentDirectoryDigitalServicesRouteImport.update({
     id: '/government-directory_/digital-services',
@@ -778,6 +787,18 @@ const EgyptThroughTimeMilitaryHistoryTimelineRoute =
     path: '/egypt-through-time/military-history/timeline',
     getParentRoute: () => rootRouteImport,
   } as any)
+const GovernmentDirectoryComplaintsSlugRoute =
+  GovernmentDirectoryComplaintsSlugRouteImport.update({
+    id: '/government-directory_/complaints_/$slug',
+    path: '/government-directory/complaints/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GovernmentDirectoryComplaintsUnknownAuthorityRoute =
+  GovernmentDirectoryComplaintsUnknownAuthorityRouteImport.update({
+    id: '/government-directory_/complaints_/unknown-authority',
+    path: '/government-directory/complaints/unknown-authority',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const HealthFindCareSlugRoute = HealthFindCareSlugRouteImport.update({
   id: '/health_/find-care_/$slug',
   path: '/health/find-care/$slug',
@@ -887,6 +908,7 @@ export interface FileRoutesByFullPath {
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
+  '/government-directory/complaints': typeof GovernmentDirectoryComplaintsRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/health/apps': typeof HealthAppsRoute
@@ -944,6 +966,8 @@ export interface FileRoutesByFullPath {
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/government-directory/complaints/$slug': typeof GovernmentDirectoryComplaintsSlugRoute
+  '/government-directory/complaints/unknown-authority': typeof GovernmentDirectoryComplaintsUnknownAuthorityRoute
   '/health/find-care/$slug': typeof HealthFindCareSlugRoute
   '/health/services/$type': typeof HealthServicesTypeRoute
   '/health/specialties/$slug': typeof HealthSpecialtiesSlugRoute
@@ -1018,6 +1042,7 @@ export interface FileRoutesByTo {
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
+  '/government-directory/complaints': typeof GovernmentDirectoryComplaintsRoute
   '/government-directory/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/health/apps': typeof HealthAppsRoute
@@ -1075,6 +1100,8 @@ export interface FileRoutesByTo {
   '/egypt-through-time/military-history/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time/military-history/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time/military-history/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/government-directory/complaints/$slug': typeof GovernmentDirectoryComplaintsSlugRoute
+  '/government-directory/complaints/unknown-authority': typeof GovernmentDirectoryComplaintsUnknownAuthorityRoute
   '/health/find-care/$slug': typeof HealthFindCareSlugRoute
   '/health/services/$type': typeof HealthServicesTypeRoute
   '/health/specialties/$slug': typeof HealthSpecialtiesSlugRoute
@@ -1151,6 +1178,7 @@ export interface FileRoutesById {
   '/events_/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
+  '/government-directory_/complaints': typeof GovernmentDirectoryComplaintsRoute
   '/government-directory_/digital-services': typeof GovernmentDirectoryDigitalServicesRoute
   '/governorates/$id': typeof GovernoratesIdRoute
   '/health_/apps': typeof HealthAppsRoute
@@ -1208,6 +1236,8 @@ export interface FileRoutesById {
   '/egypt-through-time_/military-history_/map': typeof EgyptThroughTimeMilitaryHistoryMapRoute
   '/egypt-through-time_/military-history_/records': typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   '/egypt-through-time_/military-history_/timeline': typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  '/government-directory_/complaints_/$slug': typeof GovernmentDirectoryComplaintsSlugRoute
+  '/government-directory_/complaints_/unknown-authority': typeof GovernmentDirectoryComplaintsUnknownAuthorityRoute
   '/health_/find-care_/$slug': typeof HealthFindCareSlugRoute
   '/health_/services/$type': typeof HealthServicesTypeRoute
   '/health_/specialties_/$slug': typeof HealthSpecialtiesSlugRoute
@@ -1285,6 +1315,7 @@ export interface FileRouteTypes {
     | '/events/$id'
     | '/experiences/$type'
     | '/experiences/eco-nature'
+    | '/government-directory/complaints'
     | '/government-directory/digital-services'
     | '/governorates/$id'
     | '/health/apps'
@@ -1342,6 +1373,8 @@ export interface FileRouteTypes {
     | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
     | '/egypt-through-time/military-history/timeline'
+    | '/government-directory/complaints/$slug'
+    | '/government-directory/complaints/unknown-authority'
     | '/health/find-care/$slug'
     | '/health/services/$type'
     | '/health/specialties/$slug'
@@ -1416,6 +1449,7 @@ export interface FileRouteTypes {
     | '/events/$id'
     | '/experiences/$type'
     | '/experiences/eco-nature'
+    | '/government-directory/complaints'
     | '/government-directory/digital-services'
     | '/governorates/$id'
     | '/health/apps'
@@ -1473,6 +1507,8 @@ export interface FileRouteTypes {
     | '/egypt-through-time/military-history/map'
     | '/egypt-through-time/military-history/records'
     | '/egypt-through-time/military-history/timeline'
+    | '/government-directory/complaints/$slug'
+    | '/government-directory/complaints/unknown-authority'
     | '/health/find-care/$slug'
     | '/health/services/$type'
     | '/health/specialties/$slug'
@@ -1548,6 +1584,7 @@ export interface FileRouteTypes {
     | '/events_/$id'
     | '/experiences/$type'
     | '/experiences/eco-nature'
+    | '/government-directory_/complaints'
     | '/government-directory_/digital-services'
     | '/governorates/$id'
     | '/health_/apps'
@@ -1605,6 +1642,8 @@ export interface FileRouteTypes {
     | '/egypt-through-time_/military-history_/map'
     | '/egypt-through-time_/military-history_/records'
     | '/egypt-through-time_/military-history_/timeline'
+    | '/government-directory_/complaints_/$slug'
+    | '/government-directory_/complaints_/unknown-authority'
     | '/health_/find-care_/$slug'
     | '/health_/services/$type'
     | '/health_/specialties_/$slug'
@@ -1675,6 +1714,7 @@ export interface RootRouteChildren {
   EventsIdRoute: typeof EventsIdRoute
   ExperiencesTypeRoute: typeof ExperiencesTypeRoute
   ExperiencesEcoNatureRoute: typeof ExperiencesEcoNatureRoute
+  GovernmentDirectoryComplaintsRoute: typeof GovernmentDirectoryComplaintsRoute
   GovernmentDirectoryDigitalServicesRoute: typeof GovernmentDirectoryDigitalServicesRoute
   GovernoratesIdRoute: typeof GovernoratesIdRoute
   HealthAppsRoute: typeof HealthAppsRoute
@@ -1727,6 +1767,8 @@ export interface RootRouteChildren {
   EgyptThroughTimeMilitaryHistoryMapRoute: typeof EgyptThroughTimeMilitaryHistoryMapRoute
   EgyptThroughTimeMilitaryHistoryRecordsRoute: typeof EgyptThroughTimeMilitaryHistoryRecordsRoute
   EgyptThroughTimeMilitaryHistoryTimelineRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRoute
+  GovernmentDirectoryComplaintsSlugRoute: typeof GovernmentDirectoryComplaintsSlugRoute
+  GovernmentDirectoryComplaintsUnknownAuthorityRoute: typeof GovernmentDirectoryComplaintsUnknownAuthorityRoute
   HealthFindCareSlugRoute: typeof HealthFindCareSlugRoute
   HealthServicesTypeRoute: typeof HealthServicesTypeRoute
   HealthSpecialtiesSlugRoute: typeof HealthSpecialtiesSlugRoute
@@ -2194,6 +2236,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExperiencesEcoNatureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/government-directory_/complaints': {
+      id: '/government-directory_/complaints'
+      path: '/government-directory/complaints'
+      fullPath: '/government-directory/complaints'
+      preLoaderRoute: typeof GovernmentDirectoryComplaintsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/government-directory_/digital-services': {
       id: '/government-directory_/digital-services'
       path: '/government-directory/digital-services'
@@ -2593,6 +2642,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EgyptThroughTimeMilitaryHistoryTimelineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/government-directory_/complaints_/$slug': {
+      id: '/government-directory_/complaints_/$slug'
+      path: '/government-directory/complaints/$slug'
+      fullPath: '/government-directory/complaints/$slug'
+      preLoaderRoute: typeof GovernmentDirectoryComplaintsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/government-directory_/complaints_/unknown-authority': {
+      id: '/government-directory_/complaints_/unknown-authority'
+      path: '/government-directory/complaints/unknown-authority'
+      fullPath: '/government-directory/complaints/unknown-authority'
+      preLoaderRoute: typeof GovernmentDirectoryComplaintsUnknownAuthorityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/health_/find-care_/$slug': {
       id: '/health_/find-care_/$slug'
       path: '/health/find-care/$slug'
@@ -2743,6 +2806,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsIdRoute: EventsIdRoute,
   ExperiencesTypeRoute: ExperiencesTypeRoute,
   ExperiencesEcoNatureRoute: ExperiencesEcoNatureRoute,
+  GovernmentDirectoryComplaintsRoute: GovernmentDirectoryComplaintsRoute,
   GovernmentDirectoryDigitalServicesRoute:
     GovernmentDirectoryDigitalServicesRoute,
   GovernoratesIdRoute: GovernoratesIdRoute,
@@ -2802,6 +2866,10 @@ const rootRouteChildren: RootRouteChildren = {
     EgyptThroughTimeMilitaryHistoryRecordsRoute,
   EgyptThroughTimeMilitaryHistoryTimelineRoute:
     EgyptThroughTimeMilitaryHistoryTimelineRoute,
+  GovernmentDirectoryComplaintsSlugRoute:
+    GovernmentDirectoryComplaintsSlugRoute,
+  GovernmentDirectoryComplaintsUnknownAuthorityRoute:
+    GovernmentDirectoryComplaintsUnknownAuthorityRoute,
   HealthFindCareSlugRoute: HealthFindCareSlugRoute,
   HealthServicesTypeRoute: HealthServicesTypeRoute,
   HealthSpecialtiesSlugRoute: HealthSpecialtiesSlugRoute,
