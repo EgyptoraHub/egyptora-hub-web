@@ -1,0 +1,12 @@
+ALTER TABLE public.trade_sectors ADD COLUMN source_name_ar text;
+ALTER TABLE public.trade_country_profiles ADD COLUMN source_name_ar text;
+ALTER TABLE public.trade_country_commodities ADD COLUMN source_name_ar text;
+ALTER TABLE public.procedure_guides ADD COLUMN source_name_ar text;
+ALTER TABLE public.procedure_steps ADD COLUMN source_name_ar text;
+ALTER TABLE public.procedure_documents ADD COLUMN source_name_ar text;
+GRANT SELECT(source_name_ar) ON public.trade_sectors TO anon;
+GRANT SELECT(source_name_ar) ON public.trade_country_profiles TO anon;
+GRANT SELECT(source_name_ar) ON public.trade_country_commodities TO anon;
+GRANT SELECT(source_name_ar) ON public.procedure_guides TO anon;
+GRANT SELECT(source_name_ar) ON public.procedure_steps TO anon;
+GRANT SELECT(source_name_ar) ON public.procedure_documents TO anon;

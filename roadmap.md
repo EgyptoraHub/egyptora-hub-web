@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 46b — Trade bilingual source names
+- [x] Nullable `source_name_ar` on all six trade content tables with anon column grants (migration 0029); no existing rows edited.
+- [x] Shared source row (`Source: name · link · Last verified: date`) on all trade pages; equal-height cards with pinned source row; Arabic prefers `source_name_ar`.
+- [x] Admin fields, CSV allowlist, validation schema and data-audit warning updated; 63 tests, type check, anon HTTP checks, EN/AR screenshots; docs/prompt-46b-verification.md.
+- [ ] Owner imports CSV with English `source_name` values — English pages show the Arabic source name until then (rows intentionally untouched).
+
 ## Prompt 46 — Trade public pages
 - [x] Seven gated routes under Do Business (sectors, world gateway, procedure guides, trade inquiry) with notFound-while-empty behaviour.
 - [x] Nav items + hub chips behind data gates; sitemap and search entries for public rows only.

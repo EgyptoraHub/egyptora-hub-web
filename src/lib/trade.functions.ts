@@ -10,12 +10,12 @@ import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import { tradeInquirySchema } from "./trade-validation";
 
-const SECTOR_COLUMNS = "id,slug,sector_group,name_en,name_ar,scope_en,scope_ar,matching_info_en,matching_info_ar,sort_order,source_name,source_url,last_verified_at" as const;
-const COUNTRY_COLUMNS = "id,slug,iso2,name_en,name_ar,region,entity_type,summary_en,summary_ar,official_trade_site_url,source_name,source_url,last_verified_at" as const;
-const COMMODITY_COLUMNS = "id,country_slug,commodity_en,commodity_ar,record_kind,hs_code,hs_revision,reference_year,unit,quantity,flow,notes_en,notes_ar,source_name,source_url,last_verified_at" as const;
-const GUIDE_COLUMNS = "id,slug,title_en,title_ar,activity,authority_name_en,authority_name_ar,official_service_url,summary_en,summary_ar,published_fee_text,published_processing_time_text,fee_source_url,time_source_url,source_name,source_url,last_verified_at" as const;
-const STEP_COLUMNS = "id,guide_slug,step_no,title_en,title_ar,description_en,description_ar,official_url,source_name,source_url,last_verified_at" as const;
-const DOCUMENT_COLUMNS = "id,guide_slug,document_name_en,document_name_ar,issuing_source_en,issuing_source_ar,official_url,last_reviewed_at,source_name,source_url,last_verified_at" as const;
+const SECTOR_COLUMNS = "id,slug,sector_group,name_en,name_ar,scope_en,scope_ar,matching_info_en,matching_info_ar,sort_order,source_name,source_name_ar,source_url,last_verified_at" as const;
+const COUNTRY_COLUMNS = "id,slug,iso2,name_en,name_ar,region,entity_type,summary_en,summary_ar,official_trade_site_url,source_name,source_name_ar,source_url,last_verified_at" as const;
+const COMMODITY_COLUMNS = "id,country_slug,commodity_en,commodity_ar,record_kind,hs_code,hs_revision,reference_year,unit,quantity,flow,notes_en,notes_ar,source_name,source_name_ar,source_url,last_verified_at" as const;
+const GUIDE_COLUMNS = "id,slug,title_en,title_ar,activity,authority_name_en,authority_name_ar,official_service_url,summary_en,summary_ar,published_fee_text,published_processing_time_text,fee_source_url,time_source_url,source_name,source_name_ar,source_url,last_verified_at" as const;
+const STEP_COLUMNS = "id,guide_slug,step_no,title_en,title_ar,description_en,description_ar,official_url,source_name,source_name_ar,source_url,last_verified_at" as const;
+const DOCUMENT_COLUMNS = "id,guide_slug,document_name_en,document_name_ar,issuing_source_en,issuing_source_ar,official_url,last_reviewed_at,source_name,source_name_ar,source_url,last_verified_at" as const;
 
 function publicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"];

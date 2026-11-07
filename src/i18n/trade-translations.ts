@@ -24,7 +24,7 @@ export const tradeAr: Record<string,string> = {
 "All activities":"كل الأنشطة", "Official link":"الرابط الرسمي", "View guide":"عرض الدليل",
 "EGYPTORA is a private platform. Approvals and decisions remain with the competent authority.":"إيجبتورا منصة خاصة. تبقى الموافقات والقرارات للجهة المختصة.",
 "Open the official service":"افتح الخدمة الرسمية", "Published fee":"الرسوم المنشورة", "Fee source":"مصدر الرسوم", "Published processing time":"مدة المعالجة المنشورة", "Processing time source":"مصدر مدة المعالجة", "Steps":"الخطوات", "Required documents":"المستندات المطلوبة",
-"Document":"المستند", "Issuing source":"جهة الإصدار", "Last reviewed":"آخر مراجعة", "Last verified:":"آخر تحقق:",
+"Document":"المستند", "Issuing source":"جهة الإصدار", "Last reviewed":"آخر مراجعة", "Last verified:":"آخر تحقق:", "Source:":"المصدر:",
 "Send an administrative inquiry about sourcing, exports or procedures.":"أرسل استفسارًا إداريًا عن التوريد أو التصدير أو الإجراءات.",
 "Do not include financial, identity or medical data, passwords or confidential business documents.":"لا تُدرج بيانات مالية أو شخصية أو طبية أو كلمات مرور أو مستندات أعمال سرية.",
 "Organization (optional)":"المنظمة (اختياري)", "Sourcing":"التوريد", "Export":"التصدير", "Localization":"التوطين", "Procedures":"الإجراءات", "Other":"أخرى",
