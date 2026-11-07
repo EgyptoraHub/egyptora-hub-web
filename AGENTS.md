@@ -38,3 +38,9 @@
 - All replies in this project are in English only (summaries, reports, verification notes, commit titles); website UI content stays EN/AR as designed.
 
 - Trade uses the central content allowlist with shared validation, slug-based FK preview checks, inactive needs_check CSV creation and per-write server audit; visitor column grants and reviewed-active RLS protect the informational catalogue, while inquiries expose only consent-based INSERT columns.
+
+## Owner workflow rules (8 Nov 2026)
+1. **Translations.** Intermediate feature prompts add only owner-reviewed Arabic + English; no machine translations for the other 7 languages, which retain English fallback. Right before launch, run one final 9-language pass in Lovable using existing translation files (UI strings, new section texts, source names, record texts), followed by native-speaker review.
+2. **Data delivery.** Each data prompt supplies CSV text or fenced data plus exact table, match key, columns, expected row counts and status. Import only through the existing validated admin path, preserving validation, audit log and forced `needs_check` + inactive creation. If available access cannot write to the database, report it and stop; never guess or bypass validation.
+3. **Activation.** New rows remain `needs_check` and inactive unless the prompt explicitly confirms owner review and approval for activation. Only then set `review_status = editorial_reviewed` and `is_active = true`; never `verified` unless explicitly requested. Activation triggers must still pass: source URL, verification date, no PDF sources.
+4. **Verification report.** After every data task, write `docs/prompt-<n>-verification.md`: rows received/created/updated/rejected with reasons; final review_status/is_active counts per table; signed-out checks (rows readable, `internal_notes` refused); pages showing the data; and every record not imported.
