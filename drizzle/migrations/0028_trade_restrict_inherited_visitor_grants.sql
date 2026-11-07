@@ -1,0 +1,5 @@
+DO $$ DECLARE t text; safe_cols text; BEGIN FOREACH t IN ARRAY ARRAY['trade_sectors','trade_country_profiles','trade_country_commodities','procedure_guides','procedure_steps','procedure_documents'] LOOP EXECUTE format('REVOKE ALL ON public.%I FROM anon',t); SELECT string_agg(quote_ident(column_name),',') INTO safe_cols FROM information_schema.columns WHERE table_schema='public' AND table_name=t AND column_name <> 'internal_notes'; EXECUTE format('GRANT SELECT(%s) ON public.%I TO anon',safe_cols,t); END LOOP; END $$;
+REVOKE ALL ON public.trade_inquiries FROM anon;
+GRANT INSERT(name,email,country,organization,inquiry_topic,message,consent,consent_at) ON public.trade_inquiries TO anon;
+REVOKE INSERT ON public.trade_inquiries FROM authenticated;
+GRANT INSERT(name,email,country,organization,inquiry_topic,message,consent,consent_at) ON public.trade_inquiries TO authenticated;
