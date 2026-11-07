@@ -139,7 +139,9 @@ function FieldEditor({
   eras,
   categories = [],
   fkOptions = {},
+  trade = false,
 }: {
+  trade?: boolean;
   field: FieldConfig;
   value: any;
   onChange: (next: any) => void;
@@ -237,7 +239,7 @@ function FieldEditor({
           <option value="">—</option>
           {(field.options ?? []).map((option) => (
             <option key={option} value={option}>
-              {option}
+              {trade ? t(option) : option}
             </option>
           ))}
         </select>,
@@ -457,6 +459,7 @@ function ContentForm({
           <div key={field.name} className={field.type === "textarea" || field.type === "json" ? "sm:col-span-2" : ""}>
             <FieldEditor
               field={field}
+              trade={TRADE_TABLES.includes(cfg.table as TradeTable)}
               value={values[field.name]}
               onChange={(next) => setValue(field.name, next)}
               governorates={governorates}
@@ -492,6 +495,7 @@ function ContentForm({
             <FieldEditor
               key={field.name}
               field={field}
+              trade={TRADE_TABLES.includes(cfg.table as TradeTable)}
               value={values[field.name]}
               onChange={(next) => setValue(field.name, next)}
               governorates={governorates}
@@ -661,7 +665,7 @@ function AdminContentTable() {
           <div className="mt-3 flex flex-wrap gap-2">
             {Object.entries(data.counts).map(([k, v]) => (
               <span key={k} className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground">
-                {k}: <strong>{v}</strong>
+                {TRADE_TABLES.includes(cfg.table as TradeTable) ? t(k) : k}: <strong>{v}</strong>
               </span>
             ))}
           </div>
@@ -718,7 +722,7 @@ function AdminContentTable() {
                     <option value="">{t("All")}</option>
                     {(data?.filterOptions?.[f.name] ?? f.options.map((o) => ({ value: o, label: o }))).map((o) => (
                       <option key={o.value} value={o.value}>
-                        {o.label}
+                        {TRADE_TABLES.includes(cfg.table as TradeTable) ? t(o.label) : o.label}
                       </option>
                     ))}
                   </select>
@@ -731,11 +735,11 @@ function AdminContentTable() {
                 <span className="text-xs text-muted-foreground">{selected.size} {t("selected")}</span>
                 <select aria-label={t("Bulk field")} value={bulkCol} onChange={(e) => { setBulkCol(e.target.value); setBulkVal(""); }} className={inputClass + " w-auto"}>
                   <option value="">{t("Set field…")}</option>
-                  {cfg.bulk!.map((b) => <option key={b.name} value={b.name}>{b.label ?? b.name}</option>)}
+                  {cfg.bulk!.map((b) => <option key={b.name} value={b.name}>{TRADE_TABLES.includes(cfg.table as TradeTable) ? t(b.label ?? humanize(b.name)) : b.label ?? b.name}</option>)}
                 </select>
                 <select aria-label={t("Bulk value")} value={bulkVal} onChange={(e) => setBulkVal(e.target.value)} className={inputClass + " w-auto"} disabled={!bulkCol}>
                   <option value="">{t("Value…")}</option>
-                  {(data?.bulkOptions?.[bulkCol] ?? (cfg.bulk!.find((b) => b.name === bulkCol)?.options ?? []).map((o) => ({ value: o, label: o }))).map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                  {(data?.bulkOptions?.[bulkCol] ?? (cfg.bulk!.find((b) => b.name === bulkCol)?.options ?? []).map((o) => ({ value: o, label: o }))).map((o) => <option key={o.value} value={o.value}>{TRADE_TABLES.includes(cfg.table as TradeTable) ? t(o.label) : o.label}</option>)}
                 </select>
                 <button type="button" disabled={busy || !bulkCol || !bulkVal || selected.size === 0} onClick={() => void applyBulk()} className="rounded-full bg-gold px-4 py-1.5 font-semibold text-gold-foreground disabled:opacity-40">
                   {t("Apply to selected")}
@@ -804,7 +808,7 @@ function AdminContentTable() {
                       </td>
                       {(cfg.listColumns ?? []).map((c) => (
                         <td key={c} className="px-4 py-3 break-all text-muted-foreground">
-                          {row.extra?.[c] == null ? "—" : String(row.extra[c])}
+                          {row.extra?.[c] == null ? "—" : TRADE_TABLES.includes(cfg.table as TradeTable) ? t(String(row.extra[c])) : String(row.extra[c])}
                         </td>
                       ))}
                       <td className="px-4 py-3">
