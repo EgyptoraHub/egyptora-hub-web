@@ -1,0 +1,67 @@
+CREATE TABLE public.trade_sectors (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE, sector_group text NOT NULL, name_en text NOT NULL, name_ar text NOT NULL, scope_en text, scope_ar text, matching_info_en text, matching_info_ar text, sort_order integer DEFAULT 0, source_name text, source_url text, last_verified_at date, review_status text NOT NULL DEFAULT 'needs_check' CHECK (review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.trade_sectors TO service_role; GRANT SELECT,INSERT,UPDATE,DELETE ON public.trade_sectors TO authenticated;
+ALTER TABLE public.trade_sectors ENABLE ROW LEVEL SECURITY;
+CREATE POLICY trade_sectors_public ON public.trade_sectors FOR SELECT TO anon USING (is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY trade_sectors_admin ON public.trade_sectors FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.trade_country_profiles (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE, iso2 text, iso3 text UNIQUE, name_en text NOT NULL, name_ar text NOT NULL, region text, entity_type text NOT NULL, summary_en text, summary_ar text, official_trade_site_url text, source_name text, source_url text, last_verified_at date, review_status text NOT NULL DEFAULT 'needs_check' CHECK (review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.trade_country_profiles TO service_role; GRANT SELECT,INSERT,UPDATE,DELETE ON public.trade_country_profiles TO authenticated;
+ALTER TABLE public.trade_country_profiles ENABLE ROW LEVEL SECURITY;
+CREATE POLICY trade_country_profiles_public ON public.trade_country_profiles FOR SELECT TO anon USING (is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY trade_country_profiles_admin ON public.trade_country_profiles FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.trade_country_commodities (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE, country_slug text NOT NULL REFERENCES public.trade_country_profiles(slug) ON UPDATE CASCADE, commodity_en text NOT NULL, commodity_ar text NOT NULL, record_kind text NOT NULL, hs_code text, hs_revision text, reference_year integer NOT NULL, unit text, quantity numeric, flow text NOT NULL, notes_en text, notes_ar text, source_name text NOT NULL, source_url text NOT NULL, last_verified_at date, review_status text NOT NULL DEFAULT 'needs_check' CHECK (review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now(), UNIQUE(country_slug,commodity_en,reference_year,flow));
+GRANT ALL ON public.trade_country_commodities TO service_role; GRANT SELECT,INSERT,UPDATE,DELETE ON public.trade_country_commodities TO authenticated;
+ALTER TABLE public.trade_country_commodities ENABLE ROW LEVEL SECURITY;
+CREATE POLICY trade_country_commodities_public ON public.trade_country_commodities FOR SELECT TO anon USING (is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY trade_country_commodities_admin ON public.trade_country_commodities FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.procedure_guides (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE, title_en text NOT NULL, title_ar text NOT NULL, activity text, authority_name_en text, authority_name_ar text, official_service_url text, summary_en text, summary_ar text, published_fee_text text, published_processing_time_text text, fee_source_url text, time_source_url text, source_name text, source_url text, last_verified_at date, review_status text NOT NULL DEFAULT 'needs_check' CHECK (review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.procedure_guides TO service_role; GRANT SELECT,INSERT,UPDATE,DELETE ON public.procedure_guides TO authenticated;
+ALTER TABLE public.procedure_guides ENABLE ROW LEVEL SECURITY;
+CREATE POLICY procedure_guides_public ON public.procedure_guides FOR SELECT TO anon USING (is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY procedure_guides_admin ON public.procedure_guides FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.procedure_steps (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE, guide_slug text NOT NULL REFERENCES public.procedure_guides(slug) ON UPDATE CASCADE, step_no integer NOT NULL, title_en text NOT NULL, title_ar text NOT NULL, description_en text, description_ar text, official_url text, source_name text, source_url text, last_verified_at date, review_status text NOT NULL DEFAULT 'needs_check' CHECK (review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now(), UNIQUE(guide_slug,step_no));
+GRANT ALL ON public.procedure_steps TO service_role; GRANT SELECT,INSERT,UPDATE,DELETE ON public.procedure_steps TO authenticated;
+ALTER TABLE public.procedure_steps ENABLE ROW LEVEL SECURITY;
+CREATE POLICY procedure_steps_public ON public.procedure_steps FOR SELECT TO anon USING (is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY procedure_steps_admin ON public.procedure_steps FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.procedure_documents (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE, guide_slug text NOT NULL REFERENCES public.procedure_guides(slug) ON UPDATE CASCADE, document_name_en text NOT NULL, document_name_ar text NOT NULL, issuing_source_en text, issuing_source_ar text, official_url text, last_reviewed_at date, source_name text, source_url text, last_verified_at date, review_status text NOT NULL DEFAULT 'needs_check' CHECK (review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now(), UNIQUE(guide_slug,document_name_en));
+GRANT ALL ON public.procedure_documents TO service_role; GRANT SELECT,INSERT,UPDATE,DELETE ON public.procedure_documents TO authenticated;
+ALTER TABLE public.procedure_documents ENABLE ROW LEVEL SECURITY;
+CREATE POLICY procedure_documents_public ON public.procedure_documents FOR SELECT TO anon USING (is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY procedure_documents_admin ON public.procedure_documents FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+CREATE TABLE public.trade_inquiries (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), name text NOT NULL, email text NOT NULL, country text NOT NULL, organization text, inquiry_topic text NOT NULL, message text NOT NULL, consent boolean NOT NULL, consent_at timestamptz NOT NULL, status text NOT NULL DEFAULT 'new', internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.trade_inquiries TO service_role; GRANT SELECT,UPDATE,DELETE ON public.trade_inquiries TO authenticated;
+ALTER TABLE public.trade_inquiries ENABLE ROW LEVEL SECURITY;
+CREATE POLICY trade_inquiries_insert ON public.trade_inquiries FOR INSERT TO anon,authenticated WITH CHECK (consent = true AND status = 'new' AND internal_notes IS NULL);
+CREATE POLICY trade_inquiries_admin ON public.trade_inquiries FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+GRANT INSERT(name,email,country,organization,inquiry_topic,message,consent,consent_at) ON public.trade_inquiries TO anon,authenticated;
+CREATE FUNCTION public.validate_trade_content() RETURNS trigger LANGUAGE plpgsql SET search_path = public AS $$ BEGIN
+IF NEW.is_active AND (nullif(trim(NEW.source_url),'') IS NULL OR NEW.last_verified_at IS NULL) THEN RAISE EXCEPTION 'Activation requires a source URL and verification date'; END IF;
+IF NEW.last_verified_at > CURRENT_DATE THEN RAISE EXCEPTION 'Verification date cannot be in the future'; END IF;
+IF NEW.source_url IS NOT NULL AND (NEW.source_url !~ '^https?://' OR NEW.source_url ~* '\.pdf([?#]|$)') THEN RAISE EXCEPTION 'Source must be an HTTP website, not a PDF'; END IF;
+IF TG_TABLE_NAME = 'trade_country_commodities' THEN IF nullif(trim(NEW.source_name),'') IS NULL OR nullif(trim(NEW.source_url),'') IS NULL OR NEW.reference_year IS NULL THEN RAISE EXCEPTION 'Commodity requires source name, URL and reference year'; END IF; END IF;
+IF TG_TABLE_NAME = 'procedure_guides' THEN
+IF nullif(trim(NEW.published_fee_text),'') IS NOT NULL AND nullif(trim(NEW.fee_source_url),'') IS NULL THEN RAISE EXCEPTION 'Published fee requires its own source'; END IF;
+IF nullif(trim(NEW.published_processing_time_text),'') IS NOT NULL AND nullif(trim(NEW.time_source_url),'') IS NULL THEN RAISE EXCEPTION 'Published processing time requires its own source'; END IF; END IF;
+RETURN NEW; END $$;
+CREATE FUNCTION public.validate_trade_inquiry() RETURNS trigger LANGUAGE plpgsql SET search_path = public AS $$ BEGIN
+IF NEW.consent IS DISTINCT FROM true OR NEW.consent_at IS NULL OR NEW.consent_at > now() THEN RAISE EXCEPTION 'Consent and valid consent timestamp required'; END IF;
+IF length(trim(NEW.name)) NOT BETWEEN 1 AND 100 OR length(NEW.email) > 255 OR NEW.email !~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$' OR length(trim(NEW.country)) NOT BETWEEN 1 AND 100 OR length(coalesce(NEW.organization,'')) > 200 OR length(trim(NEW.message)) NOT BETWEEN 1 AND 1500 THEN RAISE EXCEPTION 'Invalid inquiry details'; END IF;
+IF NEW.inquiry_topic NOT IN ('sourcing','export','localization','procedure','other') OR NEW.status NOT IN ('new','in_review','resolved','dismissed') THEN RAISE EXCEPTION 'Invalid inquiry topic or status'; END IF;
+RETURN NEW; END $$;
+CREATE FUNCTION public.trade_inquiries_rate_limit() RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ BEGIN
+PERFORM pg_advisory_xact_lock(hashtext('trade_inquiries_rate_limit'));
+IF (SELECT count(*) FROM public.trade_inquiries WHERE created_at > now() - interval '1 minute') >= 30 THEN RAISE EXCEPTION 'Too many inquiries, please try again shortly'; END IF; RETURN NEW; END $$;
+CREATE TRIGGER trade_inquiries_validate BEFORE INSERT OR UPDATE ON public.trade_inquiries FOR EACH ROW EXECUTE FUNCTION public.validate_trade_inquiry();
+CREATE TRIGGER trade_inquiries_rate_limit BEFORE INSERT ON public.trade_inquiries FOR EACH ROW EXECUTE FUNCTION public.trade_inquiries_rate_limit();
+DO $$ DECLARE t text; safe_cols text; BEGIN FOREACH t IN ARRAY ARRAY['trade_sectors','trade_country_profiles','trade_country_commodities','procedure_guides','procedure_steps','procedure_documents'] LOOP
+EXECUTE format('REVOKE SELECT ON public.%I FROM anon',t);
+SELECT string_agg(quote_ident(column_name),',') INTO safe_cols FROM information_schema.columns WHERE table_schema='public' AND table_name=t AND column_name <> 'internal_notes';
+EXECUTE format('GRANT SELECT(%s) ON public.%I TO anon',safe_cols,t);
+EXECUTE format('CREATE TRIGGER %I BEFORE INSERT OR UPDATE ON public.%I FOR EACH ROW EXECUTE FUNCTION public.validate_trade_content()',t||'_validate',t);
+EXECUTE format('CREATE TRIGGER %I BEFORE UPDATE ON public.%I FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at()',t||'_touch',t);
+END LOOP; END $$;
+CREATE TRIGGER trade_inquiries_touch BEFORE UPDATE ON public.trade_inquiries FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+CREATE INDEX trade_inquiries_created_at_idx ON public.trade_inquiries(created_at);
+REVOKE ALL ON FUNCTION public.trade_inquiries_rate_limit() FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.validate_trade_content() FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.validate_trade_inquiry() FROM PUBLIC;
