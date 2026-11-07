@@ -87,7 +87,7 @@ export const getTradePublicCounts = createServerFn({ method: "GET" }).handler(as
 export const tradeCountsQuery = queryOptions({ queryKey: ["trade-counts"], queryFn: () => getTradePublicCounts(), staleTime: 60_000 });
 
 export const submitTradeInquiry = createServerFn({ method: "POST" }).inputValidator(tradeInquirySchema).handler(async ({ data }) => {
-  const { error } = await publicClient().from("trade_inquiries").insert(data);
+  const { error } = await publicClient().from("trade_inquiries").insert({ ...data, organization: data.organization ?? null });
   if (error) return { ok: false as const };
   return { ok: true as const };
 });
