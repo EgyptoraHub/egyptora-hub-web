@@ -2922,6 +2922,7 @@ export type Database = {
           review_status: string
           slug: string
           source_name: string | null
+          source_name_ar: string | null
           source_url: string | null
           updated_at: string
         }
@@ -2941,6 +2942,7 @@ export type Database = {
           review_status?: string
           slug: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           updated_at?: string
         }
@@ -2960,6 +2962,7 @@ export type Database = {
           review_status?: string
           slug?: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           updated_at?: string
         }
@@ -2990,6 +2993,7 @@ export type Database = {
           review_status: string
           slug: string
           source_name: string | null
+          source_name_ar: string | null
           source_url: string | null
           summary_ar: string | null
           summary_en: string | null
@@ -3014,6 +3018,7 @@ export type Database = {
           review_status?: string
           slug: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           summary_ar?: string | null
           summary_en?: string | null
@@ -3038,6 +3043,7 @@ export type Database = {
           review_status?: string
           slug?: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           summary_ar?: string | null
           summary_en?: string | null
@@ -3062,6 +3068,7 @@ export type Database = {
           review_status: string
           slug: string
           source_name: string | null
+          source_name_ar: string | null
           source_url: string | null
           step_no: number
           title_ar: string
@@ -3081,6 +3088,7 @@ export type Database = {
           review_status?: string
           slug: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           step_no: number
           title_ar: string
@@ -3100,6 +3108,7 @@ export type Database = {
           review_status?: string
           slug?: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           step_no?: number
           title_ar?: string
@@ -3678,6 +3687,7 @@ export type Database = {
           review_status: string
           slug: string
           source_name: string
+          source_name_ar: string | null
           source_url: string
           unit: string | null
           updated_at: string
@@ -3702,6 +3712,7 @@ export type Database = {
           review_status?: string
           slug: string
           source_name: string
+          source_name_ar?: string | null
           source_url: string
           unit?: string | null
           updated_at?: string
@@ -3726,6 +3737,7 @@ export type Database = {
           review_status?: string
           slug?: string
           source_name?: string
+          source_name_ar?: string | null
           source_url?: string
           unit?: string | null
           updated_at?: string
@@ -3757,6 +3769,7 @@ export type Database = {
           review_status: string
           slug: string
           source_name: string | null
+          source_name_ar: string | null
           source_url: string | null
           summary_ar: string | null
           summary_en: string | null
@@ -3778,6 +3791,7 @@ export type Database = {
           review_status?: string
           slug: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           summary_ar?: string | null
           summary_en?: string | null
@@ -3799,6 +3813,7 @@ export type Database = {
           review_status?: string
           slug?: string
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           summary_ar?: string | null
           summary_en?: string | null
@@ -3872,6 +3887,7 @@ export type Database = {
           slug: string
           sort_order: number | null
           source_name: string | null
+          source_name_ar: string | null
           source_url: string | null
           updated_at: string
         }
@@ -3892,6 +3908,7 @@ export type Database = {
           slug: string
           sort_order?: number | null
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           updated_at?: string
         }
@@ -3912,6 +3929,7 @@ export type Database = {
           slug?: string
           sort_order?: number | null
           source_name?: string | null
+          source_name_ar?: string | null
           source_url?: string | null
           updated_at?: string
         }
