@@ -113,6 +113,8 @@ const GOV_IDS = [
 ];
 export const ZONES_GROUP = "Economic zones";
 export const ECO_GROUP = "Eco & Nature";
+export const COMPLAINTS_GROUP = "Complaints & Government Services Guide";
+const COMPLAINT_FAMILY_OPTIONS = ["local_urban","utilities_infrastructure","transport_traffic","health_social","education_work","trade_finance","environment_agriculture","culture_tourism_civic","integrity_justice","safety_identity_other"] as const;
 const GOV_SLUGS = GOV_IDS.map((g) => g.replace(/^gov-/, ""));
 const ZONE_TYPE_OPTS = ["public_free_zone", "sczone_industrial_zone", "industrial_zone"];
 const FACT_TOPIC_OPTS = ["general", "industrial_zones", "free_zones", "sczone"];
