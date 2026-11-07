@@ -123,3 +123,14 @@
 - [x] Events filter uses the same matcher; apps match name/description only (category labels like "Insurance & Tax" are not health-specific)
 - [x] 14 tests pass (incl. all required must-match / must-not-match cases); tsgo clean; pages verified EN/AR
 - [x] Prompt 44 — nav overlap fix (breakpoint 2xl, wider container) + health location dedup + empty Specialties hidden; docs/prompt-44-verification.md
+
+## Prompt 49 — Complaints & Government Services Guide (Phase 1, informational only)
+- [x] Tables complaint_sectors + complaint_channels (RLS, column grants, validation trigger); migration 0031
+- [x] Admin group + validated CSV import (dry run, forced needs_check + inactive, sector_slug FK check)
+- [x] 3 gated public routes (hub, sector, unknown-authority guide) + nav gate + sitemap generator (not regenerated)
+- [x] Legal doc #36 complaints-guide-disclaimer (DRAFT, counsel review required)
+- [x] 8 Phase 2 flags in site_settings (all false, read-only admin display, setFeatureFlag rejects them)
+- [x] Concierge complaints rules + complaint_sectors/complaint_channels search categories
+- [x] 44 sectors imported (44 × needs_check + inactive, 0 rejected); docs/prompt-49-verification.md
+- [ ] Complaints disclaimer text needs qualified Egyptian legal counsel review before launch
+- [ ] Admin UI not exercised signed in (no admin session available in this environment)
