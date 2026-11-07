@@ -389,7 +389,7 @@ export const saveContentRow = createServerFn({ method: "POST" })
 
       if (TRADE_TABLES.includes(cfg.table as TradeTable)) {
         let row: Record<string, unknown> = payload;
-        if (data.mode === "update") { const {data: existing,error} = await supabaseAdmin.from(cfg.table as any).select("*").eq(cfg.pk,data.pk).maybeSingle(); if(error || !existing) return {authorized:true,ok:false,error:"Entry not found."}; row={...existing,...payload}; }
+        if (data.mode === "update") { const {data: existing,error} = await supabaseAdmin.from(cfg.table as any).select("*").eq(cfg.pk,data.pk).maybeSingle(); if(error || !existing) return {authorized:true,ok:false,error:"Entry not found."}; row={...(existing as unknown as Record<string,unknown>),...payload}; }
         const problem = validateTradeValues(cfg.table as TradeTable,row) || await checkTradeForeignKeys(supabaseAdmin,cfg.table,row);
         if(problem) return {authorized:true,ok:false,error:problem};
         if(cfg.slugColumn && data.mode === "create" && !tradeSlug.safeParse(data.slug).success) return {authorized:true,ok:false,error:"Use a lowercase hyphenated slug."};
@@ -498,7 +498,7 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
     if (TRADE_TABLES.includes(cfg.table as TradeTable)) {
       const {data: rows,error} = await supabaseAdmin.from(cfg.table as any).select("*").in(cfg.pk,data.pks);
       if(error || rows?.length !== data.pks.length) return {authorized:true,ok:false,updated:0,error:"Selected entries could not be checked."};
-      for(const row of rows) {const problem=validateTradeValues(cfg.table as TradeTable,{...row,...patch});if(problem)return {authorized:true,ok:false,updated:0,error:problem};}
+      for(const row of rows) {const problem=validateTradeValues(cfg.table as TradeTable,{...(row as unknown as Record<string,unknown>),...patch});if(problem)return {authorized:true,ok:false,updated:0,error:problem};}
     }
     if (data.column === "merged_into_record_id" && value) patch["merge_status"] = "proposed";
     const { error, count } = await supabaseAdmin
