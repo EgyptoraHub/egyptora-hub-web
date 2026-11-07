@@ -258,7 +258,7 @@ export const getContentRow = createServerFn({ method: "POST" })
         governorates: string[];
         eras: string[];
         categories: { value: string; label: string }[];
-        fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides", { value: string; label: string }[]>>;
+        fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides" | "complaint_sectors", { value: string; label: string }[]>>;
         children?: { pk: string; label: string; status: string | null }[] | undefined;
       }>
     > => {
@@ -299,7 +299,7 @@ export const getContentRow = createServerFn({ method: "POST" })
             []) as { id: string; name_en: string }[]).map((c) => ({ value: c.id, label: c.name_en }))
         : [];
 
-      const fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides", { value: string; label: string }[]>> = {};
+      const fkOptions: Partial<Record<UuidFkTable | "trade_country_profiles" | "procedure_guides" | "complaint_sectors", { value: string; label: string }[]>> = {};
       const LABEL: Record<UuidFkTable, { cols: string; order: string; label: (r: any) => string }> = {
         emergency_categories: { cols: "id, name_en", order: "sort_order", label: (r) => r.name_en },
         app_categories: { cols: "id, name_en", order: "sort_order", label: (r) => r.name_en },
