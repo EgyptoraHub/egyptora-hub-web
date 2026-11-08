@@ -393,8 +393,8 @@ function InnerHero({ h }: { h: HeroConfig }) {
 
 /* ---------------- chip strip ---------------- */
 
-/** `gate`: data-driven chip — links to `to` only while the section has a public record (same check as the menu). */
-export type Chip = { label: string; Icon: Icon; to?: string | undefined; gate?: NavGate | undefined };
+/** `gate`: data-driven chip — links to `to` only while the section has a public record (same check as the menu). `hideIfGatedOff`: render nothing at all when the gate is closed (no "Coming soon" slot). `hint`: optional short line shown as tooltip/aria description. */
+export type Chip = { label: string; Icon: Icon; to?: string | undefined; gate?: NavGate | undefined; hideIfGatedOff?: boolean | undefined; hint?: string | undefined };
 
 function MoreDots({ className }: { className?: string }) {
   return (
@@ -417,7 +417,8 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
     <div className={cn(innerWrap, "relative z-10 -mt-10")}>
       <div className="flex overflow-x-auto rounded-xl border border-border bg-card shadow-[0_18px_40px_-28px_rgba(6,33,58,0.45)] [scrollbar-width:none]">
         {all.map((c, i) => {
-          const active = i === 0;
+           if (c.gate && c.hideIfGatedOff && !avail[c.gate]) return null;
+           const active = i === 0;
           const cls = cn(
             "relative grid min-w-[104px] flex-1 justify-items-center gap-1.5 border-e border-border px-2 py-3.5 text-center last:border-e-0 transition-colors",
             active ? "bg-chip-active after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:bg-shell-gold" : "hover:bg-bg-alt",
@@ -430,7 +431,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
           );
           if (c.to && !active && (!c.gate || avail[c.gate]))
             return (
-              <SmartLink key={c.label} to={c.to} className={cls}>
+              <SmartLink key={c.label} to={c.to} className={cls} title={c.hint ? t(c.hint) : undefined}>
                 {inner}
               </SmartLink>
             );
