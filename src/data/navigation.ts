@@ -170,3 +170,8 @@ export const mainNav: NavEntry[] = [
     ],
   },
 ];
+
+/** Mobile menu: an entry renders as a flat single link only when it has no sub-items. */
+export function isFlatMobileNavEntry(entry: NavEntry): boolean {
+  return !entry.items;
+}
