@@ -141,3 +141,8 @@
 - [x] Sitemap regenerated: 226 URLs; complaints hub, guide and 3 sector pages added
 - [x] Signed-out checks: exactly 4 sectors + 6 channels visible, internal_notes denied; pages/nav/RTL/390px verified; concierge search returns active HCWW hotlines only; 94 tests pass; docs/prompt-50c-verification.md
 - [ ] Live AI concierge chat not exercised (no AI key in dev sandbox)
+
+## Prompt 50f — Government Directory chip strip order + overflow affordance
+- [x] Chips reordered: Emergency, Complaints (gate/hideIfGatedOff/hint unchanged), Egypt Apps right after All Entities; list moved to src/lib/gov-directory-chips.ts for testability
+- [x] ChipStrip: edge fade + focusable chevron (70% scroll, RTL-mirrored, AR aria labels) shown only when overflow exists; recompute on scroll/resize/nav-availability
+- [x] Verified EN/AR at 390–1920px on government-directory, explore-egypt, digital-services, visit-egypt (/health has no chip strip); keyboard activation checked; 103 tests pass; docs/prompt-50f-verification.md
