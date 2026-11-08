@@ -35,15 +35,17 @@ export function SmartLink({
   className,
   children,
   label,
+  title,
 }: {
   to: string;
   className?: string;
   children: ReactNode;
   label?: string;
+  title?: string | undefined;
 }) {
   if (isExternal(to))
     return (
-      <a href={to} target="_blank" rel="noopener noreferrer" aria-label={label} className={className}>
+      <a href={to} target="_blank" rel="noopener noreferrer" aria-label={label} title={title} className={className}>
         {children}
       </a>
     );
@@ -51,7 +53,7 @@ export function SmartLink({
   const [path = to, qs] = to.split("?");
   const search = qs ? Object.fromEntries(new URLSearchParams(qs)) : undefined;
   return (
-    <Link to={L(path)} search={search as never} aria-label={label} className={className}>
+    <Link to={L(path)} search={search as never} aria-label={label} title={title} className={className}>
       {children}
     </Link>
   );
