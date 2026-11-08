@@ -1,6 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { chipHiddenByGate } from "./nav-availability";
+import { isFlatMobileNavEntry, mainNav } from "../data/navigation";
 
 describe("chipHiddenByGate", () => {
   it("hides a hideIfGatedOff chip when its gate has no public record", () => {
