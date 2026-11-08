@@ -246,7 +246,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     };
   }, [onClose]);
 
-  const flat = (entry: NavEntry) => !entry.items || entry.label === "Government Directory";
+  const flat = (entry: NavEntry) => !entry.items;
 
   return (
     <div className="fixed inset-0 z-50 2xl:hidden" role="dialog" aria-modal="true" aria-label={t("Open menu")}>
