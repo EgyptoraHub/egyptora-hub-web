@@ -1,6 +1,7 @@
 /** Complaints & Government Services Guide — EN source keys; the seven other languages intentionally use the existing English fallback. */
 export const complaintsAr: Record<string, string> = {
-  "Complaints & Services Guide": "دليل الشكاوى والخدمات",
+  "Complaints & Services Guide": "دليل الشكاوى والخدمات الحكومية",
+  "Where to file a complaint: official channels by sector.": "أين تقدّم شكواك: القنوات الرسمية حسب القطاع.",
   "Complaints & Government Services Guide": "دليل الشكاوى والخدمات الحكومية",
   "Complaint sectors": "قطاعات الشكاوى",
   "Complaint channels": "قنوات الشكاوى",
