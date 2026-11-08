@@ -106,6 +106,7 @@
   <url><loc>https://www.egyptora-hub.com/legal/marketing-communications</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/legal/disclaimer</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/legal/health-disclaimer</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/legal/complaints-guide-disclaimer</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/governorates/cairo</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/governorates/giza</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/governorates/qalyubia</loc><changefreq>monthly</changefreq></url>
@@ -148,7 +149,10 @@
   <url><loc>https://www.egyptora-hub.com/egypt-apps/utilities</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/experiences/eco-nature</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/procedure-guides</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/do-business/trade-inquiry</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/government-directory/complaints</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/government-directory/complaints/unknown-authority</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-through-time/military-history/records/001-unification-warfare-under-narmer</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-through-time/military-history/records/028-seqenenre-tao-war-against-the-hyksos</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-through-time/military-history/records/032-ahmose-i-campaigns-against-the-hyksos</loc><changefreq>monthly</changefreq></url>
@@ -214,4 +218,12 @@
   <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/renewable-energy-storage</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/software-engineering-industrial-services</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/do-business/industry-agriculture/textiles-leather</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/procedure-guides/goeic-importers-register</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/procedure-guides/ida-industrial-register-certificate</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/procedure-guides/ida-operating-license-high-risk</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/do-business/procedure-guides/ida-operating-license-low-risk</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/government-directory/complaints/other-unknown-authority</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/government-directory/complaints/tax-customs</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/government-directory/complaints/telecom-post</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/government-directory/complaints/water-sanitation</loc><changefreq>monthly</changefreq></url>
 </urlset>

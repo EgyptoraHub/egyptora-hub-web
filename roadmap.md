@@ -134,3 +134,10 @@
 - [x] 44 sectors imported (44 × needs_check + inactive, 0 rejected); docs/prompt-49-verification.md
 - [ ] Complaints disclaimer text needs qualified Egyptian legal counsel review before launch
 - [ ] Admin UI not exercised signed in (no admin session available in this environment)
+
+## Prompt 50c — Complaints Guide: fix 2 channel rows + activate 10 owner-approved records
+- [x] Part A: 2 channel updates via validated dry run (0 new / 2 updated / 0 rejected); HCWW form row changed internal_notes only; audit 3f6f5c60-f263-403b-98aa-d5a1d8694f70 (privileged path)
+- [x] Part B: 4 sectors + 6 channels set editorial_reviewed + active; audit 8b7d3a59-e15e-41d1-8b32-ea456f666ed5 (privileged path); hcww-online-complaint-form + 40 sectors stay needs_check/inactive
+- [x] Sitemap regenerated: 226 URLs; complaints hub, guide and 3 sector pages added
+- [x] Signed-out checks: exactly 4 sectors + 6 channels visible, internal_notes denied; pages/nav/RTL/390px verified; concierge search returns active HCWW hotlines only; 94 tests pass; docs/prompt-50c-verification.md
+- [ ] Live AI concierge chat not exercised (no AI key in dev sandbox)
