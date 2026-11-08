@@ -2,15 +2,15 @@ import { GenImage } from "@/components/site/GenImage";
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Briefcase, Building2, ChevronDown, ExternalLink, Landmark, MapPin, Plane, ShieldCheck, Sparkles, LayoutGrid,
-  Scale, Link2, Map as MapIcon, Users, TrendingUp, Gavel, Globe2, GraduationCap, Hospital, BookOpen, Home, Bus,
+  Briefcase, Building2, ChevronDown, ExternalLink, Landmark, MapPin, Plane, ShieldCheck, Sparkles,
+  TrendingUp, Globe2, Hospital, BookOpen, Home, Bus,
   Wallet, BadgeCheck, IdCard, Car, FileText, Receipt, Stamp, Baby, Heart, Package, Factory, Headphones, Search,
-  Siren, Smartphone, MessageSquareWarning,
 } from "lucide-react";
 import {
   InnerPage, cardGrid, SectionHead, PhotoCard, SidePanel, EgyptMap, ViewAll, CircleTile, ImportantNoticeBox,
-  AppPromoCard, BandPromo, type CardItem, type Chip,
+  AppPromoCard, BandPromo, type CardItem,
 } from "@/components/layout/InnerPage";
+import { govDirectoryChips } from "@/lib/gov-directory-chips";
 import mfa from "@/assets/generated/card-infrastructure-suez.webp";
 import tourism from "@/assets/gov/luxor.jpg";
 import gafi from "@/assets/home/inv-opps.jpg";
