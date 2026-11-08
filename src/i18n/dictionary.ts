@@ -2174,6 +2174,8 @@ const ar: Dict = {
   "Map of Egypt": "خريطة مصر",
   "Popular:": "الأكثر رواجًا:",
   "Breadcrumb": "مسار التنقل",
+  "Scroll right": "مرّر لليمين",
+  "Scroll left": "مرّر لليسار",
   "Important Notice": "تنبيه مهم",
   "Stay Connected": "ابقَ على تواصل",
   "Subscribe to our updates": "اشترك لتلقي مستجداتنا",

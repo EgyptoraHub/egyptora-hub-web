@@ -5,11 +5,11 @@ import { chipHiddenByGate, useNavAvailability, type NavGate } from "@/lib/nav-av
  * landing pages). Every visible string goes through `t()` so the language
  * switcher translates it site-wide.
  */
-import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
+import { useCallback, useEffect, useRef, useState, type ComponentType, type ReactNode, type SVGProps } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
 import { altForSrc } from "@/lib/generated-images";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronRight, Info, Search } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Info, Search } from "lucide-react";
 import { toast } from "sonner";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -409,15 +409,77 @@ function MoreDots({ className }: { className?: string }) {
   );
 }
 
+/** Distance scrolled from the inline start, normalized across RTL implementations (Chrome/Safari: scrollLeft 0 → negative; Firefox: positive → 0). */
+function scrollFromStart(el: HTMLElement, max: number, rtl: boolean) {
+  const sl = el.scrollLeft;
+  return rtl ? (sl <= 0 ? -sl : max - sl) : sl;
+}
+
 function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?: string | undefined; showMore?: boolean | undefined }) {
-  const { t } = useI18n();
+  const { t, dir } = useI18n();
+  const rtl = dir === "rtl";
   const avail = useNavAvailability();
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [edges, setEdges] = useState({ start: false, end: false });
+
+  const updateEdges = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    if (max <= 1) {
+      setEdges((p) => (p.start || p.end ? { start: false, end: false } : p));
+      return;
+    }
+    const fromStart = scrollFromStart(el, max, rtl);
+    const next = { start: fromStart > 1, end: fromStart < max - 1 };
+    setEdges((p) => (p.start === next.start && p.end === next.end ? p : next));
+  }, [rtl]);
+
+  useEffect(() => {
+    updateEdges();
+    const el = scrollRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(updateEdges);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [updateEdges, avail]);
+
+  const scrollToward = (towardEnd: boolean) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const sign = towardEnd ? (rtl ? -1 : 1) : rtl ? 1 : -1;
+    el.scrollBy({ left: sign * el.clientWidth * 0.7, behavior: "smooth" });
+  };
+
   const all: (Chip & { more?: boolean })[] = showMore
     ? [...chips, { label: "More", Icon: MoreDots, to: moreTo, more: true }]
     : chips;
+  const edgeBtn =
+    "absolute top-1/2 z-10 flex size-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-navy shadow-sm transition-colors hover:bg-bg-alt focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-shell-gold";
   return (
     <div className={cn(innerWrap, "relative z-10 -mt-10")}>
-      <div className="flex overflow-x-auto rounded-xl border border-border bg-card shadow-[0_18px_40px_-28px_rgba(6,33,58,0.45)] [scrollbar-width:none]">
+      <div className="relative">
+        {edges.start ? (
+          <>
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 start-0 z-[5] w-10 rounded-s-xl bg-gradient-to-r from-card to-transparent rtl:bg-gradient-to-l" />
+            <button type="button" aria-label={rtl ? t("Scroll right") : t("Scroll left")} onClick={() => scrollToward(false)} className={cn(edgeBtn, "start-1")}>
+              <ChevronLeft className="size-4 rtl:rotate-180" />
+            </button>
+          </>
+        ) : null}
+        {edges.end ? (
+          <>
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 end-0 z-[5] w-10 rounded-e-xl bg-gradient-to-l from-card to-transparent rtl:bg-gradient-to-r" />
+            <button type="button" aria-label={rtl ? t("Scroll left") : t("Scroll right")} onClick={() => scrollToward(true)} className={cn(edgeBtn, "end-1")}>
+              <ChevronRight className="size-4 rtl:rotate-180" />
+            </button>
+          </>
+        ) : null}
+        <div
+          ref={scrollRef}
+          onScroll={updateEdges}
+          className="flex overflow-x-auto rounded-xl border border-border bg-card shadow-[0_18px_40px_-28px_rgba(6,33,58,0.45)] [scrollbar-width:none]"
+        >
         {all.map((c, i) => {
            if (chipHiddenByGate(c, avail)) return null;
            const active = i === 0;
@@ -449,6 +511,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
             </button>
           );
         })}
+        </div>
       </div>
     </div>
   );

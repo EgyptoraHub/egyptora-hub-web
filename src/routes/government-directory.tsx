@@ -2,15 +2,15 @@ import { GenImage } from "@/components/site/GenImage";
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Briefcase, Building2, ChevronDown, ExternalLink, Landmark, MapPin, Plane, ShieldCheck, Sparkles, LayoutGrid,
-  Scale, Link2, Map as MapIcon, Users, TrendingUp, Gavel, Globe2, GraduationCap, Hospital, BookOpen, Home, Bus,
+  Briefcase, Building2, ChevronDown, ExternalLink, Landmark, MapPin, Plane, ShieldCheck, Sparkles,
+  TrendingUp, Globe2, Hospital, BookOpen, Home, Bus,
   Wallet, BadgeCheck, IdCard, Car, FileText, Receipt, Stamp, Baby, Heart, Package, Factory, Headphones, Search,
-  Siren, Smartphone, MessageSquareWarning,
 } from "lucide-react";
 import {
   InnerPage, cardGrid, SectionHead, PhotoCard, SidePanel, EgyptMap, ViewAll, CircleTile, ImportantNoticeBox,
-  AppPromoCard, BandPromo, type CardItem, type Chip,
+  AppPromoCard, BandPromo, type CardItem,
 } from "@/components/layout/InnerPage";
+import { govDirectoryChips } from "@/lib/gov-directory-chips";
 import mfa from "@/assets/generated/card-infrastructure-suez.webp";
 import tourism from "@/assets/gov/luxor.jpg";
 import gafi from "@/assets/home/inv-opps.jpg";
@@ -161,28 +161,7 @@ function EntityRow({ entity }: { entity: GovEntity }) {
 
 const GD = "/government-directory";
 
-const chips: Chip[] = [
-  { label: "All Entities", Icon: LayoutGrid },
-  { label: "Ministries", Icon: Landmark, to: `${GD}#ministries` },
-  { label: "Regulatory Bodies", Icon: Scale, to: `${GD}#authorities-and-agencies` },
-  { label: "Related Entities", Icon: Link2 },
-  { label: "Governorates", Icon: MapIcon, to: "/explore-egypt" },
-  { label: "Public Services", Icon: Users, to: `${GD}/digital-services` },
-  { label: "Economic Authorities", Icon: TrendingUp, to: `${GD}#investment-and-business` },
-  { label: "Judicial Bodies", Icon: Gavel },
-  { label: "Diplomatic Missions", Icon: Globe2 },
-  { label: "Educational Institutions", Icon: GraduationCap, to: "/research-programs" },
-  { label: "Emergency & Quick Numbers", Icon: Siren, to: "/emergency-numbers" },
-  { label: "Egypt Apps", Icon: Smartphone, to: "/egypt-apps" },
-  {
-    label: "Complaints & Services Guide",
-    Icon: MessageSquareWarning,
-    to: `${GD}/complaints`,
-    gate: "complaint_sectors",
-    hideIfGatedOff: true,
-    hint: "Where to file a complaint: official channels by sector.",
-  },
-];
+const chips = govDirectoryChips;
 
 const featuredSpec: { title: string; match: RegExp; desc: string; img: string; badge: string; fallback: string }[] = [
   { title: "Ministry of Foreign Affairs", match: /foreign affairs/i, desc: "Egypt's foreign policy, consular and diplomatic services.", img: mfa, badge: "Ministry", fallback: "https://www.mfa.gov.eg" },
