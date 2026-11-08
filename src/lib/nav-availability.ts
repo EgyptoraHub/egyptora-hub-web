@@ -39,3 +39,11 @@ export function fetchNavAvailability(): Promise<Avail> {
 export function useNavAvailability(): Avail {
   return ((useLoaderData({ from: "__root__" }) as { nav?: Avail } | undefined)?.nav) ?? {};
 }
+
+/** A chip marked `hideIfGatedOff` renders nothing while its data gate has no public record (no "Coming soon" slot). */
+export function chipHiddenByGate(
+  c: { gate?: NavGate | undefined; hideIfGatedOff?: boolean | undefined },
+  avail: Avail,
+): boolean {
+  return !!(c.gate && c.hideIfGatedOff && !avail[c.gate]);
+}

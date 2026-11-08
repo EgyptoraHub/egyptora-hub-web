@@ -419,7 +419,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
     <div className={cn(innerWrap, "relative z-10 -mt-10")}>
       <div className="flex overflow-x-auto rounded-xl border border-border bg-card shadow-[0_18px_40px_-28px_rgba(6,33,58,0.45)] [scrollbar-width:none]">
         {all.map((c, i) => {
-           if (c.gate && c.hideIfGatedOff && !avail[c.gate]) return null;
+           if (chipHiddenByGate(c, avail)) return null;
            const active = i === 0;
           const cls = cn(
             "relative grid min-w-[104px] flex-1 justify-items-center gap-1.5 border-e border-border px-2 py-3.5 text-center last:border-e-0 transition-colors",
