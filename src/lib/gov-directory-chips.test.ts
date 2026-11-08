@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { chips } from "@/routes/government-directory";
+import { govDirectoryChips as chips } from "@/lib/gov-directory-chips";
 
 describe("Government Directory chip order (Prompt 50f)", () => {
   test("key entry points come right after All Entities, rest keep relative order", () => {
