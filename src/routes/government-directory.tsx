@@ -161,8 +161,18 @@ function EntityRow({ entity }: { entity: GovEntity }) {
 
 const GD = "/government-directory";
 
-const chips: Chip[] = [
+export const chips: Chip[] = [
   { label: "All Entities", Icon: LayoutGrid },
+  { label: "Emergency & Quick Numbers", Icon: Siren, to: "/emergency-numbers" },
+  {
+    label: "Complaints & Services Guide",
+    Icon: MessageSquareWarning,
+    to: `${GD}/complaints`,
+    gate: "complaint_sectors",
+    hideIfGatedOff: true,
+    hint: "Where to file a complaint: official channels by sector.",
+  },
+  { label: "Egypt Apps", Icon: Smartphone, to: "/egypt-apps" },
   { label: "Ministries", Icon: Landmark, to: `${GD}#ministries` },
   { label: "Regulatory Bodies", Icon: Scale, to: `${GD}#authorities-and-agencies` },
   { label: "Related Entities", Icon: Link2 },
@@ -172,16 +182,6 @@ const chips: Chip[] = [
   { label: "Judicial Bodies", Icon: Gavel },
   { label: "Diplomatic Missions", Icon: Globe2 },
   { label: "Educational Institutions", Icon: GraduationCap, to: "/research-programs" },
-  { label: "Emergency & Quick Numbers", Icon: Siren, to: "/emergency-numbers" },
-  { label: "Egypt Apps", Icon: Smartphone, to: "/egypt-apps" },
-  {
-    label: "Complaints & Services Guide",
-    Icon: MessageSquareWarning,
-    to: `${GD}/complaints`,
-    gate: "complaint_sectors",
-    hideIfGatedOff: true,
-    hint: "Where to file a complaint: official channels by sector.",
-  },
 ];
 
 const featuredSpec: { title: string; match: RegExp; desc: string; img: string; badge: string; fallback: string }[] = [
