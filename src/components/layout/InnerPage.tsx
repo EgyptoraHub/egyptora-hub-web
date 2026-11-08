@@ -1,5 +1,5 @@
 import { Badge } from "@/components/site/Badge";
-import { useNavAvailability, type NavGate } from "@/lib/nav-availability";
+import { chipHiddenByGate, useNavAvailability, type NavGate } from "@/lib/nav-availability";
 /**
  * Shared inner-page template (Explore / Invest / Live / Do Business and future
  * landing pages). Every visible string goes through `t()` so the language
