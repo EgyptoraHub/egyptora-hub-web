@@ -5,7 +5,7 @@ import { ChevronDown, Menu, MoreHorizontal, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import logo from "@/assets/egyptora-hub-logo.png.asset.json";
 import { SITE } from "@/config/site";
-import { mainNav, type NavEntry, type NavLeaf } from "@/data/navigation";
+import { isFlatMobileNavEntry, mainNav, type NavEntry, type NavLeaf } from "@/data/navigation";
 import { AuthButtons } from "@/components/site/AuthButtons";
 import { CurrencySwitcher } from "@/components/site/CurrencySwitcher";
 import { LanguageSwitcher } from "@/components/site/LanguageSwitcher";
@@ -246,7 +246,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     };
   }, [onClose]);
 
-  const flat = (entry: NavEntry) => !entry.items;
+  const flat = isFlatMobileNavEntry;
 
   return (
     <div className="fixed inset-0 z-50 2xl:hidden" role="dialog" aria-modal="true" aria-label={t("Open menu")}>
