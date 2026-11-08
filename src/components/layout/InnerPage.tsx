@@ -1,5 +1,5 @@
 import { Badge } from "@/components/site/Badge";
-import { useNavAvailability, type NavGate } from "@/lib/nav-availability";
+import { chipHiddenByGate, useNavAvailability, type NavGate } from "@/lib/nav-availability";
 /**
  * Shared inner-page template (Explore / Invest / Live / Do Business and future
  * landing pages). Every visible string goes through `t()` so the language
@@ -35,15 +35,17 @@ export function SmartLink({
   className,
   children,
   label,
+  title,
 }: {
   to: string;
   className?: string;
   children: ReactNode;
   label?: string;
+  title?: string | undefined;
 }) {
   if (isExternal(to))
     return (
-      <a href={to} target="_blank" rel="noopener noreferrer" aria-label={label} className={className}>
+      <a href={to} target="_blank" rel="noopener noreferrer" aria-label={label} title={title} className={className}>
         {children}
       </a>
     );
@@ -51,7 +53,7 @@ export function SmartLink({
   const [path = to, qs] = to.split("?");
   const search = qs ? Object.fromEntries(new URLSearchParams(qs)) : undefined;
   return (
-    <Link to={L(path)} search={search as never} aria-label={label} className={className}>
+    <Link to={L(path)} search={search as never} aria-label={label} title={title} className={className}>
       {children}
     </Link>
   );
@@ -393,8 +395,8 @@ function InnerHero({ h }: { h: HeroConfig }) {
 
 /* ---------------- chip strip ---------------- */
 
-/** `gate`: data-driven chip — links to `to` only while the section has a public record (same check as the menu). */
-export type Chip = { label: string; Icon: Icon; to?: string | undefined; gate?: NavGate | undefined };
+/** `gate`: data-driven chip — links to `to` only while the section has a public record (same check as the menu). `hideIfGatedOff`: render nothing at all when the gate is closed (no "Coming soon" slot). `hint`: optional short line shown as tooltip/aria description. */
+export type Chip = { label: string; Icon: Icon; to?: string | undefined; gate?: NavGate | undefined; hideIfGatedOff?: boolean | undefined; hint?: string | undefined };
 
 function MoreDots({ className }: { className?: string }) {
   return (
@@ -417,7 +419,8 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
     <div className={cn(innerWrap, "relative z-10 -mt-10")}>
       <div className="flex overflow-x-auto rounded-xl border border-border bg-card shadow-[0_18px_40px_-28px_rgba(6,33,58,0.45)] [scrollbar-width:none]">
         {all.map((c, i) => {
-          const active = i === 0;
+           if (chipHiddenByGate(c, avail)) return null;
+           const active = i === 0;
           const cls = cn(
             "relative grid min-w-[104px] flex-1 justify-items-center gap-1.5 border-e border-border px-2 py-3.5 text-center last:border-e-0 transition-colors",
             active ? "bg-chip-active after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:bg-shell-gold" : "hover:bg-bg-alt",
@@ -430,7 +433,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
           );
           if (c.to && !active && (!c.gate || avail[c.gate]))
             return (
-              <SmartLink key={c.label} to={c.to} className={cls}>
+              <SmartLink key={c.label} to={c.to} className={cls} title={c.hint ? t(c.hint) : undefined}>
                 {inner}
               </SmartLink>
             );
