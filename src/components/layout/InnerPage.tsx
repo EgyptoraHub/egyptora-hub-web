@@ -5,7 +5,7 @@ import { chipHiddenByGate, useNavAvailability, type NavGate } from "@/lib/nav-av
  * landing pages). Every visible string goes through `t()` so the language
  * switcher translates it site-wide.
  */
-import { useState, type ComponentType, type ReactNode, type SVGProps } from "react";
+import { useCallback, useEffect, useRef, useState, type ComponentType, type ReactNode, type SVGProps } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
 import { altForSrc } from "@/lib/generated-images";
 import { Link } from "@tanstack/react-router";
