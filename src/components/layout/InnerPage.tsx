@@ -512,6 +512,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
             </button>
           );
         })}
+        </div>
       </div>
     </div>
   );
