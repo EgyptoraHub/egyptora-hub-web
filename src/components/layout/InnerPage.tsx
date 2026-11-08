@@ -409,14 +409,15 @@ function MoreDots({ className }: { className?: string }) {
   );
 }
 
-/** Distance scrolled from the inline start, normalized across RTL implementations (Chrome/Safari: negative scrollLeft; Firefox: positive descending). */
+/** Distance scrolled from the inline start, normalized across RTL implementations (Chrome/Safari: scrollLeft 0 → negative; Firefox: positive → 0). */
 function scrollFromStart(el: HTMLElement, max: number, rtl: boolean) {
   const sl = el.scrollLeft;
-  return rtl ? (sl < 0 ? -sl : max - sl) : sl;
+  return rtl ? (sl <= 0 ? -sl : max - sl) : sl;
 }
 
 function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?: string | undefined; showMore?: boolean | undefined }) {
-  const { t } = useI18n();
+  const { t, dir } = useI18n();
+  const rtl = dir === "rtl";
   const avail = useNavAvailability();
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [edges, setEdges] = useState({ start: false, end: false });
@@ -429,11 +430,10 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
       setEdges((p) => (p.start || p.end ? { start: false, end: false } : p));
       return;
     }
-    const rtl = getComputedStyle(el).direction === "rtl";
     const fromStart = scrollFromStart(el, max, rtl);
     const next = { start: fromStart > 1, end: fromStart < max - 1 };
     setEdges((p) => (p.start === next.start && p.end === next.end ? p : next));
-  }, []);
+  }, [rtl]);
 
   useEffect(() => {
     updateEdges();
@@ -447,7 +447,6 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
   const scrollToward = (towardEnd: boolean) => {
     const el = scrollRef.current;
     if (!el) return;
-    const rtl = getComputedStyle(el).direction === "rtl";
     const sign = towardEnd ? (rtl ? -1 : 1) : rtl ? 1 : -1;
     el.scrollBy({ left: sign * el.clientWidth * 0.7, behavior: "smooth" });
   };
