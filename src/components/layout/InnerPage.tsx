@@ -462,7 +462,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
         {edges.start ? (
           <>
             <div aria-hidden className="pointer-events-none absolute inset-y-0 start-0 z-[5] w-10 rounded-s-xl bg-gradient-to-r from-card to-transparent rtl:bg-gradient-to-l" />
-            <button type="button" aria-label={t("Scroll left")} onClick={() => scrollToward(false)} className={cn(edgeBtn, "start-1")}>
+            <button type="button" aria-label={rtl ? t("Scroll right") : t("Scroll left")} onClick={() => scrollToward(false)} className={cn(edgeBtn, "start-1")}>
               <ChevronLeft className="size-4 rtl:rotate-180" />
             </button>
           </>
@@ -470,7 +470,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
         {edges.end ? (
           <>
             <div aria-hidden className="pointer-events-none absolute inset-y-0 end-0 z-[5] w-10 rounded-e-xl bg-gradient-to-l from-card to-transparent rtl:bg-gradient-to-r" />
-            <button type="button" aria-label={t("Scroll right")} onClick={() => scrollToward(true)} className={cn(edgeBtn, "end-1")}>
+            <button type="button" aria-label={rtl ? t("Scroll left") : t("Scroll right")} onClick={() => scrollToward(true)} className={cn(edgeBtn, "end-1")}>
               <ChevronRight className="size-4 rtl:rotate-180" />
             </button>
           </>
