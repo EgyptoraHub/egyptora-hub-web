@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 51 — Complaints electricity & gas batch 2
+- [x] Save exact 3-row CSV; existing validated preview passes 3 new / 0 updated / 0 rejected.
+- [x] Privileged import as needs_check/inactive, sector emergency notice update, then approved editorial_reviewed activation; exactly 3 operation audit entries.
+- [x] Verify 44 sectors / 5 active and 10 channels / 9 active; other 43 sectors and original 7 channels unchanged; sitemap 225 → 226.
+- [x] Signed-out EN/AR desktop/mobile hub → sector → emergency checks; private notes denied; 25 complaints tests and 103 full-suite tests pass; docs/prompt-51-verification.md. Nothing published.
+
 ## Prompt 46b — Trade bilingual source names
 - [x] Nullable `source_name_ar` on all six trade content tables with anon column grants (migration 0029); no existing rows edited.
 - [x] Shared source row (`Source: name · link · Last verified: date`) on all trade pages; equal-height cards with pinned source row; Arabic prefers `source_name_ar`.
