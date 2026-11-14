@@ -37,4 +37,4 @@ Added `complaint_channels.source_url` (label_en/label_ar) to `LINK_SOURCES`; `LI
 
 ## Differences vs. the prompt
 - `LINK_SOURCES` had to be exported for the test (a one-word change).
-- The audit log uses `entity_type` (there is no table column), and the activation was written with the database data tool because the shell's database role can't update rows.
+- The audit log stores the table name in `entity_type` (it has no `target_table` column), and the activation was written with the database data tool because the shell's database role can't update rows.
