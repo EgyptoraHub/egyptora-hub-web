@@ -38,3 +38,12 @@ Added `complaint_channels.source_url` (label_en/label_ar) to `LINK_SOURCES`; `LI
 ## Differences vs. the prompt
 - `LINK_SOURCES` had to be exported for the test (a one-word change).
 - The audit log stores the table name in `entity_type` (it has no `target_table` column), and the activation was written with the database data tool because the shell's database role can't update rows.
+
+## 52b — 390 px overflow fix on complaint channel cards
+Component-only change in `src/components/complaints/ComplaintsPages.tsx` (no data, routes, translations or other components touched; hotline links untouched):
+- The website/app/WhatsApp anchors in `ChannelCard` and in the "Not sure who to contact?" unified-portal block now have `min-w-0 max-w-full` and `[overflow-wrap:anywhere]`; their parent containers got `min-w-0`. `href` values are unchanged.
+- Link text now shows the decoded URL for humans via a new `displayUrl()` helper (`decodeURI` inside try/catch, falling back to the original string); `dir="ltr"` kept.
+
+Signed-out checks (EN + AR, 360/390/768/1280 px) on `/government-directory/complaints/trade-consumer-protection`, `/electricity-energy-gas`, `/water-sanitation` and `/unknown-authority`: 32/32 checks — document width equals viewport width (no horizontal overflow), and every link still carries the original stored URL (tel:19588/121/129/125/175, cpa.gov.eg form, wa.me/201577779999, shakwa.eg, egyptera.org, hcww.com.eg).
+
+Tests: 109 passed, 0 failed (full suite, `bun test`).
