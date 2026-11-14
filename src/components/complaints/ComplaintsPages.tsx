@@ -198,6 +198,15 @@ export function ComplaintsHubPage({ search }: { search: ComplaintsSearch }) {
 
 const CHANNEL_ICONS = { hotline: Phone, website: Globe2, app: Smartphone, whatsapp: MessageCircle } as const;
 
+/** Human-readable form of a stored URL: decoded when possible, original otherwise. */
+function displayUrl(url: string): string {
+  try {
+    return decodeURI(url);
+  } catch {
+    return url;
+  }
+}
+
 function ChannelCard({ c }: { c: ComplaintChannel }) {
   const { t, lang } = useI18n();
   const Icon = CHANNEL_ICONS[c.channel_type as keyof typeof CHANNEL_ICONS] ?? Globe2;
@@ -215,11 +224,11 @@ function ChannelCard({ c }: { c: ComplaintChannel }) {
       </div>
       <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-text-body">{t(CHANNEL_TYPE_LABELS[c.channel_type as keyof typeof CHANNEL_TYPE_LABELS] ?? c.channel_type)}</p>
       {label && <p className="mt-2 text-sm text-text-body" dir="auto">{label}</p>}
-      <div className="mt-2 text-sm">
+      <div className="mt-2 min-w-0 text-sm">
         {isHotline ? (
           <a className="hit-44 inline-flex min-h-11 items-center gap-2 font-semibold text-navy underline" href={`tel:${c.channel_value.replace(/[^+0-9]/g, "")}`} dir="ltr">{c.channel_value}</a>
         ) : safe ? (
-          <a className="hit-44 inline-flex min-h-11 items-center gap-2 break-words font-semibold text-navy underline" href={safe} target="_blank" rel="noopener noreferrer" dir="ltr">{safe}</a>
+          <a className="hit-44 inline-flex min-h-11 min-w-0 max-w-full items-center gap-2 [overflow-wrap:anywhere] font-semibold text-navy underline" href={safe} target="_blank" rel="noopener noreferrer" dir="ltr">{displayUrl(safe)}</a>
         ) : null}
       </div>
       {hours && <p className="mt-1 text-sm text-text-body" dir="auto"><span className="font-semibold text-navy">{t("Hours:")}</span> {hours}</p>}
@@ -297,12 +306,12 @@ export function UnknownAuthorityPage() {
                 </Link>
               )}
               {i === 2 && unified && (
-                <div className="mt-2 rounded-lg border border-border bg-bg-band p-4 text-sm">
+                <div className="mt-2 min-w-0 rounded-lg border border-border bg-bg-band p-4 text-sm">
                   <p className="font-semibold text-navy" dir="auto">{unifiedLabel}</p>
                   {unified.channel_type === "hotline" ? (
                     <a className="hit-44 mt-1 inline-flex min-h-11 items-center gap-2 font-semibold text-navy underline" href={`tel:${unified.channel_value.replace(/[^+0-9]/g, "")}`} dir="ltr">{unified.channel_value}</a>
                   ) : unifiedSafe ? (
-                    <a className="hit-44 mt-1 inline-flex min-h-11 items-center gap-2 break-words font-semibold text-navy underline" href={unifiedSafe} target="_blank" rel="noopener noreferrer" dir="ltr">{unifiedSafe}</a>
+                    <a className="hit-44 mt-1 inline-flex min-h-11 min-w-0 max-w-full items-center gap-2 [overflow-wrap:anywhere] font-semibold text-navy underline" href={unifiedSafe} target="_blank" rel="noopener noreferrer" dir="ltr">{displayUrl(unifiedSafe)}</a>
                   ) : null}
                   <SourceLine name={unified.source_name} nameAr={unified.source_name_ar} url={unified.source_url} date={unified.last_verified_at} />
                 </div>
