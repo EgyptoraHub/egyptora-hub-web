@@ -156,3 +156,6 @@
 - [x] Chips reordered: Emergency, Complaints (gate/hideIfGatedOff/hint unchanged), Egypt Apps right after All Entities; list moved to src/lib/gov-directory-chips.ts for testability
 - [x] ChipStrip: edge fade + focusable chevron (70% scroll, RTL-mirrored, AR aria labels) shown only when overflow exists; recompute on scroll/resize/nav-availability
 - [x] Verified EN/AR at 390–1920px on government-directory, explore-egypt, digital-services, visit-egypt (/health has no chip strip); keyboard activation checked; 103 tests pass; docs/prompt-50f-verification.md
+
+- [x] Complaints & Services Guide — Phase 1 closed (informational, Prompt 52): 6 active sectors (water-sanitation, telecom-post, tax-customs, other-unknown-authority, electricity-energy-gas, trade-consumer-protection); the other 38 sectors stay inactive on purpose until sourced official channels exist; banking waits for a Central Bank channel; no complaint intake, forwarding or tracking in Phase 1; Phase 2 flags remain disabled.
+- [ ] Follow-up (needs owner OK): channel cards on trade-consumer-protection overflow at 390px (page 481px wide) — component fix was out of scope for Prompt 52.
