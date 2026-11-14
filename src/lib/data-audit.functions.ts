@@ -39,7 +39,7 @@ async function isAdmin(context: { supabase: any; userId: string }) {
 
 /** Tables/fields holding public source-style links, with the name column for display. */
 const TRADE_NAMES = { trade_sectors: "name", trade_country_profiles: "name", trade_country_commodities: "commodity", procedure_guides: "title", procedure_steps: "title", procedure_documents: "document_name" } as const;
-const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: string }[] = [
+export const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: string }[] = [
   ...TRADE_CONTENT_TABLES.map(table => ({table,field:"source_url",nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`})),
   {table:"procedure_guides",field:"fee_source_url",nameCol:"title_en",nameCol2:"title_ar"},
   {table:"procedure_guides",field:"time_source_url",nameCol:"title_en",nameCol2:"title_ar"},
@@ -57,6 +57,7 @@ const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: 
   // egypt_apps.website_url and store links are the developer's own links, not sources — never flagged.
   { table: "military_records", field: "source_url", nameCol: "title_en", nameCol2: "title_ar" },
   { table: "military_sources", field: "url", nameCol: "title" },
+  { table: "complaint_channels", field: "source_url", nameCol: "label_en", nameCol2: "label_ar" },
 ];
 
 /** Media/licence links are reported as counts only (they are not "source" links). */
