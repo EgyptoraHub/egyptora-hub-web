@@ -1,8 +1,8 @@
 # Roadmap
 
 ## Prompt 51b — Approved EgyptERA source domain
-- [ ] Add only egyptera.org to the shared allowlist with owner approval note; test exact host, subdomain, look-alikes and PDF warning.
-- [ ] Verify signed-out EN/AR at 390/1280px, read-only domain counts and audit warning counts; full suite and docs/prompt-51b-verification.md. No data, sitemap or publication changes.
+- [x] Add only egyptera.org to the shared allowlist with owner approval note; five exact-host/subdomain/look-alike/PDF tests pass.
+- [x] Verify signed-out EN/AR at 390/1280px; exactly one EgyptERA record; audit 10 → 10 (complaint channels not scanned), all-source warnings 11 → 10; 108 tests pass; docs/prompt-51b-verification.md. No data, sitemap or publication changes.
 
 ## Prompt 51 — Complaints electricity & gas batch 2
 - [x] Save exact 3-row CSV; existing validated preview passes 3 new / 0 updated / 0 rejected.
