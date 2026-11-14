@@ -27,11 +27,11 @@ export function protectedSlug(nameAr: string, nameEn?: string | null): string {
 }
 
 /** Owner policy: public sources must be Egyptian web pages (.eg or manshurat.org), never PDFs. Returns a warning or null. */
-/** Established Egyptian outlets/institutions on non-.eg domains (subdomains included). Owner-approved list — do not extend without the owner. */
+/** Established Egyptian outlets/institutions on non-.eg domains (subdomains included). Owner-approved list — do not extend without the owner. egyptera.org is the official EgyptERA site, approved by the owner on 14 Nov 2026. */
 export const EGYPTIAN_SOURCE_ALLOWLIST = [
   "elwatannews.com", "elbalad.news", "albawabhnews.com", "youm7.com", "egyptindependent.com", "egypttoday.com",
   "dostor.org", "mobtada.com", "almasryalyoum.com", "shorouknews.com", "masrawy.com", "akhbarelyom.com",
-  "egypt.travel", "dar-alifta.org", "bibalex.org", "manshurat.org",
+  "egypt.travel", "dar-alifta.org", "bibalex.org", "manshurat.org", "egyptera.org",
 ];
 export const isEgyptianHost = (host: string) =>
   host.endsWith(".eg") || EGYPTIAN_SOURCE_ALLOWLIST.some((d) => host === d || host.endsWith("." + d));
