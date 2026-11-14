@@ -1,5 +1,10 @@
 # Roadmap
 
+## Mobility & Industrial Hub (Prompt 53)
+- [x] Concept reviewed; Phase 1 content on hold until official, original sources exist (no hollow pages — "Transportation & Mobility" and "Tenders & Projects" stay "Coming soon").
+- [x] 13 Phase 2 infrastructure flags added, all disabled, read-only admin display, rejected by setFeatureFlag; no new tables or columns.
+- [x] Egyptora AI rules added; no "Thoth" persona; concept mockups, numbers and images are reference only (nothing imported).
+
 ## Prompt 51b — Approved EgyptERA source domain
 - [x] Add only egyptera.org to the shared allowlist with owner approval note; five exact-host/subdomain/look-alike/PDF tests pass.
 - [x] Verify signed-out EN/AR at 390/1280px; exactly one EgyptERA record; audit 10 → 10 (complaint channels not scanned), all-source warnings 11 → 10; 108 tests pass; docs/prompt-51b-verification.md. No data, sitemap or publication changes.
