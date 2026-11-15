@@ -1,7 +1,7 @@
 # Roadmap
 
 ## Prompt 54
-- [ ] Validate, import and activate only the four approved guides and four steps; verify public pages, sitemap and tests.
+- [x] Validate, import and activate only the four approved guides and four steps; 20 public checks passed, sitemap 227 → 231, full existing suite 121 passed; docs/prompt-54-verification.md.
 - Mobility & Industrial — link-based guides (temporary), pending authority agreements
 
 ## Mobility & Industrial Hub (Prompt 53)
