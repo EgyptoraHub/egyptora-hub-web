@@ -1,5 +1,9 @@
 # Roadmap
 
+## Prompt 54
+- [x] Validate, import and activate only the four approved guides and four steps; 20 public checks passed, sitemap 227 → 231, full existing suite 121 passed; docs/prompt-54-verification.md.
+- Mobility & Industrial — link-based guides (temporary), pending authority agreements
+
 ## Mobility & Industrial Hub (Prompt 53)
 - [x] Concept reviewed; Phase 1 content on hold until official, original sources exist (no hollow pages — "Transportation & Mobility" and "Tenders & Projects" stay "Coming soon").
 - [x] 13 Phase 2 infrastructure flags added, all disabled, read-only admin display, rejected by setFeatureFlag; no new tables or columns.
