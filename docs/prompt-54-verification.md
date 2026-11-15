@@ -35,5 +35,5 @@ All three record prompt 54 and method `privileged`.
 
 ## Sitemap and tests
 - Existing generator includes guide details; regenerated sitemap **227 → 231 URLs**, adding exactly the four guide detail URLs.
-- Full existing suite run once: **121 passed, 0 failed**. Two additional concrete CSV fee/step regression tests were added afterward and run separately (results below).
+- Full existing suite run once: **121 passed, 0 failed**. Two additional concrete CSV fee/step regression tests were added afterward and run separately: **2 passed, 0 failed** (123 tests total).
 - No new tables, columns, routes, nav items, flags, translations or application behavior; Transportation & Mobility and Tenders & Projects unchanged.
