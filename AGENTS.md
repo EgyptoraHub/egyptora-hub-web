@@ -15,13 +15,13 @@
 - Traveller stories: visitors get column-level grants only (no moderation_state/internal_notes); the RLS policy shows a row only when published and, if it has a video, consent_status <> 'none' with a rights statement — pages never re-check moderation in code.
 - Audit log, AI usage log and feature flags are written only through server helpers in src/lib/audit.server.ts (service role); visitors cannot insert, admins read — keeps one trusted write path.
 - Feature flags (payments/kyc/partner_dashboard/ai_tools) live in site_settings; visitors may read only the maintenance row, and any future payment/KYC/partner-dashboard/AI-tool code must call isFeatureEnabled() and stay off when the row is missing.
-- AI Concierge searches newer sections (emergency numbers, apps, military records, culture items) with the publishable key so database visitor rules decide visibility, and its output links are filtered to prompt or search-result links — prevents invented URLs and hidden rows.
+- AI Concierge searches newer sections with the publishable key (DB visitor rules decide visibility) and filters output links to prompt or search-result links — no invented URLs or hidden rows.
 - Inbound webhooks use /api/public/hooks/$provider with an HMAC-SHA256 signature from WEBHOOK_SHARED_SECRET; unsigned calls get 401 — one guarded entry point for future providers.
 - Page-text coverage for the 7 non-AR/EN languages is checked with `bun scripts/i18n-missing.ts`; newer translations sit in src/i18n/phase1-translations.ts and existing dictionary entries take precedence.
 - "Coming soon" nav items become pages only with their own original reviewed content; hubs that re-list existing directory records were removed (Prompt 30b) to avoid duplicated content.
-- Industrial/Free Zones read through src/lib/economic-zones.ts (explicit public columns; anon column grants exclude internal_notes/source_note); their routes throw notFound until a public row exists, and sitemap/search/concierge link them only under the same condition — no empty or 404-linked pages.
+- Industrial/Free Zones read via src/lib/economic-zones.ts (public columns only); routes 404 and sitemap/search/concierge skip them until a public row exists.
 - Government Directory shows only is_active rows (RLS policy + explicit column list); internal_notes/phone_source_url have no visitor grants and are edited via the central admin-content config — keeps unreviewed entities off public pages.
-- Military records merged into a parent (merged_into_record_id) never appear standalone: loadMilitary splits them out, their URL 301-redirects to the parent, sitemap/concierge exclude them; only confirmed + public children show as the parent's "Key moments". A DB trigger blocks self-merge, chains and merging a record that has children.
+- Merged military records (merged_into_record_id) never appear standalone: URL 301s to the parent, sitemap/concierge exclude them; only confirmed public children show as "Key moments"; a DB trigger blocks self-merge/chains.
 - English data names are bulk-reviewed via admin-only export/import in src/lib/english-names.functions.ts (writes only the English name column, matched by id) — keeps reviewer corrections from touching other fields.
 - DEMO traveller stories are hidden by the database visitor rule when site_settings.show_demo_stories is false (missing row = shown), toggled only by admins on the admin dashboard — lists, search, sitemap and concierge all obey without code checks.
 - Menu availability (data-driven "Coming soon" items) is loaded in the root route loader so the first server render already has the right state.
@@ -34,7 +34,7 @@
 - Maintenance host classification (src/config/maintenance.ts) is presentation-only; toggles use authenticated server role checks and audit the actor.
 - All replies in this project are in English only (summaries, reports, verification notes, commit titles); website UI content stays EN/AR as designed.
 
-- Trade uses the central content allowlist with shared validation, slug-based FK preview checks, inactive needs_check CSV creation and per-write server audit; visitor column grants and reviewed-active RLS protect the informational catalogue, while inquiries expose only consent-based INSERT columns.
+- Trade: central allowlist, shared validation, slug FK preview checks, inactive needs_check CSV, per-write audit; visitor column grants + reviewed-active RLS; inquiries expose only consent-based INSERT columns.
 
 ## Owner workflow rules (8 Nov 2026)
 1. **Translations.** Intermediate feature prompts add only owner-reviewed Arabic + English; no machine translations for the other 7 languages, which retain English fallback. Right before launch, run one final 9-language pass in Lovable using existing translation files (UI strings, new section texts, source names, record texts), followed by native-speaker review.
