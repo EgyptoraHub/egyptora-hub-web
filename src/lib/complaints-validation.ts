@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { validateEducationValues, EDUCATION_TABLES } from "./education-validation";
 
 /**
  * Complaints & Government Services Guide — validation mirrors the database
@@ -7,7 +8,9 @@ import { z } from "zod";
  * there is NO complaint intake, case table, evidence upload or tracking.
  */
 export const COMPLAINTS_TABLES = ["complaint_sectors", "complaint_channels"] as const;
-export type ComplaintsTable = (typeof COMPLAINTS_TABLES)[number];
+/** Informational guide tables sharing the validated editor/CSV path (slug match key, forced needs_check + inactive). */
+export const GUIDE_TABLES = [...COMPLAINTS_TABLES, ...EDUCATION_TABLES] as const;
+export type ComplaintsTable = (typeof GUIDE_TABLES)[number];
 
 /** Phase 2 infrastructure flags — all disabled; nothing in the app may read them to enable behavior. */
 export const COMPLAINTS_PHASE2_FLAGS = [
@@ -98,6 +101,7 @@ export function complaintsVisible(row: Record<string, unknown>): boolean {
 export const HOTLINE_RE = /^[+0-9][0-9 +\-]{2,19}$/;
 
 export function validateComplaintValues(table: ComplaintsTable, row: Record<string, unknown>, partial = false): string | null {
+  if (table === "education_platforms") return validateEducationValues(row, partial);
   const parsed = (partial ? schemas[table].partial() : schemas[table]).safeParse(row);
   if (!parsed.success) return parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ");
   if (table !== "complaint_channels") return null;
@@ -118,6 +122,7 @@ export function validateComplaintValues(table: ComplaintsTable, row: Record<stri
 export const COMPLAINTS_MATCH_KEYS: Record<ComplaintsTable, string[]> = {
   complaint_sectors: ["slug"],
   complaint_channels: ["slug"],
+  education_platforms: ["slug"],
 };
 export function complaintsMatchKey(table: ComplaintsTable, row: Record<string, unknown>) {
   return JSON.stringify(COMPLAINTS_MATCH_KEYS[table].map((k) => String(row[k] ?? "").trim()));

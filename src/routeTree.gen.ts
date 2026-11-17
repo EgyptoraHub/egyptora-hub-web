@@ -18,6 +18,7 @@ import { Route as BecomeAPartnerRouteImport } from './routes/become-a-partner'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as DoBusinessRouteImport } from './routes/do-business'
+import { Route as EducationRouteImport } from './routes/education'
 import { Route as EgyptAppsRouteImport } from './routes/egypt-apps'
 import { Route as EgyptThroughTimeRouteImport } from './routes/egypt-through-time'
 import { Route as EgyptianHeritageWorldwideRouteImport } from './routes/egyptian-heritage-worldwide'
@@ -68,6 +69,7 @@ import { Route as DoBusinessProcedureGuidesRouteImport } from './routes/do-busin
 import { Route as DoBusinessStartABusinessRouteImport } from './routes/do-business_.start-a-business'
 import { Route as DoBusinessTradeInquiryRouteImport } from './routes/do-business_.trade-inquiry'
 import { Route as DoBusinessWorldGatewayRouteImport } from './routes/do-business_.world-gateway'
+import { Route as EducationPlatformsRouteImport } from './routes/education_.platforms'
 import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
 import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/egypt-through-time_.military-history'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
@@ -186,6 +188,11 @@ const CountriesRoute = CountriesRouteImport.update({
 const DoBusinessRoute = DoBusinessRouteImport.update({
   id: '/do-business',
   path: '/do-business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EducationRoute = EducationRouteImport.update({
+  id: '/education',
+  path: '/education',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EgyptAppsRoute = EgyptAppsRouteImport.update({
@@ -442,6 +449,11 @@ const DoBusinessTradeInquiryRoute = DoBusinessTradeInquiryRouteImport.update({
 const DoBusinessWorldGatewayRoute = DoBusinessWorldGatewayRouteImport.update({
   id: '/do-business_/world-gateway',
   path: '/do-business/world-gateway',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EducationPlatformsRoute = EducationPlatformsRouteImport.update({
+  id: '/education_/platforms',
+  path: '/education/platforms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EgyptAppsCategoryRoute = EgyptAppsCategoryRouteImport.update({
@@ -853,6 +865,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
+  '/education': typeof EducationRoute
   '/egypt-apps': typeof EgyptAppsRoute
   '/egypt-through-time': typeof EgyptThroughTimeRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
@@ -902,6 +915,7 @@ export interface FileRoutesByFullPath {
   '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
   '/do-business/trade-inquiry': typeof DoBusinessTradeInquiryRoute
   '/do-business/world-gateway': typeof DoBusinessWorldGatewayRoute
+  '/education/platforms': typeof EducationPlatformsRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -987,6 +1001,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
+  '/education': typeof EducationRoute
   '/egypt-apps': typeof EgyptAppsRoute
   '/egypt-through-time': typeof EgyptThroughTimeRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
@@ -1036,6 +1051,7 @@ export interface FileRoutesByTo {
   '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
   '/do-business/trade-inquiry': typeof DoBusinessTradeInquiryRoute
   '/do-business/world-gateway': typeof DoBusinessWorldGatewayRoute
+  '/education/platforms': typeof EducationPlatformsRoute
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -1123,6 +1139,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
+  '/education': typeof EducationRoute
   '/egypt-apps': typeof EgyptAppsRoute
   '/egypt-through-time': typeof EgyptThroughTimeRoute
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
@@ -1172,6 +1189,7 @@ export interface FileRoutesById {
   '/do-business_/start-a-business': typeof DoBusinessStartABusinessRoute
   '/do-business_/trade-inquiry': typeof DoBusinessTradeInquiryRoute
   '/do-business_/world-gateway': typeof DoBusinessWorldGatewayRoute
+  '/education_/platforms': typeof EducationPlatformsRoute
   '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time_/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
@@ -1260,6 +1278,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/countries'
     | '/do-business'
+    | '/education'
     | '/egypt-apps'
     | '/egypt-through-time'
     | '/egyptian-heritage-worldwide'
@@ -1309,6 +1328,7 @@ export interface FileRouteTypes {
     | '/do-business/start-a-business'
     | '/do-business/trade-inquiry'
     | '/do-business/world-gateway'
+    | '/education/platforms'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1394,6 +1414,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/countries'
     | '/do-business'
+    | '/education'
     | '/egypt-apps'
     | '/egypt-through-time'
     | '/egyptian-heritage-worldwide'
@@ -1443,6 +1464,7 @@ export interface FileRouteTypes {
     | '/do-business/start-a-business'
     | '/do-business/trade-inquiry'
     | '/do-business/world-gateway'
+    | '/education/platforms'
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
@@ -1529,6 +1551,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/countries'
     | '/do-business'
+    | '/education'
     | '/egypt-apps'
     | '/egypt-through-time'
     | '/egyptian-heritage-worldwide'
@@ -1578,6 +1601,7 @@ export interface FileRouteTypes {
     | '/do-business_/start-a-business'
     | '/do-business_/trade-inquiry'
     | '/do-business_/world-gateway'
+    | '/education_/platforms'
     | '/egypt-apps_/$category'
     | '/egypt-through-time_/military-history'
     | '/egyptian-heritage-worldwide_/$id'
@@ -1665,6 +1689,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CountriesRoute: typeof CountriesRoute
   DoBusinessRoute: typeof DoBusinessRoute
+  EducationRoute: typeof EducationRoute
   EgyptAppsRoute: typeof EgyptAppsRoute
   EgyptThroughTimeRoute: typeof EgyptThroughTimeRoute
   EgyptianHeritageWorldwideRoute: typeof EgyptianHeritageWorldwideRoute
@@ -1708,6 +1733,7 @@ export interface RootRouteChildren {
   DoBusinessStartABusinessRoute: typeof DoBusinessStartABusinessRoute
   DoBusinessTradeInquiryRoute: typeof DoBusinessTradeInquiryRoute
   DoBusinessWorldGatewayRoute: typeof DoBusinessWorldGatewayRoute
+  EducationPlatformsRoute: typeof EducationPlatformsRoute
   EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
   EgyptThroughTimeMilitaryHistoryRoute: typeof EgyptThroughTimeMilitaryHistoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
@@ -1842,6 +1868,13 @@ declare module '@tanstack/react-router' {
       path: '/do-business'
       fullPath: '/do-business'
       preLoaderRoute: typeof DoBusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/education': {
+      id: '/education'
+      path: '/education'
+      fullPath: '/education'
+      preLoaderRoute: typeof EducationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egypt-apps': {
@@ -2192,6 +2225,13 @@ declare module '@tanstack/react-router' {
       path: '/do-business/world-gateway'
       fullPath: '/do-business/world-gateway'
       preLoaderRoute: typeof DoBusinessWorldGatewayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/education_/platforms': {
+      id: '/education_/platforms'
+      path: '/education/platforms'
+      fullPath: '/education/platforms'
+      preLoaderRoute: typeof EducationPlatformsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/egypt-apps_/$category': {
@@ -2757,6 +2797,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CountriesRoute: CountriesRoute,
   DoBusinessRoute: DoBusinessRoute,
+  EducationRoute: EducationRoute,
   EgyptAppsRoute: EgyptAppsRoute,
   EgyptThroughTimeRoute: EgyptThroughTimeRoute,
   EgyptianHeritageWorldwideRoute: EgyptianHeritageWorldwideRoute,
@@ -2800,6 +2841,7 @@ const rootRouteChildren: RootRouteChildren = {
   DoBusinessStartABusinessRoute: DoBusinessStartABusinessRoute,
   DoBusinessTradeInquiryRoute: DoBusinessTradeInquiryRoute,
   DoBusinessWorldGatewayRoute: DoBusinessWorldGatewayRoute,
+  EducationPlatformsRoute: EducationPlatformsRoute,
   EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
   EgyptThroughTimeMilitaryHistoryRoute: EgyptThroughTimeMilitaryHistoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,

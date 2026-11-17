@@ -7,4 +7,8 @@ describe("Data audit source-link coverage (Prompt 52)", () => {
     const e = LINK_SOURCES.find((s) => s.table === "complaint_channels");
     assert.deepEqual(e, { table: "complaint_channels", field: "source_url", nameCol: "label_en", nameCol2: "label_ar" });
   });
+  it("includes all four education_platforms link fields (Prompt 55)", () => {
+    const fields = LINK_SOURCES.filter((s) => s.table === "education_platforms").map((s) => s.field).sort();
+    assert.deepEqual(fields, ["accreditation_source_url", "fee_source_url", "official_url", "source_url"]);
+  });
 });

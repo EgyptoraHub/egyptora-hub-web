@@ -974,6 +974,99 @@ export type Database = {
         }
         Relationships: []
       }
+      education_platforms: {
+        Row: {
+          accreditation_source_url: string | null
+          accreditation_status: string
+          audience_ar: string | null
+          audience_en: string | null
+          category: string
+          created_at: string
+          fee_source_url: string | null
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          languages: string | null
+          last_verified_at: string | null
+          name_ar: string | null
+          name_en: string
+          official_url: string | null
+          operator_name_ar: string | null
+          operator_name_en: string | null
+          published_fee_text: string | null
+          published_fee_text_ar: string | null
+          review_status: string
+          services_summary_ar: string | null
+          services_summary_en: string | null
+          slug: string
+          sort_order: number | null
+          source_name: string | null
+          source_name_ar: string | null
+          source_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          accreditation_source_url?: string | null
+          accreditation_status?: string
+          audience_ar?: string | null
+          audience_en?: string | null
+          category?: string
+          created_at?: string
+          fee_source_url?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          last_verified_at?: string | null
+          name_ar?: string | null
+          name_en: string
+          official_url?: string | null
+          operator_name_ar?: string | null
+          operator_name_en?: string | null
+          published_fee_text?: string | null
+          published_fee_text_ar?: string | null
+          review_status?: string
+          services_summary_ar?: string | null
+          services_summary_en?: string | null
+          slug: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accreditation_source_url?: string | null
+          accreditation_status?: string
+          audience_ar?: string | null
+          audience_en?: string | null
+          category?: string
+          created_at?: string
+          fee_source_url?: string | null
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          last_verified_at?: string | null
+          name_ar?: string | null
+          name_en?: string
+          official_url?: string | null
+          operator_name_ar?: string | null
+          operator_name_en?: string | null
+          published_fee_text?: string | null
+          published_fee_text_ar?: string | null
+          review_status?: string
+          services_summary_ar?: string | null
+          services_summary_en?: string | null
+          slug?: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       egypt_apps: {
         Row: {
           app_store_url: string | null

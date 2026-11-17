@@ -31,7 +31,7 @@ const STATIC = [
   "/visit-egypt/travel-and-tourism", "/visit-egypt/e-visa",
   "/government-directory", "/government-directory/digital-services", "/emergency-numbers", "/egypt-apps",
   "/governorates", "/countries", "/heritage-sites", "/museums", "/events", "/offers", "/properties",
-  "/providers", "/products", "/investment-opportunities", "/research-programs", "/real-estate",
+  "/providers", "/products", "/investment-opportunities", "/research-programs", "/education", "/real-estate",
   "/egyptian-heritage-worldwide", "/encyclopedia", "/know-your-roots", "/traveler-stories",
   "/experiences/beaches", "/experiences/desert", "/experiences/nile-cruises",
   "/egypt-through-time", "/egypt-through-time/military-history",
@@ -88,6 +88,9 @@ const complaintPages = complaintSectors
   .filter((s) => s.slug !== "other-unknown-authority" && complaintChannelSectors.has(s.slug))
   .map((s) => `/government-directory/complaints/${s.slug}`);
 if (complaintSectors.length > 0) gated.push("/government-directory/complaints", "/government-directory/complaints/unknown-authority");
+
+// Education Hub: platforms directory only while public platform records exist.
+if ((await q("education_platforms?select=id&limit=1")).length > 0) gated.push("/education/platforms");
 
 const healthFacilities = (await q("health_facilities?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/find-care/${x.slug}`);
 const healthSpecialties = (await q("health_specialties?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/specialties/${x.slug}`);

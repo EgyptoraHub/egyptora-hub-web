@@ -56,7 +56,7 @@ const chips: Chip[] = [
   { label: "All Living Options", Icon: LayoutGrid },
   { label: "Residency & Visas", Icon: Stamp },
   { label: "Housing & Real Estate", Icon: Home, to: "/real-estate" },
-  { label: "Education & Schools", Icon: GraduationCap, to: "/research-programs" },
+  { label: "Education & Schools", Icon: GraduationCap, to: "/education" },
   { label: "Healthcare & Medical Services", Icon: HeartPulse, to: "/health" },
   { label: "Work & Employment", Icon: Briefcase },
   { label: "Cost of Living", Icon: Wallet },
@@ -69,7 +69,7 @@ const chips: Chip[] = [
 const life: CardItem[] = [
   { title: "Residency & Visas", desc: "Residency options, visa information and procedures.", img: residency },
   { title: "Housing & Real Estate", desc: "Apartments, villas, compounds and rental options.", img: housing, to: "/real-estate" },
-  { title: "Education & Schools", desc: "International and local schools, universities and programs.", img: education, to: "/research-programs" },
+  { title: "Education & Schools", desc: "International and local schools, universities and programs.", img: education, to: "/education" },
   { title: "Healthcare & Medical Services", desc: "Hospitals, clinics and quality medical care.", img: health, to: "/health" },
   { title: "Work & Employment", desc: "Job opportunities, work permits and career growth.", img: work },
   { title: "Know Your Roots", desc: "Explore the governorate your family comes from.", img: cairo, to: "/know-your-roots" },

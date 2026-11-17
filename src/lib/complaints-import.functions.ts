@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { COMPLAINTS_TABLES } from "./complaints-validation";
+import { GUIDE_TABLES } from "./complaints-validation";
 import { previewComplaintsCsv, type ComplaintsImportRow } from "./complaints-import";
 
 export type ComplaintsImportResult = { authorized: boolean; ok: boolean; rows: ComplaintsImportRow[]; committed: number; error?: string };
@@ -9,7 +9,7 @@ export type ComplaintsImportResult = { authorized: boolean; ok: boolean; rows: C
 /** Admin-only validated CSV import for the Complaints & Government Services Guide tables. */
 export const importComplaintsCsv = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ table: z.enum(COMPLAINTS_TABLES), csv: z.string().max(3_000_000), dryRun: z.boolean().default(true) }).parse(input))
+  .inputValidator((input: unknown) => z.object({ table: z.enum(GUIDE_TABLES), csv: z.string().max(3_000_000), dryRun: z.boolean().default(true) }).parse(input))
   .handler(async ({ data, context }): Promise<ComplaintsImportResult> => {
     const { data: admin, error: roleError } = await context.supabase.rpc("has_role", { check_user_id: context.userId, check_role: "admin" });
     if (roleError || admin !== true) return { authorized: false, ok: false, rows: [], committed: 0 };

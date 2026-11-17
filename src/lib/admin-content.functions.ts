@@ -1,5 +1,5 @@
 import { TRADE_TABLES, validateTradeValues, tradeSlug, type TradeTable } from "@/lib/trade-validation";
-import { COMPLAINTS_TABLES, validateComplaintValues, complaintSlug, type ComplaintsTable } from "@/lib/complaints-validation";
+import { GUIDE_TABLES, validateComplaintValues, complaintSlug, type ComplaintsTable } from "@/lib/complaints-validation";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { CONTENT_TABLES, UUID_FK_TABLES, getTableConfig, type FieldConfig, type UuidFkTable } from "@/lib/admin-content.config";
@@ -396,7 +396,7 @@ export const saveContentRow = createServerFn({ method: "POST" })
         if(cfg.slugColumn && data.mode === "create" && !tradeSlug.safeParse(data.slug).success) return {authorized:true,ok:false,error:"Use a lowercase hyphenated slug."};
       }
 
-      if (COMPLAINTS_TABLES.includes(cfg.table as ComplaintsTable)) {
+      if (GUIDE_TABLES.includes(cfg.table as ComplaintsTable)) {
         let row: Record<string, unknown> = payload;
         if (data.mode === "update") { const {data: existing,error} = await supabaseAdmin.from(cfg.table as any).select("*").eq(cfg.pk,data.pk).maybeSingle(); if(error || !existing) return {authorized:true,ok:false,error:"Entry not found."}; row={...(existing as unknown as Record<string,unknown>),...payload}; }
         const problem = validateComplaintValues(cfg.table as ComplaintsTable,row) || await checkComplaintsForeignKeys(supabaseAdmin,cfg.table,row);
@@ -509,7 +509,7 @@ export const bulkUpdateRows = createServerFn({ method: "POST" })
       if(error || rows?.length !== data.pks.length) return {authorized:true,ok:false,updated:0,error:"Selected entries could not be checked."};
       for(const row of rows) {const problem=validateTradeValues(cfg.table as TradeTable,{...(row as unknown as Record<string,unknown>),...patch});if(problem)return {authorized:true,ok:false,updated:0,error:problem};}
     }
-    if (COMPLAINTS_TABLES.includes(cfg.table as ComplaintsTable)) {
+    if (GUIDE_TABLES.includes(cfg.table as ComplaintsTable)) {
       const {data: rows,error} = await supabaseAdmin.from(cfg.table as any).select("*").in(cfg.pk,data.pks);
       if(error || rows?.length !== data.pks.length) return {authorized:true,ok:false,updated:0,error:"Selected entries could not be checked."};
       for(const row of rows) {const problem=validateComplaintValues(cfg.table as ComplaintsTable,{...(row as unknown as Record<string,unknown>),...patch});if(problem)return {authorized:true,ok:false,updated:0,error:problem};}
@@ -562,7 +562,7 @@ async function undoAutoReview34(admin: any, userId: string, pks: string[]): Prom
 
 const ZONE_TABLES = new Set(["economic_zones", "zone_facts"]);
 async function auditZones(userId: string, table: string, action: string, entityId: string | null, metadata: Record<string, unknown> = {}) {
-  if (!ZONE_TABLES.has(table) && !TRADE_TABLES.includes(table as TradeTable) && !COMPLAINTS_TABLES.includes(table as ComplaintsTable)) return;
+  if (!ZONE_TABLES.has(table) && !TRADE_TABLES.includes(table as TradeTable) && !GUIDE_TABLES.includes(table as ComplaintsTable)) return;
   const { writeAudit } = await import("@/lib/audit.server");
   await writeAudit({ actorUserId: userId, action: `content.${action}`, entityType: table, ...(entityId ? { entityId } : {}), metadata } as any);
 }

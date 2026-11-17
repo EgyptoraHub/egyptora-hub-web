@@ -225,6 +225,13 @@
       "when": 1794070748193,
       "tag": "0031_complaints_guide_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1794944681981,
+      "tag": "0032_education_platforms_foundation",
+      "breakpoints": true
     }
   ]
 }

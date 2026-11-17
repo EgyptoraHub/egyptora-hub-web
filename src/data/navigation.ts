@@ -70,7 +70,7 @@ export const mainNav: NavEntry[] = [
       { label: "All Living Options", to: "/live-in-egypt" },
       { label: "Residency & Visas", soon: true },
       { label: "Housing & Real Estate", to: "/real-estate" },
-      { label: "Education & Schools", to: "/research-programs" },
+      { label: "Education & Schools", to: "/education" },
       { label: "Healthcare & Medical Services", to: "/health" },
       { label: "Work & Employment", soon: true },
       { label: "Cost of Living", soon: true },

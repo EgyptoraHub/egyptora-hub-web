@@ -1190,6 +1190,42 @@ export const legalDocuments: LegalDocument[] = [
     ],
     { footerGroup: "Legal" },
   ),
+
+  doc(
+    37,
+    "education-guide-disclaimer",
+    "Education Guide Disclaimer",
+    "Disclaimers",
+    "Why the Education section is informational only and why listing a platform does not mean its certificates are recognised.",
+    [
+      {
+        heading: "Independent information service",
+        body: [
+          "Egyptora Hub is an independent information service. It is not a ministry, university or education authority, and it does not handle admissions, applications, transfers, results or certificates.",
+        ],
+      },
+      {
+        heading: "No recognition or accreditation implied",
+        body: [
+          "Listing a platform, institution or programme does not mean its certificates are recognised or accredited. An accreditation status is shown only when the official source states it.",
+          "The competent authority alone decides on admission, transfer, equivalency, accreditation, certificate validity and scholarship eligibility.",
+        ],
+      },
+      {
+        heading: "Information can change",
+        body: [
+          "Details are taken from official Egyptian sources on the verification date shown and can change. Always confirm on the official website before acting.",
+        ],
+      },
+      {
+        heading: "Protect personal data and children",
+        body: [
+          "Do not share national ID numbers, student records or details about minors in any form or in the AI chat. For child-safety concerns, contact the official channels or the emergency numbers.",
+        ],
+      },
+    ],
+    { footerGroup: "Legal", changeHistory: initial("Initial draft prepared for legal review — needs legal review before launch.") },
+  ),
 ];
 
 export const legalCategories: LegalCategory[] = [

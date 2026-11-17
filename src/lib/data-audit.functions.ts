@@ -58,6 +58,10 @@ export const LINK_SOURCES: { table: string; field: string; nameCol: string; name
   { table: "military_records", field: "source_url", nameCol: "title_en", nameCol2: "title_ar" },
   { table: "military_sources", field: "url", nameCol: "title" },
   { table: "complaint_channels", field: "source_url", nameCol: "label_en", nameCol2: "label_ar" },
+  { table: "education_platforms", field: "source_url", nameCol: "name_en", nameCol2: "name_ar" },
+  { table: "education_platforms", field: "official_url", nameCol: "name_en", nameCol2: "name_ar" },
+  { table: "education_platforms", field: "fee_source_url", nameCol: "name_en", nameCol2: "name_ar" },
+  { table: "education_platforms", field: "accreditation_source_url", nameCol: "name_en", nameCol2: "name_ar" },
 ];
 
 /** Media/licence links are reported as counts only (they are not "source" links). */
