@@ -64,7 +64,7 @@ export function EducationHubPage() {
         <GenImage k="ill-education" sizes="200px" className="mx-auto hidden w-full max-w-[200px] rounded-xl md:block" />
       </div>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {cards.includes("research") && <HubCard to="/research-programs" Icon={GraduationCap} title="Universities & programmes" desc="Research and study programmes at Egyptian universities and institutes." />}
+        {cards.includes("research") && <HubCard to="/research-programs" Icon={GraduationCap} title="Universities & programmes" desc="Postgraduate programmes listed from official Egyptian university pages." />}
         {cards.includes("platforms") && <HubCard to="/education/platforms" Icon={MonitorPlay} title="Official learning platforms" desc="Official Egyptian learning platforms with their operator and source." />}
         {cards.includes("guides") && <HubCard to="/do-business/procedure-guides" search={{ activity: EDUCATION_GUIDE_ACTIVITY }} Icon={FileCheck2} title="Certificates & equivalency guides" desc="Official procedure guides for certificates and equivalency." />}
       </div>

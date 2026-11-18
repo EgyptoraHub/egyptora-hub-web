@@ -33,4 +33,11 @@ export const educationAr: Record<string, string> = {
   "Education platforms": "منصات التعليم",
   "Open": "افتح",
   "This page is not available yet.": "هذه الصفحة غير متاحة بعد.",
+  "Postgraduate programmes listed from official Egyptian university pages.": "برامج دراسات عليا مدرجة من الصفحات الرسمية للجامعات المصرية.",
+  "Postgraduate programmes listed from official Egyptian university pages, by field of study and governorate.": "برامج دراسات عليا مدرجة من الصفحات الرسمية للجامعات المصرية، حسب مجال الدراسة والمحافظة.",
+  "Egyptology": "علم المصريات",
+  "Papyrology": "علم البرديات",
+  "Archaeology": "الآثار",
+  "Museum studies": "دراسات المتاحف",
+  "Conservation science": "علوم الترميم والصيانة",
 };

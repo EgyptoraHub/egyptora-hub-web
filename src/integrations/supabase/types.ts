@@ -3720,20 +3720,31 @@ export type Database = {
           created_at: string | null
           data_class: string | null
           degree: string | null
+          degree_ar: string | null
           description: string | null
           field: string | null
           governance_status: string
           governorate_slug: string | null
           id: string
           images: string[] | null
+          internal_notes: string | null
+          is_active: boolean
           languages: string[] | null
+          last_verified_at: string | null
           name: string
+          name_ar: string | null
+          review_status: string
           slug: string
+          source_name: string | null
+          source_name_ar: string | null
           source_owner: string | null
           source_status: string | null
+          source_url: string | null
           summary: string | null
+          summary_ar: string | null
           tags: string[] | null
           university: string | null
+          university_ar: string | null
           updated_at: string | null
           verified_at: string | null
         }
@@ -3741,20 +3752,31 @@ export type Database = {
           created_at?: string | null
           data_class?: string | null
           degree?: string | null
+          degree_ar?: string | null
           description?: string | null
           field?: string | null
           governance_status?: string
           governorate_slug?: string | null
           id: string
           images?: string[] | null
+          internal_notes?: string | null
+          is_active?: boolean
           languages?: string[] | null
+          last_verified_at?: string | null
           name: string
+          name_ar?: string | null
+          review_status?: string
           slug: string
+          source_name?: string | null
+          source_name_ar?: string | null
           source_owner?: string | null
           source_status?: string | null
+          source_url?: string | null
           summary?: string | null
+          summary_ar?: string | null
           tags?: string[] | null
           university?: string | null
+          university_ar?: string | null
           updated_at?: string | null
           verified_at?: string | null
         }
@@ -3762,20 +3784,31 @@ export type Database = {
           created_at?: string | null
           data_class?: string | null
           degree?: string | null
+          degree_ar?: string | null
           description?: string | null
           field?: string | null
           governance_status?: string
           governorate_slug?: string | null
           id?: string
           images?: string[] | null
+          internal_notes?: string | null
+          is_active?: boolean
           languages?: string[] | null
+          last_verified_at?: string | null
           name?: string
+          name_ar?: string | null
+          review_status?: string
           slug?: string
+          source_name?: string | null
+          source_name_ar?: string | null
           source_owner?: string | null
           source_status?: string | null
+          source_url?: string | null
           summary?: string | null
+          summary_ar?: string | null
           tags?: string[] | null
           university?: string | null
+          university_ar?: string | null
           updated_at?: string | null
           verified_at?: string | null
         }

@@ -174,3 +174,6 @@
 
 ## Prompt 56 — Education data
 - [x] Prompt 56/56b done: 14 platforms + 1 guide imported (privileged path, 0 rejected); 13 platforms + guide active, asrt inactive; sitemap 235; 139 tests pass.
+
+## Prompt 57 — Real research programmes
+- [x] research_programs gained AR/source/review fields; 53 demo rows hidden (not deleted); 12 Ain Shams Archaeology PhDs imported and active (editorial_reviewed); sitemap 235; 149 tests pass.

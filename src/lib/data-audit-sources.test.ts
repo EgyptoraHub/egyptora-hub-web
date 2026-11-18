@@ -11,4 +11,8 @@ describe("Data audit source-link coverage (Prompt 52)", () => {
     const fields = LINK_SOURCES.filter((s) => s.table === "education_platforms").map((s) => s.field).sort();
     assert.deepEqual(fields, ["accreditation_source_url", "fee_source_url", "official_url", "source_url"]);
   });
+  it("includes research_programs.source_url (Prompt 57)", () => {
+    const e = LINK_SOURCES.find((s) => s.table === "research_programs");
+    assert.deepEqual(e, { table: "research_programs", field: "source_url", nameCol: "name", nameCol2: "name_ar" });
+  });
 });

@@ -62,6 +62,7 @@ export const LINK_SOURCES: { table: string; field: string; nameCol: string; name
   { table: "education_platforms", field: "official_url", nameCol: "name_en", nameCol2: "name_ar" },
   { table: "education_platforms", field: "fee_source_url", nameCol: "name_en", nameCol2: "name_ar" },
   { table: "education_platforms", field: "accreditation_source_url", nameCol: "name_en", nameCol2: "name_ar" },
+  { table: "research_programs", field: "source_url", nameCol: "name", nameCol2: "name_ar" },
 ];
 
 /** Media/licence links are reported as counts only (they are not "source" links). */

@@ -4,7 +4,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { GraduationCap, MapPin } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { Section, SectionHeader, SourceBadge } from "@/components/site/Primitives";
+import { Section, SectionHeader } from "@/components/site/Primitives";
 import { GovernanceBanner, type GovernanceStatus } from "@/components/site/GovernanceBanner";
 import { governorates } from "@/data/governorates";
 import { SITE } from "@/config/site";
@@ -12,6 +12,8 @@ import { useI18n } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { useLocalizedRows } from "@/lib/localized-content";
+import { RESEARCH_PROGRAM_COLUMNS, researchText } from "@/lib/research-programs";
+import { ResearchSourceLine } from "@/components/education/ResearchSourceLine";
 
 type ResearchProgram = {
   id: string;
@@ -24,11 +26,19 @@ type ResearchProgram = {
   summary: string | null;
   tags: string[] | null;
   governance_status: GovernanceStatus;
+  name_ar: string | null;
+  university_ar: string | null;
+  degree_ar: string | null;
+  summary_ar: string | null;
+  source_name: string | null;
+  source_name_ar: string | null;
+  source_url: string | null;
+  last_verified_at: string | null;
 };
 
 const title = "Research Programs in Egypt — universities & fields of study | Egyptora Hub";
 const description =
-  "Research programmes and degrees offered by Egyptian universities, by field of study and governorate.";
+  "Postgraduate programmes listed from official Egyptian university pages, by field of study and governorate.";
 
 export const Route = createFileRoute("/research-programs")({
   loader: async () => {
@@ -40,15 +50,13 @@ export const Route = createFileRoute("/research-programs")({
     try {
       const { data, error } = await supabase
         .from("research_programs")
-        .select(
-          "id, slug, name, university, field, degree, governorate_slug, summary, tags, governance_status",
-        )
+        .select(RESEARCH_PROGRAM_COLUMNS)
         .order("name");
 
       if (error) {
         console.error("[research-programs] failed to load research_programs:", error.message);
       } else {
-        programs = (data ?? []) as ResearchProgram[];
+        programs = (data ?? []) as unknown as ResearchProgram[];
       }
     } catch (err) {
       console.error("[research-programs] unexpected error loading research_programs:", err);
@@ -75,7 +83,8 @@ const govName = (slug: string) => governorates.find((g) => g.id === slug)?.name 
 function ResearchProgramsPage() {
   const { programs: programsSource } = Route.useLoaderData();
   const programs = useLocalizedRows("research_programs", programsSource);
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const tx = (en: string | null, ar: string | null) => { const v = researchText(lang, en, ar); return v && v === ar ? v : v ? t(v) : null; };
   const [field, setField] = useState<string | null>(null);
 
   const fields = useMemo(
@@ -91,7 +100,7 @@ function ResearchProgramsPage() {
         <SectionHeader
           eyebrow="Discover Egypt"
           title="Research programs"
-          description="Research programmes and degrees offered by Egyptian universities, by field of study and governorate."
+          description="Postgraduate programmes listed from official Egyptian university pages, by field of study and governorate."
         />
 
         <div className="mb-8 flex flex-wrap gap-2">
@@ -140,14 +149,13 @@ function ResearchProgramsPage() {
                       params={{ id: program.id }}
                       className="transition-colors hover:text-gold-text"
                     >
-                      {t(program.name)}
+                      {tx(program.name, program.name_ar)}
                     </Link>
                   </h2>
-                  <SourceBadge status="DEMO" />
                 </div>
 
                 <p className="mt-2 flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-                  {program.university && t(program.university)}
+                  {program.university && tx(program.university, program.university_ar)}
                   {program.governorate_slug && (
                     <>
                       {program.university && " · "}
@@ -164,14 +172,15 @@ function ResearchProgramsPage() {
                 </p>
 
                 {program.degree && (
-                  <p className="mt-3 text-sm font-medium text-foreground">{t(program.degree)}</p>
+                  <p className="mt-3 text-sm font-medium text-foreground">{tx(program.degree, program.degree_ar)}</p>
                 )}
 
                 {program.summary && (
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {t(program.summary)}
+                    {tx(program.summary, program.summary_ar)}
                   </p>
                 )}
+                <ResearchSourceLine name={program.source_name} nameAr={program.source_name_ar} url={program.source_url} verified={program.last_verified_at} />
 
                 {program.tags && program.tags.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1.5">
