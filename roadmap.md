@@ -171,3 +171,6 @@
 
 ## Prompt 55 — Education Hub
 - [x] Education Hub — Phase 1 structure; platforms data pending official sources; Phase 2 flags disabled
+
+## Prompt 56 — Education data
+- [ ] Blocked at required dry-run stop: all 14 platforms reject blank accreditation_status (null); guide preview accepts 1 row but nothing imported or activated; fix blank/default import handling before retrying; 139 tests pass; docs/prompt-56-verification.md.
