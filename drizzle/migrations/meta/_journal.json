@@ -239,6 +239,13 @@
       "when": 1794999705764,
       "tag": "0033_research_programs_sourced_records",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1795034321227,
+      "tag": "0034_tighten_public_catalogue_read_rules",
+      "breakpoints": true
     }
   ]
 }
