@@ -1,6 +1,6 @@
 import { GenImage } from "@/components/site/GenImage";
 import { useMemo, useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { MapPin, Star } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -60,6 +60,7 @@ export const Route = createFileRoute("/providers")({
     } catch (err) {
       console.error("[providers] unexpected error loading providers:", err);
     }
+    if (!providers.length) throw notFound();
     return { providers };
   },
   head: () => ({

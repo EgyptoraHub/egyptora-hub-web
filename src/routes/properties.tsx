@@ -1,6 +1,6 @@
 import { GenImage } from "@/components/site/GenImage";
 import { useMemo, useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import {
   Anchor,
   Banknote,
@@ -81,6 +81,8 @@ export const Route = createFileRoute("/properties")({
     } catch (err) {
       console.error("[properties] unexpected error:", err);
     }
+    // Hidden demo data (Prompt 59): no public rows → not found, same gate as the menu.
+    if (!properties.length) throw notFound();
     return { properties };
   },
   head: () => ({

@@ -1,6 +1,6 @@
 import { GenImage } from "@/components/site/GenImage";
 import { useMemo, useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { Tag } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -36,7 +36,8 @@ export const Route = createFileRoute("/offers")({
     if (error) {
       console.error("[offers] failed to load offers:", error.message);
     }
-    return { offers: (data ?? []) as Offer[] };
+    if (!data?.length) throw notFound();
+    return { offers: data as Offer[] };
   },
   head: () => ({
     meta: [

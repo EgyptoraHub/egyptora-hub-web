@@ -182,3 +182,8 @@
 
 ## Prompt 57 — Real research programmes
 - [x] research_programs gained AR/source/review fields; 53 demo rows hidden (not deleted); 12 Ain Shams Archaeology PhDs imported and active (editorial_reviewed); sitemap 235; 149 tests pass.
+
+## Prompt 59 — Temporarily hide demo property, investment, offer and provider data
+- [x] Inventory; archived 81 properties, 8 offers, 81 investment opportunities, 389 providers (nothing deleted; audit rows keep ids + prior status)
+- [x] List pages 404 while empty; links/cards/menu/footer/search/saved/Egyptora AI skip hidden data; sitemap 238→234
+- [x] Live in Egypt cost figures replaced with neutral wording; tourism tour cards and visa pages unchanged

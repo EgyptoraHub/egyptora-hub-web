@@ -1,4 +1,5 @@
 import { GenImage } from "@/components/site/GenImage";
+import { useOpenLinks } from "@/lib/nav-availability";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   LayoutDashboard, Rocket, FileCheck2, Scale, BadgePercent, PieChart, LifeBuoy, Factory, Gavel,
@@ -128,6 +129,7 @@ const keySectors = [
 
 function DoBusiness() {
   const { t } = useI18n();
+  const open = useOpenLinks();
   return (
     <InnerPage
       pageName="Do Business"
@@ -214,34 +216,42 @@ function DoBusiness() {
         </div>
       }
     >
+      {open(services).length > 0 && (
       <section>
         <SectionHead title="Featured Business Services" body="Everything you need to start, run and grow your business in Egypt." to="/providers" toLabel="View All Services" />
         <div className={cardGrid}>
           {services.map((c) => <PhotoCard key={c.title} c={c} />)}
         </div>
       </section>
+      )}
+      {open(sectorRow).length > 0 && (
       <section>
         <SectionHead title="Explore Business Opportunities by Sector" body="Discover opportunities across key sectors." to={IO} toLabel="View All Sectors" />
         <div className={cardGrid}>
           {sectorRow.map((c) => <PhotoCard key={c.title} c={c} h="h-20" />)}
         </div>
       </section>
+      )}
       <section>
         <SectionHead title="Start Your Business Journey" body="Simple steps to establish and grow your business in Egypt." to="/government-directory" toLabel="View Full Guide" />
         <ProcessStepsRow steps={steps} />
       </section>
+      {open(opps).length > 0 && (
       <section>
         <SectionHead title="Featured Business Opportunities" body="Discover current opportunities across key sectors." to={IO} toLabel="View All Opportunities" />
         <div className={cardGrid}>
           {opps.map((c) => <PhotoCard key={c.title} c={c} />)}
         </div>
       </section>
+      )}
+      {open(stories).length > 0 && (
       <section>
         <SectionHead title="Success Stories" body="Illustrative examples of the kinds of businesses growing in Egypt." to={IO} toLabel="View All Stories" />
         <div className={cardGrid}>
           {stories.map((c) => <PhotoCard key={c.title} c={c} />)}
         </div>
       </section>
+      )}
     </InnerPage>
   );
 }

@@ -35,6 +35,10 @@ export const CONCIERGE_TABLES = [
   "complaint_channels",
 ] as const;
 
+/** Same statuses the visitor rule hides on offers/providers/properties/investment_opportunities. */
+export const HIDDEN_GOVERNANCE_STATUSES = ["REJECTED", "ARCHIVED", "REMOVED"] as const;
+export const GOVERNANCE_GATED_TABLES = new Set<string>(["properties", "offers", "investment_opportunities", "providers"]);
+
 export type ConciergeTable = (typeof CONCIERGE_TABLES)[number];
 
 export type ConciergeMatch = {
@@ -286,6 +290,10 @@ export async function searchSiteContent(
           .or(orFilter(term, ["name", "summary"]));
         if (table === "properties" || table === "investment_opportunities") {
           q = q.eq("moderation_state", "PUBLISHED");
+        }
+        // Admin client bypasses RLS: mirror the visitor rule so archived (hidden demo) rows are never cited.
+        if (GOVERNANCE_GATED_TABLES.has(table)) {
+          q = q.not("governance_status", "in", `(${HIDDEN_GOVERNANCE_STATUSES.join(",")})`);
         }
         const { data, error } = await q.limit(perTable);
         if (error) throw error;

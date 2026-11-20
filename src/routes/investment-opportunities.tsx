@@ -1,7 +1,7 @@
 import { GenImage } from "@/components/site/GenImage";
 import { useMemo } from "react";
 import { SECTOR_GROUPS, matchesSector } from "@/data/investment-sectors";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import {
   Briefcase,
   Building2,
@@ -76,7 +76,8 @@ export const Route = createFileRoute("/investment-opportunities")({
         error.message,
       );
     }
-    return { opportunities: (data ?? []) as InvestmentOpportunity[] };
+    if (!data?.length) throw notFound();
+    return { opportunities: data as InvestmentOpportunity[] };
   },
   head: () => ({
     meta: [

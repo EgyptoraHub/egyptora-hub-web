@@ -3073,6 +3073,8 @@ const ar: Dict = {
   "Zefta": "زفتى",
   "beni-suef": "بني سويف",
   "from $200/month": "ابتداءً من $200/شهر",
+  "Varies by city": "يختلف حسب المدينة",
+  "Costs vary by city and lifestyle; check official sources.": "تختلف التكاليف حسب المدينة ونمط الحياة؛ راجع المصادر الرسمية.",
   "from $5/meal": "ابتداءً من $5/وجبة",
   "from $50/month": "ابتداءً من $50/شهر",
   "kafr-el-sheikh": "كفر الشيخ",

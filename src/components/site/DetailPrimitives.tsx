@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Section } from "@/components/site/Primitives";
 import { useI18n } from "@/i18n";
+import { linkGatedOff, useNavAvailability } from "@/lib/nav-availability";
 
 /**
  * Shared building blocks for the single-record detail pages
@@ -98,6 +99,12 @@ export function ImageStrip({ images, alt }: { images: string[] | null | undefine
 /** Shared graceful "record not found" state for a bad or missing id. */
 export function DetailNotFound({ backTo, backLabel }: { backTo: string; backLabel: string }) {
   const { t } = useI18n();
+  const avail = useNavAvailability();
+  // A hidden (gated) list page would itself be not-found: send visitors home instead.
+  if (linkGatedOff(backTo, avail)) {
+    backTo = "/";
+    backLabel = t("Home");
+  }
   return (
     <DetailShell>
       <Section className="py-24 text-center">

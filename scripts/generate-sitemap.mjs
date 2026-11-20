@@ -30,8 +30,8 @@ const STATIC = [
   "/", "/explore-egypt", "/live-in-egypt", "/invest-in-egypt", "/do-business", "/visit-egypt",
   "/visit-egypt/travel-and-tourism", "/visit-egypt/e-visa",
   "/government-directory", "/government-directory/digital-services", "/emergency-numbers", "/egypt-apps",
-  "/governorates", "/countries", "/heritage-sites", "/museums", "/events", "/offers", "/properties",
-  "/providers", "/products", "/investment-opportunities", "/research-programs", "/education", "/real-estate",
+  "/governorates", "/countries", "/heritage-sites", "/museums", "/events",
+  "/products", "/research-programs", "/education", "/real-estate",
   "/egyptian-heritage-worldwide", "/encyclopedia", "/know-your-roots", "/traveler-stories",
   "/experiences/beaches", "/experiences/desert", "/experiences/nile-cruises",
   "/egypt-through-time", "/egypt-through-time/military-history",
@@ -93,6 +93,11 @@ if ((await q("real_estate_platforms?select=id&limit=1")).length > 0) gated.push(
 
 // Education Hub: platforms directory only while public platform records exist.
 if ((await q("education_platforms?select=id&limit=1")).length > 0) gated.push("/education/platforms");
+// Prompt 59: demo listings are hidden (archived); each list page and its details are listed only while public rows exist.
+for (const [table, path] of [["offers", "/offers"], ["properties", "/properties"], ["providers", "/providers"], ["investment_opportunities", "/investment-opportunities"]]) {
+  const rows = await q(`${table}?select=id`);
+  if (rows.length > 0) gated.push(path, ...rows.map((r) => `${path}/${r.id}`));
+}
 
 const healthFacilities = (await q("health_facilities?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/find-care/${x.slug}`);
 const healthSpecialties = (await q("health_specialties?select=slug&is_active=eq.true&order=slug")).filter((x) => x.slug).map((x) => `/health/specialties/${x.slug}`);

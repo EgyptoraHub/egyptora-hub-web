@@ -1,5 +1,5 @@
 import { Badge } from "@/components/site/Badge";
-import { chipHiddenByGate, useNavAvailability, type NavGate } from "@/lib/nav-availability";
+import { chipHiddenByGate, linkGatedOff, useNavAvailability, type NavGate } from "@/lib/nav-availability";
 /**
  * Shared inner-page template (Explore / Invest / Live / Do Business and future
  * landing pages). Every visible string goes through `t()` so the language
@@ -43,6 +43,9 @@ export function SmartLink({
   label?: string;
   title?: string | undefined;
 }) {
+  const avail = useNavAvailability();
+  // Links to hidden (gated) pages render nothing, so no tile or button leads to a not-found page.
+  if (linkGatedOff(to, avail)) return null;
   if (isExternal(to))
     return (
       <a href={to} target="_blank" rel="noopener noreferrer" aria-label={label} title={title} className={className}>
@@ -90,7 +93,9 @@ export function NavyBadge({ children }: { children: ReactNode }) {
 }
 
 export function ViewAll({ to, label = "View all" }: { to: string; label?: string | undefined }) {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
+  const avail = useNavAvailability();
+  if (linkGatedOff(to, avail)) return null;
   return (
     <SmartLink
       to={to}
@@ -125,8 +130,10 @@ export function SectionHead({
 }
 
 export function GoldButton({ to, children, onClick }: { to?: string; children: ReactNode; onClick?: () => void }) {
+  const avail = useNavAvailability();
   const cls =
     "hit-44 inline-flex items-center gap-2 rounded-lg bg-gold-cta px-5 py-2.5 text-sm font-semibold text-gold-foreground transition-transform hover:-translate-y-0.5";
+  if (linkGatedOff(to, avail)) return null;
   if (!to)
     return (
       <button type="button" onClick={onClick} className={cls}>
@@ -155,6 +162,8 @@ export type CardItem = {
 
 export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
   const { t, lang } = useI18n();
+  const avail = useNavAvailability();
+  if (linkGatedOff(c.to, avail)) return null;
   return (
     <article className="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
       {c.img && (
@@ -189,7 +198,9 @@ export function PhotoCard({ c, h = "h-28" }: { c: CardItem; h?: string }) {
 }
 
 export function IconCard({ c, cta = true }: { c: CardItem; cta?: boolean }) {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
+  const avail = useNavAvailability();
+  if (linkGatedOff(c.to, avail)) return null;
   return (
     <article className="flex h-full flex-col rounded-[10px] border border-border bg-card p-3 shadow-sm">
       {c.Icon && (
@@ -222,10 +233,11 @@ export function SidePanel({ title, body, children }: { title: string; body?: str
 }
 
 export function LinkList({ items }: { items: { label: string; to?: string | undefined; Icon?: Icon }[] }) {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
+  const avail = useNavAvailability();
   return (
     <ul className="divide-y divide-border">
-      {items.map((i) => (
+      {items.filter((i) => !linkGatedOff(i.to, avail)).map((i) => (
         <li key={i.label}>
           {!i.to ? (
             <button
@@ -481,7 +493,7 @@ function ChipStrip({ chips, moreTo, showMore = true }: { chips: Chip[]; moreTo?:
           className="flex overflow-x-auto rounded-xl border border-border bg-card shadow-[0_18px_40px_-28px_rgba(6,33,58,0.45)] [scrollbar-width:none]"
         >
         {all.map((c, i) => {
-           if (chipHiddenByGate(c, avail)) return null;
+           if (chipHiddenByGate(c, avail) || linkGatedOff(c.to, avail)) return null;
            const active = i === 0;
           const cls = cn(
             "relative grid min-w-[104px] flex-1 justify-items-center gap-1.5 border-e border-border px-2 py-3.5 text-center last:border-e-0 transition-colors",
@@ -635,7 +647,9 @@ export function ProcessStepsRow({ steps }: { steps: ProcessStep[] }) {
 
 /** Circular icon tile with a label beneath (ministries, services). */
 export function CircleTile({ label, Icon: I, to }: { label: string; Icon: Icon; to: string }) {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
+  const avail = useNavAvailability();
+  if (linkGatedOff(to, avail)) return null;
   return (
     <SmartLink to={to} className="group grid justify-items-center gap-2 text-center">
       <span className="grid size-16 place-items-center rounded-full border border-shell-gold/50 bg-chip-active text-gold-text transition-colors group-hover:bg-gold-cta group-hover:text-primary-foreground">
@@ -666,7 +680,9 @@ export function AppPromoCard({ eyebrow = "Explore on the Go", title = "Download 
 
 /** Light band promo with icon, copy and gold button. */
 export function BandPromo({ Icon: I, title, body, cta, to }: { Icon: Icon; title: string; body: string; cta: string; to: string }) {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
+  const avail = useNavAvailability();
+  if (linkGatedOff(to, avail)) return null;
   return (
     <section className="rounded-[10px] border border-border bg-bg-band p-6">
       <I className="size-7 text-gold-text" />

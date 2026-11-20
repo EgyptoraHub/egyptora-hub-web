@@ -5,6 +5,7 @@ import logo from "@/assets/egyptora-hub-logo.png.asset.json";
 import { Container } from "@/components/site/Primitives";
 import { useI18n } from "@/i18n";
 import { SITE, mailto } from "@/config/site";
+import { linkGatedOff, useNavAvailability } from "@/lib/nav-availability";
 
 type IconType = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -197,6 +198,7 @@ function Newsletter() {
 
 export function SiteFooter() {
   const { t } = useI18n();
+  const avail = useNavAvailability();
   return (
     <footer className="on-dark bg-navy-deep text-foreground">
       <Container className="py-14">
@@ -266,7 +268,7 @@ export function SiteFooter() {
           <div>
             <ColumnTitle>{t("Discover")}</ColumnTitle>
             <ul className="mt-4 space-y-2.5">
-              {discoverLinks.map((l) => (
+              {discoverLinks.filter((l) => !linkGatedOff(l.to, avail)).map((l) => (
                 <li key={l.label}>
                   <FooterLink link={l} />
                 </li>

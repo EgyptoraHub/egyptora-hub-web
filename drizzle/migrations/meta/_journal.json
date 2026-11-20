@@ -260,6 +260,20 @@
       "when": 1795178402598,
       "tag": "0036_restrict_real_estate_visitor_columns",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1795188198696,
+      "tag": "0037_hide_archived_properties_investments",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1795188217504,
+      "tag": "0038_allow_archived_governance_status",
+      "breakpoints": true
     }
   ]
 }

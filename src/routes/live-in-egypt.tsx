@@ -1,3 +1,4 @@
+import { useOpenLinks } from "@/lib/nav-availability";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   LayoutGrid, Stamp, Home, GraduationCap, HeartPulse, Briefcase, Wallet, ShieldCheck, Users, Bus, Plug,
@@ -97,6 +98,7 @@ const cities: CardItem[] = [
 
 function LiveInEgypt() {
   const { t } = useI18n();
+  const open = useOpenLinks();
   return (
     <InnerPage
       pageName="Live in Egypt"
@@ -126,12 +128,12 @@ function LiveInEgypt() {
           </SidePanel>
           <NavyPromo>
             <h3 className="font-display text-lg font-bold">{t("Cost of Living in Egypt")}</h3>
-            <p className="mt-1 text-xs text-foreground/75">{t("Affordable living, exceptional lifestyle.")}</p>
+            <p className="mt-1 text-xs text-foreground/75">{t("Costs vary by city and lifestyle; check official sources.")}</p>
             <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {[
-                ["Housing", "from $200/month"],
-                ["Utilities", "from $50/month"],
-                ["Dining", "from $5/meal"],
+                ["Housing", "Varies by city"],
+                ["Utilities", "Varies by city"],
+                ["Dining", "Varies by city"],
               ].map(([a, b]) => (
                 <div key={a} className="rounded-lg bg-foreground/10 p-2 text-center">
                   <p className="text-2xs font-bold text-gold-text">{t(a!)}</p>
@@ -176,12 +178,14 @@ function LiveInEgypt() {
           {life.map((c) => <PhotoCard key={c.title} c={c} h="h-28" />)}
         </div>
       </section>
+      {open(stages).length > 0 && (
       <section>
         <SectionHead title="Life Stages in Egypt" body="Tailored information for every stage of your journey." to="/properties" />
         <div className={cardGrid}>
           {stages.map((c) => <PhotoCard key={c.title} c={c} h="h-28" />)}
         </div>
       </section>
+      )}
       <section>
         <SectionHead title="Explore Popular Cities" body="Find the right city for your lifestyle." to="/countries" toLabel="View All Cities" />
         <div className={cardGrid}>

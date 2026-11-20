@@ -1,0 +1,4 @@
+ALTER TABLE public.properties DROP CONSTRAINT properties_governance_status_check, ADD CONSTRAINT properties_governance_status_check CHECK (governance_status = ANY (ARRAY['PUBLIC_CONTENT','PENDING_GOVERNMENT_LINK','LIVE','ARCHIVED']));
+ALTER TABLE public.offers DROP CONSTRAINT offers_governance_status_check, ADD CONSTRAINT offers_governance_status_check CHECK (governance_status = ANY (ARRAY['PUBLIC_CONTENT','PENDING_GOVERNMENT_LINK','LIVE','ARCHIVED']));
+ALTER TABLE public.investment_opportunities DROP CONSTRAINT investment_opportunities_governance_status_check, ADD CONSTRAINT investment_opportunities_governance_status_check CHECK (governance_status = ANY (ARRAY['PUBLIC_CONTENT','PENDING_GOVERNMENT_LINK','LIVE','ARCHIVED']));
+ALTER TABLE public.providers DROP CONSTRAINT providers_governance_status_check, ADD CONSTRAINT providers_governance_status_check CHECK (governance_status = ANY (ARRAY['PUBLIC_CONTENT','PENDING_GOVERNMENT_LINK','LIVE','ARCHIVED']));

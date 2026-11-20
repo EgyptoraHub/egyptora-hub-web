@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { linkGatedOff, useNavAvailability } from "@/lib/nav-availability";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Heart, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -111,10 +112,16 @@ function SavedPage() {
     };
   }, [user]);
 
-  const types = useMemo(() => Array.from(new Set(rows.map((r) => r.item_type))), [rows]);
+  const avail = useNavAvailability();
+  // Saved items pointing at hidden (gated) content are not shown, so no broken cards or hidden names.
+  const shown = useMemo(
+    () => rows.filter((r) => !linkGatedOff(r.item_type === "page" ? r.item_id.split("|")[1] : DETAIL_ROUTE[r.item_type], avail)),
+    [rows, avail],
+  );
+  const types = useMemo(() => Array.from(new Set(shown.map((r) => r.item_type))), [shown]);
   const visible = useMemo(
-    () => (filter === "all" ? rows : rows.filter((r) => r.item_type === filter)),
-    [rows, filter],
+    () => (filter === "all" ? shown : shown.filter((r) => r.item_type === filter)),
+    [shown, filter],
   );
 
   const unsave = async (row: SavedRow) => {
@@ -144,7 +151,7 @@ function SavedPage() {
           <div className="flex justify-center py-16">
             <Loader2 className="size-6 animate-spin text-gold-text" />
           </div>
-        ) : rows.length === 0 ? (
+        ) : shown.length === 0 ? (
           <div className="rounded-2xl border border-border/60 bg-card/40 p-10 text-center">
             <Heart className="mx-auto size-6 text-gold-text" />
             <p className="mt-3 text-sm text-muted-foreground">

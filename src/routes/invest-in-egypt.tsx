@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useOpenLinks } from "@/lib/nav-availability";
 import {
   LayoutGrid, Building2, Factory, Hotel, Zap, TrainFront, Wheat, Cpu, HeartPulse, GraduationCap, Landmark,
   Globe2, TrendingUp, Handshake, Layers, BookOpen, Scale, BadgePercent, Rocket, Trophy, ArrowRight,
@@ -106,6 +107,7 @@ function HeroTiles() {
 
 function InvestInEgypt() {
   const { t } = useI18n();
+  const open = useOpenLinks();
   return (
     <InnerPage
       pageName="Invest in Egypt"
@@ -185,12 +187,14 @@ function InvestInEgypt() {
         </section>
       }
     >
+      {open(featured).length > 0 && (
       <section>
         <SectionHead title="Featured Investment Projects" body="Handpicked opportunities across Egypt." to={IO} />
         <div className={cardGrid}>
           {featured.map((c) => <PhotoCard key={c.title} c={c} h="h-32" />)}
         </div>
       </section>
+      )}
       <section>
         <SectionHead title="Investment in Key Sectors" body="Explore detailed information, incentives and opportunities." to={IO} toLabel="View All Sectors" />
         <div className={cardGrid}>

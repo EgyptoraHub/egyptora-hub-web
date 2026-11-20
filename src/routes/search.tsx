@@ -1,3 +1,4 @@
+import { linkGatedOff, useNavAvailability } from "@/lib/nav-availability";
 import { healthNavigation } from "@/lib/health-public";
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -126,6 +127,7 @@ function SearchPage() {
   const { t } = useI18n();
   const navigate = useNavigate({ from: "/search" });
   const [input, setInput] = useState(q);
+  const avail = useNavAvailability();
 
   const groups = useMemo(() => {
     const terms = q.toLowerCase().split(/\s+/).filter((x) => x.length > 1);
@@ -135,7 +137,7 @@ function SearchPage() {
     for (const e of [...staticSearchIndex, ...healthSearchEntries, ...gov]) {
       const s = score(e, terms);
       const key = `${e.title}|${e.to}`;
-      if (!s || seen.has(key)) continue;
+      if (!s || seen.has(key) || linkGatedOff(e.to, avail)) continue;
       seen.add(key);
       const list = map.get(e.category) ?? [];
       list.push({ e, s });
@@ -144,7 +146,7 @@ function SearchPage() {
     return [...map.entries()]
       .sort((a, b) => ORDER.indexOf(a[0]) - ORDER.indexOf(b[0]))
       .map(([cat, list]) => ({ cat, items: list.sort((a, b) => b.s - a.s).map((x) => x.e) }));
-  }, [q, gov]);
+  }, [q, gov, avail]);
   const total = groups.reduce((n, g) => n + g.items.length, 0);
 
   return (

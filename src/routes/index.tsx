@@ -1,3 +1,4 @@
+import { useOpenLinks } from "@/lib/nav-availability";
 import { HealthHomeWidget } from "@/components/health/HealthShared";
 import { healthQuery } from "@/lib/health.functions";
 import { IntroVideo } from "@/components/site/IntroVideo";
@@ -281,10 +282,11 @@ const quick: { Icon: Icon; title: string; sub?: string; to: string }[] = [
 
 function QuickStrip() {
   const { t, lang } = useI18n();
+  const items = useOpenLinks()(quick);
   return (
     <div className={cn(wrap, "relative z-10 -mt-12")}>
-      <div className="on-dark grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
-        {quick.map(({ Icon, title, sub, to }) => (
+      <div className={cn("on-dark grid grid-cols-2 gap-2 sm:grid-cols-4", items.length === 8 ? "lg:grid-cols-8" : "lg:grid-cols-7")}>
+        {items.map(({ Icon, title, sub, to }) => (
           <Link
             key={title}
             to={L(to)}
@@ -319,6 +321,7 @@ const investCards: CardData[] = [
 ];
 
 function ExploreInvest() {
+  const open = useOpenLinks();
   return (
     <section className="bg-bg-alt py-14">
       <div className={cn(wrap, "grid gap-10 lg:grid-cols-[2fr_1fr]")}>
@@ -341,7 +344,7 @@ function ExploreInvest() {
             to="/invest-in-egypt"
           />
           <div className="grid grid-cols-2 gap-4">
-            {investCards.map((c) => (
+            {open(investCards).map((c) => (
               <ImgCard key={c.title} c={c} />
             ))}
           </div>
@@ -379,6 +382,7 @@ function IconBadge({ Icon }: { Icon: Icon }) {
 }
 
 function LiveBusinessWhy() {
+  const open = useOpenLinks();
   const { t, lang } = useI18n();
   return (
     <section className="bg-background py-14">
@@ -402,7 +406,7 @@ function LiveBusinessWhy() {
             to="/do-business"
           />
           <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
-            {bizCards.map((c) => (
+            {open(bizCards).map((c) => (
               <ImgCard key={c.title} c={c} h="h-24" />
             ))}
           </div>

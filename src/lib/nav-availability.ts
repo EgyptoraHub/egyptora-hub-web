@@ -6,7 +6,7 @@
 import { useLoaderData } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 
-export type NavGate = "protected_areas" | "industrial_zones" | "free_zones" | "trade_sectors" | "trade_country_profiles" | "procedure_guides" | "complaint_sectors";
+export type NavGate = "protected_areas" | "industrial_zones" | "free_zones" | "trade_sectors" | "trade_country_profiles" | "procedure_guides" | "complaint_sectors" | "properties" | "offers" | "investment_opportunities" | "providers";
 type Avail = Partial<Record<NavGate, boolean>>;
 
 const TTL = 5 * 60 * 1000;
@@ -28,8 +28,12 @@ export function fetchNavAvailability(): Promise<Avail> {
     has(supabase.from("trade_country_profiles").select("id", head)),
     has(supabase.from("procedure_guides").select("id", head)),
     has(supabase.from("complaint_sectors").select("id", head)),
+    has(supabase.from("properties").select("id", head)),
+    has(supabase.from("offers").select("id", head)),
+    has(supabase.from("investment_opportunities").select("id", head)),
+    has(supabase.from("providers").select("id", head)),
   ])
-    .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors]) => ({ protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors }))
+    .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers]) => ({ protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers }))
     .catch(() => ({}));
   cache = { at: Date.now(), p };
   return p;
@@ -46,4 +50,13 @@ export function chipHiddenByGate(
   avail: Avail,
 ): boolean {
   return !!(c.gate && c.hideIfGatedOff && !avail[c.gate]);
+}
+
+export { PATH_GATES, gateForPath, linkGatedOff } from "@/lib/path-gates";
+import { linkGatedOff } from "@/lib/path-gates";
+
+/** Returns a filter that drops items whose `to` is a gated page with no public record (used to hide whole sections when every card is gated). */
+export function useOpenLinks() {
+  const avail = useNavAvailability();
+  return <T extends { to?: string | undefined }>(items: T[]): T[] => items.filter((i) => !linkGatedOff(i.to, avail));
 }
