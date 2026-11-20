@@ -1,0 +1,10 @@
+import {it} from 'node:test';
+import assert from 'node:assert/strict';
+import {SYSTEM_PROMPT,extractPromptLinks} from './concierge-prompt';
+const block=SYSTEM_PROMPT.split('Real estate (strict, no exceptions):')[1]?.split('Education (strict, no exceptions):')[0] ?? '';
+it('property AI only explains published official pages',()=>assert.match(block,/may explain only what published official pages say/));
+it('property AI never recommends transactions or gives valuations',()=>{assert.match(block,/Never recommend buying, renting or investing/);assert.match(block,/never give prices, returns or valuations/);});
+it('property AI never decides ownership or tenancy disputes',()=>assert.match(block,/Never decide ownership, title, allocation, eligibility or legacy-tenancy and rent disputes/));
+it('property AI requires active sourced records for verified available or safe claims',()=>assert.match(block,/Never say a property, listing, developer or agent is "verified", "available" or "safe" unless an active sourced record says so/));
+it('property AI never promises outcomes',()=>assert.match(block,/Never promise any outcome/));
+it('property AI routes emergencies to official numbers',()=>{assert.match(block,/Emergencies go only to official emergency numbers/);assert.ok(extractPromptLinks().has('https://www.egyptora-hub.com/emergency-numbers'));});

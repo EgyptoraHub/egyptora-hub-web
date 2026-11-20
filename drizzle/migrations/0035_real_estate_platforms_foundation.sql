@@ -1,0 +1,20 @@
+CREATE TABLE public.real_estate_platforms (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE, name_en text NOT NULL, name_ar text, operator_name_en text, operator_name_ar text, category text NOT NULL DEFAULT 'other' CHECK (category IN ('government','housing','registry','finance','private','other')), audience_en text, audience_ar text, services_summary_en text, services_summary_ar text, languages text CHECK (languages IN ('ar','en','ar,en')), published_fee_text text, published_fee_text_ar text, fee_source_url text, official_url text, source_name text, source_name_ar text, source_url text, last_verified_at date, review_status text NOT NULL DEFAULT 'needs_check' CHECK (review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, sort_order integer DEFAULT 0, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.real_estate_platforms TO service_role;
+GRANT SELECT,INSERT,UPDATE,DELETE ON public.real_estate_platforms TO authenticated;
+GRANT SELECT (id,slug,name_en,name_ar,operator_name_en,operator_name_ar,category,audience_en,audience_ar,services_summary_en,services_summary_ar,languages,published_fee_text,published_fee_text_ar,fee_source_url,official_url,source_name,source_name_ar,source_url,last_verified_at,review_status,is_active,sort_order,created_at,updated_at) ON public.real_estate_platforms TO anon;
+ALTER TABLE public.real_estate_platforms ENABLE ROW LEVEL SECURITY;
+CREATE POLICY real_estate_platforms_public ON public.real_estate_platforms FOR SELECT TO anon,authenticated USING (is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY real_estate_platforms_admin ON public.real_estate_platforms FOR ALL TO authenticated USING (public.has_role(auth.uid(),'admin')) WITH CHECK (public.has_role(auth.uid(),'admin'));
+CREATE FUNCTION public.validate_real_estate_platform() RETURNS trigger LANGUAGE plpgsql SET search_path = public AS $$ BEGIN
+IF NEW.is_active AND (nullif(trim(NEW.source_url),'') IS NULL OR NEW.last_verified_at IS NULL) THEN RAISE EXCEPTION 'Activation requires a source URL and verification date'; END IF;
+IF NEW.is_active AND NEW.review_status NOT IN ('editorial_reviewed','verified') THEN RAISE EXCEPTION 'Activation requires a reviewed status'; END IF;
+IF NEW.is_active AND (NEW.official_url IS NULL OR NEW.official_url !~ '^https://') THEN RAISE EXCEPTION 'Activation requires an HTTPS official URL'; END IF;
+IF NEW.last_verified_at > CURRENT_DATE THEN RAISE EXCEPTION 'Verification date cannot be in the future'; END IF;
+IF NEW.official_url IS NOT NULL AND NEW.official_url !~ '^https://' THEN RAISE EXCEPTION 'Official URL must be HTTPS'; END IF;
+IF NEW.source_url IS NOT NULL AND (NEW.source_url !~ '^https?://' OR NEW.source_url ~* '\.pdf([?#]|$)') THEN RAISE EXCEPTION 'Source must be an HTTP website, not a PDF'; END IF;
+IF NEW.fee_source_url IS NOT NULL AND (NEW.fee_source_url !~ '^https?://' OR NEW.fee_source_url ~* '\.pdf([?#]|$)') THEN RAISE EXCEPTION 'Fee source must be an HTTP website, not a PDF'; END IF;
+IF (nullif(trim(coalesce(NEW.published_fee_text,'')),'') IS NOT NULL OR nullif(trim(coalesce(NEW.published_fee_text_ar,'')),'') IS NOT NULL) AND nullif(trim(NEW.fee_source_url),'') IS NULL THEN RAISE EXCEPTION 'A published fee requires a fee source URL'; END IF;
+RETURN NEW; END $$;
+CREATE TRIGGER real_estate_platforms_validate BEFORE INSERT OR UPDATE ON public.real_estate_platforms FOR EACH ROW EXECUTE FUNCTION public.validate_real_estate_platform();
+CREATE TRIGGER real_estate_platforms_touch BEFORE UPDATE ON public.real_estate_platforms FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+REVOKE ALL ON FUNCTION public.validate_real_estate_platform() FROM PUBLIC;

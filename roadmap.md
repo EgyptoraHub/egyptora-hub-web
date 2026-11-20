@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 58 — Informational property hub
+- [x] Sourced hub and directory, 18 disabled flags, AI restrictions and draft disclaimer; 3 platforms + 1 guide imported via validated privileged path and activated; 20 public layout checks, visitor notes refused, sitemap 238, 167 tests passed; docs/prompt-58-verification.md.
+- [ ] Property disclaimer counsel review before launch — requires qualified Egyptian legal counsel.
+
+
 ## Prompt 54
 - [x] Validate, import and activate only the four approved guides and four steps; 20 public checks passed, sitemap 227 → 231, full existing suite 121 passed; docs/prompt-54-verification.md.
 - Mobility & Industrial — link-based guides (temporary), pending authority agreements

@@ -1,0 +1,10 @@
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { getFeatureFlags } from "@/lib/groundwork.functions";
+import { REAL_ESTATE_PHASE2_FLAGS } from "@/lib/real-estate-validation";
+import { useI18n } from "@/i18n";
+const labels: Record<typeof REAL_ESTATE_PHASE2_FLAGS[number], string> = {"real_estate_listing_submission": "Listing submission", "real_estate_identity_verification": "Identity verification", "real_estate_ownership_review": "Ownership review", "real_estate_viewings": "Viewings", "real_estate_offers": "Offers", "real_estate_rental_contracts": "Rental contracts", "real_estate_electronic_signature": "Electronic signature", "real_estate_payments": "Payments", "real_estate_property_passport": "Property passport", "real_estate_utility_handover": "Utility handover", "real_estate_maintenance_reports": "Maintenance reports", "real_estate_developer_commitments": "Developer commitments", "real_estate_legacy_tenancy_cases": "Legacy tenancy cases", "real_estate_investor_data_rooms": "Investor data rooms", "real_estate_distressed_assets": "Distressed assets", "real_estate_government_workspace": "Government workspace", "real_estate_service_demand_maps": "Service demand maps", "real_estate_mobile_app": "Mobile app"};
+export function RealEstatePhase2Flags(){const {t}=useI18n();const load=useServerFn(getFeatureFlags);const [ready,setReady]=useState(false);
+ useEffect(()=>{let active=true;load().then(result=>{if(active&&result.authorized)setReady(true);}).catch(()=>{});return()=>{active=false;};},[load]);
+ if(!ready)return null;return <section className="mt-8 border-t border-border pt-6"><h2 className="text-lg font-semibold text-foreground">{t("Real estate Phase 2 (infrastructure only)")}</h2><ul className="mt-3 grid gap-3 sm:grid-cols-2">{REAL_ESTATE_PHASE2_FLAGS.map(flag=><li key={flag} className="flex items-center gap-3 text-sm text-foreground"><input type="checkbox" disabled checked={false} aria-label={t(labels[flag])}/><span>{t(labels[flag])}</span><span className="ms-auto text-muted-foreground">{t("Disabled")} · {t("Phase 2")}</span></li>)}</ul></section>;
+}

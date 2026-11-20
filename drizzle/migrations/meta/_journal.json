@@ -246,6 +246,20 @@
       "when": 1795034321227,
       "tag": "0034_tighten_public_catalogue_read_rules",
       "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1795178084177,
+      "tag": "0035_real_estate_platforms_foundation",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1795178402598,
+      "tag": "0036_restrict_real_estate_visitor_columns",
+      "breakpoints": true
     }
   ]
 }

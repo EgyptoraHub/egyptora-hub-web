@@ -116,6 +116,7 @@ import { Route as PlacesIdRouteImport } from './routes/places.$id'
 import { Route as ProductsIdRouteImport } from './routes/products_.$id'
 import { Route as PropertiesIdRouteImport } from './routes/properties_.$id'
 import { Route as ProvidersIdRouteImport } from './routes/providers_.$id'
+import { Route as RealEstatePlatformsRouteImport } from './routes/real-estate_.platforms'
 import { Route as ResearchProgramsIdRouteImport } from './routes/research-programs_.$id'
 import { Route as TravelerStoriesIdRouteImport } from './routes/traveler-stories_.$id'
 import { Route as TripsIdRouteImport } from './routes/trips.$id'
@@ -700,6 +701,11 @@ const ProvidersIdRoute = ProvidersIdRouteImport.update({
   path: '/providers/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RealEstatePlatformsRoute = RealEstatePlatformsRouteImport.update({
+  id: '/real-estate_/platforms',
+  path: '/real-estate/platforms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResearchProgramsIdRoute = ResearchProgramsIdRouteImport.update({
   id: '/research-programs_/$id',
   path: '/research-programs/$id',
@@ -957,6 +963,7 @@ export interface FileRoutesByFullPath {
   '/products/$id': typeof ProductsIdRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/providers/$id': typeof ProvidersIdRoute
+  '/real-estate/platforms': typeof RealEstatePlatformsRoute
   '/research-programs/$id': typeof ResearchProgramsIdRoute
   '/traveler-stories/$id': typeof TravelerStoriesIdRoute
   '/trips/$id': typeof TripsIdRoute
@@ -1093,6 +1100,7 @@ export interface FileRoutesByTo {
   '/products/$id': typeof ProductsIdRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/providers/$id': typeof ProvidersIdRoute
+  '/real-estate/platforms': typeof RealEstatePlatformsRoute
   '/research-programs/$id': typeof ResearchProgramsIdRoute
   '/traveler-stories/$id': typeof TravelerStoriesIdRoute
   '/trips/$id': typeof TripsIdRoute
@@ -1231,6 +1239,7 @@ export interface FileRoutesById {
   '/products_/$id': typeof ProductsIdRoute
   '/properties_/$id': typeof PropertiesIdRoute
   '/providers_/$id': typeof ProvidersIdRoute
+  '/real-estate_/platforms': typeof RealEstatePlatformsRoute
   '/research-programs_/$id': typeof ResearchProgramsIdRoute
   '/traveler-stories_/$id': typeof TravelerStoriesIdRoute
   '/trips/$id': typeof TripsIdRoute
@@ -1370,6 +1379,7 @@ export interface FileRouteTypes {
     | '/products/$id'
     | '/properties/$id'
     | '/providers/$id'
+    | '/real-estate/platforms'
     | '/research-programs/$id'
     | '/traveler-stories/$id'
     | '/trips/$id'
@@ -1506,6 +1516,7 @@ export interface FileRouteTypes {
     | '/products/$id'
     | '/properties/$id'
     | '/providers/$id'
+    | '/real-estate/platforms'
     | '/research-programs/$id'
     | '/traveler-stories/$id'
     | '/trips/$id'
@@ -1643,6 +1654,7 @@ export interface FileRouteTypes {
     | '/products_/$id'
     | '/properties_/$id'
     | '/providers_/$id'
+    | '/real-estate_/platforms'
     | '/research-programs_/$id'
     | '/traveler-stories_/$id'
     | '/trips/$id'
@@ -1775,6 +1787,7 @@ export interface RootRouteChildren {
   ProductsIdRoute: typeof ProductsIdRoute
   PropertiesIdRoute: typeof PropertiesIdRoute
   ProvidersIdRoute: typeof ProvidersIdRoute
+  RealEstatePlatformsRoute: typeof RealEstatePlatformsRoute
   ResearchProgramsIdRoute: typeof ResearchProgramsIdRoute
   TravelerStoriesIdRoute: typeof TravelerStoriesIdRoute
   TripsIdRoute: typeof TripsIdRoute
@@ -2556,6 +2569,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProvidersIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/real-estate_/platforms': {
+      id: '/real-estate_/platforms'
+      path: '/real-estate/platforms'
+      fullPath: '/real-estate/platforms'
+      preLoaderRoute: typeof RealEstatePlatformsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/research-programs_/$id': {
       id: '/research-programs_/$id'
       path: '/research-programs/$id'
@@ -2884,6 +2904,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsIdRoute: ProductsIdRoute,
   PropertiesIdRoute: PropertiesIdRoute,
   ProvidersIdRoute: ProvidersIdRoute,
+  RealEstatePlatformsRoute: RealEstatePlatformsRoute,
   ResearchProgramsIdRoute: ResearchProgramsIdRoute,
   TravelerStoriesIdRoute: TravelerStoriesIdRoute,
   TripsIdRoute: TripsIdRoute,

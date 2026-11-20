@@ -1226,6 +1226,19 @@ export const legalDocuments: LegalDocument[] = [
     ],
     { footerGroup: "Legal", changeHistory: initial("Initial draft prepared for legal review — needs legal review before launch.") },
   ),
+  doc(
+    38,
+    "real-estate-guide-disclaimer",
+    "Real Estate Guide Disclaimer",
+    "Disclaimers",
+    "The property section is informational only and does not provide brokerage or ownership verification.",
+    [
+      { heading: "Independent information service", body: ["This section is informational only. Egyptora does not list, sell, rent or broker property, verify ownership, or hold documents or payments. Always confirm with the official source."] },
+      { heading: "No advice or guaranteed outcomes", body: ["Egyptora does not recommend buying, renting or investing, give prices, returns or valuations, or decide ownership, title, allocation, eligibility or legacy-tenancy and rent disputes. The competent authority decides."] },
+      { heading: "Information can change", body: ["Details are taken from official Egyptian sources on the verification date shown and can change. Always confirm on the official website before acting."] },
+    ],
+    { changeHistory: initial("Initial draft prepared for legal review — needs legal review before launch.") },
+  ),
 ];
 
 export const legalCategories: LegalCategory[] = [

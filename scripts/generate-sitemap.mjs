@@ -89,6 +89,8 @@ const complaintPages = complaintSectors
   .map((s) => `/government-directory/complaints/${s.slug}`);
 if (complaintSectors.length > 0) gated.push("/government-directory/complaints", "/government-directory/complaints/unknown-authority");
 
+if ((await q("real_estate_platforms?select=id&limit=1")).length > 0) gated.push("/real-estate/platforms");
+
 // Education Hub: platforms directory only while public platform records exist.
 if ((await q("education_platforms?select=id&limit=1")).length > 0) gated.push("/education/platforms");
 
