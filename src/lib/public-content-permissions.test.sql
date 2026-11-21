@@ -1,4 +1,6 @@
--- Read-only regression checks, run by migration 0039 under a privileged session.
+-- Preview-data counts from 2026-11-21; manual check only.
+-- Run by hand with a privileged session after permission changes, never inside a migration.
+-- Update expected counts to match the data of the database being checked.
 -- No auth account is created. The synthetic JWT subject has no admin role.
 DO $permissions_test$
 DECLARE

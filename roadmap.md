@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 62 — Portable migration 0039
+- [x] Removed embedded preview tests and synthetic-subject/count checks; public-policy identity lookup and symmetric protection support partial application.
+- [x] Standalone check body and metadata unchanged; manual-check header and migration rule added; 0030–0038 contain no fixed-count assertions.
+- [x] SQL and PL/pgSQL grammar validated without execution; 179 tests pass; docs/prompt-62-verification.md records limits. No database writes/rerun or publication.
+
 ## Prompt 61 — Signed-in public reads and private columns
 - [x] Inspected live grants/policies and public/admin queries; excluded demo tables reported unchanged.
 - [x] Migration 0039 preserves all public predicates, admin policies and other grants; authenticated SELECT matches anon on 13 tables.

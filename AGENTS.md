@@ -44,5 +44,6 @@
 - Research programmes read through src/lib/research-programs.ts (public columns, AR fallback); visitors see only active+reviewed rows, internal_notes has no visitor grant.
 - Real Estate Hub: real_estate_platforms shares GUIDE_TABLES validation/editor/CSV import; publishable safe-column reads and public-row gates keep internal notes and empty directories private.
 - Education Hub: education_platforms reuses the guide editor/CSV path (GUIDE_TABLES); platforms page, hub card and sitemap entry need a public row — one import path, no empty pages.
-- Static search is manual; filterSearchEntries gates both to and page without losing reopened-page entries.
-- New public columns on column-granted tables need SELECT for both anon and authenticated; internal_notes is never granted to either.
+- Manual search: filterSearchEntries gates to/page; keep reopened-page entries.
+- Column-granted tables: grant new public columns to anon and authenticated, never internal_notes.
+- No data-dependent/count assertions in migrations; data checks belong in standalone tests.
