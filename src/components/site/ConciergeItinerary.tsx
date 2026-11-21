@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
+import { useNavAvailability } from "@/lib/nav-availability";
+import { itineraryItemGatedOff } from "@/lib/path-gates";
 import { ItemActions, type TripItemType } from "@/lib/trip-actions";
 
 /** One item proposed by the concierge, grounded in a real catalogue row. */
@@ -127,8 +129,10 @@ function ItemLink({ item, label }: { item: ItineraryItem; label: string }) {
 }
 
 /** Renders the concierge's proposed itinerary as cards with an Add-to-trip action. */
-export function ItineraryCards({ items }: { items: ItineraryItem[] }) {
+export function ItineraryCards({ items: all }: { items: ItineraryItem[] }) {
   const { t } = useI18n();
+  const avail = useNavAvailability();
+  const items = all.filter((item) => !itineraryItemGatedOff(item.type, avail));
   if (items.length === 0) return null;
 
   return (

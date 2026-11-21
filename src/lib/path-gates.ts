@@ -32,3 +32,8 @@ export function linkGatedOff(to: string | undefined, avail: Avail): boolean {
 export function filterSearchEntries<T extends { to: string; page: string }>(entries: T[], avail: Avail): T[] {
   return entries.filter(e => !linkGatedOff(e.to, avail) && !linkGatedOff(e.page, avail));
 }
+
+/** Concierge itinerary card types are table names; a card is hidden while its section page is gated. */
+export function itineraryItemGatedOff(type: string, avail: Avail): boolean {
+  return linkGatedOff("/" + type.replace(/_/g, "-"), avail);
+}

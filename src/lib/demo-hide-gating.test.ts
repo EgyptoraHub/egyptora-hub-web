@@ -39,3 +39,14 @@ describe("Prompt 59 — Egyptora AI excludes hidden statuses", () => {
     for (const t of ["properties", "offers", "investment_opportunities", "providers"]) assert.ok(m.GOVERNANCE_GATED_TABLES.has(t));
   });
 });
+
+describe("AI suggestions — itinerary cards hide while their page is unavailable", () => {
+  it("hides offers/properties cards when the section has no public row, keeps them when it does", async () => {
+    const { itineraryItemGatedOff } = await import("@/lib/path-gates");
+    assert.equal(itineraryItemGatedOff("offers", {}), true);
+    assert.equal(itineraryItemGatedOff("properties", { properties: false }), true);
+    assert.equal(itineraryItemGatedOff("investment_opportunities", {}), true);
+    assert.equal(itineraryItemGatedOff("offers", { offers: true }), false);
+    assert.equal(itineraryItemGatedOff("museums", {}), false);
+  });
+});

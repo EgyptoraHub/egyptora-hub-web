@@ -83,8 +83,9 @@ const DETAIL_PATH: Partial<Record<ConciergeTable, string>> = {
 };
 
 async function searchGovernment(term: string, limit: number): Promise<ConciergeMatch[]> {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data, error } = await supabaseAdmin
+  // Visitor (publishable) client: database visitor rules decide visibility exactly as on public pages.
+  const visitor = await publicClient();
+  const { data, error } = await visitor
     .from("government_entities")
     .select("id, entity_name_en, entity_name_ar, description_en, category_en, official_url")
     .or(orFilter(term, ["entity_name_en", "entity_name_ar", "description_en", "category_en"]))
@@ -275,7 +276,8 @@ export async function searchSiteContent(
   const term = query.replace(/[%,()]/g, " ").trim();
   if (!term) return [];
 
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  // Visitor (publishable) client: database visitor rules decide visibility exactly as on public pages.
+  const visitor = await publicClient();
   const tables = category ? [category] : [...CONCIERGE_TABLES];
   const perTable = category ? limit : 2;
 
@@ -285,13 +287,13 @@ export async function searchSiteContent(
         if (table === "government_entities") return await searchGovernment(term, perTable);
         const pub = await searchPublicSection(table, term, perTable);
         if (pub) return pub;
-        let q = (supabaseAdmin.from(table) as any)
+        let q = (visitor.from(table) as any)
           .select("id, name, slug, summary")
           .or(orFilter(term, ["name", "summary"]));
         if (table === "properties" || table === "investment_opportunities") {
           q = q.eq("moderation_state", "PUBLISHED");
         }
-        // Admin client bypasses RLS: mirror the visitor rule so archived (hidden demo) rows are never cited.
+        // Belt and braces: the visitor rule already hides these statuses; keep the explicit filter too.
         if (GOVERNANCE_GATED_TABLES.has(table)) {
           q = q.not("governance_status", "in", `(${HIDDEN_GOVERNANCE_STATUSES.join(",")})`);
         }
