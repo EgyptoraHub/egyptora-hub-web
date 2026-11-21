@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 60 — Digital Egypt link and static search cleanup
+- [x] Corrected the registry guide's two URLs/date through validated privileged update (0 rejected), audit recorded; CSV URLs synced; only this row had the old URL.
+- [x] Removed 34 stale entries and added 2 bilingual real entries (259→227); both target/source pages gated automatically; 4 new rule tests, full suite 175 passed.
+- [x] Signed-out EN/AR at 390/1280px: all four search queries clean, guide links/date read back, menu/card reach hub; Digital Egypt page independently opened; docs/prompt-60-verification.md.
+
 ## Prompt 58 — Informational property hub
 - [x] Sourced hub and directory, 18 disabled flags, AI restrictions and draft disclaimer; 3 platforms + 1 guide imported via validated privileged path and activated; 20 public layout checks, visitor notes refused, sitemap 238, 167 tests passed; docs/prompt-58-verification.md.
 - [ ] Property disclaimer counsel review before launch — requires qualified Egyptian legal counsel.

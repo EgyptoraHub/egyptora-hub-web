@@ -1,5 +1,5 @@
-// Generated from page card/tile data. Static site-wide search index.
-export type SearchEntry = { title: string; desc: string; tag: string; to: string; category: string; page: string };
+// Manually maintained static site-wide search index; no generator exists.
+export type SearchEntry = { title: string; title_ar?: string; desc: string; tag: string; to: string; category: string; page: string };
 export const staticSearchIndex: SearchEntry[] = [
  {
   "title": "Tourism & Experiences",
@@ -530,14 +530,6 @@ export const staticSearchIndex: SearchEntry[] = [
   "page": "/invest-in-egypt"
  },
  {
-  "title": "Real Estate & New Cities",
-  "desc": "",
-  "tag": "",
-  "to": "/properties",
-  "category": "Investment",
-  "page": "/invest-in-egypt"
- },
- {
   "title": "Industry & Manufacturing",
   "desc": "",
   "tag": "",
@@ -605,38 +597,6 @@ export const staticSearchIndex: SearchEntry[] = [
   "title": "Financial Services",
   "desc": "",
   "tag": "",
-  "to": "/invest-in-egypt",
-  "category": "Investment",
-  "page": "/invest-in-egypt"
- },
- {
-  "title": "New Administrative Capital",
-  "desc": "Mixed-use development",
-  "tag": "Real Estate",
-  "to": "/properties",
-  "category": "Investment",
-  "page": "/invest-in-egypt"
- },
- {
-  "title": "Ain Sokhna Industrial Zone",
-  "desc": "Industrial & logistics hub",
-  "tag": "Industry",
-  "to": "/invest-in-egypt",
-  "category": "Investment",
-  "page": "/invest-in-egypt"
- },
- {
-  "title": "Red Sea Tourism Development",
-  "desc": "Resorts & eco-tourism",
-  "tag": "Tourism",
-  "to": "/invest-in-egypt",
-  "category": "Investment",
-  "page": "/invest-in-egypt"
- },
- {
-  "title": "Renewable Energy Projects",
-  "desc": "Solar & wind energy",
-  "tag": "Energy",
   "to": "/invest-in-egypt",
   "category": "Investment",
   "page": "/invest-in-egypt"
@@ -1842,7 +1802,8 @@ export const staticSearchIndex: SearchEntry[] = [
   "page": "/government-directory/digital-services"
  },
  {
-  "title": "All Properties",
+  "title": "Real estate information hub",
+  "title_ar": "دليل المعلومات العقارية",
   "desc": "",
   "tag": "",
   "to": "/real-estate",
@@ -1850,227 +1811,12 @@ export const staticSearchIndex: SearchEntry[] = [
   "page": "/real-estate"
  },
  {
-  "title": "Apartments",
+  "title": "Official property platforms",
+  "title_ar": "المنصات العقارية الرسمية",
   "desc": "",
   "tag": "",
-  "to": "/real-estate",
+  "to": "/real-estate/platforms",
   "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Villas",
-  "desc": "",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Compounds & Gated Communities",
-  "desc": "",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Commercial Properties",
-  "desc": "",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "New Developments",
-  "desc": "",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Coastal & Vacation Homes",
-  "desc": "",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Land & Plots",
-  "desc": "",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Off-Plan Projects",
-  "desc": "",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "New Capital Residence",
-  "desc": "Apartment",
-  "tag": "New Capital",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "North Coast Villa",
-  "desc": "Villa",
-  "tag": "North Coast",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Zamalek Apartment",
-  "desc": "Apartment",
-  "tag": "Cairo",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Al Rehab City Compound Unit",
-  "desc": "Apartment",
-  "tag": "Giza",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Sahl Hasheesh Chalet",
-  "desc": "Chalet",
-  "tag": "Red Sea",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Urban Living",
-  "desc": "City apartments close to work and culture.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Coastal Living",
-  "desc": "Homes on the Mediterranean and Red Sea.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Gated Communities",
-  "desc": "Secure compounds with shared amenities.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Family Homes",
-  "desc": "Space, schools and green areas nearby.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Investment Properties",
-  "desc": "Units with strong rental potential.",
-  "tag": "",
-  "to": "/invest-in-egypt",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "New Cities",
-  "desc": "Modern planned cities across Egypt.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Luxury Living",
-  "desc": "Premium villas and penthouses.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Affordable Housing",
-  "desc": "Accessible homes and payment plans.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Mortgage & Financing",
-  "desc": "",
-  "tag": "",
-  "to": "/providers",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Legal & Title Services",
-  "desc": "",
-  "tag": "",
-  "to": "/providers",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Property Management",
-  "desc": "",
-  "tag": "",
-  "to": "/providers",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Interior Design",
-  "desc": "",
-  "tag": "",
-  "to": "/providers",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Relocation Support",
-  "desc": "",
-  "tag": "",
-  "to": "/live-in-egypt",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Real Estate Consultancy",
-  "desc": "",
-  "tag": "",
-  "to": "/contact",
-  "category": "Real Estate",
-  "page": "/real-estate"
- },
- {
-  "title": "Real Estate & Property",
-  "desc": "Explore Egypt's real estate market — from city apartments to coastal homes and new cities.",
-  "tag": "",
-  "to": "/real-estate",
-  "category": "Real Estate",
-  "page": "/real-estate"
+  "page": "/real-estate/platforms"
  }
 ];

@@ -27,3 +27,8 @@ export function linkGatedOff(to: string | undefined, avail: Avail): boolean {
   const g = gateForPath(to);
   return !!g && !avail[g];
 }
+
+/** Search entries must have both a visible destination and a visible source page. */
+export function filterSearchEntries<T extends { to: string; page: string }>(entries: T[], avail: Avail): T[] {
+  return entries.filter(e => !linkGatedOff(e.to, avail) && !linkGatedOff(e.page, avail));
+}

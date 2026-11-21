@@ -1,4 +1,5 @@
-import { linkGatedOff, useNavAvailability } from "@/lib/nav-availability";
+import { useNavAvailability } from "@/lib/nav-availability";
+import { filterSearchEntries } from "@/lib/path-gates";
 import { healthNavigation } from "@/lib/health-public";
 import { useMemo, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -110,7 +111,7 @@ const healthSearchEntries: SearchEntry[] = [["Healthcare & Medical Services", "/
 const ORDER = ["Healthcare & Medical Services", "Destinations", "Travel & Tourism", "Investment", "Business", "Living in Egypt", "Government Services", "Digital Services", "Real Estate", "Home"];
 
 function score(e: SearchEntry, terms: string[]) {
-  const t = e.title.toLowerCase();
+  const t = `${e.title} ${e.title_ar ?? ""}`.toLowerCase();
   const rest = `${e.desc} ${e.tag} ${e.category}`.toLowerCase();
   let s = 0;
   for (const term of terms) {
@@ -124,7 +125,7 @@ function score(e: SearchEntry, terms: string[]) {
 function SearchPage() {
   const { q } = Route.useSearch();
   const { gov } = Route.useLoaderData();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const navigate = useNavigate({ from: "/search" });
   const [input, setInput] = useState(q);
   const avail = useNavAvailability();
@@ -134,10 +135,10 @@ function SearchPage() {
     if (!terms.length) return [];
     const map = new Map<string, { e: SearchEntry; s: number }[]>();
     const seen = new Set<string>();
-    for (const e of [...staticSearchIndex, ...healthSearchEntries, ...gov]) {
+    for (const e of filterSearchEntries([...staticSearchIndex, ...healthSearchEntries, ...gov], avail)) {
       const s = score(e, terms);
       const key = `${e.title}|${e.to}`;
-      if (!s || seen.has(key) || linkGatedOff(e.to, avail)) continue;
+      if (!s || seen.has(key)) continue;
       seen.add(key);
       const list = map.get(e.category) ?? [];
       list.push({ e, s });
@@ -208,7 +209,7 @@ function SearchPage() {
                     >
                       <span className="grid min-w-0 flex-1 gap-1.5">
                         {e.tag ? <span><NavyBadge>{t(e.tag)}</NavyBadge></span> : null}
-                        <span className="font-display text-base font-bold text-navy">{t(e.title)}</span>
+                        <span className="font-display text-base font-bold text-navy">{lang === "ar" && e.title_ar ? e.title_ar : t(e.title)}</span>
                         {e.desc ? <span className="line-clamp-2 text-xs text-text-body">{t(e.desc)}</span> : null}
                       </span>
                       <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gold-cta text-gold-foreground">

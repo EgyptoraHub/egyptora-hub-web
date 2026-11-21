@@ -44,3 +44,4 @@
 - Research programmes read through src/lib/research-programs.ts (public columns, AR fallback); visitors see only active+reviewed rows, internal_notes has no visitor grant.
 - Real Estate Hub: real_estate_platforms shares GUIDE_TABLES validation/editor/CSV import; publishable safe-column reads and public-row gates keep internal notes and empty directories private.
 - Education Hub: education_platforms reuses the guide editor/CSV path (GUIDE_TABLES); platforms page, hub card and sitemap entry need a public row — one import path, no empty pages.
+- Static search is manually maintained; filterSearchEntries gates both to and page, retaining entries for reopened pages without exposing empty ones.
