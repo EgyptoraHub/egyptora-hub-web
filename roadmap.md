@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 61 — Signed-in public reads and private columns
+- [x] Inspected live grants/policies and public/admin queries; excluded demo tables reported unchanged.
+- [x] Migration 0039 preserves all public predicates, admin policies and other grants; authenticated SELECT matches anon on 13 tables.
+- [x] SQL visitor-role tests: 15 matching table counts/ID sets, 38 private-column refusals, 99 hidden IDs excluded; 176 existing tests pass; docs/prompt-61-verification.md. No accounts, data edits or publication.
+
 ## Prompt 60 — Digital Egypt link and static search cleanup
 - [x] Corrected the registry guide's two URLs/date through validated privileged update (0 rejected), audit recorded; CSV URLs synced; only this row had the old URL.
 - [x] Removed 34 stale entries and added 2 bilingual real entries (259→227); both target/source pages gated automatically; 4 new rule tests, full suite 175 passed.
