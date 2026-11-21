@@ -1,1 +1,2 @@
 - Shipping platforms reuse GUIDE_TABLES validation/admin CSV import, public-column reads and nested path gates — keeps private notes and empty directories inaccessible.
+- shipping_platforms: grant public columns to anon and authenticated, never internal_notes; show only active, reviewed rows; Phase 1 is informational only — preserves visitor safety.

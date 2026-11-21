@@ -1831,7 +1831,7 @@ export const staticSearchIndex: SearchEntry[] = [
 {
   "title": "Official shipping & trade websites",
   "title_ar": "مواقع الشحن والتجارة الرسمية",
-  "desc": "Customs, Nafeza, ports, maritime, rail, ministry and post official sources.",
+  "desc": "Official websites for customs, Nafeza, ports, dry ports, Suez Canal, railways, post, air cargo, civil aviation and Alexandria. مواقع رسمية للجمارك ونافذة والموانئ والموانئ الجافة وقناة السويس وسكة حديد والبريد والشحن الجوي والطيران المدني والإسكندرية.",
   "tag": "",
   "to": "/do-business/shipping-logistics/platforms",
   "category": "Do Business",

@@ -11,4 +11,4 @@ export const Route = createFileRoute("/do-business_/shipping-logistics")({
  head: () => simpleHead("/do-business/shipping-logistics", "Shipping & Logistics in Egypt | Egyptora Hub", SHIPPING_INTRO + " Informational only. الشحن والخدمات اللوجستية في مصر.", SITE.url),
  errorComponent: ShippingError, notFoundComponent: ShippingUnavailable, component: Hub,
 });
-function Hub() { return <InnerPage pageName="Shipping & Logistics" hero={{image:hero,title:"Shipping & Logistics",subtitle:SHIPPING_INTRO,body:"",placeholder:"",tagline:[],replaceSearch:<span/>}} chips={[]} showMore={false} notice={<ShippingNotice/>}><ShippingHubCards/></InnerPage>; }
+function Hub() { return <InnerPage pageName="Shipping & Logistics" parent={{label:"Do Business",to:"/do-business"}} hero={{image:hero,title:"Shipping & Logistics",subtitle:SHIPPING_INTRO,body:"",placeholder:"",tagline:[],replaceSearch:<span/>}} chips={[]} showMore={false} notice={<ShippingNotice/>}><ShippingHubCards/></InnerPage>; }

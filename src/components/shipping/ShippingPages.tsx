@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useI18n } from "@/i18n";
 import { safeHealthUrl } from "@/lib/health-public";
 import { sourceUrlWarning } from "@/lib/protected-areas";
+import { formatLanguages } from "@/lib/format-languages";
 import { sourceDateText, sourceNameFor } from "@/lib/trade-public";
 import { complaintTextFor } from "@/lib/complaints-public";
 import { shippingPlatformsQuery, type ShippingPlatform } from "@/lib/shipping.functions";
@@ -46,6 +47,7 @@ function PlatformCard({ p }: { p: ShippingPlatform }) {
   const operator = tx(p.operator_name_en, p.operator_name_ar);
   const audience = tx(p.audience_en, p.audience_ar);
   const services = tx(p.services_summary_en, p.services_summary_ar);
+  const languages = formatLanguages(p.languages, lang);
   
   const verified = sourceDateText(p.last_verified_at);
   const sourceName = sourceNameFor(lang, p.source_name, p.source_name_ar);
@@ -59,7 +61,7 @@ function PlatformCard({ p }: { p: ShippingPlatform }) {
       <dl className="mt-3 grid gap-2 text-sm text-text-body">
         {audience && <div><dt className="inline font-semibold">{t("Audience:")} </dt><dd className="inline" dir="auto">{audience}</dd></div>}
         {services && <div><dt className="inline font-semibold">{t("Services:")} </dt><dd className="inline" dir="auto">{services}</dd></div>}
-        {p.languages && <div><dt className="inline font-semibold">{t("Languages:")} </dt><dd className="inline" dir="ltr">{p.languages}</dd></div>}
+        {languages && <div><dt className="inline font-semibold">{t("Languages:")} </dt><dd className="inline" dir="auto">{languages}</dd></div>}
       </dl>
       <div className="mt-3 min-w-0"><External url={p.official_url}>{t("Official website")}</External></div>
       <p className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-xs text-text-body">

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { useI18n } from "@/i18n";
 import { safeHealthUrl } from "@/lib/health-public";
 import { sourceUrlWarning } from "@/lib/protected-areas";
+import { formatLanguages } from "@/lib/format-languages";
 import { sourceDateText, sourceNameFor } from "@/lib/trade-public";
 import { complaintTextFor } from "@/lib/complaints-public";
 import { educationHubQuery, educationPlatformsQuery, type EducationPlatform } from "@/lib/education.functions";
@@ -79,6 +80,7 @@ function PlatformCard({ p }: { p: EducationPlatform }) {
   const operator = tx(p.operator_name_en, p.operator_name_ar);
   const audience = tx(p.audience_en, p.audience_ar);
   const services = tx(p.services_summary_en, p.services_summary_ar);
+  const languages = formatLanguages(p.languages, lang);
   const fee = showPlatformFee(p) ? tx(p.published_fee_text, p.published_fee_text_ar) : null;
   const verified = sourceDateText(p.last_verified_at);
   const sourceName = sourceNameFor(lang, p.source_name, p.source_name_ar);
@@ -92,7 +94,7 @@ function PlatformCard({ p }: { p: EducationPlatform }) {
       <dl className="mt-3 grid gap-2 text-sm text-text-body">
         {audience && <div><dt className="inline font-semibold">{t("Audience:")} </dt><dd className="inline" dir="auto">{audience}</dd></div>}
         {services && <div><dt className="inline font-semibold">{t("Services:")} </dt><dd className="inline" dir="auto">{services}</dd></div>}
-        {p.languages && <div><dt className="inline font-semibold">{t("Languages:")} </dt><dd className="inline" dir="ltr">{p.languages}</dd></div>}
+        {languages && <div><dt className="inline font-semibold">{t("Languages:")} </dt><dd className="inline" dir="auto">{languages}</dd></div>}
         {fee && <div><dt className="inline font-semibold">{t("Published fee:")} </dt><dd className="inline" dir="auto">{fee}</dd> <External url={p.fee_source_url} source>{t("Fee source")}</External></div>}
         <div><dd>{t(accreditationLabel(p))}</dd>{p.accreditation_status === "accredited" && <External url={p.accreditation_source_url} source>{t("Accreditation source")}</External>}</div>
       </dl>

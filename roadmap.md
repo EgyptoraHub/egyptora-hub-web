@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 65 — Shipping code-only cleanup
+- [x] Added the sole approved source domain and regression tests; shared language labels and hub breadcrumb; static search description only.
+- [x] Signed-out EN/AR at 390/1280px: 16 page checks, 16 searches, 11 live shipping rows with 0 shared-checker warnings; static mentions and image rights reported; 208 tests pass; docs/prompt-65-verification.md.
+- [ ] Admin Data audit screen check — no app account matches the requesting owner; all shipping link fields checked read-only with the same audit warning function instead.
+
 ## Prompt 63 — Shipping & Logistics
 - [x] Protected official-platform directory, shared admin imports, gated EN/AR pages, search/AI/footer and draft disclaimer.
 - [x] 21 disabled switches (Phase 2 total 82); seven exact owner-approved records validated, privileged-imported and activated with three audits.
