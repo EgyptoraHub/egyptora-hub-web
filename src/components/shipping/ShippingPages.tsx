@@ -66,7 +66,7 @@ function PlatformCard({ p }: { p: ShippingPlatform }) {
         <span>{t("Source:")}</span>
         {sourceName && <span dir="auto">{sourceName}</span>}
         <External url={p.source_url} source>{t("Source")}</External>
-        {verified && <span className="whitespace-nowrap">· {t("Last verified:")} {verified}</span>}
+        {verified && <span className="whitespace-nowrap">· {t("Last verified:")} <bdi dir="ltr">{verified}</bdi></span>}
       </p>
     </li>
   );

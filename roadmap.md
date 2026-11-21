@@ -1,9 +1,10 @@
 # Roadmap
 
 ## Prompt 63 — Shipping & Logistics
-- [ ] Add protected official-platform directory, shared admin imports, gated EN/AR pages and draft disclaimer.
-- [ ] Seed 21 disabled switches; validate, import and activate seven owner-approved records with operation audits.
-- [ ] Verify visitor permissions, menu/search/sitemap, EN/AR layouts and tests; write verification report.
+- [x] Protected official-platform directory, shared admin imports, gated EN/AR pages, search/AI/footer and draft disclaimer.
+- [x] 21 disabled switches (Phase 2 total 82); seven exact owner-approved records validated, privileged-imported and activated with three audits.
+- [x] Actual anon/non-admin checks pass, EN/AR 390/1280/1600 flows verified; sitemap 237, 200 tests pass; docs/prompt-63-verification.md.
+- [ ] Standalone SQL impersonation run — available database reader lacks SET ROLE permission; real visitor API parity checks passed instead.
 - [ ] Shipping disclaimer counsel review before launch — requires qualified Egyptian legal counsel.
 
 ## Prompt 62 — Portable migration 0039

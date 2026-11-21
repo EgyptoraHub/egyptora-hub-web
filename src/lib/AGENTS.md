@@ -1,0 +1,1 @@
+- Shipping platforms reuse GUIDE_TABLES validation/admin CSV import, public-column reads and nested path gates — keeps private notes and empty directories inaccessible.

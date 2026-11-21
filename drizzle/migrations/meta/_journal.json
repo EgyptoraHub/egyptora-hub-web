@@ -288,6 +288,13 @@
       "when": 1795281804176,
       "tag": "0040_shipping_platforms_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1795282204723,
+      "tag": "0041_shipping_column_permission_hardening",
+      "breakpoints": true
     }
   ]
 }

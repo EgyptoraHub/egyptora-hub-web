@@ -47,4 +47,3 @@
 - Manual search gates to/page; retains reopened pages.
 - Column-granted tables: grant new public columns to anon and authenticated, never internal_notes.
 - No data-dependent/count assertions in migrations; data checks belong in standalone tests.
-- Shipping platforms reuse GUIDE_TABLES and path gates for safe public reads.
