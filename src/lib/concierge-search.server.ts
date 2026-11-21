@@ -33,6 +33,7 @@ export const CONCIERGE_TABLES = [
   "health_specialties",
   "complaint_sectors",
   "complaint_channels",
+  "shipping_platforms",
 ] as const;
 
 /** Same statuses the visitor rule hides on offers/providers/properties/investment_opportunities. */
@@ -130,8 +131,13 @@ const CULTURE_URL: Record<string, string> = { cuisine: "cuisine", fashion: "fash
 const VISIBLE = ["editorial_reviewed", "verified"];
 
 async function searchPublicSection(table: ConciergeTable, term: string, limit: number): Promise<ConciergeMatch[] | null> {
-  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones", "protected_areas", "health_facilities", "health_specialties", "complaint_sectors", "complaint_channels"].includes(table)) return null;
+  if (!["emergency_numbers", "egypt_apps", "military_records", "culture_items", "economic_zones", "protected_areas", "health_facilities", "health_specialties", "complaint_sectors", "complaint_channels", "shipping_platforms"].includes(table)) return null;
   const db = (await publicClient()) as any;
+  if (table === "shipping_platforms") {
+    const { data, error } = await db.from("shipping_platforms").select("id,slug,name_en,name_ar,services_summary_en,services_summary_ar,category,source_url,last_verified_at,official_url").or(orFilter(term, ["name_en", "name_ar", "services_summary_en", "services_summary_ar", "category"])).limit(limit);
+    if (error) throw error;
+    return (data ?? []).map((r: any) => ({ id: String(r.id), name: r.name_en || r.name_ar, slug: r.slug, type: table, summary: oneLine(r.services_summary_en), category: r.category, link: `${SITE}/do-business/shipping-logistics/platforms`, sourceUrl: r.source_url, officialUrl: r.official_url, lastVerifiedAt: r.last_verified_at }));
+  }
   if (table === "complaint_sectors") {
     // Public rows only (RLS + column grants); informational guide sectors, never a complaint intake.
     const { data, error } = await db

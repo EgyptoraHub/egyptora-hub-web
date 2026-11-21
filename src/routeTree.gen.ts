@@ -66,6 +66,7 @@ import { Route as DoBusinessIndustrialZonesRouteImport } from './routes/do-busin
 import { Route as DoBusinessIndustryAgricultureRouteImport } from './routes/do-business_.industry-agriculture'
 import { Route as DoBusinessLicensesPermitsRouteImport } from './routes/do-business_.licenses-permits'
 import { Route as DoBusinessProcedureGuidesRouteImport } from './routes/do-business_.procedure-guides'
+import { Route as DoBusinessShippingLogisticsRouteImport } from './routes/do-business_.shipping-logistics'
 import { Route as DoBusinessStartABusinessRouteImport } from './routes/do-business_.start-a-business'
 import { Route as DoBusinessTradeInquiryRouteImport } from './routes/do-business_.trade-inquiry'
 import { Route as DoBusinessWorldGatewayRouteImport } from './routes/do-business_.world-gateway'
@@ -129,6 +130,7 @@ import { Route as AdminCrmPropertiesRouteImport } from './routes/admin.crm.prope
 import { Route as AdminPartnersNewRouteImport } from './routes/admin.partners_.new'
 import { Route as DoBusinessIndustryAgricultureSlugRouteImport } from './routes/do-business_.industry-agriculture_.$slug'
 import { Route as DoBusinessProcedureGuidesSlugRouteImport } from './routes/do-business_.procedure-guides_.$slug'
+import { Route as DoBusinessShippingLogisticsPlatformsRouteImport } from './routes/do-business_.shipping-logistics_.platforms'
 import { Route as DoBusinessWorldGatewaySlugRouteImport } from './routes/do-business_.world-gateway_.$slug'
 import { Route as EgyptThroughTimeMilitaryHistoryFiguresRouteImport } from './routes/egypt-through-time_.military-history_.figures'
 import { Route as EgyptThroughTimeMilitaryHistoryLibraryRouteImport } from './routes/egypt-through-time_.military-history_.library'
@@ -434,6 +436,12 @@ const DoBusinessProcedureGuidesRoute =
   DoBusinessProcedureGuidesRouteImport.update({
     id: '/do-business_/procedure-guides',
     path: '/do-business/procedure-guides',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DoBusinessShippingLogisticsRoute =
+  DoBusinessShippingLogisticsRouteImport.update({
+    id: '/do-business_/shipping-logistics',
+    path: '/do-business/shipping-logistics',
     getParentRoute: () => rootRouteImport,
   } as any)
 const DoBusinessStartABusinessRoute =
@@ -769,6 +777,12 @@ const DoBusinessProcedureGuidesSlugRoute =
     path: '/do-business/procedure-guides/$slug',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DoBusinessShippingLogisticsPlatformsRoute =
+  DoBusinessShippingLogisticsPlatformsRouteImport.update({
+    id: '/do-business_/shipping-logistics_/platforms',
+    path: '/do-business/shipping-logistics/platforms',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DoBusinessWorldGatewaySlugRoute =
   DoBusinessWorldGatewaySlugRouteImport.update({
     id: '/do-business_/world-gateway_/$slug',
@@ -918,6 +932,7 @@ export interface FileRoutesByFullPath {
   '/do-business/industry-agriculture': typeof DoBusinessIndustryAgricultureRoute
   '/do-business/licenses-permits': typeof DoBusinessLicensesPermitsRoute
   '/do-business/procedure-guides': typeof DoBusinessProcedureGuidesRoute
+  '/do-business/shipping-logistics': typeof DoBusinessShippingLogisticsRoute
   '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
   '/do-business/trade-inquiry': typeof DoBusinessTradeInquiryRoute
   '/do-business/world-gateway': typeof DoBusinessWorldGatewayRoute
@@ -981,6 +996,7 @@ export interface FileRoutesByFullPath {
   '/admin/partners/new': typeof AdminPartnersNewRoute
   '/do-business/industry-agriculture/$slug': typeof DoBusinessIndustryAgricultureSlugRoute
   '/do-business/procedure-guides/$slug': typeof DoBusinessProcedureGuidesSlugRoute
+  '/do-business/shipping-logistics/platforms': typeof DoBusinessShippingLogisticsPlatformsRoute
   '/do-business/world-gateway/$slug': typeof DoBusinessWorldGatewaySlugRoute
   '/egypt-through-time/military-history/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   '/egypt-through-time/military-history/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
@@ -1055,6 +1071,7 @@ export interface FileRoutesByTo {
   '/do-business/industry-agriculture': typeof DoBusinessIndustryAgricultureRoute
   '/do-business/licenses-permits': typeof DoBusinessLicensesPermitsRoute
   '/do-business/procedure-guides': typeof DoBusinessProcedureGuidesRoute
+  '/do-business/shipping-logistics': typeof DoBusinessShippingLogisticsRoute
   '/do-business/start-a-business': typeof DoBusinessStartABusinessRoute
   '/do-business/trade-inquiry': typeof DoBusinessTradeInquiryRoute
   '/do-business/world-gateway': typeof DoBusinessWorldGatewayRoute
@@ -1118,6 +1135,7 @@ export interface FileRoutesByTo {
   '/admin/partners/new': typeof AdminPartnersNewRoute
   '/do-business/industry-agriculture/$slug': typeof DoBusinessIndustryAgricultureSlugRoute
   '/do-business/procedure-guides/$slug': typeof DoBusinessProcedureGuidesSlugRoute
+  '/do-business/shipping-logistics/platforms': typeof DoBusinessShippingLogisticsPlatformsRoute
   '/do-business/world-gateway/$slug': typeof DoBusinessWorldGatewaySlugRoute
   '/egypt-through-time/military-history/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   '/egypt-through-time/military-history/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
@@ -1194,6 +1212,7 @@ export interface FileRoutesById {
   '/do-business_/industry-agriculture': typeof DoBusinessIndustryAgricultureRoute
   '/do-business_/licenses-permits': typeof DoBusinessLicensesPermitsRoute
   '/do-business_/procedure-guides': typeof DoBusinessProcedureGuidesRoute
+  '/do-business_/shipping-logistics': typeof DoBusinessShippingLogisticsRoute
   '/do-business_/start-a-business': typeof DoBusinessStartABusinessRoute
   '/do-business_/trade-inquiry': typeof DoBusinessTradeInquiryRoute
   '/do-business_/world-gateway': typeof DoBusinessWorldGatewayRoute
@@ -1257,6 +1276,7 @@ export interface FileRoutesById {
   '/admin/partners_/new': typeof AdminPartnersNewRoute
   '/do-business_/industry-agriculture_/$slug': typeof DoBusinessIndustryAgricultureSlugRoute
   '/do-business_/procedure-guides_/$slug': typeof DoBusinessProcedureGuidesSlugRoute
+  '/do-business_/shipping-logistics_/platforms': typeof DoBusinessShippingLogisticsPlatformsRoute
   '/do-business_/world-gateway_/$slug': typeof DoBusinessWorldGatewaySlugRoute
   '/egypt-through-time_/military-history_/figures': typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   '/egypt-through-time_/military-history_/library': typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
@@ -1334,6 +1354,7 @@ export interface FileRouteTypes {
     | '/do-business/industry-agriculture'
     | '/do-business/licenses-permits'
     | '/do-business/procedure-guides'
+    | '/do-business/shipping-logistics'
     | '/do-business/start-a-business'
     | '/do-business/trade-inquiry'
     | '/do-business/world-gateway'
@@ -1397,6 +1418,7 @@ export interface FileRouteTypes {
     | '/admin/partners/new'
     | '/do-business/industry-agriculture/$slug'
     | '/do-business/procedure-guides/$slug'
+    | '/do-business/shipping-logistics/platforms'
     | '/do-business/world-gateway/$slug'
     | '/egypt-through-time/military-history/figures'
     | '/egypt-through-time/military-history/library'
@@ -1471,6 +1493,7 @@ export interface FileRouteTypes {
     | '/do-business/industry-agriculture'
     | '/do-business/licenses-permits'
     | '/do-business/procedure-guides'
+    | '/do-business/shipping-logistics'
     | '/do-business/start-a-business'
     | '/do-business/trade-inquiry'
     | '/do-business/world-gateway'
@@ -1534,6 +1557,7 @@ export interface FileRouteTypes {
     | '/admin/partners/new'
     | '/do-business/industry-agriculture/$slug'
     | '/do-business/procedure-guides/$slug'
+    | '/do-business/shipping-logistics/platforms'
     | '/do-business/world-gateway/$slug'
     | '/egypt-through-time/military-history/figures'
     | '/egypt-through-time/military-history/library'
@@ -1609,6 +1633,7 @@ export interface FileRouteTypes {
     | '/do-business_/industry-agriculture'
     | '/do-business_/licenses-permits'
     | '/do-business_/procedure-guides'
+    | '/do-business_/shipping-logistics'
     | '/do-business_/start-a-business'
     | '/do-business_/trade-inquiry'
     | '/do-business_/world-gateway'
@@ -1672,6 +1697,7 @@ export interface FileRouteTypes {
     | '/admin/partners_/new'
     | '/do-business_/industry-agriculture_/$slug'
     | '/do-business_/procedure-guides_/$slug'
+    | '/do-business_/shipping-logistics_/platforms'
     | '/do-business_/world-gateway_/$slug'
     | '/egypt-through-time_/military-history_/figures'
     | '/egypt-through-time_/military-history_/library'
@@ -1742,6 +1768,7 @@ export interface RootRouteChildren {
   DoBusinessIndustryAgricultureRoute: typeof DoBusinessIndustryAgricultureRoute
   DoBusinessLicensesPermitsRoute: typeof DoBusinessLicensesPermitsRoute
   DoBusinessProcedureGuidesRoute: typeof DoBusinessProcedureGuidesRoute
+  DoBusinessShippingLogisticsRoute: typeof DoBusinessShippingLogisticsRoute
   DoBusinessStartABusinessRoute: typeof DoBusinessStartABusinessRoute
   DoBusinessTradeInquiryRoute: typeof DoBusinessTradeInquiryRoute
   DoBusinessWorldGatewayRoute: typeof DoBusinessWorldGatewayRoute
@@ -1800,6 +1827,7 @@ export interface RootRouteChildren {
   PartnersIndexRoute: typeof PartnersIndexRoute
   DoBusinessIndustryAgricultureSlugRoute: typeof DoBusinessIndustryAgricultureSlugRoute
   DoBusinessProcedureGuidesSlugRoute: typeof DoBusinessProcedureGuidesSlugRoute
+  DoBusinessShippingLogisticsPlatformsRoute: typeof DoBusinessShippingLogisticsPlatformsRoute
   DoBusinessWorldGatewaySlugRoute: typeof DoBusinessWorldGatewaySlugRoute
   EgyptThroughTimeMilitaryHistoryFiguresRoute: typeof EgyptThroughTimeMilitaryHistoryFiguresRoute
   EgyptThroughTimeMilitaryHistoryLibraryRoute: typeof EgyptThroughTimeMilitaryHistoryLibraryRoute
@@ -2217,6 +2245,13 @@ declare module '@tanstack/react-router' {
       path: '/do-business/procedure-guides'
       fullPath: '/do-business/procedure-guides'
       preLoaderRoute: typeof DoBusinessProcedureGuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do-business_/shipping-logistics': {
+      id: '/do-business_/shipping-logistics'
+      path: '/do-business/shipping-logistics'
+      fullPath: '/do-business/shipping-logistics'
+      preLoaderRoute: typeof DoBusinessShippingLogisticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/do-business_/start-a-business': {
@@ -2660,6 +2695,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DoBusinessProcedureGuidesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/do-business_/shipping-logistics_/platforms': {
+      id: '/do-business_/shipping-logistics_/platforms'
+      path: '/do-business/shipping-logistics/platforms'
+      fullPath: '/do-business/shipping-logistics/platforms'
+      preLoaderRoute: typeof DoBusinessShippingLogisticsPlatformsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/do-business_/world-gateway_/$slug': {
       id: '/do-business_/world-gateway_/$slug'
       path: '/do-business/world-gateway/$slug'
@@ -2858,6 +2900,7 @@ const rootRouteChildren: RootRouteChildren = {
   DoBusinessIndustryAgricultureRoute: DoBusinessIndustryAgricultureRoute,
   DoBusinessLicensesPermitsRoute: DoBusinessLicensesPermitsRoute,
   DoBusinessProcedureGuidesRoute: DoBusinessProcedureGuidesRoute,
+  DoBusinessShippingLogisticsRoute: DoBusinessShippingLogisticsRoute,
   DoBusinessStartABusinessRoute: DoBusinessStartABusinessRoute,
   DoBusinessTradeInquiryRoute: DoBusinessTradeInquiryRoute,
   DoBusinessWorldGatewayRoute: DoBusinessWorldGatewayRoute,
@@ -2918,6 +2961,8 @@ const rootRouteChildren: RootRouteChildren = {
   DoBusinessIndustryAgricultureSlugRoute:
     DoBusinessIndustryAgricultureSlugRoute,
   DoBusinessProcedureGuidesSlugRoute: DoBusinessProcedureGuidesSlugRoute,
+  DoBusinessShippingLogisticsPlatformsRoute:
+    DoBusinessShippingLogisticsPlatformsRoute,
   DoBusinessWorldGatewaySlugRoute: DoBusinessWorldGatewaySlugRoute,
   EgyptThroughTimeMilitaryHistoryFiguresRoute:
     EgyptThroughTimeMilitaryHistoryFiguresRoute,

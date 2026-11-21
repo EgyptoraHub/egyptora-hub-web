@@ -6,7 +6,7 @@
 import { useLoaderData } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 
-export type NavGate = "protected_areas" | "industrial_zones" | "free_zones" | "trade_sectors" | "trade_country_profiles" | "procedure_guides" | "complaint_sectors" | "properties" | "offers" | "investment_opportunities" | "providers";
+export type NavGate = "shipping_platforms" | "protected_areas" | "industrial_zones" | "free_zones" | "trade_sectors" | "trade_country_profiles" | "procedure_guides" | "complaint_sectors" | "properties" | "offers" | "investment_opportunities" | "providers";
 type Avail = Partial<Record<NavGate, boolean>>;
 
 const TTL = 5 * 60 * 1000;
@@ -32,8 +32,9 @@ export function fetchNavAvailability(): Promise<Avail> {
     has(supabase.from("offers").select("id", head)),
     has(supabase.from("investment_opportunities").select("id", head)),
     has(supabase.from("providers").select("id", head)),
+    has(supabase.from("shipping_platforms").select("id", head)),
   ])
-    .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers]) => ({ protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers }))
+    .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms]) => ({ protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms }))
     .catch(() => ({}));
   cache = { at: Date.now(), p };
   return p;

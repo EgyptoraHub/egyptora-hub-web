@@ -116,6 +116,7 @@ export const mainNav: NavEntry[] = [
       { label: "Made in Egypt Marketplace", to: "/marketplace", indent: true },
       { label: "Industry & Agriculture", soon: true, to: "/do-business/industry-agriculture", gate: "trade_sectors" },
       { label: "World Gateway", soon: true, to: "/do-business/world-gateway", gate: "trade_country_profiles" },
+      { label: "Shipping & Logistics", soon: true, to: "/do-business/shipping-logistics", gate: "shipping_platforms" },
       { label: "Procedure Guides", soon: true, to: "/do-business/procedure-guides", gate: "procedure_guides" },
       { label: "Regulations & Laws", to: "/legal" },
       { label: "Business Support", soon: true, to: "/providers", gate: "providers" },

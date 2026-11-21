@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { SHIPPING_TABLES, validateShippingValues } from "./shipping-validation";
 import { REAL_ESTATE_TABLES, validateRealEstateValues } from "./real-estate-validation";
 import { validateEducationValues, EDUCATION_TABLES } from "./education-validation";
 
@@ -10,7 +11,7 @@ import { validateEducationValues, EDUCATION_TABLES } from "./education-validatio
  */
 export const COMPLAINTS_TABLES = ["complaint_sectors", "complaint_channels"] as const;
 /** Informational guide tables sharing the validated editor/CSV path (slug match key, forced needs_check + inactive). */
-export const GUIDE_TABLES = [...COMPLAINTS_TABLES, ...EDUCATION_TABLES, ...REAL_ESTATE_TABLES] as const;
+export const GUIDE_TABLES = [...COMPLAINTS_TABLES, ...EDUCATION_TABLES, ...REAL_ESTATE_TABLES, ...SHIPPING_TABLES] as const;
 export type ComplaintsTable = (typeof GUIDE_TABLES)[number];
 
 /** Phase 2 infrastructure flags — all disabled; nothing in the app may read them to enable behavior. */
@@ -102,6 +103,7 @@ export function complaintsVisible(row: Record<string, unknown>): boolean {
 export const HOTLINE_RE = /^[+0-9][0-9 +\-]{2,19}$/;
 
 export function validateComplaintValues(table: ComplaintsTable, row: Record<string, unknown>, partial = false): string | null {
+  if (table === "shipping_platforms") return validateShippingValues(row, partial);
   if (table === "real_estate_platforms") return validateRealEstateValues(row, partial);
   if (table === "education_platforms") return validateEducationValues(row, partial);
   const parsed = (partial ? schemas[table].partial() : schemas[table]).safeParse(row);
@@ -126,6 +128,7 @@ export const COMPLAINTS_MATCH_KEYS: Record<ComplaintsTable, string[]> = {
   complaint_channels: ["slug"],
   education_platforms: ["slug"],
   real_estate_platforms: ["slug"],
+  shipping_platforms: ["slug"],
 };
 export function complaintsMatchKey(table: ComplaintsTable, row: Record<string, unknown>) {
   return JSON.stringify(COMPLAINTS_MATCH_KEYS[table].map((k) => String(row[k] ?? "").trim()));

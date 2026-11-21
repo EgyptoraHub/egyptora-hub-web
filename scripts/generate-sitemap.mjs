@@ -64,6 +64,7 @@ const apps = cats.filter((c) => appCats.has(c.id)).map((c) => `/egypt-apps/${c.s
 
 // Gated pages.
 const gated = [];
+if ((await q("shipping_platforms?select=id&limit=1")).length > 0) gated.push("/do-business/shipping-logistics", "/do-business/shipping-logistics/platforms");
 const zoneTypes = new Set((await q("economic_zones?select=zone_type")).map((z) => z.zone_type));
 if (zoneTypes.has("industrial_zone")) gated.push("/do-business/industrial-zones");
 if ([...zoneTypes].some((t) => t !== "industrial_zone")) gated.push("/do-business/free-zones");

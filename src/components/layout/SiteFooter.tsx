@@ -66,6 +66,7 @@ const exploreLinks: FLink[] = [
 
 /** Deep links into real pages that sit under the main menu sections. */
 const discoverLinks: FLink[] = [
+  { label: "Shipping & Logistics", to: "/do-business/shipping-logistics" },
   { label: "Visual Encyclopedia", to: "/encyclopedia" },
   { label: "Live Like an Egyptian", to: "/live-like-an-egyptian" },
   { label: "Made in Egypt Marketplace", to: "/marketplace" },

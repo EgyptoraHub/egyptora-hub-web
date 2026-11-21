@@ -1818,5 +1818,23 @@ export const staticSearchIndex: SearchEntry[] = [
   "to": "/real-estate/platforms",
   "category": "Real Estate",
   "page": "/real-estate/platforms"
- }
+ },
+{
+  "title": "Shipping & Logistics",
+  "title_ar": "الشحن والخدمات اللوجستية",
+  "desc": "Official shipping, ports, customs and transport websites in Egypt.",
+  "tag": "",
+  "to": "/do-business/shipping-logistics",
+  "category": "Do Business",
+  "page": "/do-business/shipping-logistics"
+},
+{
+  "title": "Official shipping & trade websites",
+  "title_ar": "مواقع الشحن والتجارة الرسمية",
+  "desc": "Customs, Nafeza, ports, maritime, rail, ministry and post official sources.",
+  "tag": "",
+  "to": "/do-business/shipping-logistics/platforms",
+  "category": "Do Business",
+  "page": "/do-business/shipping-logistics/platforms"
+}
 ];

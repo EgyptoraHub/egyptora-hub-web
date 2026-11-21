@@ -8,6 +8,7 @@ type Avail = Partial<Record<NavGate, boolean>>;
  * (or the menu item shows "Coming soon").
  */
 export const PATH_GATES: Record<string, NavGate> = {
+  "/do-business/shipping-logistics": "shipping_platforms",
   "/properties": "properties",
   "/offers": "offers",
   "/investment-opportunities": "investment_opportunities",
@@ -18,8 +19,8 @@ export const PATH_GATES: Record<string, NavGate> = {
 export function gateForPath(to: string | undefined): NavGate | undefined {
   if (!to || !to.startsWith("/")) return undefined;
   const path = to.split(/[?#]/)[0] ?? "";
-  const root = "/" + (path.split("/")[1] ?? "");
-  return PATH_GATES[root];
+  const match = Object.keys(PATH_GATES).sort((a, b) => b.length - a.length).find(base => path === base || path.startsWith(base + "/"));
+  return match ? PATH_GATES[match] : undefined;
 }
 
 /** True when `to` points at a gated page that currently has no public record. */
@@ -35,5 +36,5 @@ export function filterSearchEntries<T extends { to: string; page: string }>(entr
 
 /** Concierge itinerary card types are table names; a card is hidden while its section page is gated. */
 export function itineraryItemGatedOff(type: string, avail: Avail): boolean {
-  return linkGatedOff("/" + type.replace(/_/g, "-"), avail);
+  return linkGatedOff(type === "shipping_platforms" ? "/do-business/shipping-logistics/platforms" : "/" + type.replace(/_/g, "-"), avail);
 }

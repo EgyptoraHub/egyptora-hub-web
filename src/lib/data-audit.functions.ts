@@ -40,6 +40,7 @@ async function isAdmin(context: { supabase: any; userId: string }) {
 /** Tables/fields holding public source-style links, with the name column for display. */
 const TRADE_NAMES = { trade_sectors: "name", trade_country_profiles: "name", trade_country_commodities: "commodity", procedure_guides: "title", procedure_steps: "title", procedure_documents: "document_name" } as const;
 export const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: string }[] = [
+  ...["source_url", "official_url", "fee_source_url"].map(field => ({ table: "shipping_platforms", field, nameCol: "name_en", nameCol2: "name_ar" })),
   ...TRADE_CONTENT_TABLES.map(table => ({table,field:"source_url",nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`})),
   {table:"procedure_guides",field:"fee_source_url",nameCol:"title_en",nameCol2:"title_ar"},
   {table:"procedure_guides",field:"time_source_url",nameCol:"title_en",nameCol2:"title_ar"},

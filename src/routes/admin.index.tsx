@@ -1,6 +1,7 @@
 import { TradePhase2Flags } from "@/components/admin/TradePhase2Flags";
 import { ComplaintsPhase2Flags } from "@/components/admin/ComplaintsPhase2Flags";
 import { MobilityPhase2Flags } from "@/components/admin/MobilityPhase2Flags";
+import { ShippingPhase2Flags } from "@/components/admin/ShippingPhase2Flags";
 import { RealEstatePhase2Flags } from "@/components/admin/RealEstatePhase2Flags";
 import { EducationPhase2Flags } from "@/components/admin/EducationPhase2Flags";
 import { createFileRoute } from "@tanstack/react-router";
@@ -98,6 +99,7 @@ function AdminDashboard() {
         <MobilityPhase2Flags />
         <EducationPhase2Flags />
         <RealEstatePhase2Flags />
+        <ShippingPhase2Flags />
 
         <h2 className="mt-8 text-sm font-semibold eyebrow text-muted-foreground">
           {t("Overview")}

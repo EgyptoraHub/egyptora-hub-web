@@ -1,0 +1,13 @@
+import { it } from "node:test";
+import assert from "node:assert/strict";
+import { SYSTEM_PROMPT } from "./concierge-prompt";
+const block = SYSTEM_PROMPT.split("Shipping & Logistics (strict, no exceptions):")[1]?.split("Education (strict, no exceptions):")[0] ?? "";
+it("shipping AI only explains official published pages",()=>assert.match(block,/may explain only what published official pages say/));
+it("shipping AI requires public results before suggesting gated pages",()=>{assert.match(block,/category shipping_platforms/);assert.match(block,/Never suggest the hub or platforms page when no public shipping record was returned/);});
+it("shipping AI never gives quotes prices rates times volumes or capacity",()=>assert.match(block,/Never give quotes, prices, rates, transit times, volumes or capacity/));
+it("shipping AI never ranks carriers forwarders agents warehouses or banks",()=>assert.match(block,/Never recommend or rank carriers, forwarders, clearance agents, warehouses or banks/));
+it("shipping AI never decides customs or shipment clearance",()=>assert.match(block,/Never state customs duties, tariffs or HS classification, or whether a shipment is allowed, prohibited or cleared/));
+it("shipping AI defers sensitive cargo handling to competent authorities",()=>assert.match(block,/Never advise on dangerous goods, pharmaceutical, food, animal or cold-chain handling beyond pointing to the competent authority/));
+it("shipping AI never locates cargo or claims insurance",()=>assert.match(block,/Never track shipments, say where cargo is, or say cargo is insured/));
+it("shipping AI requires sourced evidence for status claims and promises no outcome",()=>{assert.match(block,/"verified", "licensed", "available" or "contracted" unless an active sourced record says so/);assert.match(block,/Never promise any outcome/);});
+it("shipping emergencies use official numbers and only Egyptora AI persona",()=>{assert.match(block,/Emergencies go only to official emergency numbers/);assert.match(block,/only Egyptora AI; never use personas/);});

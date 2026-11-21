@@ -1239,6 +1239,19 @@ export const legalDocuments: LegalDocument[] = [
     ],
     { changeHistory: initial("Initial draft prepared for legal review — needs legal review before launch.") },
   ),
+  doc(
+    39,
+    "shipping-guide-disclaimer",
+    "Shipping Guide Disclaimer",
+    "Disclaimers",
+    "The shipping section is informational only and does not provide cargo or customs services.",
+    [
+      { heading: "Independent information service", body: ["This section is informational only. Egyptora does not quote, book, transport, store, track or insure cargo, does not clear shipments through customs, and does not hold documents or payments. Official decisions remain with the competent authority. Always confirm with the official source."] },
+      { heading: "No cargo services or customs decisions", body: ["Egyptora does not give quotes, prices, transit times or capacity, recommend or rank providers, decide customs duties or shipment clearance, or promise outcomes. Confirm with the competent authority."] },
+      { heading: "Information can change", body: ["Details are taken from official Egyptian sources on the verification date shown and can change. Always confirm on the official website before acting."] },
+    ],
+    { updatedDate: "2026-11-21", changeHistory: [{version:"0.1.0",date:"2026-11-21",note:"Initial draft prepared for legal review — needs legal review before launch."}] },
+  ),
 ];
 
 export const legalCategories: LegalCategory[] = [

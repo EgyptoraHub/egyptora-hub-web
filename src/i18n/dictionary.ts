@@ -1,3 +1,4 @@
+import { shippingAr } from "./shipping-translations";
 import { tradeAr } from "./trade-translations";
 import { healthAr } from "./health-translations";
 import { complaintsAr } from "./complaints-translations";
@@ -23303,6 +23304,6 @@ const hi: Dict = {
 
 const withMt = (lang: keyof typeof phase36, d: Dict): Dict => ({ ...phase36[lang], ...(phase40[lang as keyof typeof phase40] ?? {}), ...d, ...(PHASE36_OVERRIDES[lang] ?? {}) });
 export const dictionaries: Record<LangCode, Dict> = {
-  en: {}, ar: { ...withMt("ar", ar), ...healthAr, ...tradeAr, ...complaintsAr, ...educationAr, ...realEstateAr }, fr: withMt("fr", fr), de: withMt("de", de), es: withMt("es", es),
+  en: {}, ar: { ...withMt("ar", ar), ...healthAr, ...tradeAr, ...complaintsAr, ...educationAr, ...realEstateAr, ...shippingAr }, fr: withMt("fr", fr), de: withMt("de", de), es: withMt("es", es),
   it: withMt("it", it), ru: withMt("ru", ru), zh: withMt("zh", zh), hi: withMt("hi", hi),
 };

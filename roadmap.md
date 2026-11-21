@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 63 — Shipping & Logistics
+- [ ] Add protected official-platform directory, shared admin imports, gated EN/AR pages and draft disclaimer.
+- [ ] Seed 21 disabled switches; validate, import and activate seven owner-approved records with operation audits.
+- [ ] Verify visitor permissions, menu/search/sitemap, EN/AR layouts and tests; write verification report.
+- [ ] Shipping disclaimer counsel review before launch — requires qualified Egyptian legal counsel.
+
 ## Prompt 62 — Portable migration 0039
 - [x] Removed embedded preview tests and synthetic-subject/count checks; public-policy identity lookup and symmetric protection support partial application.
 - [x] Standalone check body and metadata unchanged; manual-check header and migration rule added; 0030–0038 contain no fixed-count assertions.
