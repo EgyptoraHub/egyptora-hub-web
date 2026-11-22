@@ -1,2 +1,3 @@
 - Shipping platforms reuse GUIDE_TABLES validation/admin CSV import, public-column reads and nested path gates — keeps private notes and empty directories inaccessible.
 - shipping_platforms: grant public columns to anon and authenticated, never internal_notes; show only active, reviewed rows; Phase 1 is informational only — preserves visitor safety.
+- Energy is Phase 1 informational; energy_ flags stay disabled; energy_official_bodies grants public columns to anon/authenticated without internal_notes; energy_partner_interest uses server-only inserts and role-checked central admin access — protects private interest details.

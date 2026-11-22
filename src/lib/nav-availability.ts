@@ -6,7 +6,7 @@
 import { useLoaderData } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 
-export type NavGate = "shipping_platforms" | "protected_areas" | "industrial_zones" | "free_zones" | "trade_sectors" | "trade_country_profiles" | "procedure_guides" | "complaint_sectors" | "properties" | "offers" | "investment_opportunities" | "providers";
+export type NavGate = "energy_materials" | "shipping_platforms" | "protected_areas" | "industrial_zones" | "free_zones" | "trade_sectors" | "trade_country_profiles" | "procedure_guides" | "complaint_sectors" | "properties" | "offers" | "investment_opportunities" | "providers";
 type Avail = Partial<Record<NavGate, boolean>>;
 
 const TTL = 5 * 60 * 1000;
@@ -34,12 +34,13 @@ export function fetchNavAvailability(): Promise<Avail> {
     has(supabase.from("providers").select("id", head)),
     has(supabase.from("shipping_platforms").select("id", head)),
   ])
-    .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms]) => ({ protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms }))
+    .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms]) => ({ energy_materials: true, protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms }))
     .catch(() => ({}));
   cache = { at: Date.now(), p };
   return p;
 }
 
+// Energy has original editorial content and a required empty directory state: availability is not tied to directory row counts.
 /** Availability comes from the root loader, so the first (server) render already has the right state. */
 export function useNavAvailability(): Avail {
   return ((useLoaderData({ from: "__root__" }) as { nav?: Avail } | undefined)?.nav) ?? {};

@@ -24,6 +24,7 @@ import { Route as EgyptThroughTimeRouteImport } from './routes/egypt-through-tim
 import { Route as EgyptianHeritageWorldwideRouteImport } from './routes/egyptian-heritage-worldwide'
 import { Route as EmergencyNumbersRouteImport } from './routes/emergency-numbers'
 import { Route as EncyclopediaRouteImport } from './routes/encyclopedia'
+import { Route as EnergyMaterialsRouteImport } from './routes/energy-materials'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as ExploreEgyptRouteImport } from './routes/explore-egypt'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -74,6 +75,9 @@ import { Route as EducationPlatformsRouteImport } from './routes/education_.plat
 import { Route as EgyptAppsCategoryRouteImport } from './routes/egypt-apps_.$category'
 import { Route as EgyptThroughTimeMilitaryHistoryRouteImport } from './routes/egypt-through-time_.military-history'
 import { Route as EgyptianHeritageWorldwideIdRouteImport } from './routes/egyptian-heritage-worldwide_.$id'
+import { Route as EnergyMaterialsDisciplinesRouteImport } from './routes/energy-materials_.disciplines'
+import { Route as EnergyMaterialsOfficialBodiesRouteImport } from './routes/energy-materials_.official-bodies'
+import { Route as EnergyMaterialsPartnerInterestRouteImport } from './routes/energy-materials_.partner-interest'
 import { Route as EventsIdRouteImport } from './routes/events_.$id'
 import { Route as ExperiencesTypeRouteImport } from './routes/experiences.$type'
 import { Route as ExperiencesEcoNatureRouteImport } from './routes/experiences.eco-nature'
@@ -222,6 +226,11 @@ const EmergencyNumbersRoute = EmergencyNumbersRouteImport.update({
 const EncyclopediaRoute = EncyclopediaRouteImport.update({
   id: '/encyclopedia',
   path: '/encyclopedia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnergyMaterialsRoute = EnergyMaterialsRouteImport.update({
+  id: '/energy-materials',
+  path: '/energy-materials',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsRoute = EventsRouteImport.update({
@@ -480,6 +489,24 @@ const EgyptianHeritageWorldwideIdRoute =
   EgyptianHeritageWorldwideIdRouteImport.update({
     id: '/egyptian-heritage-worldwide_/$id',
     path: '/egyptian-heritage-worldwide/$id',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EnergyMaterialsDisciplinesRoute =
+  EnergyMaterialsDisciplinesRouteImport.update({
+    id: '/energy-materials_/disciplines',
+    path: '/energy-materials/disciplines',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EnergyMaterialsOfficialBodiesRoute =
+  EnergyMaterialsOfficialBodiesRouteImport.update({
+    id: '/energy-materials_/official-bodies',
+    path: '/energy-materials/official-bodies',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EnergyMaterialsPartnerInterestRoute =
+  EnergyMaterialsPartnerInterestRouteImport.update({
+    id: '/energy-materials_/partner-interest',
+    path: '/energy-materials/partner-interest',
     getParentRoute: () => rootRouteImport,
   } as any)
 const EventsIdRoute = EventsIdRouteImport.update({
@@ -891,6 +918,7 @@ export interface FileRoutesByFullPath {
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
+  '/energy-materials': typeof EnergyMaterialsRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
   '/faq': typeof FaqRoute
@@ -940,6 +968,9 @@ export interface FileRoutesByFullPath {
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
+  '/energy-materials/disciplines': typeof EnergyMaterialsDisciplinesRoute
+  '/energy-materials/official-bodies': typeof EnergyMaterialsOfficialBodiesRoute
+  '/energy-materials/partner-interest': typeof EnergyMaterialsPartnerInterestRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
@@ -1030,6 +1061,7 @@ export interface FileRoutesByTo {
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
+  '/energy-materials': typeof EnergyMaterialsRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
   '/faq': typeof FaqRoute
@@ -1079,6 +1111,9 @@ export interface FileRoutesByTo {
   '/egypt-apps/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide/$id': typeof EgyptianHeritageWorldwideIdRoute
+  '/energy-materials/disciplines': typeof EnergyMaterialsDisciplinesRoute
+  '/energy-materials/official-bodies': typeof EnergyMaterialsOfficialBodiesRoute
+  '/energy-materials/partner-interest': typeof EnergyMaterialsPartnerInterestRoute
   '/events/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
@@ -1171,6 +1206,7 @@ export interface FileRoutesById {
   '/egyptian-heritage-worldwide': typeof EgyptianHeritageWorldwideRoute
   '/emergency-numbers': typeof EmergencyNumbersRoute
   '/encyclopedia': typeof EncyclopediaRoute
+  '/energy-materials': typeof EnergyMaterialsRoute
   '/events': typeof EventsRoute
   '/explore-egypt': typeof ExploreEgyptRoute
   '/faq': typeof FaqRoute
@@ -1220,6 +1256,9 @@ export interface FileRoutesById {
   '/egypt-apps_/$category': typeof EgyptAppsCategoryRoute
   '/egypt-through-time_/military-history': typeof EgyptThroughTimeMilitaryHistoryRoute
   '/egyptian-heritage-worldwide_/$id': typeof EgyptianHeritageWorldwideIdRoute
+  '/energy-materials_/disciplines': typeof EnergyMaterialsDisciplinesRoute
+  '/energy-materials_/official-bodies': typeof EnergyMaterialsOfficialBodiesRoute
+  '/energy-materials_/partner-interest': typeof EnergyMaterialsPartnerInterestRoute
   '/events_/$id': typeof EventsIdRoute
   '/experiences/$type': typeof ExperiencesTypeRoute
   '/experiences/eco-nature': typeof ExperiencesEcoNatureRoute
@@ -1313,6 +1352,7 @@ export interface FileRouteTypes {
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
+    | '/energy-materials'
     | '/events'
     | '/explore-egypt'
     | '/faq'
@@ -1362,6 +1402,9 @@ export interface FileRouteTypes {
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
+    | '/energy-materials/disciplines'
+    | '/energy-materials/official-bodies'
+    | '/energy-materials/partner-interest'
     | '/events/$id'
     | '/experiences/$type'
     | '/experiences/eco-nature'
@@ -1452,6 +1495,7 @@ export interface FileRouteTypes {
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
+    | '/energy-materials'
     | '/events'
     | '/explore-egypt'
     | '/faq'
@@ -1501,6 +1545,9 @@ export interface FileRouteTypes {
     | '/egypt-apps/$category'
     | '/egypt-through-time/military-history'
     | '/egyptian-heritage-worldwide/$id'
+    | '/energy-materials/disciplines'
+    | '/energy-materials/official-bodies'
+    | '/energy-materials/partner-interest'
     | '/events/$id'
     | '/experiences/$type'
     | '/experiences/eco-nature'
@@ -1592,6 +1639,7 @@ export interface FileRouteTypes {
     | '/egyptian-heritage-worldwide'
     | '/emergency-numbers'
     | '/encyclopedia'
+    | '/energy-materials'
     | '/events'
     | '/explore-egypt'
     | '/faq'
@@ -1641,6 +1689,9 @@ export interface FileRouteTypes {
     | '/egypt-apps_/$category'
     | '/egypt-through-time_/military-history'
     | '/egyptian-heritage-worldwide_/$id'
+    | '/energy-materials_/disciplines'
+    | '/energy-materials_/official-bodies'
+    | '/energy-materials_/partner-interest'
     | '/events_/$id'
     | '/experiences/$type'
     | '/experiences/eco-nature'
@@ -1733,6 +1784,7 @@ export interface RootRouteChildren {
   EgyptianHeritageWorldwideRoute: typeof EgyptianHeritageWorldwideRoute
   EmergencyNumbersRoute: typeof EmergencyNumbersRoute
   EncyclopediaRoute: typeof EncyclopediaRoute
+  EnergyMaterialsRoute: typeof EnergyMaterialsRoute
   EventsRoute: typeof EventsRoute
   ExploreEgyptRoute: typeof ExploreEgyptRoute
   FaqRoute: typeof FaqRoute
@@ -1776,6 +1828,9 @@ export interface RootRouteChildren {
   EgyptAppsCategoryRoute: typeof EgyptAppsCategoryRoute
   EgyptThroughTimeMilitaryHistoryRoute: typeof EgyptThroughTimeMilitaryHistoryRoute
   EgyptianHeritageWorldwideIdRoute: typeof EgyptianHeritageWorldwideIdRoute
+  EnergyMaterialsDisciplinesRoute: typeof EnergyMaterialsDisciplinesRoute
+  EnergyMaterialsOfficialBodiesRoute: typeof EnergyMaterialsOfficialBodiesRoute
+  EnergyMaterialsPartnerInterestRoute: typeof EnergyMaterialsPartnerInterestRoute
   EventsIdRoute: typeof EventsIdRoute
   ExperiencesTypeRoute: typeof ExperiencesTypeRoute
   ExperiencesEcoNatureRoute: typeof ExperiencesEcoNatureRoute
@@ -1951,6 +2006,13 @@ declare module '@tanstack/react-router' {
       path: '/encyclopedia'
       fullPath: '/encyclopedia'
       preLoaderRoute: typeof EncyclopediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/energy-materials': {
+      id: '/energy-materials'
+      path: '/energy-materials'
+      fullPath: '/energy-materials'
+      preLoaderRoute: typeof EnergyMaterialsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events': {
@@ -2301,6 +2363,27 @@ declare module '@tanstack/react-router' {
       path: '/egyptian-heritage-worldwide/$id'
       fullPath: '/egyptian-heritage-worldwide/$id'
       preLoaderRoute: typeof EgyptianHeritageWorldwideIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/energy-materials_/disciplines': {
+      id: '/energy-materials_/disciplines'
+      path: '/energy-materials/disciplines'
+      fullPath: '/energy-materials/disciplines'
+      preLoaderRoute: typeof EnergyMaterialsDisciplinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/energy-materials_/official-bodies': {
+      id: '/energy-materials_/official-bodies'
+      path: '/energy-materials/official-bodies'
+      fullPath: '/energy-materials/official-bodies'
+      preLoaderRoute: typeof EnergyMaterialsOfficialBodiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/energy-materials_/partner-interest': {
+      id: '/energy-materials_/partner-interest'
+      path: '/energy-materials/partner-interest'
+      fullPath: '/energy-materials/partner-interest'
+      preLoaderRoute: typeof EnergyMaterialsPartnerInterestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events_/$id': {
@@ -2865,6 +2948,7 @@ const rootRouteChildren: RootRouteChildren = {
   EgyptianHeritageWorldwideRoute: EgyptianHeritageWorldwideRoute,
   EmergencyNumbersRoute: EmergencyNumbersRoute,
   EncyclopediaRoute: EncyclopediaRoute,
+  EnergyMaterialsRoute: EnergyMaterialsRoute,
   EventsRoute: EventsRoute,
   ExploreEgyptRoute: ExploreEgyptRoute,
   FaqRoute: FaqRoute,
@@ -2908,6 +2992,9 @@ const rootRouteChildren: RootRouteChildren = {
   EgyptAppsCategoryRoute: EgyptAppsCategoryRoute,
   EgyptThroughTimeMilitaryHistoryRoute: EgyptThroughTimeMilitaryHistoryRoute,
   EgyptianHeritageWorldwideIdRoute: EgyptianHeritageWorldwideIdRoute,
+  EnergyMaterialsDisciplinesRoute: EnergyMaterialsDisciplinesRoute,
+  EnergyMaterialsOfficialBodiesRoute: EnergyMaterialsOfficialBodiesRoute,
+  EnergyMaterialsPartnerInterestRoute: EnergyMaterialsPartnerInterestRoute,
   EventsIdRoute: EventsIdRoute,
   ExperiencesTypeRoute: ExperiencesTypeRoute,
   ExperiencesEcoNatureRoute: ExperiencesEcoNatureRoute,

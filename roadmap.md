@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 66 — Energy Materials Phase 1
+- [x] Separate EN/AR pages, homepage/Do Business entry, original-content gate, search/sitemap and draft disclaimer.
+- [x] Empty official-bodies structure, private server-only partner interest, central admin/audit paths and 20 disabled flags.
+- [x] Real visitor permission/form checks, EN/AR mobile/desktop signed-out/in checks, tests and verification report.
+
 ## Prompt 65 — Shipping code-only cleanup
 - [x] Added the sole approved source domain and regression tests; shared language labels and hub breadcrumb; static search description only.
 - [x] Signed-out EN/AR at 390/1280px: 16 page checks, 16 searches, 11 live shipping rows with 0 shared-checker warnings; static mentions and image rights reported; 208 tests pass; docs/prompt-65-verification.md.

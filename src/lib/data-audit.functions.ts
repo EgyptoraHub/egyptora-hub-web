@@ -40,6 +40,7 @@ async function isAdmin(context: { supabase: any; userId: string }) {
 /** Tables/fields holding public source-style links, with the name column for display. */
 const TRADE_NAMES = { trade_sectors: "name", trade_country_profiles: "name", trade_country_commodities: "commodity", procedure_guides: "title", procedure_steps: "title", procedure_documents: "document_name" } as const;
 export const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: string }[] = [
+  ...["source_url", "official_url"].map(field => ({table:"energy_official_bodies",field,nameCol:"name_en",nameCol2:"name_ar"})),
   ...["source_url", "official_url", "fee_source_url"].map(field => ({ table: "shipping_platforms", field, nameCol: "name_en", nameCol2: "name_ar" })),
   ...TRADE_CONTENT_TABLES.map(table => ({table,field:"source_url",nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`})),
   {table:"procedure_guides",field:"fee_source_url",nameCol:"title_en",nameCol2:"title_ar"},
@@ -87,6 +88,7 @@ type PublicDef = {
   cols: string[];
   sourceFields: string[];
   hasVerified: boolean;
+  verifiedField?: string;
   hasReview: boolean;
   /** warn when a source link exists but both source names are empty */
   sourceNameCheck?: boolean;
@@ -94,6 +96,7 @@ type PublicDef = {
 };
 
 const PUBLIC_TABLES: PublicDef[] = [
+  {table:"energy_official_bodies",nameCol:"name_en",nameCol2:"name_ar",cols:["source_url","official_url","verified_on","source_name","source_name_ar"],sourceFields:["source_url"],hasVerified:true,verifiedField:"verified_on",hasReview:true,sourceNameCheck:true,requiredPairs:[["name_ar","name_en"]]},
   ...TRADE_CONTENT_TABLES.map(table => ({table,nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`,cols:["source_url","last_verified_at","source_name","source_name_ar"],sourceFields:["source_url"],hasVerified:true,hasReview:true,sourceNameCheck:true})),
   { table: "health_facilities", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: false, requiredPairs: [["name_ar", "name_en"]] },
   { table: "health_specialties", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: false, requiredPairs: [["name_ar", "name_en"]] },
@@ -150,7 +153,7 @@ export const getDataAudit = createServerFn({ method: "POST" })
         if (!hasSource) push(def.sourceFields.join("/"), "", "public row has no source link");
         if (def.sourceNameCheck && hasSource && !String(row.source_name ?? "").trim() && !String(row.source_name_ar ?? "").trim())
           push("source_name", "", "source link exists but both source names are empty");
-        if (def.hasVerified && !row.last_verified_at) push("last_verified_at", "", "public row was never marked verified");
+        if (def.hasVerified && !row[def.verifiedField ?? "last_verified_at"]) push(def.verifiedField ?? "last_verified_at", "", "public row was never marked verified");
         if (def.hasReview && row.review_status === "needs_check") push("review_status", "needs_check", "public row still needs_check");
         for (const [ar, en] of def.requiredPairs ?? []) {
           if (!String(row[ar] ?? "").trim()) push(ar, "", "required Arabic field is empty");

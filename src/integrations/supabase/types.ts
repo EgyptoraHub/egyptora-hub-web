@@ -1295,6 +1295,117 @@ export type Database = {
           },
         ]
       }
+      energy_official_bodies: {
+        Row: {
+          body_type: string
+          created_at: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          languages: string | null
+          name_ar: string
+          name_en: string
+          official_url: string | null
+          review_status: string
+          slug: string
+          sort_order: number | null
+          source_name: string | null
+          source_name_ar: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          updated_at: string
+          verified_on: string | null
+        }
+        Insert: {
+          body_type: string
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          name_ar: string
+          name_en: string
+          official_url?: string | null
+          review_status?: string
+          slug: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          verified_on?: string | null
+        }
+        Update: {
+          body_type?: string
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          name_ar?: string
+          name_en?: string
+          official_url?: string | null
+          review_status?: string
+          slug?: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          updated_at?: string
+          verified_on?: string | null
+        }
+        Relationships: []
+      }
+      energy_partner_interest: {
+        Row: {
+          company_name: string
+          company_role: string
+          consent_given: boolean
+          contact_email: string
+          contact_name: string
+          country: string
+          created_at: string
+          disciplines: string[]
+          id: string
+          internal_notes: string | null
+          message: string
+          status: string
+        }
+        Insert: {
+          company_name: string
+          company_role: string
+          consent_given: boolean
+          contact_email: string
+          contact_name: string
+          country: string
+          created_at?: string
+          disciplines: string[]
+          id?: string
+          internal_notes?: string | null
+          message: string
+          status?: string
+        }
+        Update: {
+          company_name?: string
+          company_role?: string
+          consent_given?: boolean
+          contact_email?: string
+          contact_name?: string
+          country?: string
+          created_at?: string
+          disciplines?: string[]
+          id?: string
+          internal_notes?: string | null
+          message?: string
+          status?: string
+        }
+        Relationships: []
+      }
       eras: {
         Row: {
           colour: string | null

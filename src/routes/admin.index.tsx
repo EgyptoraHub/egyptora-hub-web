@@ -1,3 +1,4 @@
+import { EnergyPhase2Flags } from "@/components/energy/EnergyPhase2Flags";
 import { TradePhase2Flags } from "@/components/admin/TradePhase2Flags";
 import { ComplaintsPhase2Flags } from "@/components/admin/ComplaintsPhase2Flags";
 import { MobilityPhase2Flags } from "@/components/admin/MobilityPhase2Flags";
@@ -100,6 +101,7 @@ function AdminDashboard() {
         <EducationPhase2Flags />
         <RealEstatePhase2Flags />
         <ShippingPhase2Flags />
+        <EnergyPhase2Flags />
 
         <h2 className="mt-8 text-sm font-semibold eyebrow text-muted-foreground">
           {t("Overview")}

@@ -1252,6 +1252,12 @@ export const legalDocuments: LegalDocument[] = [
     ],
     { updatedDate: "2026-11-21", changeHistory: [{version:"0.1.0",date:"2026-11-21",note:"Initial draft prepared for legal review — needs legal review before launch."}] },
   ),
+  doc(40, "energy-materials-disclaimer", "Energy Materials Disclaimer", "Disclaimers", "Energy Materials is under development and informational only. No buying, selling, quotations, supplier verification, payments or document uploads are available.", [
+    {heading:"Energy Materials",body:["Energy Materials is under development and informational only. No buying, selling, quotations, supplier verification, payments or document uploads are available.","Nothing in this section approves, certifies or recommends any company. Egyptora Hub gives no prices, lead times, technical compliance verdicts or waste-safety classifications."]},
+    {heading:"Founding-partner interest",body:["Company data only. No files or confidential project documents. This is an expression of interest and creates no obligation or promise of service.","The company agrees that Egyptora Hub stores these details to contact it about this section."]},
+    {heading:"Engineering disciplines and categories",body:["Technical standards (for example international piping and pressure codes) are owned by their publishers and may require licences. Egyptora Hub does not reproduce or certify them."]},
+  ], {updatedDate:"2026-11-22",changeHistory:[{version:"0.1.0",date:"2026-11-22",note:"Initial draft prepared for legal review — needs legal review before launch."}]}),
+
 ];
 
 export const legalCategories: LegalCategory[] = [

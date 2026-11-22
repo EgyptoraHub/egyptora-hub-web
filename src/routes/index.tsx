@@ -1,3 +1,4 @@
+import { EnergyEntryCard } from "@/components/energy/EnergyPages";
 import { useOpenLinks } from "@/lib/nav-availability";
 import { HealthHomeWidget } from "@/components/health/HealthShared";
 import { healthQuery } from "@/lib/health.functions";
@@ -111,6 +112,7 @@ function Home() {
         <IntroVideo />
         <ExploreInvest />
         <LiveBusinessWhy />
+        <section className="mx-auto w-full max-w-[1280px] px-4 pb-10 lg:px-8"><EnergyEntryCard /></section>
         <Vision2030 />
         <GovBand />
         <GlobalBand />

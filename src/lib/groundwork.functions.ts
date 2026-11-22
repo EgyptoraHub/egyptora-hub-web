@@ -1,3 +1,4 @@
+import { ENERGY_PHASE2_FLAGS } from "./energy-validation";
 import { TRADE_PHASE2_FLAGS } from "@/lib/trade-validation";
 import { COMPLAINTS_PHASE2_FLAGS } from "@/lib/complaints-validation";
 import { MOBILITY_PHASE2_FLAGS } from "@/lib/mobility-validation";
@@ -7,7 +8,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { checkRole } from "@/lib/roles.functions";
 
-const FLAGS = ["payments.enabled", "kyc.enabled", "partner_dashboard.enabled", "ai_tools.enabled", ...TRADE_PHASE2_FLAGS, ...COMPLAINTS_PHASE2_FLAGS, ...MOBILITY_PHASE2_FLAGS, ...SHIPPING_PHASE2_FLAGS] as const;
+const FLAGS = ["payments.enabled", "kyc.enabled", "partner_dashboard.enabled", "ai_tools.enabled", ...TRADE_PHASE2_FLAGS, ...COMPLAINTS_PHASE2_FLAGS, ...MOBILITY_PHASE2_FLAGS, ...SHIPPING_PHASE2_FLAGS, ...ENERGY_PHASE2_FLAGS] as const;
 type Flag = (typeof FLAGS)[number];
 
 /** Admin-only: read all feature flags (all OFF by default). */

@@ -1,6 +1,11 @@
 // Manually maintained static site-wide search index; no generator exists.
 export type SearchEntry = { title: string; title_ar?: string; desc: string; tag: string; to: string; category: string; page: string };
 export const staticSearchIndex: SearchEntry[] = [
+ {title:"Energy Materials",title_ar:"مواد الطاقة والصناعة",desc:"A planned B2B platform. This section is under development.",tag:"",to:"/energy-materials",category:"Energy Materials",page:"/energy-materials"},
+ {title:"Energy Materials — Engineering disciplines and categories",title_ar:"مواد الطاقة والصناعة — التخصصات والفئات الهندسية",desc:"Illustrative categories, not a product catalogue.",tag:"",to:"/energy-materials/disciplines",category:"Energy Materials",page:"/energy-materials/disciplines"},
+ {title:"Energy Materials — Official bodies",title_ar:"مواد الطاقة والصناعة — الجهات الرسمية",desc:"Official sources are being verified",tag:"",to:"/energy-materials/official-bodies",category:"Energy Materials",page:"/energy-materials/official-bodies"},
+ {title:"Energy Materials — Founding-partner interest",title_ar:"مواد الطاقة والصناعة — إبداء اهتمام الشركاء المؤسسين",desc:"Company data only. This is an expression of interest and creates no obligation or promise of service.",tag:"",to:"/energy-materials/partner-interest",category:"Energy Materials",page:"/energy-materials/partner-interest"},
+
  {
   "title": "Tourism & Experiences",
   "desc": "",

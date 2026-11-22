@@ -25,8 +25,8 @@ it("search gates both source and destination for shipping", () => {
  const entries=[{to:"/do-business/shipping-logistics",page:"/"},{to:"/",page:"/do-business/shipping-logistics/platforms"}];
  assert.equal(filterSearchEntries(entries,{shipping_platforms:false}).length,0); assert.equal(filterSearchEntries(entries,{shipping_platforms:true}).length,2);
 });
-it("21 shipping switches are disabled by the guard and total Phase 2 switches are 82", () => {
- assert.equal(SHIPPING_PHASE2_FLAGS.length,21); assert.equal(new Set(SHIPPING_PHASE2_FLAGS).size,21); assert.equal(DISABLED_PHASE2_FLAGS.length,82);
+it("21 shipping switches are disabled by the guard and non-energy Phase 2 switches remain 82", () => {
+ assert.equal(SHIPPING_PHASE2_FLAGS.length,21); assert.equal(new Set(SHIPPING_PHASE2_FLAGS).size,21); assert.equal(DISABLED_PHASE2_FLAGS.filter(f => !f.startsWith("energy_")).length,82);
  for (const f of SHIPPING_PHASE2_FLAGS) assert.throws(() => assertFeatureFlagChangeAllowed(f),/shipping flags are disabled/);
 });
 it("only active reviewed shipping rows are visible", () => {

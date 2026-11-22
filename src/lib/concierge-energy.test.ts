@@ -1,0 +1,13 @@
+import { it } from "node:test";
+import assert from "node:assert/strict";
+import { SYSTEM_PROMPT } from "./concierge-prompt";
+const block=SYSTEM_PROMPT.split("Energy Materials (strict, no exceptions):")[1]?.split("Shipping & Logistics (strict, no exceptions):")[0]??"";
+it("energy AI cannot describe an operating platform",()=>assert.match(block,/under development and informational only, not an operating platform/));
+it("energy AI cannot approve verify rank or recommend companies",()=>assert.match(block,/Never approve, verify, rank or recommend any supplier or company/));
+it("energy AI cannot imply operator or authority approval",()=>assert.match(block,/Never state or imply that any company is approved by an operator or authority/));
+it("energy AI cannot quote prices or lead times",()=>assert.match(block,/Never give prices, quotations or lead times/));
+it("energy AI cannot give material or standard compliance verdicts",()=>assert.match(block,/Never give a technical compliance verdict for any material or standard/));
+it("energy AI cannot classify waste as safe",()=>assert.match(block,/Never classify any waste or scrap as safe or non-hazardous/));
+it("energy AI cannot promise dates",()=>assert.match(block,/Never promise any future feature date/));
+it("energy AI cannot expose external vendors or other assistant names",()=>assert.match(block,/Egyptora AI only; never use another assistant name or mention or imply an external AI vendor or service/));
+it("energy AI protects company-interest details and cannot invent bodies",()=>{assert.match(block,/never invent official bodies/);assert.match(block,/Never ask for confidential project information in chat/);});

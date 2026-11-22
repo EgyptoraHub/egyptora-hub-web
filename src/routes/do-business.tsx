@@ -1,3 +1,4 @@
+import { EnergyEntryCard } from "@/components/energy/EnergyPages";
 import { GenImage } from "@/components/site/GenImage";
 import { useOpenLinks } from "@/lib/nav-availability";
 import { createFileRoute } from "@tanstack/react-router";
@@ -52,6 +53,7 @@ export const Route = createFileRoute("/do-business")({
 
 const IO = "/investment-opportunities";
 const chips: Chip[] = [
+  { label: "Energy Materials", Icon: Factory, to: "/energy-materials", gate: "energy_materials" },
   { label: "Business Overview", Icon: LayoutDashboard },
   { label: "Start a Business", Icon: Rocket },
   { label: "Licenses & Permits", Icon: FileCheck2 },
@@ -216,6 +218,7 @@ function DoBusiness() {
         </div>
       }
     >
+      <EnergyEntryCard />
       {open(services).length > 0 && (
       <section>
         <SectionHead title="Featured Business Services" body="Everything you need to start, run and grow your business in Egypt." to="/providers" toLabel="View All Services" />
