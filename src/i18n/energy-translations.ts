@@ -29,3 +29,16 @@ export const energyAr: Record<string,string> = {
  "Energy Materials is under development and informational only. No buying, selling, quotations, supplier verification, payments or document uploads are available.": "قسم مواد الطاقة والصناعة تحت التطوير وللمعلومات فقط. لا تتوفر عمليات شراء أو بيع أو عروض أسعار أو تحقق من الموردين أو مدفوعات أو رفع مستندات.",
  "Nothing in this section approves, certifies or recommends any company. Egyptora Hub gives no prices, lead times, technical compliance verdicts or waste-safety classifications.": "لا يعتمد هذا القسم أي شركة ولا يمنحها شهادة ولا يوصي بها. لا تقدم إيجبتورا هب أسعارًا أو مواعيد توريد أو أحكام امتثال فني أو تصنيفات سلامة للنفايات.",
 };
+
+/** Readable labels for energy_official_bodies.body_type keys; unknown keys are shown unchanged. */
+export const ENERGY_BODY_TYPE_LABELS: Record<string, { en: string; ar: string }> = {
+  ministry: { en: "Ministry", ar: "وزارة" },
+  holding_company: { en: "Holding company", ar: "شركة قابضة" },
+  authority: { en: "Authority", ar: "هيئة" },
+  standards_body: { en: "Standards body", ar: "جهة مواصفات" },
+};
+export function energyBodyTypeLabel(key: string, lang: string): string {
+  const l = Object.prototype.hasOwnProperty.call(ENERGY_BODY_TYPE_LABELS, key) ? ENERGY_BODY_TYPE_LABELS[key] : undefined;
+  if (!l) return key;
+  return lang === "ar" ? l.ar : l.en;
+}
