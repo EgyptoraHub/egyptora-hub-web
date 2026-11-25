@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 68 — Energy official bodies batch 2
+- [x] Approved ECHEM source domain and Agency EN/AR label with regression tests.
+- [x] Validated privileged import and activation of exactly two approved rows, with two audit entries.
+- [x] Six-row visitor/privacy and EN/AR page checks, 258 tests and docs/prompt-68-verification.md; admin Data Audit screen not exercised (shared checker used directly).
+
 ## Prompt 66 — Energy Materials Phase 1
 - [x] Separate EN/AR pages, homepage/Do Business entry, original-content gate, search/sitemap and draft disclaimer.
 - [x] Empty official-bodies structure, private server-only partner interest, central admin/audit paths and 20 disabled flags.

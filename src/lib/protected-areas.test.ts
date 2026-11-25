@@ -2,6 +2,21 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { sourceUrlWarning } from "./protected-areas";
 
+describe("owner-approved ECHEM sources", () => {
+  it("accepts the official www domain", () => {
+    assert.equal(sourceUrlWarning("https://www.echem-eg.com/"), null);
+  });
+  it("rejects the approved name under an unrelated domain", () => {
+    assert.equal(sourceUrlWarning("https://echem-eg.com.example.org/"), "warning: source_url is not an Egyptian website");
+  });
+  it("rejects a look-alike without a hostname boundary", () => {
+    assert.equal(sourceUrlWarning("https://notechem-eg.com/"), "warning: source_url is not an Egyptian website");
+  });
+  it("still warns about PDFs on the approved domain", () => {
+    assert.equal(sourceUrlWarning("https://www.echem-eg.com/materials.pdf"), "warning: source_url is PDF link");
+  });
+});
+
 describe("owner-approved EgyptAir Cargo sources", () => {
   it("accepts the official domain and www subdomain", () => {
     assert.equal(sourceUrlWarning("https://egyptair-cargo.com/"), null);

@@ -36,6 +36,7 @@ export const ENERGY_BODY_TYPE_LABELS: Record<string, { en: string; ar: string }>
   holding_company: { en: "Holding company", ar: "شركة قابضة" },
   authority: { en: "Authority", ar: "هيئة" },
   standards_body: { en: "Standards body", ar: "جهة مواصفات" },
+  agency: { en: "Agency", ar: "جهاز" },
 };
 export function energyBodyTypeLabel(key: string, lang: string): string {
   const l = Object.prototype.hasOwnProperty.call(ENERGY_BODY_TYPE_LABELS, key) ? ENERGY_BODY_TYPE_LABELS[key] : undefined;

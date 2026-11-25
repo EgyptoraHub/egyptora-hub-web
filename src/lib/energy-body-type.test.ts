@@ -7,12 +7,14 @@ it("maps known body type keys in English", () => {
   assert.equal(energyBodyTypeLabel("holding_company", "en"), "Holding company");
   assert.equal(energyBodyTypeLabel("authority", "en"), "Authority");
   assert.equal(energyBodyTypeLabel("standards_body", "en"), "Standards body");
+  assert.equal(energyBodyTypeLabel("agency", "en"), "Agency");
 });
 it("maps known body type keys in Arabic", () => {
   assert.equal(energyBodyTypeLabel("ministry", "ar"), "وزارة");
   assert.equal(energyBodyTypeLabel("holding_company", "ar"), "شركة قابضة");
   assert.equal(energyBodyTypeLabel("authority", "ar"), "هيئة");
   assert.equal(energyBodyTypeLabel("standards_body", "ar"), "جهة مواصفات");
+  assert.equal(energyBodyTypeLabel("agency", "ar"), "جهاز");
 });
 it("shows unknown body type keys unchanged", () => {
   assert.equal(energyBodyTypeLabel("regulator_x", "en"), "regulator_x");
