@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect } from "bun:test";
 import { energyBodyTypeLabel } from "@/i18n/energy-translations";
 describe("energy body type labels", () => {
   it("maps known keys in English", () => {
