@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 70 — Energy discoverability
+- [x] Added Energy second in the shared Do Business menu, hidden when its gate is off, with regression tests; nine top-level entries unchanged.
+- [x] Added the informational home Do Business card using the registered factory illustration and AI badge; existing banner and hub entries unchanged.
+- [x] Signed-out EN/AR checks passed at 390/1280/1536px; full suite once: 265 passed; final targeted tests: 9 passed; docs/prompt-70-verification.md. No data changes or publication.
+- [ ] Signed-in administrator checks — owner session unavailable: no app account matches the requesting email; no account or role created for this code-only prompt.
+
 ## Prompt 69 — Energy display and navigation fixes
 - [x] Restored Business Overview as the first Do Business chip and linked Energy second; all other chip arrays audited unchanged with no linked first chip.
 - [x] Added bilingual company-role labels, required-field indicators and the required-fields note; stored values and validation unchanged.

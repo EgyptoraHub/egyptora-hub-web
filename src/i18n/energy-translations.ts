@@ -1,5 +1,6 @@
 export const energyAr: Record<string,string> = {
  "Energy Materials": "مواد الطاقة والصناعة",
+ "Informational pages for energy and industrial materials.": "صفحات معلوماتية عن مواد الطاقة والصناعة.",
  "A planned B2B platform to connect companies that buy, sell, reuse and recycle materials for oil and gas, energy and industrial projects. This section is under development.": "منصة B2B مخطط لها لربط الشركات التي تشتري وتبيع وتعيد استخدام وتدوّر المواد اللازمة لمشروعات البترول والغاز والطاقة والصناعة. هذا القسم تحت التطوير.",
  "Under development. No buying, selling, quotations, supplier verification or payments are available yet. Nothing here is an approval, certification or recommendation of any company.": "تحت التطوير. لا تتوفر حاليًا عمليات شراء أو بيع أو عروض أسعار أو التحقق من الموردين أو مدفوعات. لا يُعد أي محتوى هنا اعتمادًا أو شهادة أو توصية بأي شركة.",
  "Engineering Materials": "المواد الهندسية", "Circular Materials": "المواد الدائرية",

@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { chipHiddenByGate } from "./nav-availability";
-import { isFlatMobileNavEntry, mainNav } from "../data/navigation";
+import { isFlatMobileNavEntry, isHiddenNavLeaf, mainNav } from "../data/navigation";
 
 describe("chipHiddenByGate", () => {
   it("hides a hideIfGatedOff chip when its gate has no public record", () => {
@@ -42,5 +42,25 @@ describe("isFlatMobileNavEntry", () => {
 
   it("treats entries without sub-items as flat", () => {
     assert.equal(isFlatMobileNavEntry({ label: "X", to: "/x" }), true);
+  });
+});
+
+describe("Energy Materials navigation", () => {
+  it("links Energy Materials second in Do Business with its existing gate and no soon placeholder", () => {
+    const items = mainNav.find(e => e.label === "Do Business")?.items;
+    assert.equal(items?.[0]?.label, "All Business Services");
+    assert.deepEqual(items?.[1], { label: "Energy Materials", to: "/energy-materials", gate: "energy_materials" });
+  });
+
+  it("hides the Energy menu item when unavailable and shows it only when the gate is on", () => {
+    const item = mainNav.find(e => e.label === "Do Business")?.items?.find(i => i.label === "Energy Materials");
+    assert.ok(item);
+    assert.equal(isHiddenNavLeaf(item, {}), true);
+    assert.equal(isHiddenNavLeaf(item, { energy_materials: false }), true);
+    assert.equal(isHiddenNavLeaf(item, { energy_materials: true }), false);
+  });
+
+  it("preserves the nine top-level menu entries", () => {
+    assert.deepEqual(mainNav.map(e => e.label), ["Home", "Explore Egypt", "Live in Egypt", "Healthcare & Medical Services", "Invest in Egypt", "Do Business", "Visit Egypt", "Government Directory", "About"]);
   });
 });

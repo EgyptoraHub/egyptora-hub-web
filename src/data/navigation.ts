@@ -1,5 +1,6 @@
 import { healthNavigation } from "@/lib/health-public";
 import type { NavGate } from "@/lib/nav-availability";
+import { chipHiddenByGate } from "@/lib/nav-availability";
 /**
  * Main site navigation: 8 top-level entries, five of which open a dropdown.
  * Sub-items point at a real route where one exists today; the rest are marked
@@ -108,6 +109,7 @@ export const mainNav: NavEntry[] = [
     to: "/do-business",
     items: [
       { label: "All Business Services", to: "/do-business" },
+      { label: "Energy Materials", to: "/energy-materials", gate: "energy_materials" },
       { label: "Start a Business", soon: true },
       { label: "Licenses & Permits", soon: true },
       { label: "Investment Incentives", soon: true, to: "/investment-opportunities", gate: "investment_opportunities" },
@@ -175,4 +177,9 @@ export const mainNav: NavEntry[] = [
 /** Mobile menu: an entry renders as a flat single link only when it has no sub-items. */
 export function isFlatMobileNavEntry(entry: NavEntry): boolean {
   return !entry.items;
+}
+
+/** Gated live-only entries disappear; existing soon entries retain their placeholder. */
+export function isHiddenNavLeaf(item: NavLeaf, availability: Partial<Record<NavGate, boolean>>): boolean {
+  return chipHiddenByGate({ gate: item.gate, hideIfGatedOff: !item.soon }, availability);
 }

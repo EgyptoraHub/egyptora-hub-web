@@ -5,7 +5,7 @@ import { ChevronDown, Menu, MoreHorizontal, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import logo from "@/assets/egyptora-hub-logo.png.asset.json";
 import { SITE } from "@/config/site";
-import { isFlatMobileNavEntry, mainNav, type NavEntry, type NavLeaf } from "@/data/navigation";
+import { isFlatMobileNavEntry, isHiddenNavLeaf, mainNav, type NavEntry, type NavLeaf } from "@/data/navigation";
 import { AuthButtons } from "@/components/site/AuthButtons";
 import { CurrencySwitcher } from "@/components/site/CurrencySwitcher";
 import { LanguageSwitcher } from "@/components/site/LanguageSwitcher";
@@ -25,6 +25,7 @@ export function askConcierge(question: string) {
 function LeafLink({ item, onNavigate }: { item: NavLeaf; onNavigate?: () => void }) {
   const { t } = useI18n();
   const avail = useNavAvailability();
+  if (isHiddenNavLeaf(item, avail)) return null;
   const open = !!item.gate && !!avail[item.gate];
   if ((item.soon && !open) || !item.to) {
     return (

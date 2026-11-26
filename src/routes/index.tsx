@@ -1,12 +1,12 @@
 import { EnergyEntryCard } from "@/components/energy/EnergyPages";
-import { useOpenLinks } from "@/lib/nav-availability";
+import { useOpenLinks, type NavGate } from "@/lib/nav-availability";
 import { HealthHomeWidget } from "@/components/health/HealthShared";
 import { healthQuery } from "@/lib/health.functions";
 import { IntroVideo } from "@/components/site/IntroVideo";
 import { ArrowCta } from "@/components/layout/InnerPage";
 import { useState, type ComponentType, type SVGProps } from "react";
 import { AiBadge } from "@/components/site/AiBadge";
-import { altForSrc } from "@/lib/generated-images";
+import { altForSrc, getGeneratedImage } from "@/lib/generated-images";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
 import {
@@ -31,6 +31,7 @@ import {
   Stamp,
   Users,
   Globe2,
+  Zap,
 } from "lucide-react";
 import heroImg from "@/assets/home/hero.jpg";
 import throughTimeImg from "@/assets/generated/banner-military-history.webp";
@@ -161,22 +162,22 @@ function BlockHead({ title, body, to }: { title: string; body: string; to: strin
   );
 }
 
-type CardData = { title: string; sub: string; img: string; to?: string; badge?: string };
+type CardData = { title: string; sub: string; img?: string; Icon?: Icon; to?: string; badge?: string; gate?: NavGate };
 
 function ImgCard({ c, h = "h-32" }: { c: CardData; h?: string }) {
   const { t, lang } = useI18n();
   return (
     <article className="flex flex-col overflow-hidden rounded-[10px] border border-border bg-card shadow-sm">
       <div className={cn("relative overflow-hidden", h)}>
-        <img src={c.img} alt={altForSrc(c.img, lang, t(c.title))} loading="lazy" className="size-full object-cover" />
-        <AiBadge src={c.img} />
+        {c.img ? <img src={c.img} alt={altForSrc(c.img, lang, t(c.title))} loading="lazy" className="size-full object-cover" /> : c.Icon ? <div className="grid size-full place-items-center bg-chip-active text-navy"><c.Icon className="size-9" aria-hidden="true" /></div> : null}
+        <AiBadge src={c.img ?? null} {...(c.gate === "energy_materials" ? { className: "max-w-[calc(100%-1rem)] leading-tight" } : {})} />
         {c.badge && <NavyBadge>{t(c.badge)}</NavyBadge>}
         <SaveButton
           variant="icon"
           itemType="page"
           itemId={`${c.title}|${c.to ?? ""}`}
           itemName={c.title}
-          itemImage={c.img}
+          {...(c.img ? { itemImage: c.img } : {})}
           className="absolute end-2 top-2 size-7 border-primary-foreground/60 bg-navy/35 text-primary-foreground"
         />
       </div>
@@ -363,10 +364,12 @@ const liveCards: CardData[] = [
   { title: "Education", sub: "Universities and schools", img: educationImg, to: "/research-programs" },
   { title: "Healthcare", sub: "Quality medical services", img: healthImg, to: "/health" },
 ];
+const energyHomeImage = getGeneratedImage("card-industry-factory");
 const bizCards: CardData[] = [
   { title: "Business Opportunities", sub: "Across key sectors", img: bizOppsImg, to: "/investment-opportunities" },
   { title: "Tenders & Projects", sub: "Government and private", img: tendersImg },
   { title: "Business Support", sub: "Legal, financial and more", img: bizSupportImg, to: "/providers" },
+  { title: "Energy Materials", sub: "Informational pages for energy and industrial materials.", to: "/energy-materials", gate: "energy_materials", Icon: Zap, ...(energyHomeImage ? { img: energyHomeImage.src } : {}) },
 ];
 const why: { Icon: Icon; title: string; body: string }[] = [
   { Icon: ShieldCheck, title: "Trusted Information", body: "Verified and reliable content" },
@@ -407,7 +410,7 @@ function LiveBusinessWhy() {
             body="Connect with partners, explore markets and grow your business in Egypt."
             to="/do-business"
           />
-          <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-2">
             {open(bizCards).map((c) => (
               <ImgCard key={c.title} c={c} h="h-24" />
             ))}
