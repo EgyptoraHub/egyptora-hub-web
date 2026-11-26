@@ -1,5 +1,9 @@
 # Roadmap
 
+## Prompt 73 — Community authority guide hidden data batch
+- [x] Exact CSV saved; shared preview: 4 new / 0 updated / 0 rejected; privileged import with one audit entry; all four needs_check/inactive.
+- [x] Real signed-out/non-admin API: 0 rows, internal_notes 401/403; EN/AR guide at 390/1280px stays empty without overflow/errors; 0 link warnings; full suite once: 317 passed; docs/prompt-73-verification.md. No activation, application changes or publication.
+
 ## Prompt 72 — Egyptora Community Phase 1
 - [x] Community is Phase 1 informational: four EN/AR pages under /community, empty authority guide, insert-only interest form, 26 disabled community_ flags, Government Directory menu/card/chip, search, sitemap, draft disclaimer, Egyptora AI rules.
 
