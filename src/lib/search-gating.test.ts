@@ -26,7 +26,7 @@ describe("Prompt 60 — static search visibility", () => {
   });
 
   it("restores retained entries automatically when their gates open", () => {
-    const entries = filterSearchEntries(staticSearchIndex, { properties: true, offers: true, investment_opportunities: true, providers: true, shipping_platforms: true, energy_materials: true });
+    const entries = filterSearchEntries(staticSearchIndex, { properties: true, offers: true, investment_opportunities: true, providers: true, shipping_platforms: true, energy_materials: true, community: true });
     assert.deepEqual(entries, staticSearchIndex);
   });
 

@@ -1,6 +1,10 @@
 // Manually maintained static site-wide search index; no generator exists.
 export type SearchEntry = { title: string; title_ar?: string; desc: string; tag: string; to: string; category: string; page: string };
 export const staticSearchIndex: SearchEntry[] = [
+ {title:"Egyptora Community",title_ar:"مجتمع إيجيبتورا",desc:"Institutions, endowments and community development. This section is under development.",tag:"community",to:"/community",category:"Egyptora Community",page:"/community"},
+ {title:"Egyptora Community — Institution types",title_ar:"مجتمع إيجيبتورا — أنواع المؤسسات",desc:"Illustrative categories, not a directory.",tag:"community",to:"/community/institution-types",category:"Egyptora Community",page:"/community/institution-types"},
+ {title:"Egyptora Community — Competent authority guide",title_ar:"مجتمع إيجيبتورا — دليل الجهة المختصة",desc:"Which official body is responsible for which topic, from official sources.",tag:"community",to:"/community/authority-guide",category:"Egyptora Community",page:"/community/authority-guide"},
+ {title:"Egyptora Community — Institution interest form",title_ar:"مجتمع إيجيبتورا — نموذج إبداء اهتمام المؤسسات",desc:"Organisation data only. This is an expression of interest and creates no obligation or promise of service.",tag:"community",to:"/community/partner-interest",category:"Egyptora Community",page:"/community/partner-interest"},
  {title:"Energy Materials",title_ar:"مواد الطاقة والصناعة",desc:"A planned B2B platform. This section is under development.",tag:"",to:"/energy-materials",category:"Energy Materials",page:"/energy-materials"},
  {title:"Energy Materials — Engineering disciplines and categories",title_ar:"مواد الطاقة والصناعة — التخصصات والفئات الهندسية",desc:"Illustrative categories, not a product catalogue.",tag:"",to:"/energy-materials/disciplines",category:"Energy Materials",page:"/energy-materials/disciplines"},
  {title:"Energy Materials — Official bodies",title_ar:"مواد الطاقة والصناعة — الجهات الرسمية",desc:"Official sources are being verified",tag:"",to:"/energy-materials/official-bodies",category:"Energy Materials",page:"/energy-materials/official-bodies"},

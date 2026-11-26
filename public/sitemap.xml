@@ -108,6 +108,7 @@
   <url><loc>https://www.egyptora-hub.com/legal/real-estate-guide-disclaimer</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/legal/shipping-guide-disclaimer</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/legal/energy-materials-disclaimer</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/legal/community-hub-disclaimer</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/governorates/cairo</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/governorates/giza</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/governorates/qalyubia</loc><changefreq>monthly</changefreq></url>
@@ -148,6 +149,10 @@
   <url><loc>https://www.egyptora-hub.com/egypt-apps/tourism</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-apps/transport</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/egypt-apps/utilities</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/community</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/community/institution-types</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/community/authority-guide</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.egyptora-hub.com/community/partner-interest</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/energy-materials</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/energy-materials/disciplines</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://www.egyptora-hub.com/energy-materials/official-bodies</loc><changefreq>monthly</changefreq></url>

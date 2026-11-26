@@ -11,6 +11,7 @@ describe("Government Directory chip order (Prompt 50f)", () => {
         "Emergency & Quick Numbers",
         "Complaints & Services Guide",
         "Egypt Apps",
+        "Egyptora Community",
         "Ministries",
         "Regulatory Bodies",
         "Related Entities",
@@ -33,8 +34,16 @@ describe("Government Directory chip order (Prompt 50f)", () => {
     assert.equal(c.hint, "Where to file a complaint: official channels by sector.");
   });
 
-  it("no chip was added, removed or renamed (13 chips, unique labels)", () => {
-    assert.equal(chips.length, 13);
-    assert.equal(new Set(chips.map((c) => c.label)).size, 13);
+  it("only Egyptora Community was added (14 chips, unique labels)", () => {
+    assert.equal(chips.length, 14);
+    assert.equal(new Set(chips.map((c) => c.label)).size, 14);
+  });
+
+  it("Egyptora Community chip follows Egypt Apps, is not first, and links to /community", () => {
+    const i = chips.findIndex((x) => x.label === "Egyptora Community");
+    assert.equal(chips[i - 1]?.label, "Egypt Apps");
+    assert.ok(i > 0);
+    assert.equal(chips[i]?.to, "/community");
+    assert.equal(chips[i]?.gate, "community");
   });
 });

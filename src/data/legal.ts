@@ -1258,6 +1258,12 @@ export const legalDocuments: LegalDocument[] = [
     {heading:"Engineering disciplines and categories",body:["Technical standards (for example international piping and pressure codes) are owned by their publishers and may require licences. Egyptora Hub does not reproduce or certify them."]},
   ], {updatedDate:"2026-11-22",changeHistory:[{version:"0.1.0",date:"2026-11-22",note:"Initial draft prepared for legal review — needs legal review before launch."}]}),
 
+  doc(41, "community-hub-disclaimer", "Egyptora Community Disclaimer", "Disclaimers", "Egyptora Community is under development and informational only. No applications, payments, bookings, memberships, case handling or voting are available.", [
+    {heading:"Egyptora Community",body:["Under development. No applications, payments, bookings, memberships, case handling or voting are available. Nothing here is a government service, an approval, a legal opinion or a recommendation of any institution.","This section is based on a concept proposal. It is not a live government service and has no government affiliation."]},
+    {heading:"Legal status and endowments",body:["The legal status, rules and competent authority differ by institution type and by case. Egyptora does not determine legal status, ownership, eligibility or entitlement. Check the competent official authority.","Endowment conditions are set by the founder and can only be changed through the competent legal procedures. Nothing on this site changes them and nothing here promises any return."]},
+    {heading:"Complaints",body:["To file a complaint or find an official body, use the official channels listed there. Egyptora does not receive, review or route complaints."]},
+    {heading:"Institution interest form",body:["Organisation data only. No files, no member or beneficiary personal data, no case details. This is an expression of interest and creates no obligation or promise of service.","The organisation agrees that Egyptora Hub stores these details to contact it about this section."]},
+  ], {updatedDate:"2026-11-26",changeHistory:[{version:"0.1.0",date:"2026-11-26",note:"Initial draft prepared for legal review — needs legal review before launch."}]}),
 ];
 
 export const legalCategories: LegalCategory[] = [

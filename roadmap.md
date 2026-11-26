@@ -1,5 +1,8 @@
 # Roadmap
 
+## Prompt 72 — Egyptora Community Phase 1
+- [x] Community is Phase 1 informational: four EN/AR pages under /community, empty authority guide, insert-only interest form, 26 disabled community_ flags, Government Directory menu/card/chip, search, sitemap, draft disclaimer, Egyptora AI rules.
+
 ## Prompt 71 — Remove the wide Energy banner from the home page
 - [x] Removed the home-page `<EnergyEntryCard />` section and its unused import; component, Do Business page, menu item, home card, chip and all gates untouched.
 - [x] Signed-out EN/AR at 390/1280px: banner absent, Do Business Energy card present and opening /energy-materials, 0px section gap with 56px+56px padding, no horizontal scroll, no page errors; Do Business page still shows its entry card in EN/AR.

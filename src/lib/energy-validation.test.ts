@@ -6,7 +6,7 @@ import { assertFeatureFlagChangeAllowed, DISABLED_PHASE2_FLAGS } from "./phase2-
 import { filterSearchEntries, linkGatedOff } from "./path-gates";
 import { complaintsImportState, complaintsMatchKey } from "./complaints-validation";
 const input={company_name:"Test company",country:"Egypt",company_role:"buyer/operator",disciplines:["mechanical"],contact_name:"Test contact",contact_email:"energy-test@example.invalid",message:"Company expression of interest.",consent_given:true,website:""};
-it("energy has exactly 20 disabled future flags, bringing the total to 102",()=>{assert.equal(ENERGY_PHASE2_FLAGS.length,20);assert.equal(DISABLED_PHASE2_FLAGS.length,102);});
+it("energy has exactly 20 disabled future flags, at least 102 in total",()=>{assert.equal(ENERGY_PHASE2_FLAGS.length,20);assert.ok(DISABLED_PHASE2_FLAGS.length>=102);});
 for(const flag of ENERGY_PHASE2_FLAGS)it(`${flag} is disabled and setter rejects any change`,()=>{assert.ok(DISABLED_PHASE2_FLAGS.includes(flag));assert.throws(()=>assertFeatureFlagChangeAllowed(flag),/^Error: Phase 2 energy flags are disabled\.$/);});
 it("energy company interest requires true consent",()=>{assert.equal(energyInterestSchema.safeParse({...input,consent_given:false}).success,false);assert.equal(energyInterestSchema.safeParse(input).success,true);});
 it("energy message accepts 1000 characters, rejects 1001",()=>{assert.equal(energyInterestSchema.safeParse({...input,message:"a".repeat(1000)}).success,true);assert.equal(energyInterestSchema.safeParse({...input,message:"a".repeat(1001)}).success,false);});

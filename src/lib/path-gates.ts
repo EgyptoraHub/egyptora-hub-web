@@ -9,6 +9,7 @@ type Avail = Partial<Record<NavGate, boolean>>;
  */
 export const PATH_GATES: Record<string, NavGate> = {
   "/energy-materials": "energy_materials",
+  "/community": "community",
   "/do-business/shipping-logistics": "shipping_platforms",
   "/properties": "properties",
   "/offers": "offers",

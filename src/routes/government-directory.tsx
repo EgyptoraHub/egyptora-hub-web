@@ -18,6 +18,7 @@ import cbe from "@/assets/home/biz-support.jpg";
 import cairoGov from "@/assets/gov/cairo.jpg";
 import heroImage from "@/assets/inner/gov-hero.jpg";
 import { SITE } from "@/config/site";
+import { CommunityEntryCard } from "@/components/community/CommunityPages";
 import { useI18n } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -344,6 +345,7 @@ function GovernmentDirectoryPage() {
         </div>
       }
     >
+      <section><CommunityEntryCard /></section>
       <section>
         <SectionHead title="Featured Entities" body="Quick access to key government entities in Egypt." to={`${GD}#all-entities`} />
         <div className={cardGrid}>

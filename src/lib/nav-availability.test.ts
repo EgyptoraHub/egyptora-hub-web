@@ -26,7 +26,7 @@ describe("isFlatMobileNavEntry", () => {
     assert.equal(isFlatMobileNavEntry(gov), false);
   });
 
-  it("keeps Official Directory first among the five sub-items", () => {
+  it("keeps Official Directory first among the six sub-items", () => {
     const gov = mainNav.find((e) => e.label === "Government Directory");
     assert.deepEqual(
       gov?.items?.map((i) => i.label),
@@ -34,10 +34,20 @@ describe("isFlatMobileNavEntry", () => {
         "Official Directory",
         "Digital Government Services",
         "Complaints & Services Guide",
+        "Egyptora Community",
         "Emergency & Quick Numbers",
         "Egypt Apps",
       ],
     );
+  });
+
+  it("Egyptora Community menu item links /community with the community gate, no soon", () => {
+    const item = mainNav.find((e) => e.label === "Government Directory")?.items?.find((i) => i.label === "Egyptora Community");
+    assert.equal(item?.to, "/community");
+    assert.equal(item?.gate, "community");
+    assert.equal(item?.soon, undefined);
+    assert.equal(isHiddenNavLeaf(item!, { community: false }), true);
+    assert.equal(isHiddenNavLeaf(item!, { community: true }), false);
   });
 
   it("treats entries without sub-items as flat", () => {

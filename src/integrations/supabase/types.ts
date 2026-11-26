@@ -220,6 +220,123 @@ export type Database = {
           },
         ]
       }
+      community_authority_guides: {
+        Row: {
+          competent_body_name_ar: string | null
+          competent_body_name_en: string | null
+          created_at: string
+          id: string
+          institution_type: string
+          internal_notes: string | null
+          is_active: boolean
+          languages: string | null
+          official_url: string | null
+          review_status: string
+          slug: string
+          sort_order: number | null
+          source_name: string | null
+          source_name_ar: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          topic_ar: string
+          topic_en: string
+          updated_at: string
+          verified_on: string | null
+        }
+        Insert: {
+          competent_body_name_ar?: string | null
+          competent_body_name_en?: string | null
+          created_at?: string
+          id?: string
+          institution_type: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          official_url?: string | null
+          review_status?: string
+          slug: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          topic_ar: string
+          topic_en: string
+          updated_at?: string
+          verified_on?: string | null
+        }
+        Update: {
+          competent_body_name_ar?: string | null
+          competent_body_name_en?: string | null
+          created_at?: string
+          id?: string
+          institution_type?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          official_url?: string | null
+          review_status?: string
+          slug?: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          topic_ar?: string
+          topic_en?: string
+          updated_at?: string
+          verified_on?: string | null
+        }
+        Relationships: []
+      }
+      community_partner_interest: {
+        Row: {
+          consent_given: boolean
+          contact_email: string
+          contact_name: string
+          country: string
+          created_at: string
+          id: string
+          interests: string[]
+          internal_notes: string | null
+          message: string
+          organisation_name: string
+          organisation_type: string
+          status: string
+        }
+        Insert: {
+          consent_given: boolean
+          contact_email: string
+          contact_name: string
+          country: string
+          created_at?: string
+          id?: string
+          interests: string[]
+          internal_notes?: string | null
+          message: string
+          organisation_name: string
+          organisation_type: string
+          status?: string
+        }
+        Update: {
+          consent_given?: boolean
+          contact_email?: string
+          contact_name?: string
+          country?: string
+          created_at?: string
+          id?: string
+          interests?: string[]
+          internal_notes?: string | null
+          message?: string
+          organisation_name?: string
+          organisation_type?: string
+          status?: string
+        }
+        Relationships: []
+      }
       complaint_channels: {
         Row: {
           authority_name_ar: string | null

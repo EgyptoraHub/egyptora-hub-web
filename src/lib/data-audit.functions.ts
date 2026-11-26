@@ -40,6 +40,7 @@ async function isAdmin(context: { supabase: any; userId: string }) {
 /** Tables/fields holding public source-style links, with the name column for display. */
 const TRADE_NAMES = { trade_sectors: "name", trade_country_profiles: "name", trade_country_commodities: "commodity", procedure_guides: "title", procedure_steps: "title", procedure_documents: "document_name" } as const;
 export const LINK_SOURCES: { table: string; field: string; nameCol: string; nameCol2?: string }[] = [
+  ...["source_url", "official_url"].map(field => ({table:"community_authority_guides",field,nameCol:"topic_en",nameCol2:"topic_ar"})),
   ...["source_url", "official_url"].map(field => ({table:"energy_official_bodies",field,nameCol:"name_en",nameCol2:"name_ar"})),
   ...["source_url", "official_url", "fee_source_url"].map(field => ({ table: "shipping_platforms", field, nameCol: "name_en", nameCol2: "name_ar" })),
   ...TRADE_CONTENT_TABLES.map(table => ({table,field:"source_url",nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`})),
@@ -96,6 +97,7 @@ type PublicDef = {
 };
 
 const PUBLIC_TABLES: PublicDef[] = [
+  {table:"community_authority_guides",nameCol:"topic_en",nameCol2:"topic_ar",cols:["source_url","official_url","verified_on","source_name","source_name_ar"],sourceFields:["source_url"],hasVerified:true,verifiedField:"verified_on",hasReview:true,sourceNameCheck:true,requiredPairs:[["topic_ar","topic_en"]]},
   {table:"energy_official_bodies",nameCol:"name_en",nameCol2:"name_ar",cols:["source_url","official_url","verified_on","source_name","source_name_ar"],sourceFields:["source_url"],hasVerified:true,verifiedField:"verified_on",hasReview:true,sourceNameCheck:true,requiredPairs:[["name_ar","name_en"]]},
   ...TRADE_CONTENT_TABLES.map(table => ({table,nameCol:`${TRADE_NAMES[table]}_en`,nameCol2:`${TRADE_NAMES[table]}_ar`,cols:["source_url","last_verified_at","source_name","source_name_ar"],sourceFields:["source_url"],hasVerified:true,hasReview:true,sourceNameCheck:true})),
   { table: "health_facilities", nameCol: "name_en", nameCol2: "name_ar", cols: ["source_url", "last_verified_at"], sourceFields: ["source_url"], hasVerified: true, hasReview: false, requiredPairs: [["name_ar", "name_en"]] },

@@ -1,0 +1,13 @@
+import { it } from "node:test";
+import assert from "node:assert/strict";
+import { SYSTEM_PROMPT } from "./concierge-prompt";
+const block = SYSTEM_PROMPT.split("Egyptora Community (strict, no exceptions):")[1]?.split("Energy Materials (strict, no exceptions):")[0] ?? "";
+it("community block exists", () => assert.ok(block.length > 200));
+it("community AI cannot describe an operating platform", () => assert.match(block, /Never say the platform is operating or that any application, booking, payment or membership is possible/));
+it("community AI cannot approve or recommend institutions", () => assert.match(block, /Never approve, verify, rank or recommend any institution, club, endowment or company/));
+it("community AI cannot decide ownership or eviction", () => assert.match(block, /Never determine ownership, title, legal status, eligibility, entitlement, compensation or eviction/));
+it("community AI cannot advise on disputes or cases", () => assert.match(block, /Never advise on a tenancy dispute, an election dispute, a board vacancy or any legal case/));
+it("community AI cannot change endowment conditions or promise returns", () => assert.match(block, /Never suggest changing endowment conditions and never promise any return, yield or distribution/));
+it("community AI points complaints to official channels", () => assert.match(block, /Never accept or evaluate allegations or complaints; point to the official channels and the Complaints & Services Guide/));
+it("community AI gives no prices or dates", () => assert.match(block, /Never give prices, fees or subscription amounts\. Never promise any future feature date/));
+it("community AI is Egyptora AI only", () => assert.match(block, /Egyptora AI only; never use another assistant name and never mention or imply an external AI vendor or service/));

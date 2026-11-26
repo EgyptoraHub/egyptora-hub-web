@@ -15,6 +15,7 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BecomeAPartnerRouteImport } from './routes/become-a-partner'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as DoBusinessRouteImport } from './routes/do-business'
@@ -61,6 +62,9 @@ import { Route as AdminMaintenanceRouteImport } from './routes/admin.maintenance
 import { Route as AdminPartnersRouteImport } from './routes/admin.partners'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ApiConciergeRouteImport } from './routes/api/concierge'
+import { Route as CommunityAuthorityGuideRouteImport } from './routes/community_.authority-guide'
+import { Route as CommunityInstitutionTypesRouteImport } from './routes/community_.institution-types'
+import { Route as CommunityPartnerInterestRouteImport } from './routes/community_.partner-interest'
 import { Route as CountriesIdRouteImport } from './routes/countries_.$id'
 import { Route as DoBusinessFreeZonesRouteImport } from './routes/do-business_.free-zones'
 import { Route as DoBusinessIndustrialZonesRouteImport } from './routes/do-business_.industrial-zones'
@@ -180,6 +184,11 @@ const AuthRoute = AuthRouteImport.update({
 const BecomeAPartnerRoute = BecomeAPartnerRouteImport.update({
   id: '/become-a-partner',
   path: '/become-a-partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -413,6 +422,23 @@ const ApiConciergeRoute = ApiConciergeRouteImport.update({
   path: '/api/concierge',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommunityAuthorityGuideRoute = CommunityAuthorityGuideRouteImport.update({
+  id: '/community_/authority-guide',
+  path: '/community/authority-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityInstitutionTypesRoute =
+  CommunityInstitutionTypesRouteImport.update({
+    id: '/community_/institution-types',
+    path: '/community/institution-types',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CommunityPartnerInterestRoute =
+  CommunityPartnerInterestRouteImport.update({
+    id: '/community_/partner-interest',
+    path: '/community/partner-interest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CountriesIdRoute = CountriesIdRouteImport.update({
   id: '/countries_/$id',
   path: '/countries/$id',
@@ -909,6 +935,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/become-a-partner': typeof BecomeAPartnerRoute
+  '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
@@ -954,6 +981,9 @@ export interface FileRoutesByFullPath {
   '/admin/partners': typeof AdminPartnersRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
+  '/community/authority-guide': typeof CommunityAuthorityGuideRoute
+  '/community/institution-types': typeof CommunityInstitutionTypesRoute
+  '/community/partner-interest': typeof CommunityPartnerInterestRoute
   '/countries/$id': typeof CountriesIdRoute
   '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
@@ -1052,6 +1082,7 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
   '/become-a-partner': typeof BecomeAPartnerRoute
+  '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
@@ -1097,6 +1128,9 @@ export interface FileRoutesByTo {
   '/admin/partners': typeof AdminPartnersRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
+  '/community/authority-guide': typeof CommunityAuthorityGuideRoute
+  '/community/institution-types': typeof CommunityInstitutionTypesRoute
+  '/community/partner-interest': typeof CommunityPartnerInterestRoute
   '/countries/$id': typeof CountriesIdRoute
   '/do-business/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business/industrial-zones': typeof DoBusinessIndustrialZonesRoute
@@ -1197,6 +1231,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/become-a-partner': typeof BecomeAPartnerRoute
+  '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/countries': typeof CountriesRoute
   '/do-business': typeof DoBusinessRoute
@@ -1242,6 +1277,9 @@ export interface FileRoutesById {
   '/admin/partners': typeof AdminPartnersRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/concierge': typeof ApiConciergeRoute
+  '/community_/authority-guide': typeof CommunityAuthorityGuideRoute
+  '/community_/institution-types': typeof CommunityInstitutionTypesRoute
+  '/community_/partner-interest': typeof CommunityPartnerInterestRoute
   '/countries_/$id': typeof CountriesIdRoute
   '/do-business_/free-zones': typeof DoBusinessFreeZonesRoute
   '/do-business_/industrial-zones': typeof DoBusinessIndustrialZonesRoute
@@ -1343,6 +1381,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/become-a-partner'
+    | '/community'
     | '/contact'
     | '/countries'
     | '/do-business'
@@ -1388,6 +1427,9 @@ export interface FileRouteTypes {
     | '/admin/partners'
     | '/admin/users'
     | '/api/concierge'
+    | '/community/authority-guide'
+    | '/community/institution-types'
+    | '/community/partner-interest'
     | '/countries/$id'
     | '/do-business/free-zones'
     | '/do-business/industrial-zones'
@@ -1486,6 +1528,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/auth'
     | '/become-a-partner'
+    | '/community'
     | '/contact'
     | '/countries'
     | '/do-business'
@@ -1531,6 +1574,9 @@ export interface FileRouteTypes {
     | '/admin/partners'
     | '/admin/users'
     | '/api/concierge'
+    | '/community/authority-guide'
+    | '/community/institution-types'
+    | '/community/partner-interest'
     | '/countries/$id'
     | '/do-business/free-zones'
     | '/do-business/industrial-zones'
@@ -1630,6 +1676,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/become-a-partner'
+    | '/community'
     | '/contact'
     | '/countries'
     | '/do-business'
@@ -1675,6 +1722,9 @@ export interface FileRouteTypes {
     | '/admin/partners'
     | '/admin/users'
     | '/api/concierge'
+    | '/community_/authority-guide'
+    | '/community_/institution-types'
+    | '/community_/partner-interest'
     | '/countries_/$id'
     | '/do-business_/free-zones'
     | '/do-business_/industrial-zones'
@@ -1775,6 +1825,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
   BecomeAPartnerRoute: typeof BecomeAPartnerRoute
+  CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
   CountriesRoute: typeof CountriesRoute
   DoBusinessRoute: typeof DoBusinessRoute
@@ -1814,6 +1865,9 @@ export interface RootRouteChildren {
   VisitEgyptRoute: typeof VisitEgyptRoute
   AccountBookingsRoute: typeof AccountBookingsRoute
   ApiConciergeRoute: typeof ApiConciergeRoute
+  CommunityAuthorityGuideRoute: typeof CommunityAuthorityGuideRoute
+  CommunityInstitutionTypesRoute: typeof CommunityInstitutionTypesRoute
+  CommunityPartnerInterestRoute: typeof CommunityPartnerInterestRoute
   CountriesIdRoute: typeof CountriesIdRoute
   DoBusinessFreeZonesRoute: typeof DoBusinessFreeZonesRoute
   DoBusinessIndustrialZonesRoute: typeof DoBusinessIndustrialZonesRoute
@@ -1943,6 +1997,13 @@ declare module '@tanstack/react-router' {
       path: '/become-a-partner'
       fullPath: '/become-a-partner'
       preLoaderRoute: typeof BecomeAPartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -2265,6 +2326,27 @@ declare module '@tanstack/react-router' {
       path: '/api/concierge'
       fullPath: '/api/concierge'
       preLoaderRoute: typeof ApiConciergeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community_/authority-guide': {
+      id: '/community_/authority-guide'
+      path: '/community/authority-guide'
+      fullPath: '/community/authority-guide'
+      preLoaderRoute: typeof CommunityAuthorityGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community_/institution-types': {
+      id: '/community_/institution-types'
+      path: '/community/institution-types'
+      fullPath: '/community/institution-types'
+      preLoaderRoute: typeof CommunityInstitutionTypesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community_/partner-interest': {
+      id: '/community_/partner-interest'
+      path: '/community/partner-interest'
+      fullPath: '/community/partner-interest'
+      preLoaderRoute: typeof CommunityPartnerInterestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/countries_/$id': {
@@ -2939,6 +3021,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
   BecomeAPartnerRoute: BecomeAPartnerRoute,
+  CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
   CountriesRoute: CountriesRoute,
   DoBusinessRoute: DoBusinessRoute,
@@ -2978,6 +3061,9 @@ const rootRouteChildren: RootRouteChildren = {
   VisitEgyptRoute: VisitEgyptRoute,
   AccountBookingsRoute: AccountBookingsRoute,
   ApiConciergeRoute: ApiConciergeRoute,
+  CommunityAuthorityGuideRoute: CommunityAuthorityGuideRoute,
+  CommunityInstitutionTypesRoute: CommunityInstitutionTypesRoute,
+  CommunityPartnerInterestRoute: CommunityPartnerInterestRoute,
   CountriesIdRoute: CountriesIdRoute,
   DoBusinessFreeZonesRoute: DoBusinessFreeZonesRoute,
   DoBusinessIndustrialZonesRoute: DoBusinessIndustrialZonesRoute,

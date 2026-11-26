@@ -1,4 +1,5 @@
 import { ENERGY_TABLES, validateEnergyValues } from "./energy-validation";
+import { COMMUNITY_TABLES, validateCommunityValues } from "./community-validation";
 import { z } from "zod";
 import { SHIPPING_TABLES, validateShippingValues } from "./shipping-validation";
 import { REAL_ESTATE_TABLES, validateRealEstateValues } from "./real-estate-validation";
@@ -12,7 +13,7 @@ import { validateEducationValues, EDUCATION_TABLES } from "./education-validatio
  */
 export const COMPLAINTS_TABLES = ["complaint_sectors", "complaint_channels"] as const;
 /** Informational guide tables sharing the validated editor/CSV path (slug match key, forced needs_check + inactive). */
-export const GUIDE_TABLES = [...COMPLAINTS_TABLES, ...EDUCATION_TABLES, ...REAL_ESTATE_TABLES, ...SHIPPING_TABLES, ...ENERGY_TABLES] as const;
+export const GUIDE_TABLES = [...COMPLAINTS_TABLES, ...EDUCATION_TABLES, ...REAL_ESTATE_TABLES, ...SHIPPING_TABLES, ...ENERGY_TABLES, ...COMMUNITY_TABLES] as const;
 export type ComplaintsTable = (typeof GUIDE_TABLES)[number];
 
 /** Phase 2 infrastructure flags — all disabled; nothing in the app may read them to enable behavior. */
@@ -104,6 +105,7 @@ export function complaintsVisible(row: Record<string, unknown>): boolean {
 export const HOTLINE_RE = /^[+0-9][0-9 +\-]{2,19}$/;
 
 export function validateComplaintValues(table: ComplaintsTable, row: Record<string, unknown>, partial = false): string | null {
+  if (table === "community_authority_guides") return validateCommunityValues(row, partial);
   if (table === "energy_official_bodies") return validateEnergyValues(row, partial);
   if (table === "shipping_platforms") return validateShippingValues(row, partial);
   if (table === "real_estate_platforms") return validateRealEstateValues(row, partial);
@@ -132,6 +134,7 @@ export const COMPLAINTS_MATCH_KEYS: Record<ComplaintsTable, string[]> = {
   real_estate_platforms: ["slug"],
   shipping_platforms: ["slug"],
   energy_official_bodies: ["slug"],
+  community_authority_guides: ["slug"],
 };
 export function complaintsMatchKey(table: ComplaintsTable, row: Record<string, unknown>) {
   return JSON.stringify(COMPLAINTS_MATCH_KEYS[table].map((k) => String(row[k] ?? "").trim()));

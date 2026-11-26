@@ -65,6 +65,7 @@ const apps = cats.filter((c) => appCats.has(c.id)).map((c) => `/egypt-apps/${c.s
 // Gated pages.
 const gated = [];
 // Original editorial Energy content is available now, including the required empty official-bodies state.
+gated.push("/community", "/community/institution-types", "/community/authority-guide", "/community/partner-interest");
 gated.push("/energy-materials", "/energy-materials/disciplines", "/energy-materials/official-bodies", "/energy-materials/partner-interest");
 if ((await q("shipping_platforms?select=id&limit=1")).length > 0) gated.push("/do-business/shipping-logistics", "/do-business/shipping-logistics/platforms");
 const zoneTypes = new Set((await q("economic_zones?select=zone_type")).map((z) => z.zone_type));
