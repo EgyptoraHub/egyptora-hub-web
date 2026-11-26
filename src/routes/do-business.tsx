@@ -3,11 +3,11 @@ import { GenImage } from "@/components/site/GenImage";
 import { useOpenLinks } from "@/lib/nav-availability";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  LayoutDashboard, Rocket, FileCheck2, Scale, BadgePercent, PieChart, LifeBuoy, Factory, Gavel,
+  Scale, Factory,
   Globe2, TrendingUp, Users, Gift, Building2, Landmark, BookOpen, ClipboardList, BadgeCheck, LineChart,
   ArrowRight, Download, Headphones, FileText, Search, FolderOpen,
-  Warehouse, Ship, Store, Sprout,
 } from "lucide-react";
+import { doBusinessChips } from "@/data/do-business-chips";
 import { toast } from "sonner";
 import hero from "@/assets/generated/card-business-meeting.webp";
 import solar from "@/assets/home/benban.jpg";
@@ -27,7 +27,7 @@ import health from "@/assets/home/health.jpg";
 import finance from "@/assets/gov/cairo.jpg";
 import {
   InnerPage, cardGrid, SectionHead, ProcessStepsRow, PhotoCard, SidePanel, LinkList, NavyPromo, GoldButton,
-  type CardItem, type Chip,
+  type CardItem,
 } from "@/components/layout/InnerPage";
 import { SITE } from "@/config/site";
 import { useI18n } from "@/i18n";
@@ -52,24 +52,7 @@ export const Route = createFileRoute("/do-business")({
 });
 
 const IO = "/investment-opportunities";
-const chips: Chip[] = [
-  { label: "Energy Materials", Icon: Factory, to: "/energy-materials", gate: "energy_materials" },
-  { label: "Business Overview", Icon: LayoutDashboard },
-  { label: "Start a Business", Icon: Rocket },
-  { label: "Licenses & Permits", Icon: FileCheck2 },
-  { label: "Laws & Regulations", Icon: Scale, to: "/legal" },
-  { label: "Investment Incentives", Icon: BadgePercent, to: IO },
-  { label: "Sectors & Opportunities", Icon: PieChart, to: IO },
-  { label: "Business Support", Icon: LifeBuoy, to: "/providers" },
-  { label: "Industrial Zones", Icon: Factory, to: "/do-business/industrial-zones", gate: "industrial_zones" },
-  { label: "Free Zones", Icon: Warehouse, to: "/do-business/free-zones", gate: "free_zones" },
-  { label: "Trade & Export", Icon: Ship, to: "/products" },
-  { label: "Made in Egypt Marketplace", Icon: Store, to: "/marketplace" },
-  { label: "Industry & Agriculture", Icon: Sprout, to: "/do-business/industry-agriculture", gate: "trade_sectors" },
-  { label: "World Gateway", Icon: Globe2, to: "/do-business/world-gateway", gate: "trade_country_profiles" },
-  { label: "Procedure Guides", Icon: ClipboardList, to: "/do-business/procedure-guides", gate: "procedure_guides" },
-  { label: "Public Procurement", Icon: Gavel },
-];
+const chips = doBusinessChips;
 
 const why = [
   { t: "Strategic Location", d: "A gateway to Africa, the Middle East and Europe.", Icon: Globe2 },

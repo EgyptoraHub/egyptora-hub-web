@@ -20,7 +20,7 @@ export const energyAr: Record<string,string> = {
  "Company data only. No files or confidential project documents. This is an expression of interest and creates no obligation or promise of service.": "بيانات الشركة فقط. لا ملفات أو مستندات مشروعات سرية. هذا إبداء اهتمام ولا ينشئ أي التزام أو وعد بتقديم خدمة.",
  "The company agrees that Egyptora Hub stores these details to contact it about this section.": "توافق الشركة على أن تحفظ إيجبتورا هب هذه التفاصيل للتواصل معها بشأن هذا القسم.",
  "Company name": "اسم الشركة", "Company role": "دور الشركة", "Contact name": "اسم جهة الاتصال", "Contact email": "البريد الإلكتروني للتواصل", "Disciplines": "التخصصات",
- "buyer/operator": "مشتري / مشغّل", "engineering or construction contractor": "مقاول هندسي أو إنشاءات", "supplier or manufacturer": "مورد أو مُصنّع", "recycler or waste handler": "جهة تدوير أو معالجة نفايات", "logistics provider": "مقدم خدمات لوجستية", "other": "أخرى",
+ "Fields marked * are required.": "الحقول المميزة بعلامة * إلزامية.",
  "Your expression of interest has been received. It creates no obligation or promise of service.": "تم استلام إبداء الاهتمام. لا ينشئ ذلك أي التزام أو وعد بتقديم خدمة.",
  "Your request could not be saved. Please try again shortly.": "تعذر حفظ طلبك. يرجى المحاولة مجددًا بعد قليل.",
  "Energy Materials Disclaimer": "إخلاء مسؤولية مواد الطاقة والصناعة", "Draft disclaimer": "مسودة إخلاء المسؤولية", "Energy information is temporarily unavailable.": "معلومات مواد الطاقة غير متاحة مؤقتًا.",
@@ -42,4 +42,19 @@ export function energyBodyTypeLabel(key: string, lang: string): string {
   const l = Object.prototype.hasOwnProperty.call(ENERGY_BODY_TYPE_LABELS, key) ? ENERGY_BODY_TYPE_LABELS[key] : undefined;
   if (!l) return key;
   return lang === "ar" ? l.ar : l.en;
+}
+
+/** Display-only company-role labels; stored and submitted values remain ENERGY_ROLES keys. */
+export const ENERGY_ROLE_LABELS: Record<string, { en: string; ar: string }> = {
+  "buyer/operator": { en: "Buyer / operator", ar: "مشتري / مشغّل" },
+  "engineering or construction contractor": { en: "Engineering or construction contractor", ar: "مقاول هندسي أو إنشاءات" },
+  "supplier or manufacturer": { en: "Supplier or manufacturer", ar: "مورد أو مُصنّع" },
+  "recycler or waste handler": { en: "Recycler or waste handler", ar: "جهة تدوير أو معالجة نفايات" },
+  "logistics provider": { en: "Logistics provider", ar: "مقدم خدمات لوجستية" },
+  other: { en: "Other", ar: "أخرى" },
+};
+export function energyRoleLabel(key: string, lang: string): string {
+  const label = Object.prototype.hasOwnProperty.call(ENERGY_ROLE_LABELS, key) ? ENERGY_ROLE_LABELS[key] : undefined;
+  if (!label) return key;
+  return lang === "ar" ? label.ar : label.en;
 }

@@ -1,5 +1,11 @@
 # Roadmap
 
+## Prompt 69 — Energy display and navigation fixes
+- [x] Restored Business Overview as the first Do Business chip and linked Energy second; all other chip arrays audited unchanged with no linked first chip.
+- [x] Added bilingual company-role labels, required-field indicators and the required-fields note; stored values and validation unchanged.
+- [x] Linked Circular Materials to its anchored section; direct/hash navigation passed EN/AR at 390/1280px.
+- [x] Signed-out browser checks passed with no overflow/page errors; ECHEM has no warning and EEAA shows Agency/جهاز; 262 tests pass; docs/prompt-69-verification.md. No form submitted or publication; public maintenance prevented a published-version comparison.
+
 ## Prompt 68 — Energy official bodies batch 2
 - [x] Approved ECHEM source domain and Agency EN/AR label with regression tests.
 - [x] Validated privileged import and activation of exactly two approved rows, with two audit entries.
