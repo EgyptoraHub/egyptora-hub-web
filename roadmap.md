@@ -1,5 +1,10 @@
 # Roadmap
 
+## Prompt 71 — Remove the wide Energy banner from the home page
+- [x] Removed the home-page `<EnergyEntryCard />` section and its unused import; component, Do Business page, menu item, home card, chip and all gates untouched.
+- [x] Signed-out EN/AR at 390/1280px: banner absent, Do Business Energy card present and opening /energy-materials, 0px section gap with 56px+56px padding, no horizontal scroll, no page errors; Do Business page still shows its entry card in EN/AR.
+- [x] New regression test (banner absent from home, home card present, Do Business card kept); full suite once: 268 passed, 0 failed, 34 files; build OK; docs/prompt-71-verification.md. No data changes or publication.
+
 ## Prompt 70 — Energy discoverability
 - [x] Added Energy second in the shared Do Business menu, hidden when its gate is off, with regression tests; nine top-level entries unchanged.
 - [x] Added the informational home Do Business card using the registered factory illustration and AI badge; existing banner and hub entries unchanged.
