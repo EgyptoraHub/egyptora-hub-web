@@ -156,6 +156,7 @@ export const mainNav: NavEntry[] = [
       { label: "Digital Government Services", to: "/government-directory/digital-services" },
       { label: "Complaints & Services Guide", soon: true, to: "/government-directory/complaints", gate: "complaint_sectors" },
       { label: "Egyptora Community", to: "/community", gate: "community" },
+      { label: "Justice & Legal Services Guide", to: "/justice", gate: "justice" },
       { label: "Emergency & Quick Numbers", to: "/emergency-numbers" },
       { label: "Egypt Apps", to: "/egypt-apps" },
     ],

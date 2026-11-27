@@ -1,5 +1,8 @@
 # Roadmap
 
+## Prompt 74 — Justice & Legal Services Guide Phase 1
+- [x] Justice is Phase 1 informational: three EN/AR pages under /justice, empty official services guide table, 25 disabled justice_ flags, Government Directory menu/card/chip, search, sitemap, draft disclaimer, Egyptora AI rules.
+
 ## Prompt 73b — Correct and activate Community authority guides
 - [x] Confirmed exactly four hidden rows and no others; shared dry run 0 new / 4 updated / 0 rejected; privileged wording/notes corrections and owner-approved activation with two detailed audit entries.
 - [x] Real signed-out/non-admin API: 4 public rows, internal_notes 401/403; EN/AR ordered cards at 390/1280px with safe links, 0 overflow and no warnings; shared source/hygiene checks clean; hub/menu/search/sitemap unchanged; 317 tests passed; docs/prompt-73b-verification.md. No application changes or publication.

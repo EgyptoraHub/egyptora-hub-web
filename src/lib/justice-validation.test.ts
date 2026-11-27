@@ -1,0 +1,18 @@
+import { it } from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { JUSTICE_PHASE2_FLAGS, justiceVisible, validateJusticeValues } from "./justice-validation";
+import { DISABLED_PHASE2_FLAGS, assertFeatureFlagChangeAllowed } from "./phase2-flags";
+import { linkGatedOff } from "./path-gates";
+import { justiceServiceAreaLabel } from "../i18n/justice-translations";
+import { staticSearchIndex } from "../data/search-index.generated";
+import { legalDocuments } from "../data/legal";
+it("justice has 25 unique disabled flags, total 153", () => { assert.equal(JUSTICE_PHASE2_FLAGS.length, 25); assert.equal(new Set(JUSTICE_PHASE2_FLAGS).size, 25); assert.equal(DISABLED_PHASE2_FLAGS.length, 153); });
+for (const flag of JUSTICE_PHASE2_FLAGS) it(`${flag} is disabled and setter rejects it`, () => { assert.ok(DISABLED_PHASE2_FLAGS.includes(flag)); assert.throws(() => assertFeatureFlagChangeAllowed(flag), /^Error: Phase 2 justice flags are disabled\.$/); });
+it("only reviewed active guides visible", () => { assert.equal(justiceVisible({ is_active: true, review_status: "needs_check" }), false); assert.equal(justiceVisible({ is_active: false, review_status: "verified" }), false); assert.equal(justiceVisible({ is_active: true, review_status: "editorial_reviewed" }), true); });
+it("activation needs evidence; PDFs and http official URLs rejected", () => { assert.ok(validateJusticeValues({ is_active: true }, true)); assert.ok(validateJusticeValues({ source_url: "https://x.gov.eg/a.pdf" }, true)); assert.ok(validateJusticeValues({ official_url: "http://x.gov.eg" }, true)); assert.ok(validateJusticeValues({ service_area: "lawyer_ranking" }, true)); });
+it("service area labels EN/AR, unknown unchanged", () => { assert.equal(justiceServiceAreaLabel("notarisation", "en"), "Notarisation and documents"); assert.equal(justiceServiceAreaLabel("general", "ar"), "عام"); assert.equal(justiceServiceAreaLabel("zzz", "ar"), "zzz"); });
+it("justice gate hides all three paths", () => { for (const p of ["/justice", "/justice/service-areas", "/justice/services-guide"]) { assert.equal(linkGatedOff(p, { justice: false }), true); assert.equal(linkGatedOff(p, { justice: true }), false); } });
+it("migration grants no internal_notes and asserts no data counts", () => { const sql = readFileSync(new URL("../../drizzle/migrations/0044_justice_phase1.sql", import.meta.url), "utf8"); const grant = sql.match(/GRANT SELECT\(([^)]*)\) ON public\.justice_service_guides TO anon,authenticated/)?.[1] ?? ""; assert.ok(grant.includes("slug")); assert.equal(grant.includes("internal_notes"), false); assert.match(sql, /REVOKE ALL ON public\.justice_service_guides FROM anon,authenticated/); assert.doesNotMatch(sql, /count\(\*\)|INSERT INTO/i); });
+it("search finds the section by justice, legal and عدالة", () => { for (const q of ["justice", "legal", "عدالة"]) { const hits = staticSearchIndex.filter(e => [e.title, e.title_ar ?? "", e.desc, e.tag ?? ""].join(" ").toLowerCase().includes(q)).map(e => e.to); for (const p of ["/justice", "/justice/service-areas", "/justice/services-guide"]) assert.ok(hits.includes(p), `${q} → ${p}`); } });
+it("disclaimer exists as a draft and is not in the sitemap", () => { const d = legalDocuments.find(x => x.slug === "justice-guide-disclaimer"); assert.ok(d); assert.equal(d.status, "DRAFT"); assert.equal(readFileSync(new URL("../../public/sitemap.xml", import.meta.url), "utf8").includes("justice-guide-disclaimer"), false); });

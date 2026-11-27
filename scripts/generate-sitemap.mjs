@@ -47,7 +47,7 @@ const STATIC = [
 
 // Legal documents and governorates come from the site's own data files.
 const legalSrc = readFileSync(new URL("../src/data/legal.ts", import.meta.url), "utf8");
-const legal = [...legalSrc.matchAll(/doc\(\s*\d+,\s*"([a-z0-9-]+)"/g)].map((m) => `/legal/${m[1]}`);
+const legal = [...legalSrc.matchAll(/doc\(\s*\d+,\s*"([a-z0-9-]+)"/g)].filter((m) => m[1] !== "justice-guide-disclaimer").map((m) => `/legal/${m[1]}`); // Prompt 74: draft justice disclaimer stays out of the sitemap
 const govSrc = readFileSync(new URL("../src/data/governorates.ts", import.meta.url), "utf8");
 const governorates = [...govSrc.matchAll(/^ {4}id: "([a-z-]+)"/gm)].map((m) => `/governorates/${m[1]}`);
 
@@ -65,6 +65,7 @@ const apps = cats.filter((c) => appCats.has(c.id)).map((c) => `/egypt-apps/${c.s
 // Gated pages.
 const gated = [];
 // Original editorial Energy content is available now, including the required empty official-bodies state.
+gated.push("/justice", "/justice/service-areas", "/justice/services-guide");
 gated.push("/community", "/community/institution-types", "/community/authority-guide", "/community/partner-interest");
 gated.push("/energy-materials", "/energy-materials/disciplines", "/energy-materials/official-bodies", "/energy-materials/partner-interest");
 if ((await q("shipping_platforms?select=id&limit=1")).length > 0) gated.push("/do-business/shipping-logistics", "/do-business/shipping-logistics/platforms");

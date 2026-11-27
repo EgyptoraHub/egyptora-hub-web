@@ -4,7 +4,7 @@
  * so they are visible without scrolling on laptop widths. Order is covered by
  * gov-directory-chips.test.ts — do not reorder without updating it.
  */
-import { Gavel, HeartHandshake, Globe2, GraduationCap, Landmark, LayoutGrid, Link2, Map as MapIcon, MessageSquareWarning, Scale, Siren, Smartphone, TrendingUp, Users } from "lucide-react";
+import { BookOpen, Gavel, HeartHandshake, Globe2, GraduationCap, Landmark, LayoutGrid, Link2, Map as MapIcon, MessageSquareWarning, Scale, Siren, Smartphone, TrendingUp, Users } from "lucide-react";
 import type { Chip } from "@/components/layout/InnerPage";
 
 const GD = "/government-directory";
@@ -22,6 +22,7 @@ export const govDirectoryChips: Chip[] = [
   },
   { label: "Egypt Apps", Icon: Smartphone, to: "/egypt-apps" },
   { label: "Egyptora Community", Icon: HeartHandshake, to: "/community", gate: "community", hideIfGatedOff: true },
+  { label: "Justice & Legal Services Guide", Icon: BookOpen, to: "/justice", gate: "justice", hideIfGatedOff: true },
   { label: "Ministries", Icon: Landmark, to: `${GD}#ministries` },
   { label: "Regulatory Bodies", Icon: Scale, to: `${GD}#authorities-and-agencies` },
   { label: "Related Entities", Icon: Link2 },

@@ -2,3 +2,4 @@
 - shipping_platforms: grant public columns to anon and authenticated, never internal_notes; show only active, reviewed rows; Phase 1 is informational only — preserves visitor safety.
 - Energy is Phase 1 informational; energy_ flags stay disabled; energy_official_bodies grants public columns to anon/authenticated without internal_notes; energy_partner_interest uses server-only inserts and role-checked central admin access — protects private interest details.
 - Community is Phase 1 informational; community_ flags stay disabled; community_authority_guides grants public columns to anon/authenticated without internal_notes; community_partner_interest is insert-only via the server function; no member data, cases or complaints.
+- Justice is Phase 1 informational; justice_ flags stay permanently disabled; justice_service_guides grants public columns to anon/authenticated without internal_notes; no legal advice, cases, complaints or personal data.

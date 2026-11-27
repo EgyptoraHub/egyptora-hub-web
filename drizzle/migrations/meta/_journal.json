@@ -309,6 +309,13 @@
       "when": 1795704428513,
       "tag": "0043_community_phase1",
       "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1795792290787,
+      "tag": "0044_justice_phase1",
+      "breakpoints": true
     }
   ]
 }

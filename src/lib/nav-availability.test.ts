@@ -35,6 +35,7 @@ describe("isFlatMobileNavEntry", () => {
         "Digital Government Services",
         "Complaints & Services Guide",
         "Egyptora Community",
+        "Justice & Legal Services Guide",
         "Emergency & Quick Numbers",
         "Egypt Apps",
       ],
@@ -48,6 +49,18 @@ describe("isFlatMobileNavEntry", () => {
     assert.equal(item?.soon, undefined);
     assert.equal(isHiddenNavLeaf(item!, { community: false }), true);
     assert.equal(isHiddenNavLeaf(item!, { community: true }), false);
+  });
+
+  it("Justice menu item follows Egyptora Community, links /justice with the justice gate, no soon", () => {
+    const items = mainNav.find((e) => e.label === "Government Directory")?.items ?? [];
+    const i = items.findIndex((x) => x.label === "Justice & Legal Services Guide");
+    assert.equal(items[i - 1]?.label, "Egyptora Community");
+    const item = items[i]!;
+    assert.equal(item.to, "/justice");
+    assert.equal(item.gate, "justice");
+    assert.equal(item.soon, undefined);
+    assert.equal(isHiddenNavLeaf(item, { justice: false }), true);
+    assert.equal(isHiddenNavLeaf(item, { justice: true }), false);
   });
 
   it("treats entries without sub-items as flat", () => {

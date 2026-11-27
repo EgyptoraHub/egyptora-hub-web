@@ -1,0 +1,18 @@
+CREATE TABLE public.justice_service_guides (
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(), slug text NOT NULL UNIQUE CHECK(slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'), service_area text NOT NULL CHECK(service_area IN ('court_inquiries','legal_professions','notarisation','records_archives','interior_services','mediation_legal_aid','translation_foreign_documents','general')), title_ar text NOT NULL CHECK(length(trim(title_ar)) BETWEEN 1 AND 300), title_en text NOT NULL CHECK(length(trim(title_en)) BETWEEN 1 AND 300), provider_name_ar text, provider_name_en text, summary_ar text, summary_en text, official_url text, source_name text, source_name_ar text, source_url text, verified_on date, languages text CHECK(languages IN ('ar','en','ar,en')), sort_order integer DEFAULT 0, review_status text NOT NULL DEFAULT 'needs_check' CHECK(review_status IN ('needs_check','editorial_reviewed','verified')), is_active boolean NOT NULL DEFAULT false, internal_notes text, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.justice_service_guides TO service_role;
+REVOKE ALL ON public.justice_service_guides FROM anon,authenticated;
+GRANT SELECT(id,slug,service_area,title_ar,title_en,provider_name_ar,provider_name_en,summary_ar,summary_en,official_url,source_name,source_name_ar,source_url,verified_on,languages,sort_order,review_status,is_active,created_at,updated_at) ON public.justice_service_guides TO anon,authenticated;
+GRANT INSERT,UPDATE,DELETE ON public.justice_service_guides TO authenticated;
+ALTER TABLE public.justice_service_guides ENABLE ROW LEVEL SECURITY;
+CREATE POLICY justice_service_guides_public ON public.justice_service_guides FOR SELECT TO anon,authenticated USING(is_active AND review_status IN ('editorial_reviewed','verified'));
+CREATE POLICY justice_service_guides_admin ON public.justice_service_guides FOR ALL TO authenticated USING(public.has_role(auth.uid(),'admin')) WITH CHECK(public.has_role(auth.uid(),'admin'));
+CREATE FUNCTION public.validate_justice_service_guide() RETURNS trigger LANGUAGE plpgsql SET search_path=public AS $$ BEGIN
+ IF NEW.verified_on > CURRENT_DATE THEN RAISE EXCEPTION 'Verification date cannot be in the future'; END IF;
+ IF NEW.source_url IS NOT NULL AND (length(NEW.source_url)>2048 OR NEW.source_url !~ '^https?://' OR NEW.source_url ~* '\.pdf([?#]|$)') THEN RAISE EXCEPTION 'Source must be an HTTP website, not a PDF'; END IF;
+ IF NEW.official_url IS NOT NULL AND (length(NEW.official_url)>2048 OR NEW.official_url !~ '^https://' OR NEW.official_url ~* '\.pdf([?#]|$)') THEN RAISE EXCEPTION 'Official URL must be HTTPS and not a PDF'; END IF;
+ IF NEW.is_active AND (nullif(trim(NEW.source_url),'') IS NULL OR NEW.verified_on IS NULL OR NEW.review_status NOT IN ('editorial_reviewed','verified') OR coalesce(NEW.official_url,'') !~ '^https://') THEN RAISE EXCEPTION 'Activation requires source URL, verification date, reviewed status and HTTPS official URL'; END IF;
+ RETURN NEW; END $$;
+CREATE TRIGGER justice_service_guides_validate BEFORE INSERT OR UPDATE ON public.justice_service_guides FOR EACH ROW EXECUTE FUNCTION public.validate_justice_service_guide();
+CREATE TRIGGER justice_service_guides_touch BEFORE UPDATE ON public.justice_service_guides FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
+REVOKE ALL ON FUNCTION public.validate_justice_service_guide() FROM PUBLIC;

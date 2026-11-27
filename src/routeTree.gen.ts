@@ -35,6 +35,7 @@ import { Route as HealthRouteImport } from './routes/health'
 import { Route as HeritageSitesRouteImport } from './routes/heritage-sites'
 import { Route as InvestInEgyptRouteImport } from './routes/invest-in-egypt'
 import { Route as InvestmentOpportunitiesRouteImport } from './routes/investment-opportunities'
+import { Route as JusticeRouteImport } from './routes/justice'
 import { Route as KnowYourRootsRouteImport } from './routes/know-your-roots'
 import { Route as LiveInEgyptRouteImport } from './routes/live-in-egypt'
 import { Route as LiveLikeAnEgyptianRouteImport } from './routes/live-like-an-egyptian'
@@ -100,6 +101,8 @@ import { Route as HealthSpecialtiesRouteImport } from './routes/health_.specialt
 import { Route as HealthSupportRouteImport } from './routes/health_.support'
 import { Route as HeritageSitesIdRouteImport } from './routes/heritage-sites_.$id'
 import { Route as InvestmentOpportunitiesIdRouteImport } from './routes/investment-opportunities_.$id'
+import { Route as JusticeServiceAreasRouteImport } from './routes/justice_.service-areas'
+import { Route as JusticeServicesGuideRouteImport } from './routes/justice_.services-guide'
 import { Route as LegalIndexRouteImport } from './routes/legal.index'
 import { Route as LegalSlugRouteImport } from './routes/legal.$slug'
 import { Route as LegalConsentRouteImport } from './routes/legal.consent'
@@ -285,6 +288,11 @@ const InvestInEgyptRoute = InvestInEgyptRouteImport.update({
 const InvestmentOpportunitiesRoute = InvestmentOpportunitiesRouteImport.update({
   id: '/investment-opportunities',
   path: '/investment-opportunities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JusticeRoute = JusticeRouteImport.update({
+  id: '/justice',
+  path: '/justice',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KnowYourRootsRoute = KnowYourRootsRouteImport.update({
@@ -628,6 +636,16 @@ const InvestmentOpportunitiesIdRoute =
     path: '/investment-opportunities/$id',
     getParentRoute: () => rootRouteImport,
   } as any)
+const JusticeServiceAreasRoute = JusticeServiceAreasRouteImport.update({
+  id: '/justice_/service-areas',
+  path: '/justice/service-areas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JusticeServicesGuideRoute = JusticeServicesGuideRouteImport.update({
+  id: '/justice_/services-guide',
+  path: '/justice/services-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LegalIndexRoute = LegalIndexRouteImport.update({
   id: '/legal/',
   path: '/legal/',
@@ -955,6 +973,7 @@ export interface FileRoutesByFullPath {
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
+  '/justice': typeof JusticeRoute
   '/know-your-roots': typeof KnowYourRootsRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
@@ -1018,6 +1037,8 @@ export interface FileRoutesByFullPath {
   '/health/support': typeof HealthSupportRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
   '/investment-opportunities/$id': typeof InvestmentOpportunitiesIdRoute
+  '/justice/service-areas': typeof JusticeServiceAreasRoute
+  '/justice/services-guide': typeof JusticeServicesGuideRoute
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
@@ -1102,6 +1123,7 @@ export interface FileRoutesByTo {
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
+  '/justice': typeof JusticeRoute
   '/know-your-roots': typeof KnowYourRootsRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
@@ -1165,6 +1187,8 @@ export interface FileRoutesByTo {
   '/health/support': typeof HealthSupportRoute
   '/heritage-sites/$id': typeof HeritageSitesIdRoute
   '/investment-opportunities/$id': typeof InvestmentOpportunitiesIdRoute
+  '/justice/service-areas': typeof JusticeServiceAreasRoute
+  '/justice/services-guide': typeof JusticeServicesGuideRoute
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
@@ -1251,6 +1275,7 @@ export interface FileRoutesById {
   '/heritage-sites': typeof HeritageSitesRoute
   '/invest-in-egypt': typeof InvestInEgyptRoute
   '/investment-opportunities': typeof InvestmentOpportunitiesRoute
+  '/justice': typeof JusticeRoute
   '/know-your-roots': typeof KnowYourRootsRoute
   '/live-in-egypt': typeof LiveInEgyptRoute
   '/live-like-an-egyptian': typeof LiveLikeAnEgyptianRoute
@@ -1314,6 +1339,8 @@ export interface FileRoutesById {
   '/health_/support': typeof HealthSupportRoute
   '/heritage-sites_/$id': typeof HeritageSitesIdRoute
   '/investment-opportunities_/$id': typeof InvestmentOpportunitiesIdRoute
+  '/justice_/service-areas': typeof JusticeServiceAreasRoute
+  '/justice_/services-guide': typeof JusticeServicesGuideRoute
   '/legal/$slug': typeof LegalSlugRoute
   '/legal/consent': typeof LegalConsentRoute
   '/legal/review-checklist': typeof LegalReviewChecklistRoute
@@ -1401,6 +1428,7 @@ export interface FileRouteTypes {
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
+    | '/justice'
     | '/know-your-roots'
     | '/live-in-egypt'
     | '/live-like-an-egyptian'
@@ -1464,6 +1492,8 @@ export interface FileRouteTypes {
     | '/health/support'
     | '/heritage-sites/$id'
     | '/investment-opportunities/$id'
+    | '/justice/service-areas'
+    | '/justice/services-guide'
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
@@ -1548,6 +1578,7 @@ export interface FileRouteTypes {
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
+    | '/justice'
     | '/know-your-roots'
     | '/live-in-egypt'
     | '/live-like-an-egyptian'
@@ -1611,6 +1642,8 @@ export interface FileRouteTypes {
     | '/health/support'
     | '/heritage-sites/$id'
     | '/investment-opportunities/$id'
+    | '/justice/service-areas'
+    | '/justice/services-guide'
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
@@ -1696,6 +1729,7 @@ export interface FileRouteTypes {
     | '/heritage-sites'
     | '/invest-in-egypt'
     | '/investment-opportunities'
+    | '/justice'
     | '/know-your-roots'
     | '/live-in-egypt'
     | '/live-like-an-egyptian'
@@ -1759,6 +1793,8 @@ export interface FileRouteTypes {
     | '/health_/support'
     | '/heritage-sites_/$id'
     | '/investment-opportunities_/$id'
+    | '/justice_/service-areas'
+    | '/justice_/services-guide'
     | '/legal/$slug'
     | '/legal/consent'
     | '/legal/review-checklist'
@@ -1845,6 +1881,7 @@ export interface RootRouteChildren {
   HeritageSitesRoute: typeof HeritageSitesRoute
   InvestInEgyptRoute: typeof InvestInEgyptRoute
   InvestmentOpportunitiesRoute: typeof InvestmentOpportunitiesRoute
+  JusticeRoute: typeof JusticeRoute
   KnowYourRootsRoute: typeof KnowYourRootsRoute
   LiveInEgyptRoute: typeof LiveInEgyptRoute
   LiveLikeAnEgyptianRoute: typeof LiveLikeAnEgyptianRoute
@@ -1902,6 +1939,8 @@ export interface RootRouteChildren {
   HealthSupportRoute: typeof HealthSupportRoute
   HeritageSitesIdRoute: typeof HeritageSitesIdRoute
   InvestmentOpportunitiesIdRoute: typeof InvestmentOpportunitiesIdRoute
+  JusticeServiceAreasRoute: typeof JusticeServiceAreasRoute
+  JusticeServicesGuideRoute: typeof JusticeServicesGuideRoute
   LegalSlugRoute: typeof LegalSlugRoute
   LegalConsentRoute: typeof LegalConsentRoute
   LegalReviewChecklistRoute: typeof LegalReviewChecklistRoute
@@ -2137,6 +2176,13 @@ declare module '@tanstack/react-router' {
       path: '/investment-opportunities'
       fullPath: '/investment-opportunities'
       preLoaderRoute: typeof InvestmentOpportunitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/justice': {
+      id: '/justice'
+      path: '/justice'
+      fullPath: '/justice'
+      preLoaderRoute: typeof JusticeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/know-your-roots': {
@@ -2594,6 +2640,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InvestmentOpportunitiesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/justice_/service-areas': {
+      id: '/justice_/service-areas'
+      path: '/justice/service-areas'
+      fullPath: '/justice/service-areas'
+      preLoaderRoute: typeof JusticeServiceAreasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/justice_/services-guide': {
+      id: '/justice_/services-guide'
+      path: '/justice/services-guide'
+      fullPath: '/justice/services-guide'
+      preLoaderRoute: typeof JusticeServicesGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/legal/': {
       id: '/legal/'
       path: '/legal'
@@ -3041,6 +3101,7 @@ const rootRouteChildren: RootRouteChildren = {
   HeritageSitesRoute: HeritageSitesRoute,
   InvestInEgyptRoute: InvestInEgyptRoute,
   InvestmentOpportunitiesRoute: InvestmentOpportunitiesRoute,
+  JusticeRoute: JusticeRoute,
   KnowYourRootsRoute: KnowYourRootsRoute,
   LiveInEgyptRoute: LiveInEgyptRoute,
   LiveLikeAnEgyptianRoute: LiveLikeAnEgyptianRoute,
@@ -3099,6 +3160,8 @@ const rootRouteChildren: RootRouteChildren = {
   HealthSupportRoute: HealthSupportRoute,
   HeritageSitesIdRoute: HeritageSitesIdRoute,
   InvestmentOpportunitiesIdRoute: InvestmentOpportunitiesIdRoute,
+  JusticeServiceAreasRoute: JusticeServiceAreasRoute,
+  JusticeServicesGuideRoute: JusticeServicesGuideRoute,
   LegalSlugRoute: LegalSlugRoute,
   LegalConsentRoute: LegalConsentRoute,
   LegalReviewChecklistRoute: LegalReviewChecklistRoute,

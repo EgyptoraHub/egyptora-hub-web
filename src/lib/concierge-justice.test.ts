@@ -1,0 +1,16 @@
+import { it } from "node:test";
+import assert from "node:assert/strict";
+import { SYSTEM_PROMPT } from "./concierge-prompt";
+const block = SYSTEM_PROMPT.split("Justice & Legal Services Guide (strict, no exceptions):")[1]?.split("Energy Materials (strict, no exceptions):")[0] ?? "";
+it("justice block exists", () => assert.ok(block.length > 200));
+it("justice AI cannot describe an operating platform", () => assert.match(block, /Never say the platform is operating or that any request, filing, tracking, payment or booking is possible/));
+it("justice AI gives no legal advice or competence decisions", () => assert.match(block, /Never give legal advice or a legal opinion\. Never determine which court, prosecutor or authority is competent/));
+it("justice AI states no deadlines or outcomes", () => assert.match(block, /Never calculate or state deadlines, limitation periods, appeal windows or fees\. Never predict or comment on the outcome of any case/));
+it("justice AI does not judge document validity", () => assert.match(block, /Never say whether a document is valid, certified or legally effective/));
+it("justice AI does not advise on individual matters", () => assert.match(block, /Never advise on a pending case, a police report, an arrest, a conviction, an eviction, an inheritance, a marriage or divorce dispute/));
+it("justice AI does not assess persons", () => assert.match(block, /Never assess the guilt, dangerousness or risk of any person/));
+it("justice AI does not recommend lawyers", () => assert.match(block, /Never recommend, rank, verify or approve any lawyer, firm, translator, mediator or institution/));
+it("justice AI points reports to official channels and emergency numbers", () => assert.match(block, /Never accept or evaluate allegations, crime reports or complaints; point to the official channels, the Complaints & Services Guide and the Emergency Numbers page/));
+it("justice AI takes no personal data, prices or dates", () => assert.match(block, /Never ask for or process personal data, case numbers or documents\. Never give prices or fees\. Never promise any future feature date/));
+it("justice AI is Egyptora AI only", () => { assert.match(block, /Egyptora AI only; never use another assistant name and never mention or imply an external AI vendor or service/); assert.doesNotMatch(block, /maat/i); });
+it("justice AI falls back to authority or licensed lawyer", () => assert.match(block, /cannot help with that and point to the competent official authority or a licensed lawyer/));

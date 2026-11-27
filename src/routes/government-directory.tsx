@@ -19,6 +19,7 @@ import cairoGov from "@/assets/gov/cairo.jpg";
 import heroImage from "@/assets/inner/gov-hero.jpg";
 import { SITE } from "@/config/site";
 import { CommunityEntryCard } from "@/components/community/CommunityPages";
+import { JusticeEntryCard } from "@/components/justice/JusticePages";
 import { useI18n } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -346,6 +347,7 @@ function GovernmentDirectoryPage() {
       }
     >
       <section><CommunityEntryCard /></section>
+      <section><JusticeEntryCard /></section>
       <section>
         <SectionHead title="Featured Entities" body="Quick access to key government entities in Egypt." to={`${GD}#all-entities`} />
         <div className={cardGrid}>

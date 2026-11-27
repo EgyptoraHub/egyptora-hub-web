@@ -2479,6 +2479,78 @@ export type Database = {
           },
         ]
       }
+      justice_service_guides: {
+        Row: {
+          created_at: string
+          id: string
+          internal_notes: string | null
+          is_active: boolean
+          languages: string | null
+          official_url: string | null
+          provider_name_ar: string | null
+          provider_name_en: string | null
+          review_status: string
+          service_area: string
+          slug: string
+          sort_order: number | null
+          source_name: string | null
+          source_name_ar: string | null
+          source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          title_ar: string
+          title_en: string
+          updated_at: string
+          verified_on: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          official_url?: string | null
+          provider_name_ar?: string | null
+          provider_name_en?: string | null
+          review_status?: string
+          service_area: string
+          slug: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          title_ar: string
+          title_en: string
+          updated_at?: string
+          verified_on?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          internal_notes?: string | null
+          is_active?: boolean
+          languages?: string | null
+          official_url?: string | null
+          provider_name_ar?: string | null
+          provider_name_en?: string | null
+          review_status?: string
+          service_area?: string
+          slug?: string
+          sort_order?: number | null
+          source_name?: string | null
+          source_name_ar?: string | null
+          source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          title_ar?: string
+          title_en?: string
+          updated_at?: string
+          verified_on?: string | null
+        }
+        Relationships: []
+      }
       legal_document_versions: {
         Row: {
           approval_status: string

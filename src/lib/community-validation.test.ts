@@ -6,7 +6,7 @@ import { DISABLED_PHASE2_FLAGS, assertFeatureFlagChangeAllowed } from "./phase2-
 import { linkGatedOff } from "./path-gates";
 import { communityInstitutionTypeLabel, communityOrgTypeLabel } from "../i18n/community-translations";
 const input = { organisation_name: "Test org", country: "Egypt", organisation_type: "foundation", interests: ["memberships"], contact_name: "Test", contact_email: "community-test@example.invalid", message: "Interest.", consent_given: true, website: "" };
-it("community has 26 disabled flags, total 128", () => { assert.equal(COMMUNITY_PHASE2_FLAGS.length, 26); assert.equal(DISABLED_PHASE2_FLAGS.length, 128); });
+it("community has 26 disabled flags, total 128", () => { assert.equal(COMMUNITY_PHASE2_FLAGS.length, 26); assert.equal(DISABLED_PHASE2_FLAGS.filter(f => !f.startsWith("justice_")).length, 128); });
 for (const flag of COMMUNITY_PHASE2_FLAGS) it(`${flag} is disabled and setter rejects it`, () => { assert.ok(DISABLED_PHASE2_FLAGS.includes(flag)); assert.throws(() => assertFeatureFlagChangeAllowed(flag), /^Error: Phase 2 community flags are disabled\.$/); });
 it("consent must be true", () => { assert.equal(communityInterestSchema.safeParse({ ...input, consent_given: false }).success, false); assert.equal(communityInterestSchema.safeParse(input).success, true); });
 it("message max 1000", () => { assert.equal(communityInterestSchema.safeParse({ ...input, message: "a".repeat(1001) }).success, false); });
