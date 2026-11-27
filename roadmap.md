@@ -255,3 +255,4 @@
 - [x] Inventory; archived 81 properties, 8 offers, 81 investment opportunities, 389 providers (nothing deleted; audit rows keep ids + prior status)
 - [x] List pages 404 while empty; links/cards/menu/footer/search/saved/Egyptora AI skip hidden data; sitemap 238→234
 - [x] Live in Egypt cost figures replaced with neutral wording; tourism tour cards and visa pages unchanged
+- [x] Prompt 75: Justice services guide batch 1 imported hidden (5 rows, needs_check/inactive)
