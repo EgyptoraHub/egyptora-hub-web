@@ -10,7 +10,10 @@ export type NavGate = "energy_materials" | "community" | "justice" | "shipping_p
 type Avail = Partial<Record<NavGate, boolean>>;
 
 const TTL = 5 * 60 * 1000;
-let cache: { at: number; p: Promise<Avail> } | null = null;
+// Cache resolved values only: on the server a pending promise must never be shared across requests.
+let cache: { at: number; v: Avail } | null = null;
+let inflight: Promise<Avail> | null = null;
+const isBrowser = typeof window !== "undefined";
 
 async function has(q: PromiseLike<{ count: number | null; error: unknown }>) {
   const { count, error } = await q;
@@ -18,7 +21,8 @@ async function has(q: PromiseLike<{ count: number | null; error: unknown }>) {
 }
 
 export function fetchNavAvailability(): Promise<Avail> {
-  if (cache && Date.now() - cache.at < TTL) return cache.p;
+  if (cache && Date.now() - cache.at < TTL) return Promise.resolve(cache.v);
+  if (isBrowser && inflight) return inflight;
   const head = { count: "exact" as const, head: true };
   const p = Promise.all([
     has(supabase.from("protected_areas").select("id", head)),
@@ -35,8 +39,9 @@ export function fetchNavAvailability(): Promise<Avail> {
     has(supabase.from("shipping_platforms").select("id", head)),
   ])
     .then(([protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms]) => ({ energy_materials: true, community: true, justice: true, protected_areas, industrial_zones, free_zones, trade_sectors, trade_country_profiles, procedure_guides, complaint_sectors, properties, offers, investment_opportunities, providers, shipping_platforms }))
-    .catch(() => ({}));
-  cache = { at: Date.now(), p };
+    .catch(() => ({}) as Avail)
+    .then((v) => { if (Object.keys(v).length) cache = { at: Date.now(), v }; inflight = null; return v; });
+  if (isBrowser) inflight = p;
   return p;
 }
 

@@ -42,7 +42,7 @@ async function loadTable(table: ContentTable, lang: string): Promise<TableMap> {
   const key = `${table}:${lang}`;
   const cached = cache.get(key);
   if (cached) return cached;
-  const running = inflight.get(key);
+  const running = typeof window !== "undefined" ? inflight.get(key) : undefined;
   if (running) return running;
 
   const promise = (async () => {
@@ -69,7 +69,7 @@ async function loadTable(table: ContentTable, lang: string): Promise<TableMap> {
     return map;
   })();
 
-  inflight.set(key, promise);
+  if (typeof window !== "undefined") inflight.set(key, promise);
   return promise;
 }
 
